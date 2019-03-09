@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel>
+        <StackPanel MinHeight="50">
             <Border Background="{StaticResource BlueMainBrush}">
                 <StackPanel Orientation="Horizontal">
 
@@ -21,9 +21,8 @@
                     <Button Style="{StaticResource TextButton}" 
                             Content="{StaticResource FontAwesomeUserIcon}"
                             FontFamily="{StaticResource FontAwesome}"/>
-                    <Button Style="{StaticResource TextButton}" 
-                            Content="{StaticResource FontAwesomeCogIcon}"
-                            FontFamily="{StaticResource FontAwesome}"/>
+                    <Button Style="{StaticResource IconGrowButton}" 
+                            Content="{StaticResource FontAwesomeCogIcon}"/>
                 </StackPanel>
             </Border>
             <TextBlock Text="This is a regular textblock, with a lot of regular text. The basestyle of this is overriden, so no style has to be specified"/>
