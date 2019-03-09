@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel>
+            <Border Background="{StaticResource BlueMainBrush}">
+                <StackPanel Orientation="Horizontal">
+
+                    <TextBlock Style="{StaticResource HeaderText}" 
+                               Text="Headertext"/>
+                    <Button Style="{StaticResource TextButton}" 
+                            Content=" I am a text button"/>
+                    <Button Style="{StaticResource TextButton}" 
+                            Content=" I am a disabled text button"
+                            IsEnabled="False"/>
+                    <Button Style="{StaticResource TextButton}" 
+                            Content="{StaticResource FontAwesomeUserIcon}"
+                            FontFamily="{StaticResource FontAwesome}"/>
+                    <Button Style="{StaticResource TextButton}" 
+                            Content="{StaticResource FontAwesomeCogIcon}"
+                            FontFamily="{StaticResource FontAwesome}"/>
+                </StackPanel>
+            </Border>
+            <TextBlock Text="This is a regular textblock, with a lot of regular text. The basestyle of this is overriden, so no style has to be specified"/>
+            <TextBox Text="I am a regular textbox"/>
+            <TextBox Text="I am a disabled textbox"
+                     IsEnabled="False"/>
+            <Button Content=" I am a regular button"/>
+            <Button Content=" I am a disabled button"
+                    IsEnabled="False"/>
+
+        </StackPanel>
     </Grid>
 </Window>
