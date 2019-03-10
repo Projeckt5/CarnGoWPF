@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CarnGo">
 
-
+    
+    <!--Back ground colors-->
     <Color x:Key="BackgroundMain">#fafafa</Color>
     <SolidColorBrush x:Key="BackgroundMainBrush" Color="{StaticResource BackgroundMain}" />
 
@@ -11,21 +12,22 @@
 
     <Color x:Key="BackgroundDark">#d2d2d2</Color>
     <SolidColorBrush x:Key="BackgroundDarkBrush" Color="{StaticResource BackgroundDark}" />
-
-
+    
+    <!--Foreground colors-->
     <Color x:Key="ForegroundMain">#686868</Color>
     <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}" />
 
-    <Color x:Key="ForegroundLight">#f9f9f9</Color>
+    <Color x:Key="ForegroundLight">#f1f1f1</Color>
     <SolidColorBrush x:Key="ForegroundLightBrush" Color="{StaticResource ForegroundLight}" />
 
-    <Color x:Key="ForegroundDark">#323232</Color>
+    <Color x:Key="ForegroundDark">#434343</Color>
     <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
-
+    
+    <!--Blue colors-->
     <Color x:Key="BlueMain">#397be5</Color>
     <SolidColorBrush x:Key="BlueMainBrush" Color="{StaticResource BlueMain}"/>
 
-    <Color x:Key="BlueLight">#5d93e9</Color>
+    <Color x:Key="BlueLight">#5d93e9</Color> 
     <SolidColorBrush x:Key="BlueLightBrush" Color="{StaticResource BlueLight}"/>
 
     <Color x:Key="BlueDark">#2f65bc</Color>
