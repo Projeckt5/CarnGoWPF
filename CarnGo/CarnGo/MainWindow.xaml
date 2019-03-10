@@ -29,10 +29,12 @@
             <TextBox Text="I am a regular textbox"/>
             <TextBox Text="I am a disabled textbox"
                      IsEnabled="False"/>
+            <PasswordBox Tag="Password box, you can set the start text via tag"
+                         />
             <Button Content=" I am a regular button"/>
             <Button Content=" I am a disabled button"
                     IsEnabled="False"/>
-
+            
         </StackPanel>
     </Grid>
 </Window>
