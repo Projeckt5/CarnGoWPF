@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarnGo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="350" Width="800">
+    <ScrollViewer CanContentScroll="True">
         <StackPanel MinHeight="50">
             <Border Background="{StaticResource BlueMainBrush}">
                 <StackPanel Orientation="Horizontal">
@@ -33,7 +33,6 @@
             <Button Content=" I am a regular button"/>
             <Button Content=" I am a disabled button"
                     IsEnabled="False"/>
-            
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Window>
