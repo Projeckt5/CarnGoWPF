@@ -130,5 +130,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Standard CommentBox -->
+    <Style TargetType="{x:Type TextBox}" x:Key="CommentBox">
+        
+        
+    </Style>
+    
 
 </ResourceDictionary>
