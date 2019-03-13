@@ -44,7 +44,7 @@
                 BorderBrush="{StaticResource BlueMainBrush}"
                 SnapsToDevicePixels="True"
                 >
-                <Image Source="C:\Users\Trill\OneDrive\Dokumenter\GitHub\CarnGoWPF\CarnGo\CarnGo\Images\Bilfoto.jpg" />
+                <Image Source="../Images/Bilfoto.jpg" />
             </Border>
 
                 <StackPanel Grid.Row="2" Margin="50,0,50,0">
