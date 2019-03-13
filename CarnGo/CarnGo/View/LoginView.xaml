@@ -9,7 +9,7 @@
       Title="LoginView">
     <Border Background="{StaticResource BackgroundMainBrush}"
             Margin="50"
-            Padding="20 40"
+            Padding="20 30"
             Width="300"
             CornerRadius="20">
         <StackPanel>
@@ -23,9 +23,19 @@
                      FontSize="{StaticResource FontSizeLarge}"/>
             <PasswordBox Tag="Password"
                          FontSize="{StaticResource FontSizeLarge}"/>
+            <DockPanel>
+                <CheckBox Content="Remember me" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button Style="{StaticResource TextButton}"
+                        Content="Forgot?"
+                        Padding="10 2 0 0"
+                        FontSize="{StaticResource FontSizeSmall}"
+                        HorizontalAlignment="Right"
+                        Foreground="{StaticResource ForegroundMainBrush}"/>
+            </DockPanel>
             <Button Content="Login"
                     FontSize="{StaticResource FontSizeLarge}"/>
             <Button Style="{StaticResource TextButton}"
+                    Padding="10 0 0 10"
                     Content="Or register here..."
                     Foreground="{StaticResource ForegroundMainBrush}"/>
         </StackPanel>
