@@ -11,17 +11,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="6*"></ColumnDefinition>
-        </Grid.ColumnDefinitions> 
-        <Image Source="../../Images/Bilfoto.jpg" Margin="10 10 10 10 "></Image>
+        </Grid.ColumnDefinitions>
+        <Image Source="../../Images/Bilfoto.jpg" Margin="10 10 10 10 " ></Image>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="4*"></RowDefinition>
 
             </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource BaseTextBlockStyle}" FontSize="35" Foreground="Green" Text="{Binding Confirmed}"></TextBlock>
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Style="{StaticResource BaseTextBlockStyle}" TextDecorations="" FontSize="{StaticResource FontSizeXXLarge}" Text="{Binding Name}"></TextBlock>
-            <TextBlock  TextTrimming="CharacterEllipsis"  Grid.Row="1" TextWrapping="Wrap"   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" FontSize="{StaticResource FontSizeLarge}" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Message}">
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource BaseTextBlockStyle}" FontSize="{StaticResource FontSizeLarge}" Foreground="Green" Text="{Binding Confirmed}"></TextBlock>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"  Style="{StaticResource BaseTextBlockStyle}" TextDecorations="" FontSize="{StaticResource FontSizeLarge}" Text="{Binding Name}"></TextBlock>
+            <TextBlock  TextTrimming="CharacterEllipsis"  Grid.Row="1" TextWrapping="Wrap"   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10"  Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Message}">
 
             </TextBlock>
         </Grid>
