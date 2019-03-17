@@ -72,6 +72,9 @@
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RegisterCarProfile.xaml.cs">
+      <DependentUpon>RegisterCarProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\View\NotificationItemView.xaml.cs">
       <DependentUpon>NotificationItemView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegisterCarProfile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\View\NotificationItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
