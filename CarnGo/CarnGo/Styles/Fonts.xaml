@@ -41,5 +41,9 @@
     <!--Fontawesome icons-->
     <system:String x:Key="FontAwesomeUserIcon">&#xf007;</system:String>
     <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeCarIcon">&#xf1b9;</system:String>
+    <system:String x:Key="FontAwesomeCheckIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeBanIcon">&#xf05e;</system:String>
 
+    
 </ResourceDictionary>

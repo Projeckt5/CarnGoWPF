@@ -41,7 +41,7 @@
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="Placeholder"
-                                   FontFamily="{StaticResource RobotoRegular}"
+                                   FontFamily="{StaticResource RobotoLight}"
                                    FontSize="{TemplateBinding FontSize}"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
@@ -107,7 +107,7 @@
                         <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="Placeholder"
-                                   FontFamily="{StaticResource RobotoRegular}"
+                                   FontFamily="{StaticResource RobotoLight}"
                                    FontSize="{TemplateBinding FontSize}"
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
@@ -130,5 +130,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Standard CommentBox -->
+    <Style TargetType="{x:Type TextBox}" x:Key="CommentBox">
+        
+        
+    </Style>
+    
 
 </ResourceDictionary>
