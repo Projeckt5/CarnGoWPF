@@ -70,6 +70,9 @@
     <Compile Include="UserControls\SearchResultItemControl.xaml.cs">
       <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserSignUp.xaml.cs">
+      <DependentUpon>UserSignUp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationDesignViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationItemDesignViewModel.cs" />
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SearchResultItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserSignUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
