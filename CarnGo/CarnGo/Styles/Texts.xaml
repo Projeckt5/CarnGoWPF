@@ -79,6 +79,7 @@
     
     <!--PasswordBox-->
     <!--TODO: Make the tag text disappear when text is inserted-->
+
     <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}"/>
@@ -87,24 +88,26 @@
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Margin" Value="0 5 0 5"/>
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
+		<Setter Property="local:PasswordChangeProperty.MonitorHasText" Value="True"></Setter>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
                     <Grid>
-                        <Border x:Name="border" 
+						<Border x:Name="border" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}" 
                                 Background="{TemplateBinding Background}" 
                                 SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" 
+							<ScrollViewer x:Name="PART_ContentHost" 
                                           Focusable="False" 
                                           HorizontalScrollBarVisibility="Hidden" 
                                           VerticalScrollBarVisibility="Hidden"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBlock IsHitTestVisible="False"
+						</Border>
+
+						<TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="Placeholder"
                                    FontFamily="{StaticResource RobotoLight}"
@@ -112,11 +115,22 @@
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{TemplateBinding Foreground}"/>
-                    </Grid>
+                                   Foreground="{TemplateBinding Foreground}">
+							<TextBlock.Triggers>
+								<Trigger Property="{TemplateBinding local:PasswordChangeProperty.HasText}" Value="True">
+									<Setter Property="Visibility" Value="Hidden" ></Setter>
+								</Trigger>
+								<Trigger Property="{TemplateBinding local:PasswordChangeProperty.HasText}" Value="false">
+									<Setter Property="Visibility" Value="Visible" ></Setter>
+								</Trigger>
+							</TextBlock.Triggers>
+						</TextBlock>
 
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						
+						<Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
