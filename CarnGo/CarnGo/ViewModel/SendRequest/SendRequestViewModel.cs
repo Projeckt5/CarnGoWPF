@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarnGo.ViewModel.SendRequest
 {
-    class SendRequestViewModel()
+    class SendRequestViewModel
     {
 
     }
