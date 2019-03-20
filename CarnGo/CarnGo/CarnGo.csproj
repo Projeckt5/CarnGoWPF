@@ -73,6 +73,12 @@
     <Compile Include="UserControls\CarEquipment.xaml.cs">
       <DependentUpon>CarEquipment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HeaderBarControl.xaml.cs">
+      <DependentUpon>HeaderBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchBarControl.xaml.cs">
+      <DependentUpon>SearchBarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SearchResultControl.xaml.cs">
       <DependentUpon>SearchResultControl.xaml</DependentUpon>
     </Compile>
@@ -145,6 +151,14 @@
     <Page Include="UserControls\CarEquipment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HeaderBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\SearchResultControl.xaml">
       <SubType>Designer</SubType>
