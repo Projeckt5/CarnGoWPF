@@ -147,14 +147,16 @@
                             <Point X="0.5" Y="0.5"/>
                         </Border.RenderTransformOrigin>
                         <Grid>
-                            <TextBlock Text="{TemplateBinding Content}" 
-                                       Focusable="False"
-                                       FontFamily="{TemplateBinding FontFamily}"
-                                       FontSize="{TemplateBinding FontSize}"
-                                       Margin="{TemplateBinding Padding}" 
-                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <Viewbox>
+                                <TextBlock Text="{TemplateBinding Content}" 
+                                           Focusable="False"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           Margin="{TemplateBinding Padding}" 
+                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Viewbox>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

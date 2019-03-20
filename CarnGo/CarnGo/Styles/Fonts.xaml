@@ -48,5 +48,9 @@
     <system:String x:Key="FontAwesomeMapMarkerIcon">&#xf041;</system:String>
     <system:String x:Key="FontAwesomePriceIcon">&#xf155;</system:String>
     <system:String x:Key="FontAwesomeUsersIcon">&#xf0c0;</system:String>
-    
+    <system:String x:Key="FontAwesomeHomeIcon">&#xf015;</system:String>
+    <system:String x:Key="FontAwesomeBellIcon">&#xf0f3;</system:String>
+    <system:String x:Key="FontAwesomeSearchIcon">&#xf002;</system:String>
+
+
 </ResourceDictionary>
