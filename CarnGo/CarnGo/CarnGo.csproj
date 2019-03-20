@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\UserTypeEnum.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
@@ -70,8 +73,8 @@
     <Compile Include="UserControls\SearchResultItemControl.xaml.cs">
       <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserSignUp.xaml.cs">
-      <DependentUpon>UserSignUp.xaml</DependentUpon>
+    <Compile Include="View\UserSignUpView.xaml.cs">
+      <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationDesignViewModel.cs" />
@@ -81,8 +84,8 @@
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RegisterCarProfile.xaml.cs">
-      <DependentUpon>RegisterCarProfile.xaml</DependentUpon>
+    <Compile Include="View\RegisterCarProfileView.xaml.cs">
+      <DependentUpon>RegisterCarProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
@@ -144,7 +147,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserSignUp.xaml">
+    <Page Include="View\UserSignUpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,7 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RegisterCarProfile.xaml">
+    <Page Include="View\RegisterCarProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -216,9 +219,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />
   </ItemGroup>
