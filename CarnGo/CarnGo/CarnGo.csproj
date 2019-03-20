@@ -57,7 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Attached_Property\PasswordChangeProperty.cs" />
+    <Compile Include="Attached_Property\FlagHasTextProperty.cs" />
+    <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>

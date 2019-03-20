@@ -88,7 +88,7 @@
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Margin" Value="0 5 0 5"/>
         <Setter Property="BorderThickness" Value="0 0 0 1"/>
-		<Setter Property="local:PasswordChangeProperty.MonitorHasText" Value="True"></Setter>
+		<Setter Property="local:MonitorPasswordBoxTextProperty.MonitorPasswordBox" Value="True"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -107,7 +107,7 @@
                                           HorizontalAlignment="Center"/>
 						</Border>
 
-						<TextBlock IsHitTestVisible="False"
+                        <TextBlock IsHitTestVisible="False"
                                    Text="{TemplateBinding Tag}"
                                    x:Name="Placeholder"
                                    FontFamily="{StaticResource RobotoLight}"
@@ -115,22 +115,17 @@
                                    Padding="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   Foreground="{TemplateBinding Foreground}">
-							<TextBlock.Triggers>
-								<Trigger Property="{TemplateBinding local:PasswordChangeProperty.HasText}" Value="True">
-									<Setter Property="Visibility" Value="Hidden" ></Setter>
-								</Trigger>
-								<Trigger Property="{TemplateBinding local:PasswordChangeProperty.HasText}" Value="false">
-									<Setter Property="Visibility" Value="Visible" ></Setter>
-								</Trigger>
-							</TextBlock.Triggers>
-						</TextBlock>
+                                   Foreground="{TemplateBinding Foreground}"/>
+                    </Grid>
 
-					</Grid>
-
-					<ControlTemplate.Triggers>
-						
-						<Trigger Property="IsEnabled" Value="False">
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="local:FlagHasTextProperty.HasText" Value="True">
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="local:FlagHasTextProperty.HasText" Value="False">
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
