@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -65,6 +68,12 @@
     </Compile>
     <Compile Include="UserControls\CarEquipment.xaml.cs">
       <DependentUpon>CarEquipment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HeaderBarControl.xaml.cs">
+      <DependentUpon>HeaderBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchBarControl.xaml.cs">
+      <DependentUpon>SearchBarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SearchResultControl.xaml.cs">
       <DependentUpon>SearchResultControl.xaml</DependentUpon>
@@ -135,6 +144,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CarEquipment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HeaderBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SearchBarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,7 +226,8 @@
     <Resource Include="Fonts\Roboto\Roboto-Regular.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-ThinItalic.ttf" />
-    <Resource Include="Fonts\FontAwesome\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\FontAwesome\fontawesome-5.otf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

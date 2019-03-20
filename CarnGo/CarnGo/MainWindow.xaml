@@ -8,27 +8,12 @@
         Title="MainWindow" Height="600" Width="800">
     <ScrollViewer CanContentScroll="True">
         <StackPanel MinHeight="50">
-            <Border Background="{StaticResource BlueMainBrush}">
-                <StackPanel Orientation="Horizontal">
-
-                    <TextBlock Style="{StaticResource HeaderText}" 
-                               Text="Headertext"/>
-                    <Button Style="{StaticResource TextButton}" 
-                            Content=" I am a text button"/>
-                    <Button Style="{StaticResource TextButton}" 
-                            Content=" I am a disabled text button"
-                            IsEnabled="False"/>
-                    <Button Style="{StaticResource TextButton}" 
-                            Content="{StaticResource FontAwesomeUserIcon}"
-                            FontFamily="{StaticResource FontAwesome}"/>
-                    <Button Style="{StaticResource IconGrowButton}" 
-                            Content="{StaticResource FontAwesomeCogIcon}"/>
-                </StackPanel>
-            </Border>
+            <local:HeaderBarControl/>
             <TextBlock Text="This is a regular textblock, with a lot of regular text. The basestyle of this is overriden, so no style has to be specified"/>
             <TextBox Tag="I am a regular textbox try writing"/>
             <TextBox Text="I am a disabled textbox"
                      IsEnabled="False"/>
+            <local:SearchBarControl Height="100"/>
             <PasswordBox Tag="Password box, you can set the start text via tag"
                         />
             <Button Content=" I am a regular button"/>
