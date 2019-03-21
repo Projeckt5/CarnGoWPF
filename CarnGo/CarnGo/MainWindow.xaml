@@ -8,12 +8,13 @@
         Title="MainWindow" Height="600" Width="800">
     <ScrollViewer CanContentScroll="True">
         <StackPanel MinHeight="50">
-            <local:HeaderBarControl></local:HeaderBarControl>
+            <local:HeaderBarControl/>
             <TextBlock Text="This is a regular textblock, with a lot of regular text. The basestyle of this is overriden, so no style has to be specified"/>
             <TextBox Tag="I am a regular textbox try writing"/>
             <TextBox Text="I am a disabled textbox"
                      IsEnabled="False"/>
-            <PasswordBox Tag="Password box, you can set the start text via tag"/>
+            <PasswordBox Tag="Password box, you can set the start text via tag"
+                        />
             <Button Content=" I am a regular button"/>
             <Button Content=" I am a disabled button"
                     IsEnabled="False"/>

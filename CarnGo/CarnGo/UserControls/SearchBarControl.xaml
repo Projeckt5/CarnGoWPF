@@ -5,24 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <TextBox Grid.Column="0"
-                 Style="{StaticResource SearchBar}"
-                 Tag="Search..."
-                 TextAlignment="Left"
-                 VerticalAlignment="Center"
-                 Margin="5"
-                 />
-        <Button Grid.Column="0"
-                Style="{StaticResource IconGrowButton}"
-                HorizontalAlignment="Right"
-                Content="{StaticResource FontAwesomeSearchIcon}"
-                Foreground="{StaticResource ForegroundDarkBrush}"
-                Command="{Binding SearchCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-    </Grid>
+             x:Name="root"
+             d:DesignHeight="50" d:DesignWidth="300">
+    <Border Background="{StaticResource BackgroundMainBrush}" 
+            CornerRadius="12">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"
+                     Style="{StaticResource SearchBar}"
+                     Background="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                     Tag="Search..."
+                     FontSize="{StaticResource FontSizeRegular}"/>
+            <Button Grid.Column="1"
+                    Padding="6"
+                    Foreground="{StaticResource ForegroundMainBrush}"
+                    Style="{StaticResource IconGrowButton}"
+                    Command="{Binding SearchCommand, ElementName=root}">
+                <TextBlock Text="{StaticResource FontAwesomeSearchIcon}" 
+                           FontFamily="{StaticResource FontAwesome}"></TextBlock>
+            </Button>
+        </Grid>
+    </Border>
 </UserControl>

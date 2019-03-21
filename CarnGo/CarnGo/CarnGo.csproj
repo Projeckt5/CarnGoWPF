@@ -63,6 +63,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Attached_Property\FlagHasTextProperty.cs" />
+    <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\UserTypeEnum.cs" />
     <Compile Include="Model\UserModel.cs" />
@@ -231,7 +233,7 @@
     <Resource Include="Fonts\Roboto\Roboto-Regular.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-ThinItalic.ttf" />
-    <Resource Include="Fonts\FontAwesome\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\FontAwesome\fontawesome-5.otf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

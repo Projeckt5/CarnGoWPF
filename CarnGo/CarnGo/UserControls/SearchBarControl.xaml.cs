@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Prism.Commands;
 
-namespace CarnGo.UserControls
+namespace CarnGo
 {
     /// <summary>
     /// Interaction logic for SearchBarControl.xaml
@@ -24,9 +14,11 @@ namespace CarnGo.UserControls
         {
             InitializeComponent();
         }
-
-        public ICommand SearchCommand{ get; set; }
-
-        public static DependencyProperty SearchCommandProperty = DependencyProperty.Register(nameof(SearchCommand),typeof(ICommand),typeof(SearchBarControl));
+        public ICommand SearchCommand
+        {
+            get => (ICommand)GetValue(SearchCommandProperty);
+            set => SetValue(SearchCommandProperty,value);
+        }
+        public static DependencyProperty SearchCommandProperty = DependencyProperty.Register(nameof(SearchCommand),typeof(ICommand),typeof(SearchBarControl),new PropertyMetadata(null));
     }
 }
