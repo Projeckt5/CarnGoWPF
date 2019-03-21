@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Prism.Commands;
@@ -14,7 +14,6 @@ namespace CarnGo
         {
             InitializeComponent();
         }
-
         public ICommand SearchCommand
         {
             get => (ICommand)GetValue(SearchCommandProperty);

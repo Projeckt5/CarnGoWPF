@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="400"
-             Background="{StaticResource BackgroundDarkBrush}">
-    <Grid>
+             >
+    <Border BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
         <Grid d:DataContext="{x:Static local:NotificationItemDesignViewModel.Instance}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -27,7 +27,6 @@
             </TextBlock>
         </Grid>
     </Grid>
-        <Separator VerticalAlignment="Bottom"></Separator>
-    </Grid>
+    </Border>
 
 </UserControl>

@@ -44,8 +44,8 @@
                                    FontFamily="{StaticResource RobotoLight}"
                                    FontSize="{TemplateBinding FontSize}"
                                    Padding="{TemplateBinding Padding}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                    Foreground="{TemplateBinding Foreground}">
 
                             <TextBlock.Style>
@@ -145,7 +145,6 @@
         
         
     </Style>
-
     <!--SearchBar-->
     <Style TargetType="{x:Type TextBox}" x:Key="SearchBar" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
@@ -155,7 +154,6 @@
         <Setter Property="Padding" Value="10 0" />
         <Setter Property="Margin" Value="0 5 0 5" />
         <Setter Property="BorderThickness" Value="0" />
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
@@ -210,6 +208,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 </ResourceDictionary>

@@ -64,7 +64,6 @@
                                FontSize="{StaticResource FontSizeRegular}"/>
                 </StackPanel>
             </Button>
-
         </Grid>
     </Border>
 </UserControl>
