@@ -87,6 +87,9 @@
     <Compile Include="UserControls\SearchResultItemControl.xaml.cs">
       <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditUser.xaml.cs">
+      <DependentUpon>EditUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserSignUpView.xaml.cs">
       <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserSignUpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,7 +250,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\profilepicture.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />
   </ItemGroup>

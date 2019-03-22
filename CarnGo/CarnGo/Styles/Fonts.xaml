@@ -52,7 +52,8 @@
     <system:String x:Key="FontAwesomeHomeIcon">&#xf015;</system:String>
     <system:String x:Key="FontAwesomeBellIcon">&#xf0f3;</system:String>
     <system:String x:Key="FontAwesomeSignInIcon">&#xf2f6;</system:String>
-    <system:String x:Key="FontAwesomeSignOutIcon">&#xf2f5;</system:String>
+    <system:String x:Key="FontAwesomeSaveOutIcon">&#xf0c7;</system:String>
+    
 
 
 </ResourceDictionary>
