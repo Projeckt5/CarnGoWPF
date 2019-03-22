@@ -151,7 +151,6 @@
 		<Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
 		<Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
-		<Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
 		<Setter Property="Padding" Value="10 0" />
 		<Setter Property="Margin" Value="0 5 0 5" />
 		<Setter Property="BorderThickness" Value="0" />
@@ -199,10 +198,11 @@
 							<Setter Property="Opacity" TargetName="border" Value="0.56"/>
 						</Trigger>
 						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueLightBrush}"/>
+							<Setter Property="Foreground" Value="{StaticResource BlueLightBrush}"/>
 						</Trigger>
 						<Trigger Property="IsKeyboardFocused" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueDarkBrush}"/>
+							<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
+							<Setter TargetName="Placeholder" Property="Foreground" Value="{StaticResource BlueDarkBrush}"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -218,8 +218,8 @@
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
 		<Setter Property="Margin" Value="0" />
-        <Setter Property="Text" Value="{StaticResource FontAwesomeCogIcon}"/>
-        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+		<Setter Property="Text" Value="{StaticResource FontAwesomeCogIcon}"/>
+		<Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
 		<Setter Property="RenderTransform">
 			<Setter.Value>
 				<RotateTransform></RotateTransform>
