@@ -15,7 +15,7 @@
                      IsEnabled="False"/>
             <PasswordBox Tag="Password box, you can set the start text via tag"
                         />
-            <Button Content=" I am a regular button"/>
+            <Button Content="I am a regular button" local:IsBusyAttachedProperty.IsBusy="{Binding LoadingFlag}" Command="{Binding LoadingCommand}" />
             <Button Content=" I am a disabled button"
                     IsEnabled="False"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
