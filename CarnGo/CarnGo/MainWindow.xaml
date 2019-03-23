@@ -25,4 +25,16 @@
             <CheckBox Content="I am a check box" HorizontalAlignment="Center"/>
         </StackPanel>
     </ScrollViewer>
+
+    <!-- For pagenavigation
+    <Grid>
+        <local:PageNavigation CurrentPage="{Binding}"
+                              DataContext="{Binding ApplicationViewModel.CurrentPage,
+                                        Source={x:Static local:ViewModelLocator.Instance},
+                                        Converter={local:ApplicationPageValueConverter}}"
+        />
+    </Grid>
+    -->
+
+
 </Window>

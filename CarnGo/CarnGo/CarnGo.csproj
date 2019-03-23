@@ -65,8 +65,9 @@
     </ApplicationDefinition>
     <Compile Include="Attached_Property\FlagHasTextProperty.cs" />
     <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
+    <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
-    <Compile Include="Model\UserTypeEnum.cs" />
+    <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
@@ -87,6 +88,10 @@
     <Compile Include="UserControls\SearchResultItemControl.xaml.cs">
       <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
+    <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
     </Compile>
