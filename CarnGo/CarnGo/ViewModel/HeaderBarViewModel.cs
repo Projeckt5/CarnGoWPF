@@ -1,4 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Forms.VisualStyles;
+using System.Windows.Input;
+using Microsoft.Win32;
 using Prism.Commands;
 
 namespace CarnGo
@@ -12,17 +15,21 @@ namespace CarnGo
         private ICommand _loginCommand;
         private string _searchKeyWord;
 
+        public static HeaderBarViewModel Instance => new HeaderBarViewModel();
+
         public ICommand NavigateHomeCommand => _navigateHomeCommand?? new DelegateCommand(()=> 
                                                    ViewModelLocator.ApplicationViewModel
                                                        .GoToPage(ApplicationPage.StartPage));
 
-        public ICommand NotificationCommand => _notificationCommand ?? new DelegateCommand(null);
+        public ICommand NotificationCommand => _notificationCommand ?? new DelegateCommand(ShowNotification);
+
 
         public ICommand NavigateUserCommand => _navigateUserCommand ?? new DelegateCommand(() =>
                                                    ViewModelLocator.ApplicationViewModel
                                                        .GoToPage(ApplicationPage.EditUserPage));
 
-        public ICommand SearchCommand => _searchCommand ?? new DelegateCommand(null);
+        public ICommand SearchCommand => _searchCommand ?? new DelegateCommand(Search);
+
 
         public ICommand LoginCommand => _loginCommand ?? new DelegateCommand(() =>
                                             ViewModelLocator.ApplicationViewModel
@@ -41,6 +48,14 @@ namespace CarnGo
                 OnPropertyChanged(nameof(SearchKeyWord));
             }
         }
+        private void Search()
+        {
+            MessageBox.Show(SearchKeyWord);
+        }
 
+        private void ShowNotification()
+        {
+            MessageBox.Show("*Notification shown*");
+        }
     }
 }

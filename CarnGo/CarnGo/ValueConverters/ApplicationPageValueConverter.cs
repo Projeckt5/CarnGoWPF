@@ -18,17 +18,19 @@ namespace CarnGo
             switch ((ApplicationPage)value)
             {
                 case ApplicationPage.LoginPage:
-                    return new View.LoginView();
+                    return new LoginView();
                 case ApplicationPage.SendRequestPage:
-                    return new View.SendRequestView();
+                    return new SendRequestView();
                 case ApplicationPage.EditUserPage:
-                    return new View.EditUser();
+                    return new EditUser();
                 case ApplicationPage.RegisterCarProfilePage:
-                    return new View.RegisterCarProfile();
+                    return new RegisterCarProfile();
                 case ApplicationPage.SearchPage:
                     return new SearchView();
                 case ApplicationPage.UserSignUpPage:
                     return  new UserSignUp();
+                case ApplicationPage.StartPage:
+                    return new LoginView();
                 default:
                     throw new ArgumentException("The value to convert was not an ApplicationPage");
             }
