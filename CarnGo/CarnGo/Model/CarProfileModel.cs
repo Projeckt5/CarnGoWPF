@@ -43,7 +43,6 @@ namespace CarnGo
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
-
         public string Name
         {
             get { return _name; }
