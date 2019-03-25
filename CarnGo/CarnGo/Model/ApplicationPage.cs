@@ -8,6 +8,7 @@
         RegisterCarProfilePage,
         SendRequestPage,
         SearchPage,
-        UserSignUpPage
+        UserSignUpPage,
+        StartPage
     }
 }
