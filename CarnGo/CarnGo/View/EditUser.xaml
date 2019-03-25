@@ -43,7 +43,7 @@
 
 
                 </Grid>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="5,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="195"
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="5,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="199"
                            FontSize="{StaticResource FontSizeLarge}"
                            Text="Personal information:"/>
                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="169" Margin="10,93,0,0" TextWrapping="Wrap" Text="Bla bla bla bla" VerticalAlignment="Top" Width="246"/>

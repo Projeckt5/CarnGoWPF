@@ -14,7 +14,7 @@ namespace CarnGo.ViewModel.SendRequest
         private CarProfileModel carProfileModel;
         public SendRequestViewModel(IEventAggregator ea)
         {
-            ea.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            //ea.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
         public void SearchCarProfileEvent(CarProfileModel car)
