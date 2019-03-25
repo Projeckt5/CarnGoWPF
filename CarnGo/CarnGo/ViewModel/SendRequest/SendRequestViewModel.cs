@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Prism.Commands;
 using Prism.Events;
 
 namespace CarnGo.ViewModel.SendRequest
@@ -21,5 +23,20 @@ namespace CarnGo.ViewModel.SendRequest
         }
 
         public string Message { get; set; }
+        public DateTime To { get; set; }
+        public DateTime From { get; set; }
+
+        private ICommand _rentCarCommand;
+
+        public ICommand RentCarCommand
+        {
+            get { return _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction)); }
+            
+        }
+
+        private void RentCarFunction()
+        {
+            
+        }
     }
 }
