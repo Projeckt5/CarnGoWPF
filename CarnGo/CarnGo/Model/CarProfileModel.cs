@@ -23,12 +23,13 @@ namespace CarnGo
         /// <param name="brand"></param>
         /// <param name="age"></param>
         /// <param name="regNr"></param>
-        public CarProfileModel(string name, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner,string name, string brand, int age, string regNr)
         {
             Name = name;
             Brand = brand;
             Age = age;
             Regnr = regNr;
+            Owner = owner;
         }
         #endregion
 
@@ -38,7 +39,8 @@ namespace CarnGo
         private int _age;
         private string _regNr;
         private DateTime _startLeaseTime;
-        private DateTime _endLeaseTime; 
+        private DateTime _endLeaseTime;
+        
         #endregion
 
         //TODO Try/Catch block for Database exceptions
@@ -106,6 +108,8 @@ namespace CarnGo
                 OnPropertyChanged(nameof(EndLeaseTime));
             }
         }
+
+        public UserModel Owner { get; private set; }
         #endregion
 
 
