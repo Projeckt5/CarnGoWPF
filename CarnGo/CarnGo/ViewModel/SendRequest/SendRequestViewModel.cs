@@ -7,7 +7,7 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Events;
 
-namespace CarnGo.ViewModel.SendRequest
+namespace CarnGo
 {
     class SendRequestViewModel:BaseViewModel
     {
