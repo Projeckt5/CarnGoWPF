@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="280">
-
-    <Grid Background="{StaticResource BackgroundMainBrush}">
+             d:DesignHeight="50" d:DesignWidth="150">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -23,15 +22,15 @@
         </Grid.RowDefinitions>
             
         <!-- Must insert a converter to confirm whether it is CHECK or BAN -->
-        <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
-                 Grid.Column="0" Grid.Row="0" Background="{StaticResource BackgroundMainBrush}"
+        <TextBox Text="{StaticResource FontAwesomeCheckIcon}"
+                 Grid.Column="0" Grid.Row="0"
                  />
 
         <TextBox Text="Audio Player"
                  Grid.Column="1" Grid.Row="0"
                  />
 
-        <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
+        <TextBox Text="{StaticResource FontAwesomeCheckIcon}"
                  Grid.Column="2" Grid.Row="0"
                  />
 
@@ -39,7 +38,7 @@
                  Grid.Column="3" Grid.Row="0"
                  />
 
-        <TextBox Text="{StaticResource FontAwesomeBanIcon}" FontFamily="{StaticResource FontAwesome}"
+        <TextBox Text="{StaticResource FontAwesomeBanIcon}"
                  Grid.Column="0" Grid.Row="1"
                  />
 
@@ -47,7 +46,7 @@
                  Grid.Column="1" Grid.Row="1"
                  />
 
-        <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
+        <TextBox Text="{StaticResource FontAwesomeCheckIcon}"
                  Grid.Column="2" Grid.Row="1"
                  />
 

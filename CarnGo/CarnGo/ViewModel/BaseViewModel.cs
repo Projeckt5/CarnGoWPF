@@ -9,7 +9,7 @@ using CarnGo.Annotations;
 
 namespace CarnGo
 {
-    public class BaseViewModel:INotifyPropertyChanged
+    class BaseViewModel:INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

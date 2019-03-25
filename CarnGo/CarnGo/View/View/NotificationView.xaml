@@ -5,16 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500"
-             >
-    <Border CornerRadius="20" >
+             d:DesignHeight="450" d:DesignWidth="500">
     <Grid d:DataContext="{x:Static local:NotificationDesignViewModel.Instance}" Background="{StaticResource BackgroundLightBrush}">
-        
-            <ScrollViewer>
-            <ItemsControl Background="Black" ItemsSource="{Binding Items}">
-               
-                
-
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:NotificationItemView></local:NotificationItemView>
@@ -23,6 +17,5 @@
             </ItemsControl>
         </ScrollViewer>
         
-        </Grid>
-    </Border>
+    </Grid>
 </UserControl>

@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="200">
+             d:DesignHeight="50" d:DesignWidth="150">
 
-    <Grid Background="{StaticResource BackgroundMainBrush}">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- Databinding to specific icon -->
-        <TextBox Text="{StaticResource FontAwesomeCarIcon}" FontFamily="{StaticResource FontAwesome}"
-               Grid.Column="0" 
+        <TextBox Text="{StaticResource FontAwesomeCarIcon}"
+               Grid.Column="0" Margin="0,0,10,0"
                />
         <!-- Databinding to viewmodel, that finds information from Model -->
         <StackPanel Orientation="Vertical"
@@ -22,16 +22,10 @@
             >
             <!-- Car Model Binding -->
             <TextBlock Text="Mercedes Benz CLA 250"
-                       Margin="0,0,0,8"
-                       Padding="0,5,0,0"
-                       FontSize="12"
-                       FontWeight="Black"
+                       Margin="0,0,0,15"
                        />
             <!-- Car Manufactoring year -->
-            <TextBlock Text="2011"
-                       FontSize="12"
-                       VerticalAlignment="Top"
-                       />
+            <TextBlock Text="Car manufactoring year" />
         </StackPanel>    
     </Grid>
 </UserControl>

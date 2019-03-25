@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo", "CarnGo\CarnGo.csproj", "{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Unittests", "CarnGo.Test.Unit\CarnGo.Unittests.csproj", "{9A68D027-AA4E-49C8-B64A-F4489DDCC104}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

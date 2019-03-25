@@ -6,9 +6,8 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="400"
-             >
-    <Border BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
-        <Grid d:DataContext="{x:Static local:NotificationItemDesignViewModel.Instance}">
+             Background="{StaticResource BackgroundDarkBrush}">
+    <Grid d:DataContext="{x:Static local:NotificationItemDesignViewModel.Instance}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="6*"></ColumnDefinition>
@@ -18,15 +17,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="4*"></RowDefinition>
-                
 
             </Grid.RowDefinitions>
             <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource BaseTextBlockStyle}" FontSize="{StaticResource FontSizeLarge}" Foreground="Green" Text="{Binding Confirmed}"></TextBlock>
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"  Style="{StaticResource BaseTextBlockStyle}" TextDecorations="" FontSize="{StaticResource FontSizeLarge}" Text="{Binding Name}"></TextBlock>
             <TextBlock  TextTrimming="CharacterEllipsis"  Grid.Row="1" TextWrapping="Wrap"   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10"  Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Message}">
+
             </TextBlock>
         </Grid>
     </Grid>
-    </Border>
-
 </UserControl>
