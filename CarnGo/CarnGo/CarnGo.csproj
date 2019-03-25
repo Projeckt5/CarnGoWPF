@@ -35,9 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +63,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Attached_Property\FlagHasTextProperty.cs" />
+    <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
+    <Compile Include="Model\ApplicationPage.cs" />
+    <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\UserType.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
@@ -64,21 +76,47 @@
     <Compile Include="UserControls\CarEquipment.xaml.cs">
       <DependentUpon>CarEquipment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\HeaderBarControl.xaml.cs">
+      <DependentUpon>HeaderBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchBarControl.xaml.cs">
+      <DependentUpon>SearchBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchResultControl.xaml.cs">
+      <DependentUpon>SearchResultControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchResultItemControl.xaml.cs">
+      <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
+    <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="View\BasePage.cs" />
+    <Compile Include="View\EditUser.xaml.cs">
+      <DependentUpon>EditUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserSignUpView.xaml.cs">
+      <DependentUpon>UserSignUpView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationDesignViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationItemDesignViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationItemViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\SendRequestViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RegisterCarProfile.xaml.cs">
-      <DependentUpon>RegisterCarProfile.xaml</DependentUpon>
+    <Compile Include="View\RegisterCarProfileView.xaml.cs">
+      <DependentUpon>RegisterCarProfileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\View\NotificationItemView.xaml.cs">
+    <Compile Include="View\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Notification\NotificationItemView.xaml.cs">
       <DependentUpon>NotificationItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\View\NotificationView.xaml.cs">
+    <Compile Include="View\Notification\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SendRequestView.xaml.cs">
@@ -124,19 +162,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\HeaderBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SearchResultControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SearchResultItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserSignUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RegisterCarProfile.xaml">
+    <Page Include="View\RegisterCarProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\View\NotificationItemView.xaml">
+    <Page Include="View\SearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Notification\NotificationItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\View\NotificationView.xaml">
+    <Page Include="View\Notification\NotificationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -179,7 +245,8 @@
     <Resource Include="Fonts\Roboto\Roboto-Regular.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-Thin.ttf" />
     <Resource Include="Fonts\Roboto\Roboto-ThinItalic.ttf" />
-    <Resource Include="Fonts\FontAwesome\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\FontAwesome\fontawesome-5.otf" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -189,7 +256,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Resource Include="Images\profilepicture.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />

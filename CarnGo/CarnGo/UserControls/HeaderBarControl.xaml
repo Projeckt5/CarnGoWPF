@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="CarnGo.HeaderBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:carnGo="clr-namespace:CarnGo"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="800">
+    
+    <Border Height="60" Background="{StaticResource BlueMainBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Home Icon-->
+            <Button Grid.Column="0"
+                    Style="{StaticResource IconGrowButton}"
+                    Foreground="{StaticResource BackgroundMainBrush}">
+                <TextBlock Text="{StaticResource FontAwesomeHomeIcon}" 
+                           FontFamily="{StaticResource FontAwesome}"/>
+            </Button>
+            
+            <!--SearchBar-->
+            <carnGo:SearchBarControl Grid.Column="1" 
+                                     Margin="15"/>
+
+            <!--User Icon-->
+            <Button Grid.Column="2"
+                    Style="{StaticResource IconGrowButton}"
+                    Foreground="{StaticResource BackgroundMainBrush}">
+                <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
+                           FontFamily="{StaticResource FontAwesome}"/>
+            </Button>
+
+            <!--Notification Icon-->
+            <Button Grid.Column="3"
+                    Style="{StaticResource IconGrowButton}"
+                    Foreground="{StaticResource BackgroundMainBrush}">
+                <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
+                           FontFamily="{StaticResource FontAwesome}"/>
+            </Button>
+
+            <!--Login Button-->
+            <!--TODO: Move this to user control because it propably changes when user is logged in-->
+            <Button Grid.Column="4"
+                    FontSize="{StaticResource FontSizeXLarge}"
+                    Style="{StaticResource IconGrowButton}"
+                    Padding="8"
+                    Margin="12 0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                               FontSize="{StaticResource FontSizeRegular}"
+                               Text="Sign in" 
+                               Padding="0 0 5 0"
+                               Foreground="{StaticResource BackgroundMainBrush}"/>
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               Text="{StaticResource FontAwesomeSignInIcon}"
+                               FontSize="{StaticResource FontSizeRegular}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

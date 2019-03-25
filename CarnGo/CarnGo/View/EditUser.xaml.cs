@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CarnGo.View
 {
     /// <summary>
-    /// Interaction logic for SendRequestView.xaml
+    /// Interaction logic for EditUser.xaml
     /// </summary>
-    public partial class SendRequestView : Page
+    public partial class EditUser : Page
     {
-        public SendRequestView()
+        public EditUser()
         {
             InitializeComponent();
         }
