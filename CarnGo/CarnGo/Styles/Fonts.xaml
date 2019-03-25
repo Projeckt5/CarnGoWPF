@@ -9,7 +9,7 @@
     <FontFamily x:Key="RobotoRegular">pack://application;,,,/Fonts/Roboto/#Roboto Regular</FontFamily>
     <FontFamily x:Key="RobotoBold">pack://application;,,,/Fonts/Roboto/#Roboto Bold</FontFamily>
     <FontFamily x:Key="RobotoItalic">pack://application;,,,/Fonts/Roboto/#Roboto Italic</FontFamily>
-    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/FontAwesome/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/FontAwesome/#FontAwesome</FontFamily>
 
     <!--Font sizes-->
     <system:Double x:Key="FontSizeSmaller">10</system:Double>
@@ -48,12 +48,5 @@
     <system:String x:Key="FontAwesomeMapMarkerIcon">&#xf041;</system:String>
     <system:String x:Key="FontAwesomePriceIcon">&#xf155;</system:String>
     <system:String x:Key="FontAwesomeUsersIcon">&#xf0c0;</system:String>
-    <system:String x:Key="FontAwesomeSearchIcon">&#xf002;</system:String>
-    <system:String x:Key="FontAwesomeHomeIcon">&#xf015;</system:String>
-    <system:String x:Key="FontAwesomeBellIcon">&#xf0f3;</system:String>
-    <system:String x:Key="FontAwesomeSignInIcon">&#xf2f6;</system:String>
-    <system:String x:Key="FontAwesomeSaveOutIcon">&#xf0c7;</system:String>
     
-
-
 </ResourceDictionary>
