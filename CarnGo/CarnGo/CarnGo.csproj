@@ -67,6 +67,7 @@
     <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
