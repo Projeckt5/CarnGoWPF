@@ -18,14 +18,15 @@
                      Style="{StaticResource SearchBar}"
                      Background="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                      Tag="Search..."
-                     FontSize="{StaticResource FontSizeRegular}"/>
+                     Text="{Binding SearchText, ElementName=root, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="1"
                     Padding="6"
                     Foreground="{StaticResource ForegroundMainBrush}"
                     Style="{StaticResource IconGrowButton}"
-                    Command="{Binding SearchCommand, ElementName=root}">
+                    Command="{Binding SearchCommand, ElementName=root}"
+                    IsDefault="True">
                 <TextBlock Text="{StaticResource FontAwesomeSearchIcon}" 
-                           FontFamily="{StaticResource FontAwesome}"></TextBlock>
+                           FontFamily="{StaticResource FontAwesome}"/>
             </Button>
         </Grid>
     </Border>

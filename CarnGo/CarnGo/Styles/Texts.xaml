@@ -44,8 +44,8 @@
                                    FontFamily="{StaticResource RobotoLight}"
                                    FontSize="{TemplateBinding FontSize}"
                                    Padding="{TemplateBinding Padding}"
-                                   VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                   HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
                                    Foreground="{TemplateBinding Foreground}">
 
                             <TextBlock.Style>

@@ -70,7 +70,7 @@ namespace CarnGo
             get { return _lastname; }
             set
             {
-                _firstname = value;
+                _lastname = value;
                 OnPropertyChanged(nameof(Lastname));
             }
         }
