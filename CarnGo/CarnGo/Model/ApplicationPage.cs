@@ -7,6 +7,7 @@
         RegisterCarProfilePage,
         MessageView,
         SearchPage,
-        UserSignUpPage
+        UserSignUpPage,
+        StartPage
     }
 }
