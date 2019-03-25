@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarnGo.View
+namespace CarnGo
 {
     /// <summary>
-    /// Interaction logic for SendRequestView.xaml
+    /// Interaction logic for UserSignUp.xaml
     /// </summary>
-    public partial class SendRequestView : Page
+    public partial class UserSignUp : Window
     {
-        public SendRequestView()
+        public UserSignUp()
         {
             InitializeComponent();
         }
