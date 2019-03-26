@@ -67,6 +67,7 @@
     <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel.cs" />
+    <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -106,10 +108,10 @@
       <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Notification\NotificationDesignViewModel.cs" />
-    <Compile Include="ViewModel\Notification\NotificationItemDesignViewModel.cs" />
+    <Compile Include="ViewModel\Notification\Dummy\NotificationDesignViewModel.cs" />
+    <Compile Include="ViewModel\Notification\Dummy\NotificationItemDesignViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
-    <Compile Include="ViewModel\Notification\NotificationItemViewModel.cs" />
+    <Compile Include="ViewModel\Notification\Dummy\NotificationItemViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\SendRequestViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>

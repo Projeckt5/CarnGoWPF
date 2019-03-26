@@ -3,10 +3,9 @@
     public enum ApplicationPage
     {
         LoginPage,
-        NotificationPage,
         EditUserPage,
         RegisterCarProfilePage,
-        SendRequestPage,
+        MessageView,
         SearchPage,
         UserSignUpPage,
         StartPage

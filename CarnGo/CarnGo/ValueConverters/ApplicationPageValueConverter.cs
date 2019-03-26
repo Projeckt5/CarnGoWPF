@@ -18,9 +18,7 @@ namespace CarnGo
             switch ((ApplicationPage)value)
             {
                 case ApplicationPage.LoginPage:
-                    return new LoginView();
-                case ApplicationPage.SendRequestPage:
-                    return new SendRequestView();
+                    return new View.LoginView();
                 case ApplicationPage.EditUserPage:
                     return new EditUser();
                 case ApplicationPage.RegisterCarProfilePage:
