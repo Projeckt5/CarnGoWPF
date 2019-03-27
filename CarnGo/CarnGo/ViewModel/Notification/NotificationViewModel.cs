@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using CarnGo.Model;
 using Prism.Commands;
 
 namespace CarnGo
@@ -17,20 +18,28 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        
-
+        private List<MessageFromLessorModel> _lessorMessages;
+        public List<MessageFromLessorModel> LessorMessages
+        {
+            get { return _lessorMessages; }
+            set
+            {
+                _lessorMessages = value;
+                OnPropertyChanged(nameof(LessorMessages));
+            }
+        }
 
         /// <summary>
         /// Messages sent from Renter to Lessor 
         /// </summary>
-        private List<MessageFromRenterModel> _messages; 
-        public List<MessageFromRenterModel> Messages
+        private List<MessageFromRenterModel> _renterMessages; 
+        public List<MessageFromRenterModel> RenterMessages
         {
-            get { return _messages; }
+            get { return _renterMessages; }
             set
             {
-                _messages = Messages;
-                OnPropertyChanged(nameof(Messages)); 
+                _renterMessages = value;
+                OnPropertyChanged(nameof(RenterMessages)); 
             }
         }
 
