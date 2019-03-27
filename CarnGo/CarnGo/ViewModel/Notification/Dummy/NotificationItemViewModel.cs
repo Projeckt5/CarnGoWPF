@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarnGo
 {
-    class NotificationItemViewModel
+    public class NotificationItemViewModel
     {
         public string Name { get; set; }
         public string Message { get; set; }

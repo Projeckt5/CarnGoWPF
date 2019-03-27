@@ -104,11 +104,13 @@
                        />
 
 
-                <DatePicker HorizontalAlignment="Left" 
+                <DatePicker Text="{Binding From}"
+                            HorizontalAlignment="Left" 
                             Grid.Row="1" Grid.Column="0"
                             />
                 
-                <DatePicker HorizontalAlignment="Left" 
+                <DatePicker Text="{Binding To}"
+                    HorizontalAlignment="Left" 
                             Margin="15, 0, 0, 0"
                             Grid.Row="1" Grid.Column="1"
                             />
@@ -116,13 +118,14 @@
             </Grid>
             </Border>
 
-            <TextBox Grid.Row="1" 
-                     Text="Comments to owner"
-                     HorizontalAlignment="Left"
+                <TextBox Grid.Row="1" 
+                     Text="comment to owner"
+                HorizontalAlignment="Left"
                      VerticalAlignment="Top"
              />
+                <!--MANGLER lave data binding til Message i viewmodel -->
 
-            <!-- Must only be enabled if dates have been set-->
+                <!-- Must only be enabled if dates have been set-->
             <Button Grid.Row="2" 
                     HorizontalAlignment="Left"
                     Content="RENT CAR"

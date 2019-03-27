@@ -15,9 +15,12 @@ using System.Windows.Shapes;
 
 namespace CarnGo.View
 {
-    public partial class LoginView : Page
+    /// <summary>
+    /// Interaction logic for TestView.xaml
+    /// </summary>
+    public partial class TestView : Page
     {
-        public LoginView()
+        public TestView()
         {
             InitializeComponent();
         }
