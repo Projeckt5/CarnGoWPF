@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,11 +41,24 @@ namespace CarnGo
         private string _regNr;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
+        private Bitmap _carPicture; 
         
         #endregion
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
+
+        public Bitmap CarPicture
+        {
+            get { return _carPicture; }
+            set
+            {
+                _carPicture = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+
         public string Name
         {
             get { return _name; }
