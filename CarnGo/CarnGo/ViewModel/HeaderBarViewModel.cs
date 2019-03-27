@@ -8,30 +8,25 @@ namespace CarnGo
 {
     public class HeaderBarViewModel : BaseViewModel
     {
-        private ICommand _navigateHomeCommand;
-        private ICommand _notificationCommand;
-        private ICommand _navigateUserCommand;
-        private ICommand _searchCommand;
-        private ICommand _loginCommand;
         private string _searchKeyWord;
 
         public static HeaderBarViewModel Instance => new HeaderBarViewModel();
 
-        public ICommand NavigateHomeCommand => _navigateHomeCommand?? new DelegateCommand(()=> 
+        public ICommand NavigateHomeCommand => new DelegateCommand(()=> 
                                                    ViewModelLocator.ApplicationViewModel
                                                        .GoToPage(ApplicationPage.StartPage));
 
-        public ICommand NotificationCommand => _notificationCommand ?? new DelegateCommand(ShowNotification);
+        public ICommand NotificationCommand => new DelegateCommand(ShowNotification);
 
 
-        public ICommand NavigateUserCommand => _navigateUserCommand ?? new DelegateCommand(() =>
+        public ICommand NavigateUserCommand => new DelegateCommand(() =>
                                                    ViewModelLocator.ApplicationViewModel
                                                        .GoToPage(ApplicationPage.EditUserPage));
 
-        public ICommand SearchCommand => _searchCommand ?? new DelegateCommand(Search);
+        public ICommand SearchCommand => new DelegateCommand(Search);
 
 
-        public ICommand LoginCommand => _loginCommand ?? new DelegateCommand(() =>
+        public ICommand LoginCommand => new DelegateCommand(() =>
                                             ViewModelLocator.ApplicationViewModel
                                                 .GoToPage(ApplicationPage.LoginPage));
 

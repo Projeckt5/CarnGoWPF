@@ -63,9 +63,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Attached_Property\FlagHasTextProperty.cs" />
-    <Compile Include="Attached_Property\MonitorPasswordBoxTextProperty.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
+    <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\IsBusyAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\UserType.cs" />
@@ -95,7 +96,9 @@
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModel\Search\SearchViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel.cs" />
+    <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -103,6 +106,9 @@
     <Compile Include="View\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\UserSignUpView.xaml.cs">
       <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>

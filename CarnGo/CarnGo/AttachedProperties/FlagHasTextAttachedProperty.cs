@@ -2,11 +2,11 @@
 
 namespace CarnGo
 {
-    public class FlagHasTextProperty
+    public class FlagHasTextAttachedProperty
     {
-        public static FlagHasTextProperty Instance { get; private set; } = new FlagHasTextProperty();
+        public static FlagHasTextAttachedProperty Instance { get; private set; } = new FlagHasTextAttachedProperty();
         public bool HasText { get; set; }
-        public static readonly DependencyProperty HasTextProperty = DependencyProperty.RegisterAttached(nameof(HasText), typeof(bool), typeof(FlagHasTextProperty));
+        public static readonly DependencyProperty HasTextProperty = DependencyProperty.Register(nameof(HasText), typeof(bool), typeof(FlagHasTextAttachedProperty));
         public static void SetHasText(DependencyObject element, bool value)
         {
             element.SetValue(HasTextProperty, value);

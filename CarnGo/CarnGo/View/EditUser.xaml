@@ -48,8 +48,8 @@
                            Text="Personal information:"/>
                 <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="169" Margin="10,93,0,0" TextWrapping="Wrap" Text="Bla bla bla bla" VerticalAlignment="Top" Width="246"/>
 
-                <Button Content="{StaticResource FontAwesomeSaveOutIcon}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,262,0,0" VerticalAlignment="Top" Width="45"
-                         Style="{StaticResource BaseStyle}" Height="20" />
+                <Button Content="Save" Grid.Column="1" HorizontalAlignment="Left" Margin="115,262,0,0" VerticalAlignment="Top"
+                        />
 
 
 
