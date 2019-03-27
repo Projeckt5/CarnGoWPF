@@ -68,6 +68,7 @@
     <Compile Include="AttachedProperties\IsBusyAttachedProperty.cs" />
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\MessageFromLessorModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
