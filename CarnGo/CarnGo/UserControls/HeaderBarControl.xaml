@@ -8,86 +8,92 @@
              d:DesignHeight="400" d:DesignWidth="800"
              x:Name="root">
     
-    <Border Height="60" 
-            Background="{StaticResource BlueMainBrush}"
+    <Border 
             DataContext="{x:Static carnGo:HeaderBarViewModel.Instance}">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <!--Home Icon-->
-            <Button Grid.Column="0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource BlueMainBrush}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Home Icon-->
+                    <Button Grid.Column="0"
                     Style="{StaticResource IconGrowButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
                     Command="{Binding NavigateHomeCommand}"
                     Padding="20">
-                <TextBlock Text="{StaticResource FontAwesomeHomeIcon}" 
+                        <TextBlock Text="{StaticResource FontAwesomeHomeIcon}" 
                            FontFamily="{StaticResource FontAwesome}"/>
-            </Button>
-            
-            <!--SearchBar-->
-            <carnGo:SearchBarControl Grid.Column="1" 
+                    </Button>
+
+                    <!--SearchBar-->
+                    <carnGo:SearchBarControl Grid.Column="1" 
                                      Margin="15"
                                      SearchCommand="{Binding SearchCommand}"
                                      SearchText="{Binding SearchKeyWord,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!--User Icon-->
-            <Button Grid.Column="2"
+                    <!--User Icon-->
+                    <Button Grid.Column="2"
                     Style="{StaticResource IconGrowButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
                     Command="{Binding NavigateUserCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
+                        <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
                            FontFamily="{StaticResource FontAwesome}"/>
-            </Button>
+                    </Button>
 
-            <!--Notification Icon-->
-            <Button Grid.Column="3"
+                    <!--Notification Icon-->
+                    <Button Grid.Column="3"
                     Style="{StaticResource IconGrowButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
                     Command="{Binding NotificationCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
+                        <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
                            FontFamily="{StaticResource FontAwesome}"/>
-            </Button>
+                    </Button>
 
-            <!--Find Car Button-->
-            <Button Grid.Column="4"
+                    <!--Find Car Button-->
+                    <Button Grid.Column="4"
                     FontSize="{StaticResource FontSizeXLarge}"
                     Style="{StaticResource TextAndIconButton}"
                     Padding="0"
                     Command="{Binding LoginCommand}">
-                <StackPanel Margin="10">
-                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                        <StackPanel Margin="10">
+                            <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Find car" 
                                Foreground="{StaticResource BackgroundMainBrush}"/>
-                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                            <TextBlock FontFamily="{StaticResource FontAwesome}" 
                                HorizontalAlignment="Center"
                                Foreground="{StaticResource BackgroundMainBrush}"
                                Text="{StaticResource FontAwesomeCarIcon}"/>
-                </StackPanel>
-            </Button>
+                        </StackPanel>
+                    </Button>
 
-            <!--Login Button-->
-            <!--TODO: Move this to user control because it propably changes when user is logged in-->
-            <Button Grid.Column="5"
+                    <!--Login Button-->
+                    <!--TODO: Move this to user control because it propably changes when user is logged in-->
+                    <Button Grid.Column="5"
                     Style="{StaticResource TextAndIconButton}"
                     Padding="10 0"
                     Command="{Binding LogoutCommand}">
-                <StackPanel Margin="10">
-                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                        <StackPanel Margin="10">
+                            <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Sign out" 
                                Foreground="{StaticResource BackgroundMainBrush}"/>
-                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                            <TextBlock FontFamily="{StaticResource FontAwesome}" 
                                HorizontalAlignment="Center"
                                Foreground="{StaticResource BackgroundMainBrush}"
                                Text="{StaticResource FontAwesomeSignInIcon}"/>
-                </StackPanel>
-            </Button>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </UserControl>
