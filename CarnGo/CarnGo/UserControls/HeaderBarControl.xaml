@@ -18,13 +18,15 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <!--Home Icon-->
             <Button Grid.Column="0"
                     Style="{StaticResource IconGrowButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NavigateHomeCommand}">
+                    Command="{Binding NavigateHomeCommand}"
+                    Padding="20">
                 <TextBlock Text="{StaticResource FontAwesomeHomeIcon}" 
                            FontFamily="{StaticResource FontAwesome}"/>
             </Button>
@@ -53,24 +55,37 @@
                            FontFamily="{StaticResource FontAwesome}"/>
             </Button>
 
-            <!--Login Button-->
-            <!--TODO: Move this to user control because it propably changes when user is logged in-->
+            <!--Find Car Button-->
             <Button Grid.Column="4"
                     FontSize="{StaticResource FontSizeXLarge}"
-                    Style="{StaticResource IconGrowButton}"
-                    Padding="8"
-                    Margin="12 0"
+                    Style="{StaticResource TextAndIconButton}"
+                    Padding="0"
                     Command="{Binding LoginCommand}">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="10">
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
-                               FontSize="{StaticResource FontSizeRegular}"
-                               Text="Sign in" 
-                               Padding="0 0 5 0"
+                               Text="Find car" 
                                Foreground="{StaticResource BackgroundMainBrush}"/>
                     <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
                                Foreground="{StaticResource BackgroundMainBrush}"
-                               Text="{StaticResource FontAwesomeSignInIcon}"
-                               FontSize="{StaticResource FontSizeRegular}"/>
+                               Text="{StaticResource FontAwesomeCarIcon}"/>
+                </StackPanel>
+            </Button>
+
+            <!--Login Button-->
+            <!--TODO: Move this to user control because it propably changes when user is logged in-->
+            <Button Grid.Column="5"
+                    Style="{StaticResource TextAndIconButton}"
+                    Padding="10 0"
+                    Command="{Binding LogoutCommand}">
+                <StackPanel Margin="10">
+                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                               Text="Sign out" 
+                               Foreground="{StaticResource BackgroundMainBrush}"/>
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               Text="{StaticResource FontAwesomeSignInIcon}"/>
                 </StackPanel>
             </Button>
         </Grid>

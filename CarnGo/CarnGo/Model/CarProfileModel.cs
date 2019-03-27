@@ -24,9 +24,9 @@ namespace CarnGo
         /// <param name="brand"></param>
         /// <param name="age"></param>
         /// <param name="regNr"></param>
-        public CarProfileModel(UserModel owner,string name, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner,string model, string brand, int age, string regNr)
         {
-            Name = name;
+            Model = model;
             Brand = brand;
             Age = age;
             Regnr = regNr;
@@ -35,14 +35,14 @@ namespace CarnGo
         #endregion
 
         #region Fields
-        private string _name;
+        private string _model;
         private string _brand;
         private int _age;
         private string _regNr;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
-        private Bitmap _carPicture; 
-        
+        private Bitmap _carPicture;
+        private UserModel _owner; 
         #endregion
 
         //TODO Try/Catch block for Database exceptions
@@ -54,18 +54,18 @@ namespace CarnGo
             set
             {
                 _carPicture = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(CarPicture));
             }
         }
 
 
-        public string Name
+        public string Model
         {
-            get { return _name; }
+            get { return _model; }
             set
             {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                _model = value;
+                OnPropertyChanged(nameof(Model));
             }
         }
 
@@ -122,12 +122,15 @@ namespace CarnGo
             }
         }
 
-        public UserModel Owner { get; private set; }
+        public UserModel Owner
+        {
+            get { return _owner;  }
+            set
+            {
+                _owner = value;
+                OnPropertyChanged(nameof(Owner));
+            }
+        }
         #endregion
-
-
-
-
-
-    }
+        }
 }
