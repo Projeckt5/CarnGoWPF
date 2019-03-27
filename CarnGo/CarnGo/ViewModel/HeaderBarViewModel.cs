@@ -8,11 +8,14 @@ namespace CarnGo
 {
     public class HeaderBarViewModel : BaseViewModel
     {
-        private string _searchKeyWord;
+        #region Public Properties
 
         public static HeaderBarViewModel Instance => new HeaderBarViewModel();
+        public string SearchKeyWord { get; set; }
+        #endregion
+        #region Public Commands
 
-        public ICommand NavigateHomeCommand => new DelegateCommand(()=> 
+        public ICommand NavigateHomeCommand => new DelegateCommand(() =>
                                                    ViewModelLocator.ApplicationViewModel
                                                        .GoToPage(ApplicationPage.StartPage));
 
@@ -29,20 +32,9 @@ namespace CarnGo
         public ICommand LoginCommand => new DelegateCommand(() =>
                                             ViewModelLocator.ApplicationViewModel
                                                 .GoToPage(ApplicationPage.LoginPage));
+        #endregion
+        #region Command Helpers
 
-        public string SearchKeyWord
-        {
-            get => _searchKeyWord;
-            set
-            {
-                if (_searchKeyWord == value)
-                {
-                    return;
-                }
-                _searchKeyWord = value;
-                OnPropertyChanged(nameof(SearchKeyWord));
-            }
-        }
         private void Search()
         {
             MessageBox.Show(SearchKeyWord);
@@ -51,6 +43,7 @@ namespace CarnGo
         private void ShowNotification()
         {
             MessageBox.Show("*Notification shown*");
-        }
+        } 
+        #endregion
     }
 }

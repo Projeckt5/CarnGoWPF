@@ -20,6 +20,8 @@
             }
         }
 
+        public bool ShowHeaderBar => CurrentPage != ApplicationPage.LoginPage;
+
         /// <summary>
         /// The current user logged into the application
         /// </summary>
