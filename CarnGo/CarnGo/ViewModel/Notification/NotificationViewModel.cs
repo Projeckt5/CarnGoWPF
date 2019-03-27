@@ -17,31 +17,27 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        private List<CarProfileModel> _carProfiles;
-        private List<UserModel> _users;
+        
+
+
+        /// <summary>
+        /// Messages sent from Renter to Lessor 
+        /// </summary>
+        private List<MessageFromRenterModel> _messages; 
+        public List<MessageFromRenterModel> Messages
+        {
+            get { return _messages; }
+            set
+            {
+                _messages = Messages;
+                OnPropertyChanged(nameof(Messages)); 
+            }
+        }
+
+        /// <summary>
+        /// Dummy Data made by Martin (TODO: Make obsolete) 
+        /// </summary>
         private List<NotificationItemViewModel> _items;
-
-        public List<CarProfileModel> CarProfiles
-        {
-            get { return _carProfiles; }
-            set
-            {
-                _carProfiles = value; 
-                OnPropertyChanged(nameof(CarProfiles));
-            }
-
-        }
-
-        public List<UserModel> Users
-        {
-            get { return _users; }
-            set
-            {
-                _users = value;
-                OnPropertyChanged(nameof(CarProfiles));
-            }
-        }
-
         public List<NotificationItemViewModel> Items
         {
             get { return _items; }

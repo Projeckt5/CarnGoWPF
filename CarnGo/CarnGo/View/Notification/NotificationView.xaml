@@ -7,15 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500"
              >
+
     <Border CornerRadius="20" >
     <Grid d:DataContext="{x:Static local:NotificationDesignViewModel.Instance}" Background="{StaticResource BackgroundLightBrush}">
         
             <ScrollViewer>
-            <ItemsControl Background="Black" ItemsSource="{Binding Items}">
-               
-                
+                <ItemsControl Background="Black" ItemsSource="{Binding Items}">
 
-                <ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:NotificationItemView></local:NotificationItemView>
                     </DataTemplate>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,9 @@ namespace CarnGo
         /// <param name="brand"></param>
         /// <param name="age"></param>
         /// <param name="regNr"></param>
-        public CarProfileModel(UserModel owner,string name, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner,string model, string brand, int age, string regNr)
         {
-            Name = name;
+            Model = model;
             Brand = brand;
             Age = age;
             Regnr = regNr;
@@ -34,24 +35,37 @@ namespace CarnGo
         #endregion
 
         #region Fields
-        private string _name;
+        private string _model;
         private string _brand;
         private int _age;
         private string _regNr;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
-        
+        private Bitmap _carPicture;
+        private UserModel _owner; 
         #endregion
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
-        public string Name
+
+        public Bitmap CarPicture
         {
-            get { return _name; }
+            get { return _carPicture; }
             set
             {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                _carPicture = value;
+                OnPropertyChanged(nameof(CarPicture));
+            }
+        }
+
+
+        public string Model
+        {
+            get { return _model; }
+            set
+            {
+                _model = value;
+                OnPropertyChanged(nameof(Model));
             }
         }
 
@@ -108,12 +122,15 @@ namespace CarnGo
             }
         }
 
-        public UserModel Owner { get; private set; }
+        public UserModel Owner
+        {
+            get { return _owner;  }
+            set
+            {
+                _owner = value;
+                OnPropertyChanged(nameof(Owner));
+            }
+        }
         #endregion
-
-
-
-
-
-    }
+        }
 }

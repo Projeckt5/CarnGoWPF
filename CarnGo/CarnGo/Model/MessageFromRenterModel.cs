@@ -9,10 +9,11 @@ namespace CarnGo
 {
     public class MessageFromRenterModel:BaseViewModel
     {
-        #region fields
+        #region Fields
         private UserModel _renter;
-        private UserModel _leaser;
+        private UserModel _lessor;
         private string _message;
+        private CarProfileModel _rentCar;
         private DateTime _from;
         private DateTime _to;
         #endregion
@@ -22,7 +23,7 @@ namespace CarnGo
         public MessageFromRenterModel(UserModel renter, UserModel leaser)
         {
             _renter = renter;
-            _leaser = leaser;
+            _lessor = leaser;
         }
         
 
