@@ -12,6 +12,7 @@ namespace CarnGo
 
         public static HeaderBarViewModel Instance => new HeaderBarViewModel();
         public string SearchKeyWord { get; set; }
+        public bool ShowNotifications { get; set; }
         #endregion
         #region Public Commands
 
@@ -29,21 +30,34 @@ namespace CarnGo
         public ICommand SearchCommand => new DelegateCommand(Search);
 
 
-        public ICommand LoginCommand => new DelegateCommand(() =>
-                                            ViewModelLocator.ApplicationViewModel
-                                                .GoToPage(ApplicationPage.LoginPage));
+        public ICommand LogoutCommand => new DelegateCommand(Logout);
+
+        public ICommand FindCarCommand => new DelegateCommand(()=>
+                                                 ViewModelLocator.ApplicationViewModel
+                                                     .GoToPage(ApplicationPage.SearchPage));
+
         #endregion
         #region Command Helpers
 
+        private void Logout()
+        {
+            //TODO: Log the user out
+            ViewModelLocator.ApplicationViewModel
+                .GoToPage(ApplicationPage.LoginPage);
+        }
+
         private void Search()
         {
-            MessageBox.Show(SearchKeyWord);
+            ViewModelLocator.ApplicationViewModel
+                .GoToPage(ApplicationPage.SearchPage);
+            //TODO: Make the search with the search string
         }
 
         private void ShowNotification()
         {
-            MessageBox.Show("*Notification shown*");
-        } 
+            ShowNotifications ^= true;
+            //TODO: Create notification view and bind its visibility to this
+        }
         #endregion
     }
 }
