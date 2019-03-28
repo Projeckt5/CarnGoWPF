@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup;
 
 namespace CarnGo
 {
@@ -10,10 +9,14 @@ namespace CarnGo
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                return (bool)value ? Visibility.Hidden : Visibility.Visible;
-            else
-                return (bool)value ? Visibility.Visible : Visibility.Hidden;
+            if (value is bool flag)
+            {
+                if (parameter == null)
+                    return flag ? Visibility.Hidden : Visibility.Visible;
+                else
+                    return flag ? Visibility.Visible : Visibility.Hidden;
+            }
+            return Visibility.Collapsed;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

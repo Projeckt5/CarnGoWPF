@@ -84,7 +84,7 @@
                        HorizontalOffset="-150">
                     <Border Padding="10"
                             Background="{StaticResource BlueLightBrush}">
-                        <carnGo:NotificationView/>
+                        <carnGo:NotificationView MaxHeight="200"/>
                     </Border>
                 </Popup>
             </Grid>
