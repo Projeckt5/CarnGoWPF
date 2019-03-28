@@ -8,11 +8,27 @@ namespace CarnGo
 {
     public class HeaderBarViewModel : BaseViewModel
     {
+        #region Private Fields
+
+        private bool _showNotifications;
+
+        #endregion
         #region Public Properties
 
         public static HeaderBarViewModel Instance => new HeaderBarViewModel();
         public string SearchKeyWord { get; set; }
-        public bool ShowNotifications { get; set; }
+
+        public bool ShowNotifications
+        {
+            get => _showNotifications;
+            set
+            {
+                if(_showNotifications == value)
+                    return;
+                _showNotifications = value;
+                OnPropertyChanged(nameof(ShowNotifications));
+            }
+        }
         #endregion
         #region Public Commands
 
