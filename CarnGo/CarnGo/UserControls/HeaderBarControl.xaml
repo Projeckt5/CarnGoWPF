@@ -10,7 +10,7 @@
     
     <Border Height="60" 
             Background="{StaticResource BlueMainBrush}"
-            DataContext="{x:Static carnGo:HeaderBarViewModel.Instance}">
+            DataContext="{x:Static carnGo:HeaderBarDesignModel.Instance}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -56,11 +56,30 @@
                     <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
                                FontFamily="{StaticResource FontAwesome}"/>
                 </ToggleButton>
+                <Border Width="20"
+                        Height="20"
+                        CornerRadius="120"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom"
+                        Background="Red"
+                        Margin="5"
+                        Padding="3"
+                        Visibility="{Binding UnreadNotifications,
+                                        Converter={carnGo:BooleanToVisibilityConverter}, 
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        ConverterParameter=true}">
+                    <Viewbox>
+                        <TextBlock Text="{Binding NumUnreadNotifications}"
+                                   Foreground="{StaticResource ForegroundLightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource RobotoBold}"/>
+                    </Viewbox>
+                </Border>
                 <!--Popup menu from the notifcation bar-->
                 <Popup x:Name="NotificationPopup" 
                        IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
-                       StaysOpen="False"
-                       >
+                       StaysOpen="False">
                     <Border Padding="10" 
                             Background="{StaticResource BlueLightBrush}">
                         <carnGo:NotificationView/>
