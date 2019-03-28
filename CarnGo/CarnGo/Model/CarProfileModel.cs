@@ -84,7 +84,7 @@ namespace CarnGo
             get { return _age; }
             set
             {
-                _age = value > 1900 && value <= DateTime.Now.DayOfYear ? value : throw new ArgumentException("Invalid Year");
+                _age = value > 1900 && value <= DateTime.Now.Year ? value : throw new ArgumentException("Invalid Year");
                 OnPropertyChanged(nameof(Age));
             }
         }

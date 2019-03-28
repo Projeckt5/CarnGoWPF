@@ -70,6 +70,7 @@
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\MessageFromLessorModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
+    <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
+    <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel\HeaderBarViewModel.cs" />
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
@@ -116,10 +118,7 @@
       <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationDesignViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationItemDesignViewModel.cs" />
-    <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationItemViewModel.cs" />
+    <Compile Include="ViewModel\Notification\NotificationItemViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\SendRequestViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -286,5 +285,6 @@
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

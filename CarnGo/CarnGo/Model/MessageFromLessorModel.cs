@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarnGo.Model
+namespace CarnGo
 {
-    public class MessageFromLessorModel : BaseViewModel
+    public class MessageFromLessorModel : MessageModel
     {
         #region Constructor 
-        public MessageFromLessorModel(UserModel renter, UserModel lessor, CarProfileModel rentCar)
+        public MessageFromLessorModel(UserModel renter, UserModel lessor, CarProfileModel rentCar, string message, bool statusConfirmation)
         {
             Renter = renter;
             Lessor = lessor;
-            RentCar = rentCar; 
+            RentCar = rentCar;
+            Message = message;
+            StatusConfirmation = statusConfirmation;
         }
         #endregion
 
@@ -21,7 +23,6 @@ namespace CarnGo.Model
         private UserModel _renter;
         private UserModel _lessor;
         private CarProfileModel _rentCar; 
-        private string _message;
         private bool _statusConfirmation;
         #endregion
 
@@ -53,16 +54,6 @@ namespace CarnGo.Model
             {
                 _rentCar = value;
                 OnPropertyChanged(nameof(RentCar));
-            }
-        }
-
-        public string Message
-        {
-            get { return _message; }
-            set
-            {
-                _message = value;
-                OnPropertyChanged(nameof(Message));
             }
         }
 
