@@ -9,7 +9,7 @@
              >
 
     <Border CornerRadius="20" >
-    <Grid d:DataContext="{x:Static local:NotificationDesignViewModel.Instance}" Background="{StaticResource BackgroundLightBrush}">
+    <Grid DataContext="{x:Static local:NotificationDesignViewModel.Instance}" Background="{StaticResource BackgroundLightBrush}">
         
             <ScrollViewer>
                 <ItemsControl ItemsSource="{Binding Items}">

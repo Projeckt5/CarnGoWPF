@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="400"
              >
-    <Border BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
+    <Border Height="80" Width="300" BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
         <Grid d:DataContext="{x:Static local:NotificationItemDesignViewModel.Instance}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
