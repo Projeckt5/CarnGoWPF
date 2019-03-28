@@ -34,6 +34,7 @@
             <!--SearchBar-->
             <carnGo:SearchBarControl Grid.Column="1" 
                                      Margin="15"
+                                     MaxWidth="800"
                                      SearchCommand="{Binding SearchCommand}"
                                      SearchText="{Binding SearchKeyWord,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -79,8 +80,9 @@
                 <!--Popup menu from the notifcation bar-->
                 <Popup x:Name="NotificationPopup" 
                        IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
-                       StaysOpen="False">
-                    <Border Padding="10" 
+                       StaysOpen="False"
+                       HorizontalOffset="-150">
+                    <Border Padding="10"
                             Background="{StaticResource BlueLightBrush}">
                         <carnGo:NotificationView/>
                     </Border>
