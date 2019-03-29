@@ -42,7 +42,10 @@ namespace CarnGo
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
         private Bitmap _carPicture;
-        private UserModel _owner; 
+        private UserModel _owner;
+        private int _seats;
+        private int _rentalPrice;
+        private string _fuelType;
         #endregion
 
         //TODO Try/Catch block for Database exceptions
@@ -131,6 +134,36 @@ namespace CarnGo
                 OnPropertyChanged(nameof(Owner));
             }
         }
-        #endregion
+
+        public int Seats
+        {
+            get { return _seats; }
+            set
+            {
+                _seats = value;
+                OnPropertyChanged(nameof(Seats));
+            }
         }
+
+        public int RentalPrice
+        {
+            get { return _rentalPrice; }
+            set
+            {
+                _rentalPrice = value;
+                OnPropertyChanged(nameof(RentalPrice));
+            }
+        }
+
+        public string FuelType
+        {
+            get { return _fuelType; }
+            set
+            {
+                _fuelType = value;
+                OnPropertyChanged(nameof(FuelType));
+            }
+        }
+        #endregion
+    }
 }
