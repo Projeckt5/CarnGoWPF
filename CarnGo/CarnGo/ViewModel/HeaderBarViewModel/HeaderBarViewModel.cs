@@ -8,11 +8,57 @@ namespace CarnGo
 {
     public class HeaderBarViewModel : BaseViewModel
     {
-        #region Public Properties
+        #region Private Fields
 
-        public static HeaderBarViewModel Instance => new HeaderBarViewModel();
+        private bool _showNotifications = false;
+        private int _numUnreadNotifications = 0;
+        private bool _unreadNotifications = false;
+
+        #endregion
+        #region Default Constructor
+        public HeaderBarViewModel()
+        {
+        }
+        #endregion
+        #region Public Properties
         public string SearchKeyWord { get; set; }
-        public bool ShowNotifications { get; set; }
+
+        public bool ShowNotifications
+        {
+            get => _showNotifications;
+            set
+            {
+                if(_showNotifications == value)
+                    return;
+                _showNotifications = value;
+                OnPropertyChanged(nameof(ShowNotifications));
+            }
+        }
+
+        public int NumUnreadNotifications
+        {
+            get => _numUnreadNotifications;
+            set
+            {
+                if (_numUnreadNotifications == value)
+                    return;
+                _numUnreadNotifications = value;
+                UnreadNotifications = _numUnreadNotifications > 0;
+                OnPropertyChanged(nameof(NumUnreadNotifications));
+            }
+        }
+
+        public bool UnreadNotifications
+        {
+            get=>_unreadNotifications;
+            set
+            {
+                if (_unreadNotifications == value)
+                    return;
+                _unreadNotifications = value;
+                OnPropertyChanged(nameof(UnreadNotifications));
+            }
+        }
         #endregion
         #region Public Commands
 
@@ -55,8 +101,7 @@ namespace CarnGo
 
         private void ShowNotification()
         {
-            ShowNotifications ^= true;
-            //TODO: Create notification view and bind its visibility to this
+            NumUnreadNotifications = 0;
         }
         #endregion
     }

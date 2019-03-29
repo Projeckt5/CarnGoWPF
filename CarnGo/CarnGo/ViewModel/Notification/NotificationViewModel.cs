@@ -1,74 +1,48 @@
-﻿using System;
+﻿using Prism.Commands;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Drawing;
 using System.Windows.Input;
-using CarnGo.Model;
-using Prism.Commands;
 
 namespace CarnGo
 {
     public class NotificationViewModel : BaseViewModel
     {
-        #region Constructors
+        #region Constructor
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public NotificationViewModel()
+        {
+            #region Dummy Data (Notification)
+            var User1 = new UserModel("Martin", "Gildberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.Lessor);
+            var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
+            var Car = new CarProfileModel(User1, "X-360", "BMW", 1989, "1234567");
+
+            var message = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
+            var Notification = new NotificationItemViewModel(message);
+
+            #endregion
+            Messages = new List<NotificationItemViewModel>
+            {
+                Notification,
+                Notification,
+                Notification
+            };
+        }
         #endregion
 
         #region Properties
-        private List<MessageFromLessorModel> _lessorMessages;
-        public List<MessageFromLessorModel> LessorMessages
-        {
-            get { return _lessorMessages; }
-            set
-            {
-                _lessorMessages = value;
-                OnPropertyChanged(nameof(LessorMessages));
-            }
-        }
+        private List<NotificationItemViewModel> _messages;
 
-        /// <summary>
-        /// Messages sent from Renter to Lessor 
-        /// </summary>
-        private List<MessageFromRenterModel> _renterMessages; 
-        public List<MessageFromRenterModel> RenterMessages
+        public List<NotificationItemViewModel> Messages
         {
-            get { return _renterMessages; }
+            get { return _messages; }
             set
             {
-                _renterMessages = value;
-                OnPropertyChanged(nameof(RenterMessages)); 
-            }
-        }
-
-        /// <summary>
-        /// Dummy Data made by Martin (TODO: Make obsolete) 
-        /// </summary>
-        private List<NotificationItemViewModel> _items;
-        public List<NotificationItemViewModel> Items
-        {
-            get { return _items; }
-            set
-            {
-                _items = value;
-                OnPropertyChanged(nameof(Items));
+                _messages = value;
+                OnPropertyChanged(nameof(Messages));
             }
         }
         #endregion
-
-        #region Commands
-        private ICommand _notificationPressedCommand;
-        public ICommand NotificationPressedCommand => _notificationPressedCommand ?? (_notificationPressedCommand = new DelegateCommand(NotificationExecute));
-        #endregion
-
-        #region Executes & CanExecutes
-        private void NotificationExecute()
-        {
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.MessageView);
-        }
-        #endregion
-
     }
 }

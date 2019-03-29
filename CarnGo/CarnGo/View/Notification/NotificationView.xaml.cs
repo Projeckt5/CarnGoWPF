@@ -23,6 +23,7 @@ namespace CarnGo
         public NotificationView()
         {
             InitializeComponent();
+            DataContext = new NotificationViewModel();
         }
     }
 }

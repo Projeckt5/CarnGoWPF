@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace CarnGo
 {
-    public class MessageFromRenterModel:BaseViewModel
+    public class MessageFromRenterModel : MessageModel
     {
         #region Fields
         private UserModel _renter;
         private UserModel _lessor;
-        private string _message;
         private CarProfileModel _rentCar;
         private DateTime _from;
         private DateTime _to;
@@ -30,15 +29,6 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        public string Message
-        {
-            get { return _message; }
-            set
-            {
-                _ = value;
-                OnPropertyChanged(nameof(Message));
-            }
-        }
         public DateTime From
         {
             get { return _from; }
@@ -58,7 +48,7 @@ namespace CarnGo
                 OnPropertyChanged(nameof(To));
             }
         }
-#endregion
+        #endregion
 
     }
 }

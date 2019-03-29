@@ -10,7 +10,7 @@
     
     <Border Height="60" 
             Background="{StaticResource BlueMainBrush}"
-            DataContext="{x:Static carnGo:HeaderBarViewModel.Instance}">
+            DataContext="{x:Static carnGo:HeaderBarDesignModel.Instance}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -34,6 +34,7 @@
             <!--SearchBar-->
             <carnGo:SearchBarControl Grid.Column="1" 
                                      Margin="15"
+                                     MaxWidth="800"
                                      SearchCommand="{Binding SearchCommand}"
                                      SearchText="{Binding SearchKeyWord,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -47,20 +48,53 @@
             </Button>
 
             <!--Notification Icon-->
-            <Button Grid.Column="3"
-                    Style="{StaticResource IconGrowButton}"
-                    Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NotificationCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
-                           FontFamily="{StaticResource FontAwesome}"/>
-            </Button>
+            <Grid Grid.Column="3">
+                <ToggleButton Style="{StaticResource IconGrowToggleButton}" 
+                              x:Name="NotificationButton" 
+                              Foreground="{StaticResource BackgroundMainBrush}"
+                              Command="{Binding NotificationCommand}"
+                              IsHitTestVisible="{Binding IsOpen, Mode=OneWay, ElementName=NotificationPopup, Converter={carnGo:InvertBooleanValueConverter}}">
+                    <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
+                               FontFamily="{StaticResource FontAwesome}"/>
+                </ToggleButton>
+                <Border Width="20"
+                        Height="20"
+                        CornerRadius="120"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom"
+                        Background="Red"
+                        Margin="5"
+                        Padding="3"
+                        Visibility="{Binding UnreadNotifications,
+                                        Converter={carnGo:BooleanToVisibilityConverter}, 
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        ConverterParameter=true}">
+                    <Viewbox>
+                        <TextBlock Text="{Binding NumUnreadNotifications}"
+                                   Foreground="{StaticResource ForegroundLightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource RobotoBold}"/>
+                    </Viewbox>
+                </Border>
+                <!--Popup menu from the notifcation bar-->
+                <Popup x:Name="NotificationPopup" 
+                       IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
+                       StaysOpen="False"
+                       HorizontalOffset="-150">
+                    <Border Padding="10"
+                            Background="{StaticResource BlueLightBrush}">
+                        <carnGo:NotificationView MaxHeight="200"/>
+                    </Border>
+                </Popup>
+            </Grid>
 
             <!--Find Car Button-->
             <Button Grid.Column="4"
                     FontSize="{StaticResource FontSizeXLarge}"
                     Style="{StaticResource TextAndIconButton}"
                     Padding="0"
-                    Command="{Binding LoginCommand}">
+                    Command="{Binding FindCarCommand}">
                 <StackPanel Margin="10">
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Find car" 
