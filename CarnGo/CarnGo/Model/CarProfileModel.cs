@@ -46,6 +46,7 @@ namespace CarnGo
         private int _seats;
         private int _rentalPrice;
         private string _fuelType;
+        private string _carDescription;
         #endregion
 
         //TODO Try/Catch block for Database exceptions
@@ -162,6 +163,16 @@ namespace CarnGo
             {
                 _fuelType = value;
                 OnPropertyChanged(nameof(FuelType));
+            }
+        }
+
+        public string CarDescription
+        {
+            get { return _fuelType; }
+            set
+            {
+                _carDescription = value;
+                OnPropertyChanged(nameof(CarDescription));
             }
         }
         #endregion

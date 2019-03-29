@@ -11,69 +11,86 @@ namespace CarnGo
 {
     public class CarProfileViewModel : BaseViewModel
     {
+        private CarProfileModel _originalCarProfileModel;
+        private CarProfileModel _editedCarProfileModel;
 
-        private CarProfileModel _carProfileModel;
+        private bool _editing;
+        private bool _isOwner;
+        
+        //Not sure if i should validate who the owner is og get it passed inn
+        public CarProfileViewModel(CarProfileModel _originalCarProfileModel, bool isOwner)
+        {
+            
+        }
+
+        
+
 
         #region Public Properties
 
         public string CarMake
         {
-            get { return _carProfileModel.Brand;}
-            set { _carProfileModel.Brand = value; }
+            get { return _editedCarProfileModel.Brand;}
+            set { _editedCarProfileModel.Brand = value; }
         }
         public string CarModel
         {
-            get { return _carProfileModel.Model;}
-            set { _carProfileModel.Model = value; }
+            get { return _editedCarProfileModel.Model;}
+            set { _editedCarProfileModel.Model = value; }
         }
 
         public int CarSeats
         {
-            get { return _carProfileModel.Seats; }
-            set { _carProfileModel.Seats = value; }
+            get { return _editedCarProfileModel.Seats; }
+            set { _editedCarProfileModel.Seats = value; }
         }
         public string CarFuelType
         {
-            get { return _carProfileModel.FuelType; }
-            set { _carProfileModel.FuelType = value; }
+            get { return _editedCarProfileModel.FuelType; }
+            set { _editedCarProfileModel.FuelType = value; }
         }
 
         public int CarRentalPrice
         {
-            get { return _carProfileModel.RentalPrice; }
-            set { _carProfileModel.RentalPrice = value; }
+            get { return _editedCarProfileModel.RentalPrice; }
+            set { _editedCarProfileModel.RentalPrice = value; }
         }
 
         public int CarAge
         {
-            get { return _carProfileModel.Age; }
-            set { _carProfileModel.Age = value; }
+            get { return _editedCarProfileModel.Age; }
+            set { _editedCarProfileModel.Age = value; }
         }
 
         public string CarRegNr
         {
-            get { return _carProfileModel.Regnr; }
-            set { _carProfileModel.Regnr = value; }
+            get { return _editedCarProfileModel.Regnr; }
+            set { _editedCarProfileModel.Regnr = value; }
         }
         public DateTime CarStartLeaseDate
         {
-            get { return _carProfileModel.StartLeaseTime; }
-            set { _carProfileModel.StartLeaseTime = value; }
+            get { return _editedCarProfileModel.StartLeaseTime; }
+            set { _editedCarProfileModel.StartLeaseTime = value; }
         }
         public DateTime CarEndLeaseTime
         {
-            get { return _carProfileModel.EndLeaseTime; }
-            set { _carProfileModel.EndLeaseTime = value; }
+            get { return _editedCarProfileModel.EndLeaseTime; }
+            set { _editedCarProfileModel.EndLeaseTime = value; }
         }
         public Bitmap CarPicture
         {
-            get { return _carProfileModel.CarPicture; }
-            set { _carProfileModel.CarPicture = value; }
+            get { return _editedCarProfileModel.CarPicture; }
+            set { _editedCarProfileModel.CarPicture = value; }
         }
         public UserModel CarOwner
         {
-            get { return _carProfileModel.Owner; }
-            set { _carProfileModel.Owner = value; }
+            get { return _editedCarProfileModel.Owner; }
+            set { _editedCarProfileModel.Owner = value; }
+        }
+        public string CarDescription
+        {
+            get { return _editedCarProfileModel.CarDescription; }
+            set { _editedCarProfileModel.CarDescription = value; }
         }
 
         #endregion
@@ -81,6 +98,7 @@ namespace CarnGo
         #region Public Commands
         private ICommand _saveCommand;
         private ICommand _uploadPhotoCommand;
+        private ICommand _editCarProfile;
 
 
         public ICommand SaveCommand
@@ -93,13 +111,24 @@ namespace CarnGo
             get { return _uploadPhotoCommand ?? (_uploadPhotoCommand = new DelegateCommand(UploadPhotoFunction)); }
         }
 
+        public ICommand EditCarProfileCommand
+        {
+            get { return _editCarProfile ?? (_editCarProfile = new DelegateCommand(UploadPhotoFunction)); }
+        }
+
         #endregion
 
 
 
         private void SaveFunction()
         {
-            //_carProfileModel.
+            _originalCarProfileModel = _editedCarProfileModel;
+            _editing = false;
+        }
+
+        private void EditCarProfileFunction()
+        {
+            _editing = true;
         }
 
         private void UploadPhotoFunction()
