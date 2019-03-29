@@ -10,9 +10,6 @@
 
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" x:Key="NotificationButton">
-            <Style.Setters>
-
-            </Style.Setters>
         </Style>
     </UserControl.Resources>
 
@@ -24,7 +21,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Background="{StaticResource BackgroundDarkBrush}"
+                            <Button Background="{StaticResource BackgroundLightBrush}"
                                     Style="{StaticResource NotificationButton}"
                                     Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
                             <local:NotificationItemView></local:NotificationItemView>

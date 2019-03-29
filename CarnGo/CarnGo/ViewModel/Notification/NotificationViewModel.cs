@@ -18,16 +18,17 @@ namespace CarnGo
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
             var Car = new CarProfileModel(User1, "X-360", "BMW", 1989, "1234567");
 
-            var message = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
-            var Notification = new NotificationItemViewModel(message);
-
-            #endregion
+            var message1 = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
+            var message2 = new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme", false);
+            var Notification1 = new NotificationItemViewModel(message1);
+            var Notification2 = new NotificationItemViewModel(message2);
             Messages = new List<NotificationItemViewModel>
             {
-                Notification,
-                Notification,
-                Notification
+                Notification1,
+                Notification2
             };
+            #endregion
+
         }
         #endregion
 

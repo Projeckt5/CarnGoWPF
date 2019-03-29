@@ -30,10 +30,25 @@ namespace CarnGo
             set
             {
                 _notification = value;
+                DisplayMessage = _notification.Message;
                 OnPropertyChanged(nameof(Message));
             }
         }
 
+        private string _displayMessage;
+
+        public string DisplayMessage
+        {
+            get { return _displayMessage; }
+            set
+            {
+                if (value.Length > 15)
+                    _displayMessage = value.Substring(0, 15) + "...";
+                else
+                    _displayMessage = value;
+                OnPropertyChanged(nameof(DisplayMessage));
+            }
+        }
         #endregion
 
         #region Commands

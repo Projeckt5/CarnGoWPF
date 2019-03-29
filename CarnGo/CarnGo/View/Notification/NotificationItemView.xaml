@@ -8,9 +8,26 @@
              d:DesignHeight="80" d:DesignWidth="400"
              >
     <UserControl.Resources>
+        <!--Trigger for Confirm/Denied property-->
+        <Style TargetType="TextBlock" x:Key="Confirmation" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Foreground" Value="Red"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="true">
+                    <Setter Property="Foreground" Value="Green"/>
+                    <Setter Property="Text" Value="Confirmed"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="false">
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Text" Value="Denied"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Trigger for type of Message (Renter/Lessor) -->
+
     </UserControl.Resources>
 
-        <Border BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
+        <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -26,10 +43,9 @@
                 
             </Grid.RowDefinitions>
             <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" 
-                       Style="{StaticResource BaseTextBlockStyle}" 
+                       Style="{StaticResource Confirmation}" 
                        FontSize="{StaticResource FontSizeSmall}" 
                        Margin="0 0 20 0" 
-                       Foreground="Green" Text="{Binding LessorNotification.StatusConfirmation}"
                        />
 
                 <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
@@ -56,7 +72,7 @@
                         HorizontalAlignment="Left" Margin="10 10 0 0" 
                         Style="{StaticResource BaseTextBlockStyle}" 
                         FontSize="{StaticResource FontSizeSmall}"
-                        Text="{Binding LessorNotification.Message}"
+                        Text="{Binding DisplayMessage}"
                         />
 
         </Grid>
