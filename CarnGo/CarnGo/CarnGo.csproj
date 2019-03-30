@@ -63,6 +63,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EventAggregator\EventAggregator.cs" />
+    <Compile Include="EventAggregator\EventAggregatorSingleton.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
     <Compile Include="AttachedProperties\IsBusyAttachedProperty.cs" />

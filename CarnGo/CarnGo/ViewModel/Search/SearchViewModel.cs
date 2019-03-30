@@ -6,11 +6,11 @@ namespace CarnGo
     
     public class SearchViewModel
     {
-        IEventAggregator _eventAggregator;
+        
 
-        public SearchViewModel(IEventAggregator ea)
+        public SearchViewModel()
         {
-            _eventAggregator = ea;
+            
 
             //var hej = new CarProfileDataEvent();
             //_eventAggregator.GetEvent<CarProfileDataEvent>().Publish(hej);

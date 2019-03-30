@@ -15,9 +15,9 @@ namespace CarnGo
 
         private CarProfileModel _carProfileModel;
 #endregion
-        public SendRequestViewModel(IEventAggregator ea)
+        public SendRequestViewModel()
         {
-            //ea.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            EventAggregatorSingleton.GetEventAggregator.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
         #region constructor
