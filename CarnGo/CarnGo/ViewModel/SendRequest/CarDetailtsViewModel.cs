@@ -8,7 +8,7 @@ namespace CarnGo
 {
     public class CarDetailsViewModel
     {
-        public string Year { get; set; }
+        public int Year { get; set; }
         public string Model { get; set; }
         public bool AudioPlayer { get; set; }
         public bool ChildSeats { get; set; }

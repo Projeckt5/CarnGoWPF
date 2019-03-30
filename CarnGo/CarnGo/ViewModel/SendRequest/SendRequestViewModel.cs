@@ -17,11 +17,11 @@ namespace CarnGo
 #endregion
         public SendRequestViewModel()
         {
-            EventAggregatorSingleton.GetEventAggregator.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            EventAggregatorSingleton.EventAggregatorObj.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
         #region constructor
-        public void SearchCarProfileEvent(CarProfileModel car)
+        private void SearchCarProfileEvent(CarProfileModel car)
         {
             _carProfileModel = car;
         }
@@ -44,8 +44,13 @@ namespace CarnGo
 
         private void RentCarFunction()
         {
-            
-            var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);
+            if (Message == null || From<DateTime.Now || To <DateTime.Now)
+                return;
+            var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
+            sendingMessage.From = From;
+            sendingMessage.To = To;
+            sendingMessage.Message = Message;
+
             //sendingMessage lægges ind i database MANGLER
 
             ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage

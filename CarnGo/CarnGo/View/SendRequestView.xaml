@@ -56,7 +56,7 @@
                     <Label  Content="Details"
                             HorizontalAlignment="Left"                        
                         />
-                    <userControls:CarDetails></userControls:CarDetails>
+                    <userControls:CarDetails ></userControls:CarDetails>
                    
                              
                       
