@@ -3,17 +3,16 @@ using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Prism.Commands;
+using Prism.Events;
 
 namespace CarnGo
 {
+    public class SearchEvent : PubSubEvent<string> { }
     public class HeaderBarViewModel : BaseViewModel
     {
         #region Private Fields
-
-        private bool _showNotifications = false;
         private int _numUnreadNotifications = 0;
         private bool _unreadNotifications = false;
-
         #endregion
         #region Default Constructor
         public HeaderBarViewModel()
@@ -21,19 +20,9 @@ namespace CarnGo
         }
         #endregion
         #region Public Properties
-        public string SearchKeyWord { get; set; }
 
-        public bool ShowNotifications
-        {
-            get => _showNotifications;
-            set
-            {
-                if(_showNotifications == value)
-                    return;
-                _showNotifications = value;
-                OnPropertyChanged(nameof(ShowNotifications));
-            }
-        }
+        public UserModel UserModel => ViewModelLocator.ApplicationViewModel.CurrentUser;
+        public string SearchKeyWord { get; set; }
 
         public int NumUnreadNotifications
         {
@@ -87,16 +76,16 @@ namespace CarnGo
 
         private void Logout()
         {
-            //TODO: Log the user out
+            ViewModelLocator.ApplicationViewModel.CurrentUser = null;
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.LoginPage);
         }
 
         private void Search()
         {
+            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Publish(SearchKeyWord);
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.SearchPage);
-            //TODO: Make the search with the search string
         }
 
         private void ShowNotification()

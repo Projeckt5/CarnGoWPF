@@ -19,6 +19,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <!--Home Icon-->
@@ -38,17 +39,43 @@
                                      SearchCommand="{Binding SearchCommand}"
                                      SearchText="{Binding SearchKeyWord,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!--User Icon-->
+            <!--Find Car Button-->
             <Button Grid.Column="2"
-                    Style="{StaticResource IconGrowButton}"
+                    FontSize="{StaticResource FontSizeXLarge}"
+                    Style="{StaticResource TextAndIconButton}"
+                    Padding="10"
+                    Command="{Binding FindCarCommand}">
+                <StackPanel>
+                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                               Text="Find car" 
+                               Foreground="{StaticResource BackgroundMainBrush}"/>
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               Text="{StaticResource FontAwesomeCarIcon}"/>
+                </StackPanel>
+            </Button>
+
+            <!--User Icon-->
+            <Button Grid.Column="3"
+                    Style="{StaticResource TextAndIconButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NavigateUserCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
-                           FontFamily="{StaticResource FontAwesome}"/>
+                    Command="{Binding NavigateUserCommand}"
+                    Padding="10">
+                <StackPanel>
+                    <TextBlock Text="{Binding UserModel.Firstname, FallbackValue=Unknown}"
+                               FontFamily="{StaticResource RobotoRegular}" 
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
+                               FontFamily="{StaticResource FontAwesome}"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
             </Button>
 
             <!--Notification Icon-->
-            <Grid Grid.Column="3">
+            <Grid Grid.Column="4">
                 <ToggleButton Style="{StaticResource IconGrowToggleButton}" 
                               x:Name="NotificationButton" 
                               Foreground="{StaticResource BackgroundMainBrush}"
@@ -89,30 +116,12 @@
                 </Popup>
             </Grid>
 
-            <!--Find Car Button-->
-            <Button Grid.Column="4"
-                    FontSize="{StaticResource FontSizeXLarge}"
+            <!--Logout Button-->
+            <Button Grid.Column="6"
                     Style="{StaticResource TextAndIconButton}"
-                    Padding="0"
-                    Command="{Binding FindCarCommand}">
-                <StackPanel Margin="10">
-                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
-                               Text="Find car" 
-                               Foreground="{StaticResource BackgroundMainBrush}"/>
-                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource BackgroundMainBrush}"
-                               Text="{StaticResource FontAwesomeCarIcon}"/>
-                </StackPanel>
-            </Button>
-
-            <!--Login Button-->
-            <!--TODO: Move this to user control because it propably changes when user is logged in-->
-            <Button Grid.Column="5"
-                    Style="{StaticResource TextAndIconButton}"
-                    Padding="10 0"
+                    Padding="10"
                     Command="{Binding LogoutCommand}">
-                <StackPanel Margin="10">
+                <StackPanel>
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Sign out" 
                                Foreground="{StaticResource BackgroundMainBrush}"/>
