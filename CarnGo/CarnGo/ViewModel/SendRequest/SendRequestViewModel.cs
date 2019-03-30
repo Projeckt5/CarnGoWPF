@@ -9,7 +9,7 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    class SendRequestViewModel:BaseViewModel
+    public class SendRequestViewModel:BaseViewModel
     {
         #region fields
 
@@ -28,28 +28,30 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        public string Message { get; set; }
-        public DateTime To { get; set; }
-        public DateTime From { get; set; }
+
+        public string Message { get; set; } = "Message to leaser";
+
+        public DateTime To { get; set; } = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+        public DateTime From { get; set; } =new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+
+        public CarDetailsViewModel Car { get; set; }= new CarDetailsViewModel { AudioPlayer = true, ChildSeats = false, Gps = true, Model = "Ford Mustang", Smoking = false, Year = 2010 };
+        public Object CarDetail => Car;
+
         #endregion
 
         #region Commands
         private ICommand _rentCarCommand;
 
-        public ICommand RentCarCommand
-        {
-            get { return _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction)); }
-            
-        }
+        public ICommand RentCarCommand => _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction));
 
         private void RentCarFunction()
         {
             if (Message == null || From<DateTime.Now || To <DateTime.Now)
                 return;
-            var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
-            sendingMessage.From = From;
-            sendingMessage.To = To;
-            sendingMessage.Message = Message;
+            //var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
+            //sendingMessage.From = From;
+            //sendingMessage.To = To;
+            //sendingMessage.Message = Message;
 
             //sendingMessage lægges ind i database MANGLER
 

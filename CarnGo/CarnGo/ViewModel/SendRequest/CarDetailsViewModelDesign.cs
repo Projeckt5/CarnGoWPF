@@ -7,9 +7,19 @@ using System.Threading.Tasks;
 
 namespace CarnGo
 {
-    public static class CarDetailsViewModelDesign
+    public class CarDetailsViewModelDesign:CarDetailsViewModel
     {
         
-        public static CarDetailsViewModel Cardetail { get; }=new CarDetailsViewModel{AudioPlayer = true,ChildSeats = true,Model = "Ford Mustang 2000",Smoking =false,Gps = false,Year = 2000};
+        public static CarDetailsViewModelDesign Cardetail =>new CarDetailsViewModelDesign();
+
+        public CarDetailsViewModelDesign()
+        {
+            AudioPlayer = true;
+            ChildSeats = true;
+            Model = "Ford Mustang 2000";
+            Smoking = false;
+            Gps = false;
+            Year = 2000;
+        }
     }
 }

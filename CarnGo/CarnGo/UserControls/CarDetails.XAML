@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="270">
-    <Grid>
+             d:DesignHeight="200" d:DesignWidth="270"
+             >
+                
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -25,14 +28,14 @@
                     Grid.Column="1"
             >
             <!-- Car Model Binding -->
-            <TextBlock Text="Mercedes Benz CLA 250"
+            <TextBlock Text="{Binding Path=Model}"
                        Margin="0,0,0,8"
                        Padding="0,5,0,0"
                        FontSize="12"
                        FontWeight="Black"
                        />
             <!-- Car Manufactoring year -->
-            <TextBlock Text="2011"
+            <TextBlock Text="{Binding Path=Year}"
                        FontSize="12"
                        VerticalAlignment="Top"
                        />
@@ -54,35 +57,35 @@
             </Grid.RowDefinitions>
 
             <!-- Must insert a converter to confirm whether it is CHECK or BAN -->
-            <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
+            <TextBox IsReadOnly="True" Text="{Binding Path=AudioPlayer,Converter={StaticResource CarDetailConverter}}" FontFamily="{StaticResource FontAwesome}"
                      Grid.Column="0" Grid.Row="0" Background="{StaticResource BackgroundMainBrush}"
             />
 
-            <TextBox Text="Audio Player"
+            <TextBox IsReadOnly="True" Text="Audio Player"
                      Grid.Column="1" Grid.Row="0" 
             />
 
-            <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
+            <TextBox IsReadOnly="True" Text="{Binding Path=ChildSeats,Converter={StaticResource CarDetailConverter}}" FontFamily="{StaticResource FontAwesome}"
                      Grid.Column="2" Grid.Row="0"
             />
 
-            <TextBox Text="Child seat"
+            <TextBox IsReadOnly="True" Text="Child seat"
                      Grid.Column="3" Grid.Row="0"
             />
 
-            <TextBox Text="{StaticResource FontAwesomeBanIcon}" FontFamily="{StaticResource FontAwesome}"
+            <TextBox IsReadOnly="True" Text="{Binding Path=Smoking,Converter={StaticResource CarDetailConverter}}" FontFamily="{StaticResource FontAwesome}"
                      Grid.Column="0" Grid.Row="1"
             />
 
-            <TextBox Text="Smoking"
+            <TextBox IsReadOnly="True" Text="Smoking"
                      Grid.Column="1" Grid.Row="1"
             />
 
-            <TextBox Text="{StaticResource FontAwesomeCheckIcon}" FontFamily="{StaticResource FontAwesome}"
+            <TextBox IsReadOnly="True" Text="{Binding Path=Gps,Converter={StaticResource CarDetailConverter},UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource FontAwesome}"
                      Grid.Column="2" Grid.Row="1"
             />
 
-            <TextBox Text="GPS"
+            <TextBox IsReadOnly="True" Text="GPS"
                      Grid.Column="3" Grid.Row="1"
             />
         </Grid>

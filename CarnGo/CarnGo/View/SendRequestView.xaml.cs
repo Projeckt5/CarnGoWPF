@@ -18,7 +18,7 @@ namespace CarnGo.View
     /// <summary>
     /// Interaction logic for SendRequestView.xaml
     /// </summary>
-    public partial class SendRequestView : Page
+    public partial class SendRequestView:BasePage<SendRequestViewModel>
     {
         public SendRequestView()
         {

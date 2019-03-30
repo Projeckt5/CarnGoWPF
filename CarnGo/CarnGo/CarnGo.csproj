@@ -96,6 +96,7 @@
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\CarDetailBoolToImageValueConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeToStringValueConverter.cs" />
     <Compile Include="ValueConverters\InvertBooleanValueConverter.cs" />
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailsViewModelDesign.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\SendRequestViewModelDesign.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>

@@ -1,4 +1,4 @@
-﻿<Page x:Class="CarnGo.View.SendRequestView"
+﻿<local:BasePage x:TypeArguments="local:SendRequestViewModel" x:Class="CarnGo.View.SendRequestView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -56,7 +56,7 @@
                     <Label  Content="Details"
                             HorizontalAlignment="Left"                        
                         />
-                    <userControls:CarDetails ></userControls:CarDetails>
+                   <ContentControl Content="{Binding Path=CarDetail}"></ContentControl>
                    
                              
                       
@@ -100,12 +100,14 @@
                        />
 
 
-                <DatePicker Text="{Binding From}"
+                <DatePicker DisplayDate="{Binding From}"
+                            SelectedDate="{Binding From}"
                             HorizontalAlignment="Left" 
                             Grid.Row="1" Grid.Column="0"
                             />
                 
-                <DatePicker Text="{Binding To}"
+                <DatePicker DisplayDate="{Binding To,UpdateSourceTrigger=PropertyChanged}"
+                            SelectedDate="{Binding From,UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Left" 
                             Margin="15, 0, 0, 0"
                             Grid.Row="1" Grid.Column="1"
@@ -115,14 +117,14 @@
             </Border>
 
                 <TextBox Grid.Row="1" 
-                     Text="comment to owner"
+                     Text="{Binding Message}"
                 HorizontalAlignment="Left"
                      VerticalAlignment="Top"
              />
                 <!--MANGLER lave data binding til Message i viewmodel -->
 
                 <!-- Must only be enabled if dates have been set-->
-            <Button Grid.Row="2" 
+            <Button Command="{Binding RentCarCommand}"  Grid.Row="2" 
                     HorizontalAlignment="Left"
                     Content="RENT CAR"
                     />
@@ -131,4 +133,4 @@
     </Grid>
     </Border>
 
-</Page>
+</local:BasePage>
