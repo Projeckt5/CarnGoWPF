@@ -7,26 +7,75 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="400"
              >
-    <Border BorderThickness="1" Background="{StaticResource BackgroundDarkBrush}">
-        <Grid d:DataContext="{x:Static local:NotificationItemDesignViewModel.Instance}">
-        <Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <!--Trigger for Confirm/Denied property-->
+        <Style TargetType="TextBlock" x:Key="Confirmation" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Foreground" Value="Red"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="true">
+                    <Setter Property="Foreground" Value="Green"/>
+                    <Setter Property="Text" Value="Confirmed"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="false">
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Text" Value="Denied"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Trigger for type of Message (Renter/Lessor) -->
+
+    </UserControl.Resources>
+
+        <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="6*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Image Source="../../Images/Bilfoto.jpg" Margin="10 10 10 10 " ></Image>
+
+        <Image Source="../../Images/Bilfoto.jpg" Margin="10 10 10 10 " MaxWidth="100" MaxHeight="50"></Image>
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
                 <RowDefinition Height="4*"></RowDefinition>
                 
-
             </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource BaseTextBlockStyle}" FontSize="{StaticResource FontSizeLarge}" Foreground="Green" Text="{Binding Confirmed}"></TextBlock>
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"  Style="{StaticResource BaseTextBlockStyle}" TextDecorations="" FontSize="{StaticResource FontSizeLarge}" Text="{Binding Name}"></TextBlock>
-            <TextBlock  TextTrimming="CharacterEllipsis"  Grid.Row="1" TextWrapping="Wrap"   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10"  Style="{StaticResource BaseTextBlockStyle}" Text="{Binding Message}">
-            </TextBlock>
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" 
+                       Style="{StaticResource Confirmation}" 
+                       FontSize="{StaticResource FontSizeSmall}" 
+                       Margin="0 0 20 0" 
+                       />
+
+                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                       Style="{StaticResource BaseTextBlockStyle}" 
+                       TextDecorations="" FontSize="{StaticResource FontSizeLarge}" 
+                />
+
+                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                           Style="{StaticResource BaseTextBlockStyle}"
+                           TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
+                           Margin="10 0 0 0" 
+                           >
+                        <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="LessorNotification.Lessor.Firstname"/>
+                            <Binding Path="LessorNotification.Lessor.Lastname"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock  TextTrimming="CharacterEllipsis"  
+                        Grid.Row="1" TextWrapping="Wrap"   
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Left" Margin="10 10 0 0" 
+                        Style="{StaticResource BaseTextBlockStyle}" 
+                        FontSize="{StaticResource FontSizeSmall}"
+                        Text="{Binding DisplayMessage}"
+                        />
+
         </Grid>
     </Grid>
     </Border>
-
 </UserControl>

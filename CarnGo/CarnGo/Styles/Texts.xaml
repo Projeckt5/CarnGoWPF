@@ -3,6 +3,7 @@
 					xmlns:local="clr-namespace:CarnGo"
 					xmlns:valueConverters="clr-namespace:CarnGo">
 
+
 	<!--Header text-->
 	<Style TargetType="{x:Type TextBlock}" x:Key="HeaderText" BasedOn="{StaticResource BaseTextBlockStyle}">
 		<Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}" />

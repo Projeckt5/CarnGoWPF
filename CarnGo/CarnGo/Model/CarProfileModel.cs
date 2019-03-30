@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,38 +25,59 @@ namespace CarnGo
         /// <param name="brand"></param>
         /// <param name="age"></param>
         /// <param name="regNr"></param>
-        public CarProfileModel(UserModel owner, string name, string brand, int age, string regNr,
-                                 bool audioPlayer, bool childSeats, bool smoking, bool gps)
+
+       
+
+        public CarProfileModel(UserModel owner,string model, string brand, int age, string regNr)
         {
-            Name = name;
+            Model = model;
             Brand = brand;
             Age = age;
             Regnr = regNr;
-            Owner = owner;
-            _equipment=new CarEquipment(audioPlayer,childSeats,smoking,gps);
+            Owner = owner;           
         }
         #endregion
 
         #region Fields
-        private string _name;
+        private string _model;
         private string _brand;
         private int _age;
         private string _regNr;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
+
         private CarEquipment _equipment;
-        
+
+        private Bitmap _carPicture;
+        private UserModel _owner;
+        private int _seats;
+        private int _rentalPrice;
+        private string _fuelType;
+        private string _carDescription;
+
         #endregion
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
-        public string Name
+
+        public Bitmap CarPicture
         {
-            get { return _name; }
+            get { return _carPicture; }
             set
             {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                _carPicture = value;
+                OnPropertyChanged(nameof(CarPicture));
+            }
+        }
+
+
+        public string Model
+        {
+            get { return _model; }
+            set
+            {
+                _model = value;
+                OnPropertyChanged(nameof(Model));
             }
         }
 
@@ -74,7 +96,7 @@ namespace CarnGo
             get { return _age; }
             set
             {
-                _age = value > 1900 && value <= DateTime.Now.DayOfYear ? value : throw new ArgumentException("Invalid Year");
+                _age = value > 1900 && value <= DateTime.Now.Year ? value : throw new ArgumentException("Invalid Year");
                 OnPropertyChanged(nameof(Age));
             }
         }
@@ -112,12 +134,55 @@ namespace CarnGo
             }
         }
 
-        public UserModel Owner { get; private set; }
+        public UserModel Owner
+        {
+            get { return _owner;  }
+            set
+            {
+                _owner = value;
+                OnPropertyChanged(nameof(Owner));
+            }
+        }
+
+        public int Seats
+        {
+            get { return _seats; }
+            set
+            {
+                _seats = value;
+                OnPropertyChanged(nameof(Seats));
+            }
+        }
+
+        public int RentalPrice
+        {
+            get { return _rentalPrice; }
+            set
+            {
+                _rentalPrice = value;
+                OnPropertyChanged(nameof(RentalPrice));
+            }
+        }
+
+        public string FuelType
+        {
+            get { return _fuelType; }
+            set
+            {
+                _fuelType = value;
+                OnPropertyChanged(nameof(FuelType));
+            }
+        }
+
+        public string CarDescription
+        {
+            get { return _fuelType; }
+            set
+            {
+                _carDescription = value;
+                OnPropertyChanged(nameof(CarDescription));
+            }
+        }
         #endregion
-
-
-
-
-
     }
 }

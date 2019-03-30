@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <Image Source="../Images/Bilfoto.jpg"
                Margin="10"/>
-        <Button Grid.Column="3"                    
+        <Button Grid.Column="2"                    
                 Content="Rent"
                 Width="80"
                 Height="40"

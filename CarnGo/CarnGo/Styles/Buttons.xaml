@@ -30,6 +30,64 @@
                             Background="{TemplateBinding Background}" 
                             SnapsToDevicePixels="True">
                         <Grid>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}" 
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation To="{StaticResource BlueLight}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation From="{StaticResource BlueLight}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource ForegroundDarkBrush}"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.46"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Loadable button -->
+    <Style TargetType="{x:Type Button}" x:Key="LoadableButton" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="Background" Value="{StaticResource BlueMainBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="Padding" Value="20 10" />
+        <Setter Property="Margin" Value="0 10" />
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="border"
+                            CornerRadius="10"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="True">
+                        <Grid>
                             <ContentPresenter x:Name="contentPresenter" 
                                               Visibility="{TemplateBinding local:IsBusyAttachedProperty.IsBusy, Converter={local:BooleanToVisibilityConverter}}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}" 
@@ -175,6 +233,136 @@
                                 <Storyboard>
                                     <DoubleAnimation To="1.4" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"/>
                                     <DoubleAnimation To="1.4" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"/>
+                                    <DoubleAnimation To="1" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--Icon Grow ToggleButton-->
+    <Style x:Key="IconGrowToggleButton" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="True">
+                        <!--Add a render scale transform-->
+                        <Border.RenderTransform>
+                            <ScaleTransform/>
+                        </Border.RenderTransform>
+                        <Border.RenderTransformOrigin>
+                            <Point X="0.5" Y="0.5"/>
+                        </Border.RenderTransformOrigin>
+                        <Grid>
+                            <Viewbox>
+                                <ContentPresenter x:Name="contentPresenter" 
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                                  Content="{TemplateBinding Content}" 
+                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                  Focusable="False" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  Margin="{TemplateBinding Padding}" 
+                                                  RecognizesAccessKey="True"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1.4" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"/>
+                                    <DoubleAnimation To="1.4" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"/>
+                                    <DoubleAnimation To="1" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Text and Icon button -->
+    <Style x:Key="TextAndIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="Padding" Value="10" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Border x:Name="border"
+                            CornerRadius="10"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}" 
+                            SnapsToDevicePixels="True">
+                        <!--Add a render scale transform-->
+                        <Border.RenderTransform>
+                            <ScaleTransform/>
+                        </Border.RenderTransform>
+                        <Border.RenderTransformOrigin>
+                            <Point X="0.5" Y="0.5"/>
+                        </Border.RenderTransformOrigin>
+                        <Grid>
+                            <Viewbox>
+                                <ContentPresenter x:Name="contentPresenter" 
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}" 
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                              Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              RecognizesAccessKey="True" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation To="1.2" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"/>
+                                    <DoubleAnimation To="1.2" Duration="0:0:0.15" Storyboard.TargetName="border" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>

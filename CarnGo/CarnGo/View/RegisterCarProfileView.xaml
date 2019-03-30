@@ -39,7 +39,15 @@
                 >
                     <Image Source="../Images/Bilfoto.jpg" HorizontalAlignment="Right" Width="192" />
                 </Border>
-                <Button Grid.Row="1" Content="Upload Photo" Margin="50,0,50,10"/>
+                <Grid Grid.Row="1" Margin="50,0,50,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Upload" Margin="00,0,10,0" Width="92"/>
+                    <Button Grid.Column="1" Content="Edit" Margin="10,0,0,0" Width="92"/>
+                </Grid>
+
 
                 <StackPanel Grid.Row="2" Margin="50,0,50,0">
                     <TextBox HorizontalAlignment="Left" FontSize="10" Padding="3" BorderThickness="0">
@@ -61,15 +69,21 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+
                 </Grid.RowDefinitions>
 
-                <Border Margin="0, 50, 50, 0"
+                <Border Margin="0, 20, 50, 0"
                     BorderBrush="{StaticResource BlueMainBrush}" 
                     >
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -105,19 +119,61 @@
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="2" Grid.Column="0"
-                               Content="Seats:" Width="46"/>
+                               Content="Car Age:" Height="27" VerticalAlignment="Top"/>
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="2" Grid.Column="1"
-                               Content="Fuel:"
-                               Margin="0,0,0,0" Width="39"
+                               Content="Reg Number:"
+                               Margin="0,0,0,0" 
                         />
 
                         <TextBlock HorizontalAlignment="Left" 
                                    Grid.Row="3" Width="110"
                         />
 
-                        <ComboBox Grid.Row="3" Grid.Column="1" 
+                        <TextBlock HorizontalAlignment="Left" 
+                                   Margin="0, 0, 0, 0"
+                                   Grid.Row="3" Grid.Column="1" Width="110"
+                        />
+
+                        <Label HorizontalAlignment="Left"
+                               Grid.Row="4" Grid.Column="0"
+                               Content="Lease Start:" />
+
+                        <Label HorizontalAlignment="Left"
+                               Grid.Row="4" Grid.Column="1"
+                               Content="Lease End:"
+                               Margin="0,0,0,0" 
+                        />
+
+                        <DatePicker HorizontalAlignment="Left" 
+                                   Grid.Row="5" Grid.Column="0" Width="110"
+                        />
+
+                        <DatePicker HorizontalAlignment="Left" 
+                                   Margin="0, 0, 0, 0"
+                                   Grid.Row="5" Grid.Column="1" Width="110"
+                        />
+
+                        <Label HorizontalAlignment="Left"
+                               Grid.Row="6" Grid.Column="0"
+                               Content="Number of seats:" />
+
+                        <Label HorizontalAlignment="Left"
+                               Grid.Row="6" Grid.Column="1"
+                               Content="Fuel Type:"
+                               Margin="0,0,0,0" 
+                        />
+
+                        <TextBlock HorizontalAlignment="Left" 
+                                   Margin="0, 0, 0, 0"
+                                   Grid.Row="7" Grid.Column="0" Width="110"
+                                   
+                        />
+
+
+
+                        <ComboBox Grid.Row="7" Grid.Column="1" 
                                   Text="Select Fuel Type" 
                                   Margin="0,0,0,0">
                             <TextBlock>Petrol</TextBlock>
@@ -132,12 +188,8 @@
                     </Grid>
                 </Border>
 
-                <Label HorizontalAlignment="Left"
-                       Grid.Row="1" Grid.Column="0"
-                       Content="Price:"
-                />
 
-                <TextBox Grid.Row="2" 
+                <TextBox Grid.Row="1" 
                          Text="Price In DKK"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
@@ -146,7 +198,7 @@
 
 
                 <!-- Must only be enabled if dates have been set-->
-                <Button Grid.Row="3" HorizontalContentAlignment="Center"
+                <Button Grid.Row="2" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Center"
                     Content="Save" Margin="65,0,162,0"
                     />

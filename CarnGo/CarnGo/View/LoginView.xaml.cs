@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarnGo.View
+namespace CarnGo
 {
     public partial class LoginView : Page
     {
