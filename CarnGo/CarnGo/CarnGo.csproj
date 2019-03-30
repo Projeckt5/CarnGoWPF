@@ -67,6 +67,7 @@
     <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
     <Compile Include="AttachedProperties\IsBusyAttachedProperty.cs" />
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
+    <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\UserType.cs" />
@@ -74,9 +75,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CarEquipment.xaml.cs">
-      <DependentUpon>CarEquipment.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\HeaderBarControl.xaml.cs">
       <DependentUpon>HeaderBarControl.xaml</DependentUpon>
@@ -98,6 +96,7 @@
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel.cs" />
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -168,10 +167,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CarDetails.XAML">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CarEquipment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

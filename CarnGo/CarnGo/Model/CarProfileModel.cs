@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace CarnGo
 {
     public class CarProfileModel : BaseViewModel
@@ -23,13 +24,15 @@ namespace CarnGo
         /// <param name="brand"></param>
         /// <param name="age"></param>
         /// <param name="regNr"></param>
-        public CarProfileModel(UserModel owner,string name, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner, string name, string brand, int age, string regNr,
+                                 bool audioPlayer, bool childSeats, bool smoking, bool gps)
         {
             Name = name;
             Brand = brand;
             Age = age;
             Regnr = regNr;
             Owner = owner;
+            _equipment=new CarEquipment(audioPlayer,childSeats,smoking,gps);
         }
         #endregion
 
@@ -40,6 +43,7 @@ namespace CarnGo
         private string _regNr;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
+        private CarEquipment _equipment;
         
         #endregion
 

@@ -24,5 +24,10 @@ namespace CarnGo.View
         {
             InitializeComponent();
         }
+
+        private void CarDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
