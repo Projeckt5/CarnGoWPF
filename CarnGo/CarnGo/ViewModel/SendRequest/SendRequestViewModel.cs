@@ -46,8 +46,9 @@ namespace CarnGo
 
         private void RentCarFunction()
         {
-            if (Message == null || From<DateTime.Now || To <DateTime.Now)
+            if (Message == null || From < DateTime.Now || To < DateTime.Now)
                 return;
+  
             //var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
             //sendingMessage.From = From;
             //sendingMessage.To = To;

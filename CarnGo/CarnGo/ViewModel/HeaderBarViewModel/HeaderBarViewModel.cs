@@ -80,7 +80,7 @@ namespace CarnGo
 
         public ICommand FindCarCommand => new DelegateCommand(()=>
                                                  ViewModelLocator.ApplicationViewModel
-                                                     .GoToPage(ApplicationPage.SendRequestPage));
+                                                     .GoToPage(ApplicationPage.SearchPage));
 
         #endregion
         #region Command Helpers
