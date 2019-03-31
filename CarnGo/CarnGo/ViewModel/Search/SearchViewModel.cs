@@ -134,8 +134,7 @@ namespace CarnGo
         }
 
         #endregion
-
-
+        
         #region Fields
 
         private List<SearchResultItemViewModel> _searchResultItems;
@@ -156,6 +155,8 @@ namespace CarnGo
 
         #endregion
 
+        #region EventAggregator
+
         //IEventAggregator _eventAggregator;
 
         //public SearchViewModel(IEventAggregator ea)
@@ -165,5 +166,7 @@ namespace CarnGo
         //    var hej = new CarProfileDataEvent();
         //    _eventAggregator.GetEvent<CarProfileDataEvent>().Publish(hej);
         //}
+
+        #endregion
     }
 }
