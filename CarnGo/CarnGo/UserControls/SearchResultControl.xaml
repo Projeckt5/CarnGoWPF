@@ -5,17 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="530">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{StaticResource BackgroundMainBrush}">
-        <StackPanel>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-            <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+             d:DesignHeight="450" d:DesignWidth="300">
+    <Viewbox StretchDirection="Both" Stretch="Uniform">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{StaticResource BackgroundMainBrush}">
+         <StackPanel>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
+                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
         </StackPanel>
-    </ScrollViewer>
+       </ScrollViewer>
+    </Viewbox>
 </UserControl>

@@ -59,9 +59,8 @@
                             Margin="5"/>
             </StackPanel>
             <local:SearchResultControl Grid.Column="1"
-                                       Padding="0 10 0 10"                                    
-                                       VerticalAlignment="Top"
-                                       HorizontalAlignment="Left"/>
+                                       Padding="0 12 0 12"
+                                       />
         </Grid>
     </Border>
 </Page>

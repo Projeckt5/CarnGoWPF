@@ -38,6 +38,8 @@ namespace CarnGo
         private string _brand;
         private int _age;
         private string _regNr;
+        private string _location;
+        private int _seats;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
         
@@ -82,6 +84,25 @@ namespace CarnGo
             {
                 _regNr = value.Length == 7 ? value : throw new ArgumentException("Registration number must contain 7 digits");
                 OnPropertyChanged(nameof(_regNr));
+            }
+        }
+
+        public string Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value.Length > 1 ? value : throw new ArgumentException("Location must contain more than 1 characters");
+                OnPropertyChanged(nameof(_location));
+            }
+        }
+
+        public int Seats
+        {
+            get { return _seats; }
+            set
+            {
+                _seats = (value > 0 && value < 20) ? value : throw new ArgumentException("Car must have between 0 and 20 seats");
             }
         }
 

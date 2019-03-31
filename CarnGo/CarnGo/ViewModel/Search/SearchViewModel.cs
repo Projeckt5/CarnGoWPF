@@ -1,19 +1,44 @@
-﻿using Prism.Events;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
+using Prism.Events;
 
 namespace CarnGo
 {
     public class CarProfileDataEvent : PubSubEvent<object> { }
     
-    public class SearchViewModel
+    public class SearchViewModel : CarProfileModel
     {
-        IEventAggregator _eventAggregator;
+        public static SearchViewModel Instance => new SearchViewModel();
 
-        public SearchViewModel(IEventAggregator ea)
+        #region Fields
+        private List<CarProfileModel> _searchResultItems;
+
+        #endregion
+
+        #region Properties
+        public List<CarProfileModel> SearchResultItems
         {
-            _eventAggregator = ea;
-
-            //var hej = new CarProfileDataEvent();
-            //_eventAggregator.GetEvent<CarProfileDataEvent>().Publish(hej);
+            get { return _searchResultItems; }
+            set
+            {
+                _searchResultItems = value;
+                OnPropertyChanged(nameof(SearchResultItems));
+            }
         }
+
+
+
+        #endregion
+
+        //IEventAggregator _eventAggregator;
+
+        //public SearchViewModel(IEventAggregator ea)
+        //{
+        //    _eventAggregator = ea;
+
+        //    var hej = new CarProfileDataEvent();
+        //    _eventAggregator.GetEvent<CarProfileDataEvent>().Publish(hej);
+        //}
     }
 }

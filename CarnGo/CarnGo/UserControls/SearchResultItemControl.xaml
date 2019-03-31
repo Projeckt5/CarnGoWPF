@@ -5,17 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="510"
+             d:DesignHeight="100" d:DesignWidth="500"
              Background="{StaticResource BackgroundMainBrush}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Image Source="../Images/Bilfoto.jpg"
-               Margin="10"/>
-        <Button Grid.Column="3"                    
+               Margin="2"/>
+        <Button Grid.Column="2"                    
                 Content="Rent"
                 Width="80"
                 Height="40"
