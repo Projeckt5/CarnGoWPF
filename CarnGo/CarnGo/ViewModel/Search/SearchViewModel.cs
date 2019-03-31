@@ -11,12 +11,48 @@ namespace CarnGo
     {
         public static SearchViewModel Instance => new SearchViewModel();
 
-        #region Fields
-        private List<CarProfileModel> _searchResultItems;
+        #region Constructor
+
+        public SearchViewModel()
+        {
+            UserModel jensJensen = new UserModel
+            {
+                Firstname = "Jens",
+                Lastname = "Jensen",
+                Address = "Finlandsgade 1",
+                Email = "hmm@gmail.com",
+                UserType = UserType.Lessor
+            };
+
+            _searchResultItems = new List<CarProfileModel>()
+            {
+                new CarProfileModel()
+                { 
+                    Name = "CLA 250",
+                    Brand = "Mercedes",
+                    Age = 5,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 2,
+                    Price = 400,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                }
+            };
+        }
 
         #endregion
 
+
+        #region Fields
+
+        private List<CarProfileModel> _searchResultItems;
+        
+        #endregion
+
         #region Properties
+
         public List<CarProfileModel> SearchResultItems
         {
             get { return _searchResultItems; }
@@ -26,8 +62,6 @@ namespace CarnGo
                 OnPropertyChanged(nameof(SearchResultItems));
             }
         }
-
-
 
         #endregion
 

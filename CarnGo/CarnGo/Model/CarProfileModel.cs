@@ -40,6 +40,7 @@ namespace CarnGo
         private string _regNr;
         private string _location;
         private int _seats;
+        private int _price;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
         
@@ -72,7 +73,7 @@ namespace CarnGo
             get { return _age; }
             set
             {
-                _age = value > 1900 && value <= DateTime.Now.DayOfYear ? value : throw new ArgumentException("Invalid Year");
+                _age = value > 1900 && value <= DateTime.Now.Year ? value : throw new ArgumentException("Invalid Year");
                 OnPropertyChanged(nameof(Age));
             }
         }
@@ -106,6 +107,15 @@ namespace CarnGo
             }
         }
 
+        public int Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value > 0 ? value : throw new ArgumentException("Price must be higher than 0");
+            }
+        }
+
         public DateTime StartLeaseTime
         {
             get { return _startLeaseTime; }
@@ -129,7 +139,7 @@ namespace CarnGo
             }
         }
 
-        public UserModel Owner { get; private set; }
+        public UserModel Owner { get; set; }
         #endregion
 
 
