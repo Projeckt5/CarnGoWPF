@@ -1,16 +1,18 @@
-﻿<Window x:Class="CarnGo.UserSignUp"
+﻿<local:BasePage x:TypeArguments="local:UserSignUpViewModel"  x:Class="CarnGo.UserSignUp"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CarnGo.View"
+      xmlns:local="clr-namespace:CarnGo"
       mc:Ignorable="d" d:DesignWidth="934.683"
-      Title="UserSignUpView" Height="549.824">
+      Title="UserSignUpView">
     <Border Background="{StaticResource BackgroundMainBrush}"
-            Margin="0,50,246,12"
+            Margin="50"
             Padding="20 30"
-            CornerRadius="20" HorizontalAlignment="Right" Width="414">
-        <StackPanel Margin="0,0,0,38">
+            Width="350"
+            CornerRadius="20"
+            HorizontalAlignment="Center">
+        <StackPanel>
             <TextBlock Style="{StaticResource HeaderText}"
                        Foreground="{StaticResource BlueMainBrush}"
                        Text="Register"/>
@@ -18,11 +20,18 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                        HorizontalAlignment="Center"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
             <TextBox Tag="Email"
-                     FontSize="{StaticResource FontSizeLarge}"/>
-            <PasswordBox Tag="Password"
+                     FontSize="{StaticResource FontSizeLarge}"
+                     Text="{Binding Email,Mode=TwoWay,ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox x:Name="Password" 
+                         Tag="Password"
+                         local:EncryptedPasswordAttachedProperty.MonitorEncryptedPassword="True"
+                         local:EncryptedPasswordAttachedProperty.EncryptedPassword="{Binding PasswordSecureString, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="{StaticResource FontSizeLarge}"/>
-            <PasswordBox Tag="Repeat Password"
-                         FontSize="{StaticResource FontSizeLarge}"></PasswordBox>
+            <PasswordBox x:Name="PasswordConfirm" 
+                         Tag="Repeat Password"
+                         local:EncryptedPasswordAttachedProperty.MonitorEncryptedPassword="True"
+                         local:EncryptedPasswordAttachedProperty.EncryptedPassword="{Binding PasswordValidateSecureString, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="{StaticResource FontSizeLarge}"/>
 
             <DockPanel>
                 <CheckBox Content="I agree to all terms" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -34,14 +43,23 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         Foreground="{StaticResource ForegroundMainBrush}"/>
             </DockPanel>
             <Button Content="Register"
-                    FontSize="{StaticResource FontSizeLarge}"/>
+                    FontSize="{StaticResource FontSizeLarge}"
+                    Command="{Binding RegisterCommand}"/>
             <Button Style="{StaticResource TextButton}"
                     Padding="10 0 0 10"
                     Content="Or Login Here"
+                    HorizontalAlignment="Center"
                     Foreground="{StaticResource ForegroundMainBrush}" Height="63"/>
+            <ListView ItemsSource="{Binding AllErrors}"
+                      IsHitTestVisible="False"
+                      Foreground="Red"
+                      BorderThickness="0"
+                      Background="{StaticResource BackgroundMainBrush}">
+
+            </ListView>
         </StackPanel>
     </Border>
-</Window>
+</local:BasePage>
 
    
 

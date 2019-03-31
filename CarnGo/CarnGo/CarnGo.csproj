@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\EncryptedPasswordAttachedProperty.cs" />
     <Compile Include="EventAggregator\EventAggregatorSingleton.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Security\SecureStringHelpers.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
     </Compile>
@@ -107,6 +109,7 @@
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailsViewModelDesign.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
+    <Compile Include="ViewModel\UserSignUp\UserSignUpViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
