@@ -5,20 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
-    <Viewbox StretchDirection="Both" Stretch="Uniform">
+             d:DesignHeight="450" d:DesignWidth="510"
+             >
+    <Viewbox StretchDirection="Both" Stretch="Uniform" DataContext="{x:Static local:SearchViewModel.Instance}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{StaticResource BackgroundMainBrush}">
-         <StackPanel>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-                <local:SearchResultItemControl Height="100" Width="510" VerticalAlignment="Top"/>
-        </StackPanel>
-       </ScrollViewer>
+            <ItemsControl ItemsSource="{Binding SearchResultItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:SearchResultItemControl/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Viewbox>
 </UserControl>

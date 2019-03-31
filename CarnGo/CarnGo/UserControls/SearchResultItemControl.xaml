@@ -6,15 +6,20 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="500"
+             Height="100" Width="510"
              Background="{StaticResource BackgroundMainBrush}">
-    <Grid d:DataContext="{x:Static local:SearchResultItemViewModel.Instance}">
+    <UserControl.Template>
+        <ControlTemplate>
+        <Grid d:DataContext="{x:Static local:SearchResultItemViewModel.Instance}"
+              Background="{StaticResource BackgroundMainBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Image Source="../Images/Bilfoto.jpg"
-               Margin="2"/>
+               Height="80"
+               Width="100"/>
         <Button Grid.Column="2"                    
                 Content="Rent"
                 Width="80"
@@ -85,6 +90,7 @@
                        HorizontalAlignment="Left"
                        Grid.Row="1"
                        Grid.Column="3"
+                       TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
             <TextBlock Name="Location"
                        Text="{Binding Location}"
@@ -92,6 +98,7 @@
                        HorizontalAlignment="Left"
                        Grid.Row="2"
                        Grid.Column="3"
+                       TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
             <TextBlock Name="Seats"
                        Text="{Binding Seats}"
@@ -106,6 +113,7 @@
                        HorizontalAlignment="left"
                        Grid.Row="1"
                        Grid.Column="6"
+                       TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
             <TextBlock Name="Price"
                        Text="{Binding Price}"
@@ -115,12 +123,20 @@
                        Grid.Column="6"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
             <TextBlock Name="CarOwner"
-                       Text="{Binding Owner.Firstname}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="left"
                        Grid.Row="3"
                        Grid.Column="6"
-                       Foreground="{StaticResource ForegroundMainBrush}"/>
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="{StaticResource ForegroundMainBrush}">
+                <Run Text="{Binding Owner.Firstname}"/>
+                <Run Text=" "/>
+                <Run Text="{Binding Owner.Lastname}"/>
+            </TextBlock>
         </Grid>
-    </Grid>
+        <ContentPresenter/>
+            </Grid>
+            
+        </ControlTemplate>
+    </UserControl.Template>
 </UserControl>

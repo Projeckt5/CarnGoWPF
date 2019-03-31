@@ -24,13 +24,13 @@ namespace CarnGo
                 UserType = UserType.Lessor
             };
 
-            _searchResultItems = new List<CarProfileModel>()
+            _searchResultItems = new List<SearchResultItemViewModel>
             {
-                new CarProfileModel()
+                new SearchResultItemViewModel
                 { 
                     Name = "CLA 250",
                     Brand = "Mercedes",
-                    Age = 5,
+                    Age = 2010,
                     Regnr = "CA86304",
                     Location = "Aarhus",
                     Seats = 2,
@@ -38,7 +38,98 @@ namespace CarnGo
                     StartLeaseTime = DateTime.Today,
                     EndLeaseTime = DateTime.Today,
                     Owner = jensJensen
-                }
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "CLA 250",
+                    Brand = "Mercedes",
+                    Age = 2010,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 2,
+                    Price = 400,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "Model S",
+                    Brand = "Tesla",
+                    Age = 2018,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 5,
+                    Price = 600,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "Fortwo",
+                    Brand = "Smart",
+                    Age = 2016,
+                    Regnr = "CA86304",
+                    Location = "Padborg",
+                    Seats = 2,
+                    Price = 150,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "CLA 250",
+                    Brand = "Mercedes",
+                    Age = 2010,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 2,
+                    Price = 400,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "CLA 250",
+                    Brand = "Mercedes",
+                    Age = 2010,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 2,
+                    Price = 400,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "Berlingo",
+                    Brand = "Citroen",
+                    Age = 2010,
+                    Regnr = "CA86304",
+                    Location = "Aarhus",
+                    Seats = 5,
+                    Price = 200,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
+                new SearchResultItemViewModel
+                {
+                    Name = "A6",
+                    Brand = "Audi",
+                    Age = 2008,
+                    Regnr = "CA86304",
+                    Location = "Odense",
+                    Seats = 5,
+                    Price = 200,
+                    StartLeaseTime = DateTime.Today,
+                    EndLeaseTime = DateTime.Today,
+                    Owner = jensJensen
+                },
             };
         }
 
@@ -47,13 +138,13 @@ namespace CarnGo
 
         #region Fields
 
-        private List<CarProfileModel> _searchResultItems;
+        private List<SearchResultItemViewModel> _searchResultItems;
         
         #endregion
 
         #region Properties
 
-        public List<CarProfileModel> SearchResultItems
+        public List<SearchResultItemViewModel> SearchResultItems
         {
             get { return _searchResultItems; }
             set
