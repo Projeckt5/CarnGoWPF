@@ -10,7 +10,7 @@ namespace CarnGo
     {
         public SendRequestViewModelDesign()
         {
-            Car = new CarDetailsViewModel{AudioPlayer = true,ChildSeats = false,Gps = true,Model = "Ford Mustang",Smoking = false,Year = 2010};
+            //Car = new CarDetailsViewModel{AudioPlayer = true,ChildSeats = false,Gps = true,Model = "Ford Mustang",Smoking = false,Year = 2010};
             From=DateTime.Now;
             To=DateTime.Now;
             Message = "Nothing to add";
