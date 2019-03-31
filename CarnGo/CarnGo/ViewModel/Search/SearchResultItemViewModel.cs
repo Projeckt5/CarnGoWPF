@@ -8,7 +8,7 @@ namespace CarnGo
 
         public SearchResultItemViewModel()
         {
-            Name = "CLA 250";
+            Model = "CLA 250";
             Brand = "Mercedes";
             Age = 2010;
             Regnr = "CA86304";

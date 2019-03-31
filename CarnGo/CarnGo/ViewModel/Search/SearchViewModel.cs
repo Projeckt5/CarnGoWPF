@@ -28,7 +28,7 @@ namespace CarnGo
             {
                 new SearchResultItemViewModel
                 { 
-                    Name = "CLA 250",
+                    Model = "CLA 250",
                     Brand = "Mercedes",
                     Age = 2010,
                     Regnr = "CA86304",
@@ -41,7 +41,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "CLA 250",
+                    Model = "CLA 250",
                     Brand = "Mercedes",
                     Age = 2010,
                     Regnr = "CA86304",
@@ -54,7 +54,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "Model S",
+                    Model = "Model S",
                     Brand = "Tesla",
                     Age = 2018,
                     Regnr = "CA86304",
@@ -67,7 +67,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "Fortwo",
+                    Model = "Fortwo",
                     Brand = "Smart",
                     Age = 2016,
                     Regnr = "CA86304",
@@ -80,7 +80,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "CLA 250",
+                    Model = "CLA 250",
                     Brand = "Mercedes",
                     Age = 2010,
                     Regnr = "CA86304",
@@ -93,7 +93,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "CLA 250",
+                    Model = "CLA 250",
                     Brand = "Mercedes",
                     Age = 2010,
                     Regnr = "CA86304",
@@ -106,7 +106,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "Berlingo",
+                    Model = "Berlingo",
                     Brand = "Citroen",
                     Age = 2010,
                     Regnr = "CA86304",
@@ -119,7 +119,7 @@ namespace CarnGo
                 },
                 new SearchResultItemViewModel
                 {
-                    Name = "A6",
+                    Model = "A6",
                     Brand = "Audi",
                     Age = 2008,
                     Regnr = "CA86304",

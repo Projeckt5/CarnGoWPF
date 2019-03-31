@@ -53,7 +53,6 @@ namespace CarnGo
 
         private Bitmap _carPicture;
         private UserModel _owner;
-        private int _seats;
         private int _rentalPrice;
         private string _fuelType;
         private string _carDescription;
@@ -172,16 +171,6 @@ namespace CarnGo
             {
                 _owner = value;
                 OnPropertyChanged(nameof(Owner));
-            }
-        }
-
-        public int Seats
-        {
-            get { return _seats; }
-            set
-            {
-                _seats = value;
-                OnPropertyChanged(nameof(Seats));
             }
         }
 
