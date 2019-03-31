@@ -101,7 +101,11 @@
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Security\Validation\EmailValidator.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
+    <Compile Include="Security\Validation\IValidator.cs" />
+    <Compile Include="Security\Validation\PasswordMatchValidator.cs" />
+    <Compile Include="Security\Validation\PasswordValidator.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
     </Compile>

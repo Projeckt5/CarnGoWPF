@@ -15,7 +15,9 @@ namespace CarnGo
     public class UserSignUpViewModel : BaseViewModel, INotifyDataErrorInfo
     {
         #region Private Fields
-
+        private readonly IValidator<string> _emailValidator = new EmailValidator();
+        private readonly IValidator<SecureString> _passwordValidator = new PasswordValidator();
+        private readonly IValidator<List<SecureString>> _passwordMatchValidator = new PasswordMatchValidator();
         private string _email;
         private SecureString _password;
         private SecureString _passwordValidate;
@@ -36,7 +38,7 @@ namespace CarnGo
                 if (_email == value)
                     return;
                 _email = value;
-                ValidateEmail(nameof(Email),Email);
+                ValidateEmail();
                 OnPropertyChanged(nameof(Email));
             }
         }
@@ -49,7 +51,7 @@ namespace CarnGo
                 if (_password == value)
                     return;
                 _password = value;
-                ValidatePassword(nameof(PasswordSecureString),PasswordSecureString);
+                ValidatePassword();
                 OnPropertyChanged(nameof(PasswordSecureString));
             }
         }
@@ -61,7 +63,7 @@ namespace CarnGo
                 if (_passwordValidate == value)
                     return;
                 _passwordValidate = value;
-                ValidatePasswordMatch(nameof(PasswordValidateSecureString), PasswordValidateSecureString, PasswordSecureString);
+                ValidatePasswordMatch();
                 OnPropertyChanged(nameof(PasswordValidateSecureString));
             }
         }
@@ -85,6 +87,7 @@ namespace CarnGo
 
         #endregion
         #region Command Helpers
+        //TODO make async and add loading flag
         private void RegisterUser()
         {
             AllErrors.Clear();
@@ -103,7 +106,7 @@ namespace CarnGo
         #endregion
         #region Error Handling
 
-        public Dictionary<string, List<string>> _errorsDictionary { get; }= new Dictionary<string, List<string>>();
+        private readonly Dictionary<string, List<string>> _errorsDictionary = new Dictionary<string, List<string>>();
         public IEnumerable GetErrors(string propertyName)
         {
             _errorsDictionary.TryGetValue(propertyName, out var errorsForProperty);
@@ -115,14 +118,15 @@ namespace CarnGo
 
         private void ValidateAll()
         {
-            ValidateEmail(nameof(Email),Email);
-            ValidatePassword(nameof(PasswordSecureString),PasswordSecureString);
-            ValidatePasswordMatch(nameof(PasswordValidateSecureString),PasswordValidateSecureString,PasswordSecureString);
+            ValidateEmail();
+            ValidatePassword();
+            ValidatePasswordMatch();
         }
 
-        private void ValidateEmail(string propertyName, string email)
+        private void ValidateEmail()
         {
-            List<string> emailErrors = (GetErrors(propertyName) as List<string>);
+            const string emailPropertyName = nameof(Email);
+            List<string> emailErrors = (GetErrors(emailPropertyName) as List<string>);
             if (emailErrors == null)
             {
                 emailErrors = new List<string>();
@@ -131,24 +135,22 @@ namespace CarnGo
             {
                 emailErrors.Clear();
             }
+            
+            if(_emailValidator.Validate(Email) == false)
+            {
+                emailErrors.AddRange(_emailValidator.ValidationErrorMessages);
+            }
 
-            try
-            {
-                System.Net.Mail.MailAddress mailAddress = new System.Net.Mail.MailAddress(email);
-            }
-            catch
-            {
-                emailErrors.Add("Email is not a valid email");
-            }
-            _errorsDictionary[propertyName] = emailErrors;
+            _errorsDictionary[emailPropertyName] = emailErrors;
             if (emailErrors.Count > 0)
             {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(emailPropertyName));
             }
 
         }
-        private void ValidatePassword(string propertyName, SecureString secureString)
+        private void ValidatePassword()
         {
+            const string propertyName = nameof(PasswordSecureString);
             List<string> passwordErrors = (GetErrors(propertyName) as List<string>);
             if (passwordErrors == null)
             {
@@ -158,25 +160,10 @@ namespace CarnGo
             {
                 passwordErrors.Clear();
             }
-            
-            if(string.IsNullOrWhiteSpace(secureString.ConvertToString()))
+
+            if (_passwordValidator.Validate(PasswordSecureString) == false)
             {
-                passwordErrors.Add("Password can't be empty");
-            }
-            else
-            {
-                if (secureString.Length < 6)
-                {
-                    passwordErrors.Add("Password must be longer than 6 characters");
-                }
-                if (secureString.ConvertToString().Any(char.IsDigit) == false)
-                {
-                    passwordErrors.Add("The password must contain a number");
-                }
-                if (secureString.ConvertToString().Any(char.IsLetter) == false)
-                {
-                    passwordErrors.Add("The password must contain a character");
-                }
+                passwordErrors.AddRange(_passwordValidator.ValidationErrorMessages);
             }
 
             _errorsDictionary[propertyName] = passwordErrors;
@@ -187,8 +174,9 @@ namespace CarnGo
 
         }
 
-        private void ValidatePasswordMatch(string passwordValidationPropertyName, SecureString passwordValidation, SecureString password)
+        private void ValidatePasswordMatch()
         {
+            const string passwordValidationPropertyName = nameof(PasswordValidateSecureString);
             List<string> passwordConfirmationErrors = (GetErrors(passwordValidationPropertyName) as List<string>);
             if (passwordConfirmationErrors == null)
             {
@@ -198,10 +186,13 @@ namespace CarnGo
             {
                 passwordConfirmationErrors.Clear();
             }
-            if (password.ConvertToString() != passwordValidation.ConvertToString())
+
+            if (_passwordMatchValidator.Validate(new List<SecureString>()
+                    {PasswordSecureString, PasswordValidateSecureString}) == false)
             {
-                passwordConfirmationErrors.Add("Passwords don't match");
+                passwordConfirmationErrors.AddRange(_passwordMatchValidator.ValidationErrorMessages);
             }
+
             _errorsDictionary[passwordValidationPropertyName] = passwordConfirmationErrors;
             if (passwordConfirmationErrors.Count > 0)
             {
