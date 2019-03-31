@@ -14,29 +14,23 @@ using UserControl = System.Windows.Controls.UserControl;
 
 namespace CarnGo
 {
-    public class CarDetailBoolToImageValueConverter:MarkupExtension,IValueConverter
+    public class CarDetailBoolToImageValueConverter:BaseValueConverter<CarDetailBoolToImageValueConverter>
     {
-        public string CheckIcon { get; set; }
-        public string BanIcon { get; set; }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public string CheckIcon { get; set; }= "\uf00c";
+        public string BanIcon { get; set; } = "\uf05e";
+
+
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            if ((bool)value)
+            bool a = (bool)value;
+            if (a)
                 return CheckIcon;
-            else        
-                return BanIcon;
-
-
+            return BanIcon;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return new ApplicationPageValueConverter();
         }
     }
 }

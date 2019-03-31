@@ -1,4 +1,4 @@
-﻿<Page x:Class="CarnGo.View.SendRequestView"
+﻿<local:BasePage x:TypeArguments="local:SendRequestViewModel" x:Class="CarnGo.View.SendRequestView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:CarnGo"
              xmlns:userControls="clr-namespace:CarnGo"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://prismlibrary.com/">
 
     <Page.Resources>
         <DataTemplate DataType="{x:Type local:CarDetailsViewModel}">
@@ -25,16 +27,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
             <Label Grid.Row="0" 
                    Margin="0,15,0,0"
-                   Content="Mercedes Benz CLA 250"
+                   Content="{Binding CarModelName}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"
                    />
@@ -47,23 +50,21 @@
                 BorderThickness="2" 
                 BorderBrush="{StaticResource BlueMainBrush}"
                 SnapsToDevicePixels="True"
+                MinHeight="180"
                 >
-                <Image Source="../Images/Bilfoto.jpg" />
+                <Image Source="{Binding CarImage}" Stretch="Fill" />
             </Border>
                 
             
-                <StackPanel Grid.Row="2" Margin="50,0,50,0" >
+                <StackPanel Grid.Row="2" Margin="50,0,50,0" CanVerticallyScroll="True">
                     <Label  Content="Details"
                             HorizontalAlignment="Left"                        
                         />
-                    <userControls:CarDetails ></userControls:CarDetails>
-                   
-                             
-                      
-                    
-                    <!-- CarEquiplment -->
-                                        
+                    <ContentControl Content="{Binding Path=CarDetail}"></ContentControl>
+
                 </StackPanel>
+            
+
             </Grid>
 
         <Grid Grid.Column="1">
@@ -71,7 +72,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
             <Border Margin="0, 50, 50, 0"
                     BorderBrush="{StaticResource BlueMainBrush}" 
@@ -100,13 +102,17 @@
                        />
 
 
-                <DatePicker Text="{Binding From}"
+                <DatePicker DisplayDate="{Binding From,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                            SelectedDate="{Binding From}"
+                            ToolTip="{Binding ErrorCollection[From]}"
                             HorizontalAlignment="Left" 
                             Grid.Row="1" Grid.Column="0"
                             />
-                
-                <DatePicker Text="{Binding To}"
-                    HorizontalAlignment="Left" 
+
+                        <DatePicker DisplayDate="{Binding To,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                            SelectedDate="{Binding To,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="{Binding ErrorCollection[To]}"
+                            HorizontalAlignment="Left" 
                             Margin="15, 0, 0, 0"
                             Grid.Row="1" Grid.Column="1"
                             />
@@ -115,20 +121,33 @@
             </Border>
 
                 <TextBox Grid.Row="1" 
-                     Text="comment to owner"
-                HorizontalAlignment="Left"
-                     VerticalAlignment="Top"
-             />
-                <!--MANGLER lave data binding til Message i viewmodel -->
+                     Text="{Binding Message}"
+                     TextWrapping="Wrap"
+                     MinLines="1"
+                     MaxLines="4"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"
+                     AcceptsTab="True"
+                    HorizontalAlignment="Left"
+                     VerticalAlignment="Top">
+
+                    <i:Interaction.Triggers >
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding Path=EmptyTextBoxCommand, Mode=OneWay}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </TextBox>
+                
 
                 <!-- Must only be enabled if dates have been set-->
-            <Button Grid.Row="2" 
+            <Button Command="{Binding RentCarCommand}"  Grid.Row="2" 
                     HorizontalAlignment="Left"
                     Content="RENT CAR"
                     />
-
+             <TextBlock Grid.Row="3" Foreground="Red" Text="{Binding ErrorText}"></TextBlock>
             </Grid>    
     </Grid>
     </Border>
 
-</Page>
+</local:BasePage>
