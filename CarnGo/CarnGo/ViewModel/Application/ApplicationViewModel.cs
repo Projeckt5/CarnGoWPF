@@ -2,7 +2,7 @@
 {
     public class ApplicationViewModel : BaseViewModel
     {
-        private ApplicationPage _applicationPage = ApplicationPage.LoginPage;
+        private ApplicationPage _applicationPage = ApplicationPage.UserSignUpPage;
         private UserModel _currentUser = null;
 
         /// <summary>
@@ -19,6 +19,8 @@
                 OnPropertyChanged(nameof(CurrentPage));
             }
         }
+
+        public bool ShowHeaderBar => CurrentPage != ApplicationPage.LoginPage;
 
         /// <summary>
         /// The current user logged into the application

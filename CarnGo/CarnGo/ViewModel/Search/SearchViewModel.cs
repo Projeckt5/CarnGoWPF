@@ -5,7 +5,7 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    public class CarProfileDataEvent : PubSubEvent<object> { }
+    public class CarProfileDataEvent : PubSubEvent<CarProfileModel> { }
     
     public class SearchViewModel : CarProfileModel
     {

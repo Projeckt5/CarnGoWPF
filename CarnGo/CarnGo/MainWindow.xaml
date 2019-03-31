@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:HeaderBarControl Grid.Row="0"
                                 />
@@ -20,7 +21,6 @@
                                         Converter={local:ApplicationPageValueConverter}}"
             />
         </ScrollViewer>
-        
     </Grid>
 
 

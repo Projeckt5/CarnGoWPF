@@ -7,21 +7,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500"
              >
-    <Border CornerRadius="20" >
-    <Grid d:DataContext="{x:Static local:NotificationDesignViewModel.Instance}" Background="{StaticResource BackgroundLightBrush}">
-        
-            <ScrollViewer>
-            <ItemsControl Background="Black" ItemsSource="{Binding Items}">
-               
-                
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <local:NotificationItemView></local:NotificationItemView>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="NotificationButton">
+        </Style>
+    </UserControl.Resources>
+
+    <Border CornerRadius="20" >
+    <Grid Background="{StaticResource BackgroundLightBrush}">
+            <ScrollViewer>
+
+                <ItemsControl ItemsSource="{Binding Messages}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Background="{StaticResource BackgroundLightBrush}"
+                                    Style="{StaticResource NotificationButton}"
+                                    Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
+                            <local:NotificationItemView></local:NotificationItemView>
+                            </Button>
+                        </DataTemplate>
+                        
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         
         </Grid>
     </Border>

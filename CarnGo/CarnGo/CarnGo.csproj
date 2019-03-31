@@ -35,6 +35,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Controls, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Effects, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Effects.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Prototyping.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Prototyping.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Prototyping.SketchControls, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.Expression.Prototyping.SketchControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SDK.Expression.Blend, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\Microsoft.SDK.Expression.Blend.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -45,6 +66,9 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SDK.Expression.Blend.1.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,20 +87,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\EncryptedPasswordAttachedProperty.cs" />
+    <Compile Include="EventAggregator\EventAggregatorSingleton.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
     <Compile Include="AttachedProperties\IsBusyAttachedProperty.cs" />
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
+    <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\MessageFromLessorModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
+    <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Security\Validation\EmailValidator.cs" />
+    <Compile Include="Security\SecureStringHelpers.cs" />
+    <Compile Include="Security\Validation\IValidator.cs" />
+    <Compile Include="Security\Validation\PasswordMatchValidator.cs" />
+    <Compile Include="Security\Validation\PasswordValidator.cs" />
     <Compile Include="UserControls\CarDetails.xaml.cs">
       <DependentUpon>CarDetails.XAML</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CarEquipment.xaml.cs">
-      <DependentUpon>CarEquipment.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\HeaderBarControl.xaml.cs">
       <DependentUpon>HeaderBarControl.xaml</DependentUpon>
@@ -94,12 +125,22 @@
       <DependentUpon>SearchResultItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
+    <Compile Include="ValueConverters\CarDetailBoolToImageValueConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeToStringValueConverter.cs" />
+    <Compile Include="ValueConverters\InvertBooleanValueConverter.cs" />
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModel\CarProfile\CarProfileViewModel.cs" />
+    <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
+    <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchResultItemViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
-    <Compile Include="ViewModel\HeaderBarViewModel.cs" />
+    <Compile Include="ViewModel\HeaderBarViewModel\HeaderBarViewModel.cs" />
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\CarDetailsViewModelDesign.cs" />
+    <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
+    <Compile Include="ViewModel\UserSignUp\UserSignUpViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\SendRequestViewModelDesign.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -114,10 +155,7 @@
       <DependentUpon>UserSignUpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationDesignViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationItemDesignViewModel.cs" />
-    <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
-    <Compile Include="ViewModel\Notification\Dummy\NotificationItemViewModel.cs" />
+    <Compile Include="ViewModel\Notification\NotificationItemViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\SendRequestViewModel.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -170,10 +208,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CarDetails.XAML">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\CarEquipment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,5 +318,6 @@
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,11 +10,13 @@
     
     <Border Height="60" 
             Background="{StaticResource BlueMainBrush}"
-            DataContext="{x:Static carnGo:HeaderBarViewModel.Instance}">
+            DataContext="{x:Static carnGo:HeaderBarDesignModel.Instance}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -24,7 +26,8 @@
             <Button Grid.Column="0"
                     Style="{StaticResource IconGrowButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NavigateHomeCommand}">
+                    Command="{Binding NavigateHomeCommand}"
+                    Padding="20">
                 <TextBlock Text="{StaticResource FontAwesomeHomeIcon}" 
                            FontFamily="{StaticResource FontAwesome}"/>
             </Button>
@@ -32,45 +35,100 @@
             <!--SearchBar-->
             <carnGo:SearchBarControl Grid.Column="1" 
                                      Margin="15"
+                                     MaxWidth="800"
                                      SearchCommand="{Binding SearchCommand}"
                                      SearchText="{Binding SearchKeyWord,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!--User Icon-->
+            <!--Find Car Button-->
             <Button Grid.Column="2"
-                    Style="{StaticResource IconGrowButton}"
+                    FontSize="{StaticResource FontSizeXLarge}"
+                    Style="{StaticResource TextAndIconButton}"
+                    Padding="10"
+                    Command="{Binding FindCarCommand}">
+                <StackPanel>
+                    <TextBlock FontFamily="{StaticResource RobotoRegular}" 
+                               Text="Find car" 
+                               Foreground="{StaticResource BackgroundMainBrush}"/>
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               Text="{StaticResource FontAwesomeCarIcon}"/>
+                </StackPanel>
+            </Button>
+
+            <!--User Icon-->
+            <Button Grid.Column="3"
+                    Style="{StaticResource TextAndIconButton}"
                     Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NavigateUserCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
-                           FontFamily="{StaticResource FontAwesome}"/>
+                    Command="{Binding NavigateUserCommand}"
+                    Padding="10">
+                <StackPanel>
+                    <TextBlock Text="{Binding UserModel.Firstname, FallbackValue=Unknown}"
+                               FontFamily="{StaticResource RobotoRegular}" 
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="{StaticResource FontAwesomeUserIcon}" 
+                               FontFamily="{StaticResource FontAwesome}"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
             </Button>
 
             <!--Notification Icon-->
-            <Button Grid.Column="3"
-                    Style="{StaticResource IconGrowButton}"
-                    Foreground="{StaticResource BackgroundMainBrush}"
-                    Command="{Binding NotificationCommand}">
-                <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
-                           FontFamily="{StaticResource FontAwesome}"/>
-            </Button>
+            <Grid Grid.Column="4">
+                <ToggleButton Style="{StaticResource IconGrowToggleButton}" 
+                              x:Name="NotificationButton" 
+                              Foreground="{StaticResource BackgroundMainBrush}"
+                              Command="{Binding NotificationCommand}"
+                              IsHitTestVisible="{Binding IsOpen, Mode=OneWay, ElementName=NotificationPopup, Converter={carnGo:InvertBooleanValueConverter}}">
+                    <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
+                               FontFamily="{StaticResource FontAwesome}"/>
+                </ToggleButton>
+                <Border Width="20"
+                        Height="20"
+                        CornerRadius="120"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom"
+                        Background="Red"
+                        Margin="5"
+                        Padding="3"
+                        Visibility="{Binding UnreadNotifications,
+                                        Converter={carnGo:BooleanToVisibilityConverter}, 
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        ConverterParameter=true}">
+                    <Viewbox>
+                        <TextBlock Text="{Binding NumUnreadNotifications}"
+                                   Foreground="{StaticResource ForegroundLightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource RobotoBold}"/>
+                    </Viewbox>
+                </Border>
+                <!--Popup menu from the notifcation bar-->
+                <Popup x:Name="NotificationPopup" 
+                       IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
+                       StaysOpen="False"
+                       HorizontalOffset="-150">
+                    <Border Padding="10"
+                            Background="{StaticResource BlueLightBrush}">
+                        <carnGo:NotificationView MaxHeight="200"/>
+                    </Border>
+                </Popup>
+            </Grid>
 
-            <!--Login Button-->
-            <!--TODO: Move this to user control because it propably changes when user is logged in-->
-            <Button Grid.Column="4"
-                    FontSize="{StaticResource FontSizeXLarge}"
-                    Style="{StaticResource IconGrowButton}"
-                    Padding="8"
-                    Margin="12 0"
-                    Command="{Binding LoginCommand}">
-                <StackPanel Orientation="Horizontal">
+            <!--Logout Button-->
+            <Button Grid.Column="6"
+                    Style="{StaticResource TextAndIconButton}"
+                    Padding="10"
+                    Command="{Binding LogoutCommand}">
+                <StackPanel>
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
-                               FontSize="{StaticResource FontSizeRegular}"
-                               Text="Sign in" 
-                               Padding="0 0 5 0"
+                               Text="Sign out" 
                                Foreground="{StaticResource BackgroundMainBrush}"/>
                     <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
                                Foreground="{StaticResource BackgroundMainBrush}"
-                               Text="{StaticResource FontAwesomeSignInIcon}"
-                               FontSize="{StaticResource FontSizeRegular}"/>
+                               Text="{StaticResource FontAwesomeSignInIcon}"/>
                 </StackPanel>
             </Button>
         </Grid>

@@ -8,6 +8,7 @@
         MessageView,
         SearchPage,
         UserSignUpPage,
-        StartPage
+        StartPage,
+        SendRequestPage,
     }
 }
