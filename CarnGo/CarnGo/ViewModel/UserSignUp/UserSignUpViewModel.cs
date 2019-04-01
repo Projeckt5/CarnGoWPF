@@ -83,6 +83,7 @@ namespace CarnGo
         #region Public Commands
 
         public ICommand RegisterCommand => new DelegateCommand(RegisterUser);
+        public ICommand NavigateLoginCommand => new DelegateCommand(()=> ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.LoginPage));
 
 
         #endregion
