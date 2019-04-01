@@ -66,6 +66,7 @@ namespace CarnGo
                     return;
                 _password = value;
                 ValidatePassword();
+                ValidatePasswordMatch();
                 OnPropertyChanged(nameof(PasswordSecureString));
             }
         }
@@ -161,10 +162,8 @@ namespace CarnGo
             }
 
             _errorsDictionary[emailPropertyName] = emailErrors;
-            if (emailErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(emailPropertyName));
-            }
+
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(emailPropertyName));
 
         }
         private void ValidatePassword()
@@ -186,11 +185,7 @@ namespace CarnGo
             }
 
             _errorsDictionary[propertyName] = passwordErrors;
-            if (passwordErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-            }
-
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
         private void ValidatePasswordMatch()
@@ -213,10 +208,7 @@ namespace CarnGo
             }
 
             _errorsDictionary[passwordValidationPropertyName] = passwordConfirmationErrors;
-            if (passwordConfirmationErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(passwordValidationPropertyName));
-            }
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(passwordValidationPropertyName));
         }
         #endregion
     }
