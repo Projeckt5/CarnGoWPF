@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using CarnGo.Security;
 using Prism.Commands;
@@ -22,6 +23,7 @@ namespace CarnGo
         private SecureString _password;
         private SecureString _passwordValidate;
         private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
+        private bool _isRegistering;
         #endregion
         #region Default Constructor
 
@@ -30,6 +32,18 @@ namespace CarnGo
         }
         #endregion
         #region Public Properties
+
+        public bool IsRegistering
+        {
+            get=> _isRegistering;
+            set
+            {
+                if (_isRegistering == value)
+                    return;
+                _isRegistering = value;
+                OnPropertyChanged(nameof(IsRegistering));
+            }
+        }
         public string Email
         {
             get=>_email;
@@ -52,6 +66,7 @@ namespace CarnGo
                     return;
                 _password = value;
                 ValidatePassword();
+                ValidatePasswordMatch();
                 OnPropertyChanged(nameof(PasswordSecureString));
             }
         }
@@ -82,14 +97,16 @@ namespace CarnGo
         #endregion
         #region Public Commands
 
-        public ICommand RegisterCommand => new DelegateCommand(RegisterUser);
+        public ICommand RegisterCommand => new DelegateCommand(async ()=> await RegisterUser());
+        public ICommand NavigateLoginCommand => new DelegateCommand(()=> ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.LoginPage));
 
 
         #endregion
         #region Command Helpers
         //TODO make async and add loading flag
-        private void RegisterUser()
+        private async Task RegisterUser()
         {
+            IsRegistering = true;
             AllErrors.Clear();
             ValidateAll();
             if (HasErrors)
@@ -100,13 +117,16 @@ namespace CarnGo
                     allErrorsList.AddRange(error.Value);
                 }
                 AllErrors = new ObservableCollection<string>(allErrorsList);
-                return;
             }
+            //TODO: AWAIT REGISTERING THE USER ON THE DB
+            await Task.Delay(2000);
+            IsRegistering = false;
         }
         #endregion
         #region Error Handling
 
         private readonly Dictionary<string, List<string>> _errorsDictionary = new Dictionary<string, List<string>>();
+
         public IEnumerable GetErrors(string propertyName)
         {
             _errorsDictionary.TryGetValue(propertyName, out var errorsForProperty);
@@ -142,10 +162,8 @@ namespace CarnGo
             }
 
             _errorsDictionary[emailPropertyName] = emailErrors;
-            if (emailErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(emailPropertyName));
-            }
+
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(emailPropertyName));
 
         }
         private void ValidatePassword()
@@ -167,11 +185,7 @@ namespace CarnGo
             }
 
             _errorsDictionary[propertyName] = passwordErrors;
-            if (passwordErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-            }
-
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
         private void ValidatePasswordMatch()
@@ -194,10 +208,7 @@ namespace CarnGo
             }
 
             _errorsDictionary[passwordValidationPropertyName] = passwordConfirmationErrors;
-            if (passwordConfirmationErrors.Count > 0)
-            {
-                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(passwordValidationPropertyName));
-            }
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(passwordValidationPropertyName));
         }
         #endregion
     }
