@@ -34,7 +34,9 @@ namespace CarnGo
             Brand = brand;
             Age = age;
             Regnr = regNr;
-            Owner = owner;           
+            Owner = owner;
+            StartLeaseTime = DateTime.Today;
+            EndLeaseTime = DateTime.Today;
         }
         #endregion
 

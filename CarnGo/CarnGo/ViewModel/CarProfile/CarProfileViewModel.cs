@@ -12,18 +12,22 @@ namespace CarnGo
 {
     public class CarProfileViewModel : BaseViewModel
     {
- 
+
+ 
         private CarProfileModel _originalCarProfileModel;
         private CarProfileModel _editedCarProfileModel;
+        private bool _editing;
+        public bool _isReadOnly;
 
-        public bool Editing { get; set; }
-        public bool _isOwner = true;
+        public bool IsOwner { get; set; }
+        
         
         //TODO: Not sure if i should validate who the owner is og get it passed inn
         public CarProfileViewModel()
         {
             _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133" );
             Editing = false;
+            IsReadOnly = true;
         }
 
         
@@ -96,6 +100,26 @@ namespace CarnGo
             set => _editedCarProfileModel.CarDescription = value;
         }
 
+        public bool Editing
+        {
+            get => _editing;
+            set
+            {
+                _editing = value;
+                OnPropertyChanged(nameof(Editing));
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get => _isReadOnly;
+            set
+            {
+                _isReadOnly = value;
+                OnPropertyChanged(nameof(IsReadOnly));
+            }
+        }
+
         #endregion
 
         #region Public Commands
@@ -108,7 +132,7 @@ namespace CarnGo
 
         public ICommand UpLoadPhotoCommand => _uploadPhotoCommand ?? (_uploadPhotoCommand = new DelegateCommand(UploadPhotoFunction));
 
-        public ICommand EditCarProfileCommand => _editCarProfile ?? (_editCarProfile = new DelegateCommand(UploadPhotoFunction));
+        public ICommand EditCarProfileCommand => _editCarProfile ?? (_editCarProfile = new DelegateCommand(EditCarProfileFunction));
 
         #endregion
 
@@ -118,11 +142,13 @@ namespace CarnGo
         {
             _originalCarProfileModel = _editedCarProfileModel;
             Editing = false;
+            IsReadOnly = true;
         }
 
         private void EditCarProfileFunction()
         {
             Editing = true;
+            IsReadOnly = false;
         }
 
         private void UploadPhotoFunction()

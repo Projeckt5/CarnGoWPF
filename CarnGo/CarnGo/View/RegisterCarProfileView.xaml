@@ -56,7 +56,7 @@
                             Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
                             />
 
-                    
+
 
                 </Grid>
 
@@ -137,15 +137,17 @@
                                  Width="110"
                                  Text="{Binding CarMake, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Tag="Car Make"
+                                 IsReadOnly="{Binding IsReadOnly}"
                             />
 
-                        <!--CarModel TextBox-->
+                            <!--CarModel TextBox-->
                         <TextBox HorizontalAlignment="Left"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
                                  Width="110"
                                  Text="{Binding CarModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Tag="Car Model"
+                                 IsReadOnly="{Binding IsReadOnly}"
                             />
 
                         <!--<Label HorizontalAlignment="Left"
@@ -169,6 +171,7 @@
                                  Width="110"
                                  Text="{Binding CarAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Tag="Car Age"
+                                 IsReadOnly="{Binding IsReadOnly}"
                         />
 
                         <!--CarReg TextBox-->
@@ -178,12 +181,14 @@
                                    Width="110"
                                    Text="{Binding CarRegNr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    Tag="Reg Number"
+                                   IsReadOnly="{Binding IsReadOnly}"
                         />
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="4"
                                Grid.Column="0"
-                               Content="Lease Start:" />
+                               Content="Lease Start:" 
+                               />
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="4"
@@ -198,7 +203,7 @@
                                     Grid.Column="0"
                                     Width="110"
                                     SelectedDate="{Binding CarStartLeaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-
+                                    IsEnabled="{Binding Editing}"
                         />
 
                         <!--Lease End-->
@@ -208,12 +213,14 @@
                                     Grid.Column="1" 
                                     Width="110"
                                     SelectedDate="{Binding CarEndLeaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        />
+                                    IsEnabled="{Binding Editing}"
+                                    />
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="6" 
                                Grid.Column="0"
-                               Content="Number of seats:" />
+                               Content="Number of seats:"
+                               />
 
                         <Label HorizontalAlignment="Left"
                                Grid.Row="6" 
@@ -229,6 +236,7 @@
                                    Grid.Column="0" 
                                    Width="110"
                                    Text="{Binding CarSeats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                   IsReadOnly="{Binding IsReadOnly}"
                         />
 
                         <!--TODO: Need help binding this correctly -->
@@ -237,10 +245,12 @@
                                   Grid.Column="1" 
                                   Text="Select Fuel Type" 
                                   Margin="0,0,0,0"
+                                  IsEditable="False"
+                                  IsEnabled="{Binding Editing}"
                                   >
-                            <TextBox>Petrol</TextBox>
-                            <TextBox>Diesel</TextBox>
-                            <TextBox>Electric</TextBox>
+                            <TextBlock>Petrol</TextBlock>
+                            <TextBlock>Diesel</TextBlock>
+                            <TextBlock>Electric</TextBlock>
                         </ComboBox>
 
 
@@ -258,6 +268,7 @@
                          VerticalAlignment="Top"
                          Width="200"
                          Text="{Binding CarRentalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsReadOnly="{Binding IsReadOnly}"
                 />
 
 
@@ -268,17 +279,18 @@
                         Content="Save" 
                         Margin="65,0,162,0"
                         Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                        Command="{Binding SaveCommand}"
                     />
 
                 <Button Grid.Row="2"
                         HorizontalContentAlignment="Center"
                         HorizontalAlignment="Center"
                         Content="Edit"
-                        Margin="65,0,162,0" 
-                        Width="92"
-                        Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"
+                        Margin="65,0,162,0"
+                        Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}" Height="38" VerticalAlignment="Top"
+                        Command="{Binding EditCarProfileCommand}"
                         />
-                
+
 
             </Grid>
         </Grid>
