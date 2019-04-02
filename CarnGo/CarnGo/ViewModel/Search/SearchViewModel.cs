@@ -15,6 +15,15 @@ namespace CarnGo
 
     public class SearchViewModel : CarProfileModel
     {
+        #region Constructor
+
+        public SearchViewModel()
+        {
+            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+        }
+
+        #endregion
+
         #region Fields
 
         protected string _locationText;
@@ -129,6 +138,16 @@ namespace CarnGo
 
             cv.Filter = null;
             OnPropertyChanged(nameof(cv));
+        }
+
+        private void SearchEventHandler(string location)
+        {
+            if (!string.IsNullOrEmpty(location))
+            {
+                ClearSearch();
+                LocationText = location;
+                Search();
+            }
         }
 
         #endregion

@@ -83,9 +83,9 @@ namespace CarnGo
 
         private void Search()
         {
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Publish(SearchKeyWord);
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.SearchPage);
+            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 
         private void ShowNotification()
