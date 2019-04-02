@@ -13,21 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarnGo.View
+namespace CarnGo
 {
     /// <summary>
     /// Interaction logic for RegisterCarProfile.xaml
     /// </summary>
-    public partial class RegisterCarProfile : Page
+    public partial class RegisterCarProfile : BasePage<CarProfileViewModel>
     {
         public RegisterCarProfile()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
