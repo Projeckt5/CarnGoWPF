@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CarnGo"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="SearchView">
-    <Border d:DataContext="{x:Static local:SearchViewModel.Instance}"
+
+    <Border 
             Background="{StaticResource BackgroundMainBrush}"
             BorderThickness="4"
             BorderBrush="{StaticResource BlueMainBrush}"
             CornerRadius="20">
-        <Grid>
+        <Grid DataContext="{x:Static local:SearchResultDesignModel.Instance}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="6*"/>
@@ -26,15 +26,16 @@
                            Padding="5"
                            HorizontalAlignment="Left"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <TextBox Tag="Location"
+                <TextBox Tag="Location..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
-                         BorderThickness="1"/>
+                         BorderThickness="1"
+                         Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Enter car brand:"
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <TextBox Tag="Brand"
+                <TextBox Tag="Brand..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"/>
@@ -42,7 +43,7 @@
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <TextBox Tag="Seats"
+                <TextBox Tag="Seats..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"/>
@@ -58,6 +59,30 @@
                            Foreground="{StaticResource ForegroundMainBrush}"/>
                 <DatePicker FontSize="{StaticResource FontSizeRegular}"
                             Padding="5"/>
+
+
+                <WrapPanel Margin="5" HorizontalAlignment="Center">
+                    <!-- Search button -->
+                    <Button Padding="6"
+                        Height="50"
+                        Foreground="{StaticResource ForegroundMainBrush}"
+                        Style="{StaticResource IconGrowButton}"
+                        Command="{Binding SearchCommand}">
+                    <TextBlock Text="{StaticResource FontAwesomeSearchIcon}" 
+                               FontFamily="{StaticResource FontAwesome}"/>
+                    </Button>
+                    <!-- Clear search button -->
+                    <Button Padding="6"
+                            Height="50"
+                            Foreground="{StaticResource ForegroundMainBrush}"
+                            Style="{StaticResource IconGrowButton}"
+                            Command="{Binding ClearSearchCommand}"
+                            IsDefault="True">
+                        <TextBlock Text="{StaticResource FontAwesomeTrashIcon}" 
+                                   FontFamily="{StaticResource FontAwesome}"/>
+                        </Button>
+                    </WrapPanel>
+
             </StackPanel>
             <local:SearchResultControl Grid.Column="1"
                                        Padding="0 12 0 12"
