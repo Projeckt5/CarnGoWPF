@@ -34,7 +34,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                          FontSize="{StaticResource FontSizeLarge}"/>
 
             <DockPanel>
-                <CheckBox Content="I agree to all terms" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox x:Name="TermsCb" Content="I agree to all terms" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center"/>
                 <Button Style="{StaticResource TextButton}"
                         Content="Terms and Agreements"
                         Padding="10 2 0 0"
@@ -43,12 +45,15 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         Foreground="{StaticResource ForegroundMainBrush}"/>
             </DockPanel>
             <Button Content="Register"
+                    IsEnabled="{Binding IsChecked, ElementName=TermsCb}"
                     FontSize="{StaticResource FontSizeLarge}"
+                    local:IsBusyAttachedProperty.IsBusy="{Binding IsRegistering, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource LoadableButton}"
                     Command="{Binding RegisterCommand}"/>
             <Button Style="{StaticResource TextButton}"
-                    Padding="10 0 0 10"
                     Content="Or Login Here"
                     HorizontalAlignment="Center"
+                    Command="{Binding NavigateLoginCommand}"
                     Foreground="{StaticResource ForegroundMainBrush}" Height="63"/>
             <ListView ItemsSource="{Binding AllErrors}"
                       IsHitTestVisible="False"

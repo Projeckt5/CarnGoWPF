@@ -1,30 +1,45 @@
-﻿using System;
+﻿using System.Windows.Input;
+using Prism.Commands;
+using Prism.Events;
 
 namespace CarnGo
 {
+
+    public class CarProfileDataEvent : PubSubEvent<SearchResultItemViewModel> { }
+
     public class SearchResultItemViewModel : CarProfileModel
     {
-        public static SearchResultItemViewModel Instance => new SearchResultItemViewModel();
+        #region Constructor
 
         public SearchResultItemViewModel()
         {
-            Model = "CLA 250";
-            Brand = "Mercedes";
-            Age = 2010;
-            Regnr = "CA86304";
-            Location = "Aarhus";
-            Seats = 2;
-            Price = 400;
-            StartLeaseTime = DateTime.Today;
-            EndLeaseTime = DateTime.Today;
-            Owner = new UserModel
-            {
-                Firstname = "Jens",
-                Lastname = "Jensen",
-                Address = "Finlandsgade 1",
-                Email = "hmm@gmail.com",
-                UserType = UserType.Lessor
-            };
         }
+
+        #endregion
+
+        #region Commands
+
+        private ICommand _sendRequestCommand;
+        public ICommand SendRequestCommand
+        {
+            get
+            {
+                return _sendRequestCommand ?? (_sendRequestCommand = new DelegateCommand(SendRequest));
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void SendRequest()
+        {
+            ViewModelLocator.ApplicationViewModel
+                .GoToPage(ApplicationPage.SendRequestPage);
+            
+            EventAggregatorSingleton.EventAggregatorObj.GetEvent<CarProfileDataEvent>().Publish(this);
+        }
+
+        #endregion
     }
 }

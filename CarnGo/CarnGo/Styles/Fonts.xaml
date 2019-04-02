@@ -53,6 +53,7 @@
     <system:String x:Key="FontAwesomeBellIcon">&#xf0f3;</system:String>
     <system:String x:Key="FontAwesomeSignInIcon">&#xf2f6;</system:String>
     <system:String x:Key="FontAwesomeSaveOutIcon">&#xf0c7;</system:String>
+    <system:String x:Key="FontAwesomeTrashIcon">&#xf2ed;</system:String>
     
     <!--FotAwesomeIcon Converter-->
     <local:CarDetailBoolToImageValueConverter x:Key="CarDetailConverter" 

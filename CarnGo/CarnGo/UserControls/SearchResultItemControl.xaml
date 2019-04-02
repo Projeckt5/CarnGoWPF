@@ -8,10 +8,8 @@
              d:DesignHeight="100" d:DesignWidth="500"
              Height="100" Width="510"
              Background="{StaticResource BackgroundMainBrush}">
-    <UserControl.Template>
-        <ControlTemplate>
-        <Grid d:DataContext="{x:Static local:SearchResultItemViewModel.Instance}"
-              Background="{StaticResource BackgroundMainBrush}">
+    <Grid Background="{StaticResource BackgroundMainBrush}"
+          d:DataContext="{x:Static local:SearchResultItemDesignModel.Instance}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="3*"/>
@@ -24,67 +22,68 @@
                 Content="Rent"
                 Width="80"
                 Height="40"
+                Command="{Binding SendRequestCommand}"
                 />
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition Height="1.5*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="4*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Name="MakeIcon"
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="MakeIcon"
                        Grid.Row="1"
                        Grid.Column="1"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomeIndustryIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="LocationIcon"
+            <TextBlock Name="LocationIcon"
                        Grid.Row="2"
                        Grid.Column="1"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomeMapMarkerIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="SeatsIcon"
+            <TextBlock Name="SeatsIcon"
                        Grid.Row="3"
                        Grid.Column="1"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomeUsersIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="ModelIcon"
+            <TextBlock Name="ModelIcon"
                        Grid.Row="1"
                        Grid.Column="4"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomeCarIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="PriceIcon"
+            <TextBlock Name="PriceIcon"
                        Grid.Row="2"
                        Grid.Column="4"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomePriceIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="CarOwnerIcon"
+            <TextBlock Name="CarOwnerIcon"
                        Grid.Row="3"
                        Grid.Column="4"
                        FontFamily="{StaticResource FontAwesome}"
                        Text="{StaticResource FontAwesomeUserIcon}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-                    <TextBlock Name="Make"
+            <TextBlock Name="Make"
                        Text="{Binding Brand}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
@@ -92,7 +91,7 @@
                        Grid.Column="3"
                        TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-                    <TextBlock Name="Location"
+            <TextBlock Name="Location"
                        Text="{Binding Location}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
@@ -100,14 +99,14 @@
                        Grid.Column="3"
                        TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-                    <TextBlock Name="Seats"
+            <TextBlock Name="Seats"
                        Text="{Binding Seats}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="left"
                        Grid.Row="3"
                        Grid.Column="3"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-                    <TextBlock Name="Model"
+            <TextBlock Name="Model"
                        Text="{Binding Model}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="left"
@@ -115,14 +114,14 @@
                        Grid.Column="6"
                        TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-                    <TextBlock Name="Price"
+            <TextBlock Name="Price"
                        Text="{Binding Price}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="left"
                        Grid.Row="2"
                        Grid.Column="6"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-                    <TextBlock Name="CarOwner"
+            <TextBlock Name="CarOwner"
                        VerticalAlignment="Center"
                        HorizontalAlignment="left"
                        Grid.Row="3"
@@ -132,9 +131,7 @@
                 <Run Text="{Binding Owner.Firstname}"/>
                 <Run Text=" "/>
                 <Run Text="{Binding Owner.Lastname}"/>
-                    </TextBlock>
-                </Grid>
-            </Grid>
-        </ControlTemplate>
-    </UserControl.Template>
+            </TextBlock>
+        </Grid>
+    </Grid>
 </UserControl>
