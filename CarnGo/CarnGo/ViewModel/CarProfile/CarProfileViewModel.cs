@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,14 @@ namespace CarnGo
         private CarProfileModel _originalCarProfileModel;
         private CarProfileModel _editedCarProfileModel;
 
-        public bool Editing = false;
+        public bool Editing { get; set; }
         public bool _isOwner = true;
         
         //TODO: Not sure if i should validate who the owner is og get it passed inn
         public CarProfileViewModel()
         {
-            _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2, "1337" );
+            _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133" );
+            Editing = false;
         }
 
         
@@ -32,11 +34,7 @@ namespace CarnGo
         public string CarMake
         {
             get => _editedCarProfileModel.Brand;
-            set
-            {
-                _editedCarProfileModel.Brand = value;
-                OnPropertyChanged(nameof(CarMake));
-            }
+            set => _editedCarProfileModel.Brand = value;
         }
         public string CarModel
         {
