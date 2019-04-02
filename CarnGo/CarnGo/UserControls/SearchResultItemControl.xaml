@@ -22,7 +22,7 @@
                 Content="Rent"
                 Width="80"
                 Height="40"
-                Command="{Binding CangetosendrequestCommand}"
+                Command="{Binding SendRequestCommand}"
                 />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

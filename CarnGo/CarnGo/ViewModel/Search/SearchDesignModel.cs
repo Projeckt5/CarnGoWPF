@@ -33,8 +33,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 2,
                     Price = 400,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 07, 07),
+                    EndLeaseTime = new DateTime(2019, 08, 07),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -46,8 +46,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 2,
                     Price = 400,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 12, 01),
+                    EndLeaseTime = new DateTime(2019, 12, 15),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -59,8 +59,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 5,
                     Price = 600,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 09, 01),
+                    EndLeaseTime = new DateTime(2019, 09, 15),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -72,8 +72,8 @@ namespace CarnGo
                     Location = "Padborg",
                     Seats = 2,
                     Price = 150,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 10, 01),
+                    EndLeaseTime = new DateTime(2019, 10, 30),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -85,8 +85,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 2,
                     Price = 400,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 06, 05),
+                    EndLeaseTime = new DateTime(2019, 06, 20),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -98,8 +98,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 2,
                     Price = 400,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 04, 25),
+                    EndLeaseTime = new DateTime(2019, 5, 17),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -111,8 +111,8 @@ namespace CarnGo
                     Location = "Aarhus",
                     Seats = 5,
                     Price = 200,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 05, 01),
+                    EndLeaseTime = new DateTime(2019, 05, 30),
                     Owner = jensJensen
                 },
                 new SearchResultItemViewModel
@@ -124,8 +124,8 @@ namespace CarnGo
                     Location = "Odense",
                     Seats = 5,
                     Price = 200,
-                    StartLeaseTime = DateTime.Today,
-                    EndLeaseTime = DateTime.Today,
+                    StartLeaseTime = new DateTime(2019, 05, 03),
+                    EndLeaseTime = new DateTime(2019, 05, 17),
                     Owner = jensJensen
                 },
             };

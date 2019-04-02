@@ -11,7 +11,6 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    public class CarProfileDataEvent : PubSubEvent<CarProfileModel> { }
 
     public class SearchViewModel : CarProfileModel
     {
@@ -20,6 +19,8 @@ namespace CarnGo
         public SearchViewModel()
         {
             EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            DateFrom = new DateTime(2019, 01, 01);
+            DateTo = new DateTime(2019, 01, 01);
         }
 
         #endregion
@@ -29,6 +30,8 @@ namespace CarnGo
         protected string _locationText;
         protected string _brandText;
         protected string _seatsText;
+        protected DateTime _dateFrom;
+        protected DateTime _dateTo;
         private List<Predicate<SearchResultItemViewModel>> _criteria = new List<Predicate<SearchResultItemViewModel>>();
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
 
@@ -85,6 +88,30 @@ namespace CarnGo
             }
         }
 
+        public DateTime DateFrom
+        {
+            get => _dateFrom;
+            set
+            {
+                if (_dateFrom == value)
+                    return;
+                _dateFrom = value;
+                OnPropertyChanged(nameof(DateFrom));
+            }
+        }
+
+        public DateTime DateTo
+        {
+            get => _dateTo;
+            set
+            {
+                if (_dateTo == value)
+                    return;
+                _dateTo = value;
+                OnPropertyChanged(nameof(DateTo));
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -112,6 +139,33 @@ namespace CarnGo
                 _criteria.Add(new Predicate<SearchResultItemViewModel>(
                     x => x.Seats == int.Parse(SeatsText)));
             }
+
+            // Checks first if dates differ from default values
+            if ((DateFrom > new DateTime(2019, 01, 01)) && (DateTo > new DateTime(2019, 01, 01)))
+            {
+                if (DateFrom < DateTo)
+                {
+                    _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                               x => x.StartLeaseTime <= DateFrom));
+
+                    _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                        x => x.EndLeaseTime >= DateTo));
+                }
+                else
+                {
+                    // Warn that drop off date must be later than pickup date
+                }
+            }
+            else if (DateFrom > new DateTime(2019, 01, 01))
+            {
+                _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                    x => x.StartLeaseTime <= DateFrom));
+            }
+            else if (DateTo > new DateTime(2019, 01, 01))
+            {
+                _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                    x => x.EndLeaseTime >= DateTo));
+            }
             cv.Filter = Filtering;
             OnPropertyChanged(nameof(cv));
         }
@@ -135,6 +189,8 @@ namespace CarnGo
             LocationText = String.Empty;
             BrandText = string.Empty;
             SeatsText = string.Empty;
+            DateFrom = new DateTime(2019, 01, 01);
+            DateTo = new DateTime(2019, 01, 01);
 
             cv.Filter = null;
             OnPropertyChanged(nameof(cv));
@@ -165,20 +221,6 @@ namespace CarnGo
         {
             get { return _clearSearchCommand ?? (_clearSearchCommand = new DelegateCommand(ClearSearch)); }
         }
-
-        #endregion
-
-        #region EventAggregator
-
-        //IEventAggregator _eventAggregator;
-
-        //public SearchViewModel(IEventAggregator ea)
-        //{
-        //    _eventAggregator = ea;
-
-        //    var hej = new CarProfileDataEvent();
-        //    _eventAggregator.GetEvent<CarProfileDataEvent>().Publish(hej);
-        //}
 
         #endregion
     }

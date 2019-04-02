@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CarnGo"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       Title="SearchView">
 
@@ -59,14 +60,20 @@
                            Foreground="{StaticResource ForegroundMainBrush}"/>
                 <DatePicker FontSize="{StaticResource FontSizeRegular}"
                             Padding="5"
-                            />
+                            SelectedDate="{Binding Path=DateFrom,
+                            UpdateSourceTrigger=PropertyChanged,
+                            Mode=TwoWay,
+                            TargetNullValue={x:Static System:DateTime.Now}}"/>
                 <TextBlock Text="Choose drop off date:"
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
                 <DatePicker FontSize="{StaticResource FontSizeRegular}"
-                            Padding="5"/>
-
+                            Padding="5"
+                            SelectedDate="{Binding Path=DateTo,
+                            UpdateSourceTrigger=PropertyChanged,
+                            Mode=TwoWay,
+                            TargetNullValue={x:Static System:DateTime.Now}}"/>
 
                 <WrapPanel Margin="5" HorizontalAlignment="Center">
                     <!-- Search button -->
