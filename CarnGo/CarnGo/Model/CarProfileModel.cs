@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 
 namespace CarnGo
@@ -51,7 +52,7 @@ namespace CarnGo
 
         private CarEquipment _equipment;
 
-        private Bitmap _carPicture;
+        private BitmapImage _carPicture;
         private UserModel _owner;
         private int _rentalPrice;
         private string _fuelType;
@@ -62,7 +63,7 @@ namespace CarnGo
         //TODO Try/Catch block for Database exceptions
         #region Properties
 
-        public Bitmap CarPicture
+        public BitmapImage CarPicture
         {
             get { return _carPicture; }
             set

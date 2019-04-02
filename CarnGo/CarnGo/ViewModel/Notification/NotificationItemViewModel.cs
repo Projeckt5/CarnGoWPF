@@ -1,54 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using CarnGo.Annotations;
 using Prism.Commands;
 
 namespace CarnGo
 {
-    public class NotificationItemViewModel : BaseViewModel
+    public class LessorItemViewModel : BaseViewModel
     {
         #region Constructors
-        public NotificationItemViewModel(MessageFromLessorModel lessorNotification)
+        public LessorItemViewModel(MessageFromLessorModel lessorNotification)
         {
-            LessorNotification = lessorNotification; 
+            Message = lessorNotification.Message;
+            CarPicture = lessorNotification.RentCar.CarPicture; 
+            Renter = $"{lessorNotification.Renter.Firstname} {lessorNotification.Renter.Lastname}";
+            Lessor = $"{lessorNotification.Lessor.Firstname} {lessorNotification.Lessor.Lastname}";
+            Confirmation = lessorNotification.StatusConfirmation; 
         }
         #endregion
 
         #region Properties
-        private MessageFromLessorModel _notification;
-
-        public MessageFromLessorModel LessorNotification
-        {
-            get { return _notification; }
-            set
-            {
-                _notification = value;
-                DisplayMessage = _notification.Message;
-                OnPropertyChanged(nameof(Message));
-            }
-        }
-
-        private string _displayMessage;
-
-        public string DisplayMessage
-        {
-            get { return _displayMessage; }
-            set
-            {
-                if (value.Length > 15)
-                    _displayMessage = value.Substring(0, 15) + "...";
-                else
-                    _displayMessage = value;
-                OnPropertyChanged(nameof(DisplayMessage));
-            }
-        }
+        public string Message { get; set; }
+        public BitmapImage CarPicture { get; set; }
+        public string Renter { get; set; }
+        public string Lessor { get; set; }
+        public bool Confirmation { get; set; }
         #endregion
 
         #region Commands

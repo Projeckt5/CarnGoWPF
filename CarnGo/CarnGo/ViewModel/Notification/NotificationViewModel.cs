@@ -19,10 +19,10 @@ namespace CarnGo
             var Car = new CarProfileModel(User1, "X-360", "BMW", 1989, "1234567");
 
             var message1 = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
-            var message2 = new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme", false);
-            var Notification1 = new NotificationItemViewModel(message1);
-            var Notification2 = new NotificationItemViewModel(message2);
-            Messages = new List<NotificationItemViewModel>
+            var message2 = new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false);
+            var Notification1 = new LessorItemViewModel(message1);
+            var Notification2 = new LessorItemViewModel(message2);
+            Messages = new List<LessorItemViewModel>
             {
                 Notification1,
                 Notification2
@@ -33,9 +33,9 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        private List<NotificationItemViewModel> _messages;
+        private List<LessorItemViewModel> _messages;
 
-        public List<NotificationItemViewModel> Messages
+        public List<LessorItemViewModel> Messages
         {
             get { return _messages; }
             set

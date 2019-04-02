@@ -6,17 +6,21 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="400"
+             Background="{StaticResource BackgroundLightBrush}"
              >
+
+    <!-- Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Button}}" -->
+
     <UserControl.Resources>
         <!--Trigger for Confirm/Denied property-->
         <Style TargetType="TextBlock" x:Key="Confirmation" BasedOn="{StaticResource BaseTextBlockStyle}">
             <Setter Property="Foreground" Value="Red"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="true">
+                <DataTrigger Binding="{Binding Confirmation}" Value="true">
                     <Setter Property="Foreground" Value="Green"/>
                     <Setter Property="Text" Value="Confirmed"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding LessorNotification.StatusConfirmation}" Value="false">
+                <DataTrigger Binding="{Binding Confirmation}" Value="false">
                     <Setter Property="Foreground" Value="Red"/>
                     <Setter Property="Text" Value="Denied"></Setter>
                 </DataTrigger>
@@ -26,8 +30,7 @@
         <!-- Trigger for type of Message (Renter/Lessor) -->
 
     </UserControl.Resources>
-
-        <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}">
+    <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="75">
         <Grid>
             <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -57,13 +60,8 @@
                            Style="{StaticResource BaseTextBlockStyle}"
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
+                           Text="{Binding Lessor}"
                            >
-                        <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="LessorNotification.Lessor.Firstname"/>
-                            <Binding Path="LessorNotification.Lessor.Lastname"/>
-                    </MultiBinding>
-                </TextBlock.Text>
                 </TextBlock>
 
                 <TextBlock  TextTrimming="CharacterEllipsis"  
@@ -72,7 +70,7 @@
                         HorizontalAlignment="Left" Margin="10 10 0 0" 
                         Style="{StaticResource BaseTextBlockStyle}" 
                         FontSize="{StaticResource FontSizeSmall}"
-                        Text="{Binding DisplayMessage}"
+                        Text="{Binding Message}"
                         />
 
         </Grid>
