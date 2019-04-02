@@ -9,7 +9,7 @@
              >
     <Viewbox StretchDirection="Both" Stretch="Uniform" d:DataContext="{x:Static local:SearchResultDesignModel.Instance}">
         <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{StaticResource BackgroundMainBrush}">
-            <ItemsControl ItemsSource="{Binding FilteredSearchResultItems, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl ItemsSource="{Binding SearchResultItems, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:SearchResultItemControl/>

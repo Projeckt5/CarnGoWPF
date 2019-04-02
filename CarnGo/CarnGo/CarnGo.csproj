@@ -134,10 +134,8 @@
     <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchDesignModel.cs" />
-    <Compile Include="ViewModel\Search\SearchResultDesignModel.cs" />
     <Compile Include="ViewModel\Search\SearchResultItemDesignModel.cs" />
     <Compile Include="ViewModel\Search\SearchResultItemViewModel.cs" />
-    <Compile Include="ViewModel\Search\SearchResultViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel\HeaderBarViewModel.cs" />
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />

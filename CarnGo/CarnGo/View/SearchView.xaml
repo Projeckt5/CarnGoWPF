@@ -12,7 +12,7 @@
             BorderThickness="4"
             BorderBrush="{StaticResource BlueMainBrush}"
             CornerRadius="20">
-        <Grid DataContext="{x:Static local:SearchResultDesignModel.Instance}">
+        <Grid DataContext="{x:Static local:SearchDesignModel.Instance}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="6*"/>
@@ -26,11 +26,13 @@
                            Padding="5"
                            HorizontalAlignment="Left"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <TextBox Tag="Location..."
+                <TextBox Name="LocationBox"
+                         Tag="Location..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"
-                         Text="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Path=LocationText, 
+                         UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Enter car brand:"
                            HorizontalAlignment="Left"
                            Padding="5"
@@ -38,7 +40,9 @@
                 <TextBox Tag="Brand..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
-                         BorderThickness="1"/>
+                         BorderThickness="1"
+                         Text ="{Binding Path=BrandText,
+                         UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Enter number of seats:"
                            HorizontalAlignment="Left"
                            Padding="5"
@@ -46,13 +50,16 @@
                 <TextBox Tag="Seats..."
                          Padding="5"
                          FontSize="{StaticResource FontSizeRegular}"
-                         BorderThickness="1"/>
+                         BorderThickness="1"
+                         Text ="{Binding Path=SeatsText,
+                         UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Choose pick-up date:"
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
                 <DatePicker FontSize="{StaticResource FontSizeRegular}"
-                            Padding="5"/>
+                            Padding="5"
+                            />
                 <TextBlock Text="Choose drop off date:"
                            HorizontalAlignment="Left"
                            Padding="5"
@@ -68,7 +75,8 @@
                         Foreground="{StaticResource ForegroundMainBrush}"
                         Style="{StaticResource IconGrowButton}"
                         Command="{Binding SearchCommand}">
-                    <TextBlock Text="{StaticResource FontAwesomeSearchIcon}" 
+
+                        <TextBlock Text="{StaticResource FontAwesomeSearchIcon}" 
                                FontFamily="{StaticResource FontAwesome}"/>
                     </Button>
                     <!-- Clear search button -->
@@ -76,8 +84,8 @@
                             Height="50"
                             Foreground="{StaticResource ForegroundMainBrush}"
                             Style="{StaticResource IconGrowButton}"
-                            Command="{Binding ClearSearchCommand}"
-                            IsDefault="True">
+                            Command="{Binding ClearSearchCommand}">
+
                         <TextBlock Text="{StaticResource FontAwesomeTrashIcon}" 
                                    FontFamily="{StaticResource FontAwesome}"/>
                         </Button>

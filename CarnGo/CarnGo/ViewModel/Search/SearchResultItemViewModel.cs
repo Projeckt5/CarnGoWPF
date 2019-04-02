@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Prism.Commands;
 
 namespace CarnGo
 {
@@ -9,5 +10,18 @@ namespace CarnGo
         {
             
         }
+
+        private ICommand _changetosendrequestcommand;
+
+        public ICommand CangetosendrequestCommand
+        {
+            get
+            {
+                return _changetosendrequestcommand ?? (_changetosendrequestcommand = new DelegateCommand(() =>
+                           ViewModelLocator.ApplicationViewModel
+                               .GoToPage(ApplicationPage.SendRequestPage)));
+            }
+        }
+
+        }
     }
-}
