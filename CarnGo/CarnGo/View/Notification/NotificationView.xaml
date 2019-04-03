@@ -13,9 +13,10 @@
         </Style>
     </UserControl.Resources>
 
-    <Border CornerRadius="20" >
-    <Grid Background="{StaticResource BackgroundLightBrush}">
+    <Border>
+        <Grid Background="{StaticResource BackgroundLightBrush}">
             <ScrollViewer>
+
 
                 <ItemsControl ItemsSource="{Binding Messages}">
 
@@ -24,14 +25,13 @@
                             <Button Background="{StaticResource BackgroundLightBrush}"
                                     Style="{StaticResource NotificationButton}"
                                     Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
-                            <local:NotificationItemView></local:NotificationItemView>
+                                <ContentControl Content="{Binding Path=MsgType, Converter={local:MessageConverter}}"/>
                             </Button>
                         </DataTemplate>
-                        
+
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-        
         </Grid>
     </Border>
 </UserControl>

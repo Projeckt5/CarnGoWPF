@@ -19,16 +19,24 @@ namespace CarnGo
 
         #region Constructor
 
-        public MessageFromRenterModel(UserModel renter, UserModel leaser)
+        public MessageFromRenterModel(UserModel renter, UserModel lessor, CarProfileModel rentCar, string message)
         {
-            _renter = renter;
-            _lessor = leaser;
+            MsgType = MessageType.RenterMessage;
+            Renter = renter;
+            Lessor = lessor;
+            RentCar = rentCar;
+            Message = message;
         }
         
 
         #endregion
 
         #region Properties
+        public UserModel Renter { get; set; }
+        public UserModel Lessor { get; set; }
+        public CarProfileModel RentCar { get; set; }
+
+
         public DateTime From
         {
             get { return _from; }

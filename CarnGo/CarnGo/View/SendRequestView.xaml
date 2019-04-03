@@ -17,9 +17,9 @@
     </Page.Resources>
     <!-- Borderbrush must be more significant and match others -->
     <Border Background="{StaticResource BackgroundMainBrush}"
-            BorderThickness="4"
+            BorderThickness="0"
             BorderBrush="{StaticResource BlueMainBrush}"
-            CornerRadius="20">
+            >
 
         <Grid>
         <Grid.ColumnDefinitions>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Prism.Commands;
 
 namespace CarnGo
@@ -84,7 +85,7 @@ namespace CarnGo
             get => _editedCarProfileModel.EndLeaseTime;
             set => _editedCarProfileModel.EndLeaseTime = value;
         }
-        public Bitmap CarPicture
+        public BitmapImage CarPicture
         {
             get => _editedCarProfileModel.CarPicture;
             set => _editedCarProfileModel.CarPicture = value;
