@@ -10,7 +10,6 @@
 
     <Border 
             Background="{StaticResource BackgroundMainBrush}"
-            BorderThickness="4"
             BorderBrush="{StaticResource BlueMainBrush}"
             CornerRadius="20">
         <Grid DataContext="{x:Static local:SearchDesignModel.Instance}">
