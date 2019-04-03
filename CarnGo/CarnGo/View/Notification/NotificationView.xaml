@@ -25,7 +25,7 @@
                             <Button Background="{StaticResource BackgroundLightBrush}"
                                     Style="{StaticResource NotificationButton}"
                                     Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
-                                <local:NotificationItemView></local:NotificationItemView>
+                                <ContentControl Content="{Binding Path=MsgType, Converter={local:MessageConverter}}"/>
                             </Button>
                         </DataTemplate>
 

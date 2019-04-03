@@ -29,7 +29,7 @@ namespace CarnGo
         #region Properties
         public UserModel Renter
         {
-            get { return _renter; }
+            get => _renter;
             set
             {
                 _renter = value;

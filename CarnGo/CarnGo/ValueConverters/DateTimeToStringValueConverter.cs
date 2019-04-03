@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarnGo.ValueConverters
+namespace CarnGo
 {
     public class DateTimeToStringValueConverter:BaseValueConverter<DateTimeToStringValueConverter>
     {

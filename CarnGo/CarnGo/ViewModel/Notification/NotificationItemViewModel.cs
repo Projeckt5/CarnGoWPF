@@ -14,24 +14,46 @@ using Prism.Commands;
 
 namespace CarnGo
 {
-    public class LessorItemViewModel : BaseViewModel
+    public class NotificationItemViewModel : BaseViewModel
     {
         #region Constructors
-        public LessorItemViewModel(MessageFromLessorModel lessorNotification)
+        public NotificationItemViewModel(MessageModel message)
         {
-            Message = lessorNotification.Message;
-            CarPicture = lessorNotification.RentCar.CarPicture; 
-            Renter = $"{lessorNotification.Renter.Firstname} {lessorNotification.Renter.Lastname}";
-            Lessor = $"{lessorNotification.Lessor.Firstname} {lessorNotification.Lessor.Lastname}";
-            Confirmation = lessorNotification.StatusConfirmation; 
+            //TODO: Move to factory
+            switch (message.MsgType)
+            {
+                case MessageType.RenterMessage:
+                {
+                    var renterMessage = (MessageFromRenterModel) message;
+                    MsgType = renterMessage.MsgType;  
+                    Message = renterMessage.Message;
+                    CarPicture = renterMessage.RentCar.CarPicture;
+                    Lessor = $"{renterMessage.Lessor.Firstname} {renterMessage.Lessor.Lastname}";
+                    Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
+                }
+                    break;
+                case MessageType.LessorMessage:
+                {
+                    var lessorMessage = (MessageFromLessorModel) message;
+                    MsgType = lessorMessage.MsgType;
+                    Message = lessorMessage.Message;
+                    CarPicture = lessorMessage.RentCar.CarPicture;
+                    Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
+                    Renter = $"{lessorMessage.Renter.Firstname} {lessorMessage.Renter.Lastname}";
+                    Confirmation = lessorMessage.StatusConfirmation; 
+                        
+                }
+                    break;
+            }
         }
         #endregion
 
         #region Properties
+        public MessageType MsgType { get; set; }
         public string Message { get; set; }
         public BitmapImage CarPicture { get; set; }
-        public string Renter { get; set; }
         public string Lessor { get; set; }
+        public string Renter { get; set; }
         public bool Confirmation { get; set; }
         #endregion
 

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarnGo
+namespace CarnGo.View.Notification
 {
     /// <summary>
-    /// Interaction logic for NotifikationItemView.xaml
+    /// Interaction logic for RenterItemView.xaml
     /// </summary>
-    public partial class NotificationItemView : UserControl
+    public partial class RenterItemView : UserControl
     {
-        public NotificationItemView()
+        public RenterItemView()
         {
             InitializeComponent();
         }
