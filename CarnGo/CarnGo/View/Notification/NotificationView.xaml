@@ -13,7 +13,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Border CornerRadius="20" >
+    <Border>
         <Grid Background="{StaticResource BackgroundLightBrush}">
             <ScrollViewer>
 
