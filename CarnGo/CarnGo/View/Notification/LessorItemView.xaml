@@ -60,7 +60,7 @@
                            Style="{StaticResource BaseTextBlockStyle}"
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
-                           Text="{Binding Lessor}"
+                           Text="{Binding Lessor}" FontWeight="ExtraBold"
                            >
                 </TextBlock>
 

@@ -32,7 +32,7 @@
                            Style="{StaticResource BaseTextBlockStyle}"
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
-                           Text="{Binding Renter}"
+                           Text="{Binding Renter}" FontWeight="ExtraBold"
                            >
                 </TextBlock>
 
