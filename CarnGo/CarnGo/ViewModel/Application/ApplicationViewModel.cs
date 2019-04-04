@@ -2,7 +2,7 @@
 {
     public class ApplicationViewModel : BaseViewModel
     {
-        private ApplicationPage _applicationPage = ApplicationPage.EditUserPage;
+        private ApplicationPage _applicationPage = ApplicationPage.LoginPage;
         private UserModel _currentUser = null;
 
         /// <summary>
