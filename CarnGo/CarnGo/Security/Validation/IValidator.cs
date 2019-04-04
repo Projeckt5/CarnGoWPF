@@ -2,9 +2,9 @@
 
 namespace CarnGo.Security
 {
-    public interface IValidator
+    public interface IValidator<T>
     {
         List<string> ValidationErrorMessages { get; }
-        bool Validate();
+        bool Validate(T obj);
     }
 }

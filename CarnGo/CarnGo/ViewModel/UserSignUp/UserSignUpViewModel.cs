@@ -16,10 +16,9 @@ namespace CarnGo
     public class UserSignUpViewModel : BaseViewModel, INotifyDataErrorInfo
     {
         #region Private Fields
-
-        private IValidator _emailValidator;
-        private IValidator _passwordValidator;
-        private IValidator _passwordMatchValidator;
+        private readonly IValidator<string> _emailValidator = new EmailValidator();
+        private readonly IValidator<SecureString> _passwordValidator = new PasswordValidator();
+        private readonly IValidator<List<SecureString>> _passwordMatchValidator = new PasswordMatchValidator();
         private string _email;
         private SecureString _password;
         private SecureString _passwordValidate;
@@ -156,8 +155,8 @@ namespace CarnGo
             {
                 emailErrors.Clear();
             }
-            _emailValidator = new EmailValidator(_email);
-            if (_emailValidator.Validate() == false)
+            
+            if(_emailValidator.Validate(Email) == false)
             {
                 emailErrors.AddRange(_emailValidator.ValidationErrorMessages);
             }
@@ -180,8 +179,7 @@ namespace CarnGo
                 passwordErrors.Clear();
             }
 
-            _passwordValidator = new PasswordValidator(_password);
-            if (_passwordValidator.Validate() == false)
+            if (_passwordValidator.Validate(PasswordSecureString) == false)
             {
                 passwordErrors.AddRange(_passwordValidator.ValidationErrorMessages);
             }
@@ -203,8 +201,8 @@ namespace CarnGo
                 passwordConfirmationErrors.Clear();
             }
 
-            _passwordMatchValidator = new PasswordMatchValidator(_password, _passwordValidate);
-            if (_passwordMatchValidator.Validate() == false)
+            if (_passwordMatchValidator.Validate(new List<SecureString>()
+                    {PasswordSecureString, PasswordValidateSecureString}) == false)
             {
                 passwordConfirmationErrors.AddRange(_passwordMatchValidator.ValidationErrorMessages);
             }

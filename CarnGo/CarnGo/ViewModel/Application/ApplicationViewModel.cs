@@ -2,7 +2,7 @@
 {
     public class ApplicationViewModel : BaseViewModel
     {
-        private ApplicationPage _applicationPage = ApplicationPage.RegisterCarProfilePage;
+        private ApplicationPage _applicationPage = ApplicationPage.UserSignUpPage;
         private UserModel _currentUser = null;
 
         /// <summary>

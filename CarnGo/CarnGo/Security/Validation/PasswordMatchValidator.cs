@@ -4,22 +4,14 @@ using System.Security;
 
 namespace CarnGo.Security
 {
-    public class PasswordMatchValidator : IValidator
+    public class PasswordMatchValidator : IValidator<List<SecureString>>
     {
-        private readonly SecureString _password;
-        private readonly SecureString _passwordToValidateAgainst;
-
-        public PasswordMatchValidator(SecureString password, SecureString passwordToValidateAgainst)
-        {
-            _password = password;
-            _passwordToValidateAgainst = passwordToValidateAgainst;
-        }
         public List<string> ValidationErrorMessages { get; } = new List<string>();
-        public bool Validate()
+        public bool Validate(List<SecureString> passwords)
         {
             ValidationErrorMessages.Clear();
             //Check if all passwords are the same
-            if (_password.ConvertToString() == _passwordToValidateAgainst.ConvertToString())
+            if (passwords.All(x => x.ConvertToString() == passwords.First().ConvertToString()))
             {
                 return true;
             }
