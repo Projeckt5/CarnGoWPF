@@ -133,6 +133,7 @@
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\CarProfile\CarProfileViewModel.cs" />
+    <Compile Include="ViewModel\EditUser\EditUserViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchDesignModel.cs" />
