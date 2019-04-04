@@ -27,6 +27,7 @@ namespace CarnGo
         #region Default Constructor
         public UserSignUpViewModel()
         {
+            
         }
         #endregion
         #region Public Properties
@@ -144,6 +145,8 @@ namespace CarnGo
             var passwords = new List<SecureString>() {PasswordSecureString, PasswordValidateSecureString};
             Validate(nameof(PasswordValidateSecureString),passwords, _passwordMatchValidator);
         }
+
         #endregion
+
     }
 }

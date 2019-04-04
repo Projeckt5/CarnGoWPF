@@ -12,7 +12,7 @@ namespace CarnGo
 {
     public static class MonitorPasswordBoxAttachedProperty
     {
-        public static bool GetMonitorPassword(DependencyObject element, bool value)
+        public static bool GetMonitorPasswordBox(DependencyObject element)
         {
             return (bool) element.GetValue(MonitorPasswordBoxProperty);
         }
@@ -24,24 +24,19 @@ namespace CarnGo
 
         public static void MonitorTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-            if (passwordBox == null)
+            if (!(sender is PasswordBox passwordBox))
                 return;
             passwordBox.PasswordChanged -= PasswordBoxOnPasswordChanged;
 
-            if ((bool) e.NewValue == true)
-            {
-                FlagHasTextAttachedProperty.SetHasText(passwordBox,false);
-                passwordBox.PasswordChanged += PasswordBoxOnPasswordChanged;
-            }
+            if ((bool) e.NewValue != true)
+                return;
+            FlagHasTextAttachedProperty.SetHasText(passwordBox,false);
+            passwordBox.PasswordChanged += PasswordBoxOnPasswordChanged;
         }
         private static void PasswordBoxOnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var pwbPassword = sender as PasswordBox;
-            if (pwbPassword.Password.Length > 0)
-                FlagHasTextAttachedProperty.SetHasText(pwbPassword, true);
-            else
-                FlagHasTextAttachedProperty.SetHasText(pwbPassword, false);
+            FlagHasTextAttachedProperty.SetHasText(pwbPassword, pwbPassword?.Password.Length > 0);
         }
     }
 
