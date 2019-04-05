@@ -46,6 +46,8 @@ namespace CarnGo
         }
         #endregion
 
+
+        //TODO Make this a model?
         #region Properties
         public MessageType MsgType { get; set; }
         public string Message { get; set; }
