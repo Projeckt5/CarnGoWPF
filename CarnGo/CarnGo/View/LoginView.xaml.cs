@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace CarnGo
 {
-    public partial class LoginView : Page
+    public partial class LoginView : BasePage<LoginPageViewModel>
     {
         public LoginView()
         {

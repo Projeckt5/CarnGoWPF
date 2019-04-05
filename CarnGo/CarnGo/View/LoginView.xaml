@@ -1,4 +1,6 @@
-﻿<Page x:Class="CarnGo.LoginView"
+﻿<local:BasePage
+      x:TypeArguments="local:LoginPageViewModel" 
+      x:Class="CarnGo.LoginView"     
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -37,11 +39,12 @@
             <Button>
                 <TextBlock Text="Login" FontSize="{StaticResource FontSizeLarge}"/>
             </Button>
-                    
+
             <Button Style="{StaticResource TextButton}"
                     Padding="10 0 0 10"
                     Content="Or register here..."
-                    Foreground="{StaticResource ForegroundMainBrush}"/>
+                    Foreground="{StaticResource ForegroundMainBrush}"
+                    Command="{Binding RegisterUserCommand}"/>
         </StackPanel>
     </Border>
-</Page>
+</local:BasePage>
