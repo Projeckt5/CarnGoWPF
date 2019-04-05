@@ -38,6 +38,10 @@ namespace CarnGo
 
         private void SearchCarProfileEvent(CarProfileModel obj)
         {
+            CarModelName = obj.Brand;
+            CarImage = obj.CarPicture;
+            
+
             //Bilinformation skal trækkes ud af databasen 
         }
 
@@ -90,10 +94,11 @@ namespace CarnGo
                 _from = value;
                 OnPropertyChanged(nameof(From));
             }
-        } 
+        }
 
+        
         public CarDetailsViewModel Car { get; private set; }= new CarDetailsViewModel { AudioPlayer = true, ChildSeats = false, Gps = true, Model = "Ford Mustang", Smoking = false, Year = 2010 };
-        public object CarDetail => Car;
+        
 
         #endregion
 
