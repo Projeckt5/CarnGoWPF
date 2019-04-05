@@ -1,259 +1,288 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="clr-namespace:CarnGo"
-					xmlns:valueConverters="clr-namespace:CarnGo">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CarnGo">
 
 
-	<!--Header text-->
-	<Style TargetType="{x:Type TextBlock}" x:Key="HeaderText" BasedOn="{StaticResource BaseTextBlockStyle}">
-		<Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
-		<Setter Property="FontFamily" Value="{StaticResource RobotoBold}"/>
-		<Setter Property="Margin" Value="0 6" />
-	</Style>
+    <!--  Header text  -->
+    <Style
+        x:Key="HeaderText"
+        BasedOn="{StaticResource BaseTextBlockStyle}"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoBold}" />
+        <Setter Property="Margin" Value="0,6" />
+    </Style>
 
-	<!--TextBox-->
-	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
-		<Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
-		<Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
-		<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
-		<Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
-		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="0 5 0 5" />
-		<Setter Property="BorderThickness" Value="0 0 0 1" />
+    <!--  TextBox  -->
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Grid>
-                        <Border x:Name="border" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" 
-                                          Focusable="False" 
-                                          HorizontalScrollBarVisibility="Hidden" 
-                                          VerticalScrollBarVisibility="Hidden"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Focusable="False"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
                         </Border>
-                        <TextBlock IsHitTestVisible="False"
-                                   Text="{TemplateBinding Tag}"
-                                   x:Name="Placeholder"
-                                   FontFamily="{StaticResource RobotoLight}"
-                                   FontSize="{TemplateBinding FontSize}"
-                                   Padding="{TemplateBinding Padding}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Foreground="{TemplateBinding Foreground}">
+                        <TextBlock
+                            x:Name="Placeholder"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource RobotoLight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Tag}">
 
-							<TextBlock.Style>
-								<Style TargetType="{x:Type TextBlock}">
-									<Setter Property="Visibility" Value="Collapsed"/>
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
-											<Setter Property="Visibility" Value="Visible"/>
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</TextBlock.Style>
-						</TextBlock>
-					</Grid>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Opacity" TargetName="border" Value="0.56"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueLightBrush}"/>
-						</Trigger>
-						<Trigger Property="IsKeyboardFocused" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueDarkBrush}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	
-	<!--PasswordBox-->
-	<!--TODO: Make the tag text disappear when text is inserted-->
+                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueDarkBrush}" />
+                        </Trigger>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)/ErrorContent}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource BaseStyle}">
-		<Setter Property="FontFamily" Value="{StaticResource RobotoRegular}"/>
-		<Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}"/>
-		<Setter Property="Background" Value="{StaticResource BackgroundMainBrush}"/>
-		<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
-		<Setter Property="Padding" Value="10"/>
-		<Setter Property="Margin" Value="0 5 0 5"/>
-		<Setter Property="BorderThickness" Value="0 0 0 1"/>
-		<Setter Property="local:MonitorPasswordBoxAttachedProperty.MonitorPasswordBox" Value="True"/>
+    <!--  PasswordBox  -->
+    <!--  TODO: Make the tag text disappear when text is inserted  -->
 
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type PasswordBox}">
-					<Grid>
-						<Border x:Name="border" 
-								BorderBrush="{TemplateBinding BorderBrush}" 
-								BorderThickness="{TemplateBinding BorderThickness}" 
-								Background="{TemplateBinding Background}" 
-								SnapsToDevicePixels="True">
-							<ScrollViewer x:Name="PART_ContentHost" 
-										  Focusable="False" 
-										  HorizontalScrollBarVisibility="Hidden" 
-										  VerticalScrollBarVisibility="Hidden"
-										  VerticalAlignment="Center"
-										  HorizontalAlignment="Center"/>
-						</Border>
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type PasswordBox}">
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
 
-						<TextBlock IsHitTestVisible="False"
-								   Text="{TemplateBinding Tag}"
-								   x:Name="Placeholder"
-								   FontFamily="{StaticResource RobotoLight}"
-								   FontSize="{TemplateBinding FontSize}"
-								   Padding="{TemplateBinding Padding}"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Foreground="{TemplateBinding Foreground}"/>
-					</Grid>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="local:MonitorPasswordBoxAttachedProperty.MonitorPasswordBox" Value="True" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Focusable="False"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+
+                        <TextBlock
+                            x:Name="Placeholder"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource RobotoLight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Tag}" />
+                    </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                        </Trigger>
                         <Trigger Property="local:FlagHasTextAttachedProperty.HasText" Value="True">
-							<Setter TargetName="Placeholder" Property="Visibility" Value="Hidden"/>
-						</Trigger>
-						<Trigger Property="local:FlagHasTextAttachedProperty.HasText" Value="False">
-							<Setter TargetName="Placeholder" Property="Visibility" Value="Visible"/>
-						</Trigger>
-						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Opacity" TargetName="border" Value="0.56"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueLightBrush}"/>
-						</Trigger>
-						<Trigger Property="IsKeyboardFocused" Value="True">
-							<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource BlueDarkBrush}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	
-	<!-- Standard CommentBox -->
-	<Style TargetType="{x:Type TextBox}" x:Key="CommentBox">
-		
-		
-	</Style>
-	<!--SearchBar-->
-	<Style TargetType="{x:Type TextBox}" x:Key="SearchBar" BasedOn="{StaticResource BaseStyle}">
-		<Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
-		<Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
-		<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
-		<Setter Property="Padding" Value="10 0" />
-		<Setter Property="Margin" Value="0 5 0 5" />
-		<Setter Property="BorderThickness" Value="0" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type TextBoxBase}">
-					<Grid>
-						<Border x:Name="border" 
-								BorderBrush="{TemplateBinding BorderBrush}" 
-								BorderThickness="{TemplateBinding BorderThickness}"
-								Background="{TemplateBinding Background}"
-								SnapsToDevicePixels="True"
-								CornerRadius="10">
-							<ScrollViewer x:Name="PART_ContentHost" 
-										  Focusable="False"
-										  IsHitTestVisible="True"
-										  HorizontalScrollBarVisibility="Hidden" 
-										  VerticalScrollBarVisibility="Hidden"
-										  VerticalAlignment="Center"/>
-						</Border>
-						<TextBlock IsHitTestVisible="False"
-								   Text="{TemplateBinding Tag}"
-								   x:Name="Placeholder"
-								   FontFamily="{StaticResource RobotoLight}"
-								   FontSize="{TemplateBinding FontSize}"
-								   Padding="{TemplateBinding Padding}"
-								   VerticalAlignment="Center"
-								   Foreground="{TemplateBinding Foreground}">
-
-							<TextBlock.Style>
-								<Style TargetType="{x:Type TextBlock}">
-									<Setter Property="Visibility" Value="Collapsed"/>
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
-											<Setter Property="Visibility" Value="Visible"/>
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</TextBlock.Style>
-						</TextBlock>
-					</Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="local:FlagHasTextAttachedProperty.HasText" Value="False">
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Opacity" TargetName="border" Value="0.56"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Foreground" Value="{StaticResource BlueLightBrush}"/>
-						</Trigger>
-						<Trigger Property="IsKeyboardFocused" Value="True">
-							<Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
-							<Setter TargetName="Placeholder" Property="Foreground" Value="{StaticResource BlueDarkBrush}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BlueDarkBrush}" />
+                        </Trigger>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)/ErrorContent}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<!--Loading text-->
-	<Style TargetType="{x:Type TextBlock}" x:Key="LoadingText" BasedOn="{StaticResource BaseTextBlockStyle}">
-		<Setter Property="Foreground" Value="{StaticResource BackgroundMainBrush}" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
-		<Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-		<Setter Property="Margin" Value="0" />
-		<Setter Property="Text" Value="{StaticResource FontAwesomeCogIcon}"/>
-		<Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
-		<Setter Property="RenderTransform">
-			<Setter.Value>
-				<RotateTransform></RotateTransform>
-			</Setter.Value>
-		</Setter>
-		<Style.Resources>
-			<Storyboard x:Key="Load">
-				<DoubleAnimation
-					Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
-					From="0"
-					To="360"
-					Duration="0:0:2"
-					RepeatBehavior="Forever"/>
-			</Storyboard>
-		</Style.Resources>
-		<Style.Triggers>
-			<Trigger Property="IsVisible" Value="True">
-				<Trigger.EnterActions>
-					<BeginStoryboard Name="LoadingStoryBoard" Storyboard="{StaticResource Load}"/>
-				</Trigger.EnterActions>
-				<Trigger.ExitActions>
-					<RemoveStoryboard BeginStoryboardName="LoadingStoryBoard"/>
-				</Trigger.ExitActions>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
-    
+    <!--  Standard CommentBox  -->
+    <Style x:Key="CommentBox" TargetType="{x:Type TextBox}" />
+    <!--  SearchBar  -->
+    <Style
+        x:Key="SearchBar"
+        BasedOn="{StaticResource BaseStyle}"
+        TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}" />
+        <Setter Property="Background" Value="{StaticResource BackgroundMainBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                VerticalAlignment="Center"
+                                Focusable="False"
+                                HorizontalScrollBarVisibility="Hidden"
+                                IsHitTestVisible="True"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <TextBlock
+                            x:Name="Placeholder"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource RobotoLight}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsHitTestVisible="False"
+                            Text="{TemplateBinding Tag}">
+
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource BlueLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+                            <Setter TargetName="Placeholder" Property="Foreground" Value="{StaticResource BlueDarkBrush}" />
+                        </Trigger>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Loading text  -->
+    <Style
+        x:Key="LoadingText"
+        BasedOn="{StaticResource BaseTextBlockStyle}"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource BackgroundMainBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXLarge}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Text" Value="{StaticResource FontAwesomeCogIcon}" />
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform />
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Storyboard x:Key="Load">
+                <DoubleAnimation
+                    RepeatBehavior="Forever"
+                    Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                    From="0"
+                    To="360"
+                    Duration="0:0:2" />
+            </Storyboard>
+        </Style.Resources>
+        <Style.Triggers>
+            <Trigger Property="IsVisible" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Name="LoadingStoryBoard" Storyboard="{StaticResource Load}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <RemoveStoryboard BeginStoryboardName="LoadingStoryBoard" />
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

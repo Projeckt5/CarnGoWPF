@@ -10,37 +10,33 @@ using System.Windows.Forms;
 
 namespace CarnGo
 {
-    public class MonitorPasswordBoxAttachedProperty : DependencyObject
+    public static class MonitorPasswordBoxAttachedProperty
     {
-        public static MonitorPasswordBoxAttachedProperty Instance { get; private set; } = new MonitorPasswordBoxAttachedProperty();
-
-        public bool MonitorPasswordBox
+        public static bool GetMonitorPasswordBox(DependencyObject element)
         {
-            get=> (bool)GetValue(MonitorPasswordBoxProperty);
-            set=> SetValue(MonitorPasswordBoxProperty, value);
+            return (bool) element.GetValue(MonitorPasswordBoxProperty);
         }
-        public static readonly DependencyProperty MonitorPasswordBoxProperty = DependencyProperty.RegisterAttached(nameof(MonitorPasswordBox), typeof(bool), typeof(MonitorPasswordBoxAttachedProperty), new UIPropertyMetadata(MonitorTextChanged));
+        public static void SetMonitorPasswordBox(DependencyObject element, bool value)
+        {
+            element.SetValue(MonitorPasswordBoxProperty,value);
+        }
+        public static readonly DependencyProperty MonitorPasswordBoxProperty = DependencyProperty.RegisterAttached("MonitorPasswordBox", typeof(bool), typeof(MonitorPasswordBoxAttachedProperty), new UIPropertyMetadata(MonitorTextChanged));
 
         public static void MonitorTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var passwordBox = sender as PasswordBox;
-            if (passwordBox == null)
+            if (!(sender is PasswordBox passwordBox))
                 return;
             passwordBox.PasswordChanged -= PasswordBoxOnPasswordChanged;
 
-            if ((bool) e.NewValue == true)
-            {
-                FlagHasTextAttachedProperty.SetHasText(passwordBox,false);
-                passwordBox.PasswordChanged += PasswordBoxOnPasswordChanged;
-            }
+            if ((bool) e.NewValue != true)
+                return;
+            FlagHasTextAttachedProperty.SetHasText(passwordBox,false);
+            passwordBox.PasswordChanged += PasswordBoxOnPasswordChanged;
         }
         private static void PasswordBoxOnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var pwbPassword = sender as PasswordBox;
-            if (pwbPassword.Password.Length > 0)
-                FlagHasTextAttachedProperty.SetHasText(pwbPassword, true);
-            else
-                FlagHasTextAttachedProperty.SetHasText(pwbPassword, false);
+            FlagHasTextAttachedProperty.SetHasText(pwbPassword, pwbPassword?.Password.Length > 0);
         }
     }
 

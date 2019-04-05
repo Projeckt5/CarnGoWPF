@@ -17,7 +17,7 @@ namespace CarnGo.Test.Unit.Security
 
             var result = new System.Net.NetworkCredential(string.Empty, securePassword).Password;
 
-            Assert.That(result,Is.EqualTo(password));
+            Assert.That(result, Is.EqualTo(password));
         }
 
         [TestCase("p4ssw0rd")]
@@ -35,7 +35,7 @@ namespace CarnGo.Test.Unit.Security
 
             var result = secureString.ConvertToString();
 
-            Assert.That(result,Is.EqualTo(password));
+            Assert.That(result, Is.EqualTo(password));
         }
     }
 }

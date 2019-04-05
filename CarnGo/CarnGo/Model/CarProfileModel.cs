@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 
 namespace CarnGo
@@ -34,7 +35,9 @@ namespace CarnGo
             Brand = brand;
             Age = age;
             Regnr = regNr;
-            Owner = owner;           
+            Owner = owner;
+            StartLeaseTime = DateTime.Today;
+            EndLeaseTime = DateTime.Today;
         }
         #endregion
 
@@ -43,14 +46,16 @@ namespace CarnGo
         private string _brand;
         private int _age;
         private string _regNr;
+        private string _location;
+        private int _seats;
+        private int _price;
         private DateTime _startLeaseTime;
         private DateTime _endLeaseTime;
 
         private CarEquipment _equipment;
 
-        private Bitmap _carPicture;
+        private BitmapImage _carPicture;
         private UserModel _owner;
-        private int _seats;
         private int _rentalPrice;
         private string _fuelType;
         private string _carDescription;
@@ -60,7 +65,7 @@ namespace CarnGo
         //TODO Try/Catch block for Database exceptions
         #region Properties
 
-        public Bitmap CarPicture
+        public BitmapImage CarPicture
         {
             get { return _carPicture; }
             set
@@ -111,6 +116,34 @@ namespace CarnGo
             }
         }
 
+        public string Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value.Length > 1 ? value : throw new ArgumentException("Location must contain more than 1 characters");
+                OnPropertyChanged(nameof(_location));
+            }
+        }
+
+        public int Seats
+        {
+            get { return _seats; }
+            set
+            {
+                _seats = (value > 0 && value < 20) ? value : throw new ArgumentException("Car must have between 0 and 20 seats");
+            }
+        }
+
+        public int Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value > 0 ? value : throw new ArgumentException("Price must be higher than 0");
+            }
+        }
+
         public DateTime StartLeaseTime
         {
             get { return _startLeaseTime; }
@@ -141,16 +174,6 @@ namespace CarnGo
             {
                 _owner = value;
                 OnPropertyChanged(nameof(Owner));
-            }
-        }
-
-        public int Seats
-        {
-            get { return _seats; }
-            set
-            {
-                _seats = value;
-                OnPropertyChanged(nameof(Seats));
             }
         }
 
