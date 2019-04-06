@@ -10,6 +10,11 @@ namespace CarnGo.Security
         public bool Validate(string email)
         {
             ValidationErrorMessages.Clear();
+            return ValidateEmail(email);
+        }
+
+        private bool ValidateEmail(string email)
+        {
             try
             {
                 System.Net.Mail.MailAddress mailAddress = new System.Net.Mail.MailAddress(email);
@@ -17,7 +22,7 @@ namespace CarnGo.Security
             }
             catch
             {
-                ValidationErrorMessages.Add("Email was not a valid email");
+                ValidationErrorMessages.Add("Email was not a valid password");
                 return false;
             }
         }
