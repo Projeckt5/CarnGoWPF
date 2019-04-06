@@ -22,7 +22,7 @@ namespace CarnGo.Security
             }
             catch
             {
-                ValidationErrorMessages.Add("Email was not a valid password");
+                ValidationErrorMessages.Add("Email was not a valid email");
                 return false;
             }
         }
