@@ -15,8 +15,8 @@ namespace CarnGo
     {
 
  
-        private CarProfileModel _originalCarProfileModel;
-        private CarProfileModel _editedCarProfileModel;
+        public CarProfileModel _originalCarProfileModel;
+        public CarProfileModel _editedCarProfileModel;
         private bool _editing;
         public bool _isReadOnly;
 
@@ -26,7 +26,7 @@ namespace CarnGo
         //TODO: Not sure if i should validate who the owner is og get it passed inn
         public CarProfileViewModel()
         {
-            _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133" );
+            var _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133" );
             Editing = false;
             IsReadOnly = true;
         }
@@ -139,14 +139,14 @@ namespace CarnGo
 
 
 
-        private void SaveFunction()
+        public void SaveFunction()
         {
             _originalCarProfileModel = _editedCarProfileModel;
             Editing = false;
             IsReadOnly = true;
         }
 
-        private void EditCarProfileFunction()
+        public void EditCarProfileFunction()
         {
             Editing = true;
             IsReadOnly = false;
