@@ -102,6 +102,7 @@
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="ViewModel\BaseViewModelWithValidation.cs" />
     <Compile Include="Security\Validation\EmailValidator.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
     <Compile Include="Security\Validation\IValidator.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\CarProfile\CarProfileViewModel.cs" />
+    <Compile Include="ViewModel\EditUser\EditUserViewModel.cs" />
     <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchDesignModel.cs" />

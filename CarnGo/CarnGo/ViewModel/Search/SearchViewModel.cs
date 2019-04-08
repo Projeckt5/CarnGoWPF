@@ -180,7 +180,7 @@ namespace CarnGo
             return isIn;
         }
 
-        private void ClearSearch()
+        public void ClearSearch()
         {
             ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 

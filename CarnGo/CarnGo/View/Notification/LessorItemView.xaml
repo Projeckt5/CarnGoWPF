@@ -57,10 +57,10 @@
                 />
 
                 <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                           Style="{StaticResource BaseTextBlockStyle}"
+                           FontFamily="{StaticResource RobotoBold}" 
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
-                           Text="{Binding Lessor}"
+                           Text="{Binding Lessor}" 
                            >
                 </TextBlock>
 

@@ -28,7 +28,6 @@ namespace CarnGo
                     MsgType = renterMessage.MsgType;  
                     Message = renterMessage.Message;
                     CarPicture = renterMessage.RentCar.CarPicture;
-                    Lessor = $"{renterMessage.Lessor.Firstname} {renterMessage.Lessor.Lastname}";
                     Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
                 }
                     break;
@@ -39,7 +38,6 @@ namespace CarnGo
                     Message = lessorMessage.Message;
                     CarPicture = lessorMessage.RentCar.CarPicture;
                     Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
-                    Renter = $"{lessorMessage.Renter.Firstname} {lessorMessage.Renter.Lastname}";
                     Confirmation = lessorMessage.StatusConfirmation; 
                         
                 }
@@ -48,6 +46,8 @@ namespace CarnGo
         }
         #endregion
 
+
+        //TODO Make this a model?
         #region Properties
         public MessageType MsgType { get; set; }
         public string Message { get; set; }
