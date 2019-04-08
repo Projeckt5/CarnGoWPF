@@ -123,7 +123,7 @@ namespace CarnGo
         #endregion
         #region Error Handling
 
-        private void ValidateAll()
+        public void ValidateAll()
         {
             ValidateEmail();
             ValidatePassword();
@@ -131,16 +131,16 @@ namespace CarnGo
         }
 
 
-        private void ValidateEmail()
+        public void ValidateEmail()
         {
             Validate(nameof(Email),Email, _emailValidator);
         }
-        private void ValidatePassword()
+        public void ValidatePassword()
         {
             Validate(nameof(PasswordSecureString),PasswordSecureString,_passwordValidator);
         }
-
-        private void ValidatePasswordMatch()
+        
+        public void ValidatePasswordMatch()
         {
             var passwords = new List<SecureString>() {PasswordSecureString, PasswordValidateSecureString};
             Validate(nameof(PasswordValidateSecureString),passwords, _passwordMatchValidator);
