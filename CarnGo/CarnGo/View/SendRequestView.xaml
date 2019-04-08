@@ -60,7 +60,7 @@
                     <Label  Content="Details"
                             HorizontalAlignment="Left"                        
                         />
-                    <ContentControl Content="{Binding Path=CarDetail}"></ContentControl>
+                    <ContentControl Content="{Binding Path=Car}"></ContentControl>
 
                 </StackPanel>
             
