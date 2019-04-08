@@ -12,15 +12,15 @@ using Prism.Events;
 namespace CarnGo
 {
 
-    public class SearchViewModel : CarProfileModel
+    public class SearchViewModel : BaseViewModel
     {
         #region Constructor
 
         public SearchViewModel()
         {
             EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
-            DateFrom = new DateTime(2019, 01, 01);
-            DateTo = new DateTime(2019, 01, 01);
+            DateFrom = DateTime.Today;
+            DateTo = DateTime.Today;
         }
 
         #endregion
@@ -38,6 +38,8 @@ namespace CarnGo
         #endregion
 
         #region Properties
+
+        public CarProfileModel CarProfileModel { get; set; }
 
         public ObservableCollection<SearchResultItemViewModel> SearchResultItems
         {
@@ -189,8 +191,10 @@ namespace CarnGo
             LocationText = String.Empty;
             BrandText = string.Empty;
             SeatsText = string.Empty;
-            DateFrom = new DateTime(2019, 01, 01);
-            DateTo = new DateTime(2019, 01, 01);
+            DateFrom = DateTime.Today;
+                //new DateTime(2019, 01, 01);
+            DateTo = DateTime.Today; 
+                //new DateTime(2019, 01, 01);
 
             cv.Filter = null;
             OnPropertyChanged(nameof(cv));
@@ -221,6 +225,46 @@ namespace CarnGo
         {
             get { return _clearSearchCommand ?? (_clearSearchCommand = new DelegateCommand(ClearSearch)); }
         }
+
+        #endregion
+
+        #region ErrorHandling
+
+        //public Dictionary<string, string> ErrorCollection { get; set; } = new Dictionary<string, string>();
+
+        //public string this[string name]
+        //{
+        //    get
+        //    {
+        //        string result = null;
+        //        switch (name)
+        //        {
+        //            case "DateTo":
+        //                if (DateTo < DateTime.Now)
+        //                    result = "The Date entered has to be after the current date or after";
+        //                else if (DateTo <= DateFrom)
+        //                    result = "Date has to be after the the day the car is rented";
+        //                break;
+        //            case "DateFrom":
+        //                if (DateFrom < DateTime.Now)
+        //                    result = "The Date entered has to be after the current date or after";
+        //                break;
+        //        }
+
+        //        if (ErrorCollection.ContainsKey(name))
+        //            ErrorCollection[name] = result;
+        //        else if (result != null)
+        //            ErrorCollection.Add(name, result);
+
+        //        OnPropertyChanged("ErrorCollection");
+        //        return result;
+        //    }
+        //}
+
+        //public string Error
+        //{
+        //    get { return null; }
+        //}
 
         #endregion
     }

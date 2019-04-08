@@ -26,7 +26,7 @@ namespace CarnGo
         //TODO: Not sure if i should validate who the owner is og get it passed inn
         public CarProfileViewModel()
         {
-            var _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133" );
+            var _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133", "", 0, DateTime.Today, DateTime.Today, 0);
             Editing = false;
             IsReadOnly = true;
         }
