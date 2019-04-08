@@ -125,13 +125,13 @@ namespace CarnGo
             if (!string.IsNullOrEmpty(LocationText))
             {
                 _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.Location.ToLower() == LocationText.ToLower()));
+                    x => x.Location.ToLower().Contains(LocationText.ToLower())));
             }
 
             if (!string.IsNullOrEmpty(BrandText))
             {
                 _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.Brand.ToLower() == BrandText.ToLower()));
+                    x => x.Brand.ToLower().Contains(BrandText.ToLower())));
             }
 
             if (!string.IsNullOrEmpty(SeatsText))
