@@ -29,15 +29,19 @@ namespace CarnGo
 
        
 
-        public CarProfileModel(UserModel owner,string model, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner, string model, string brand, int age, string regNr, 
+            string location, int seats, DateTime startlease, DateTime endlease, int price)
         {
             Model = model;
             Brand = brand;
             Age = age;
             Regnr = regNr;
             Owner = owner;
-            StartLeaseTime = DateTime.Today;
-            EndLeaseTime = DateTime.Today;
+            Location = location;
+            Seats = seats;
+            Price = price;
+            StartLeaseTime = startlease;
+            EndLeaseTime = endlease;
         }
         #endregion
 

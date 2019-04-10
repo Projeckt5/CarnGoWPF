@@ -32,7 +32,11 @@
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"
                          Text="{Binding Path=LocationText, 
-                         UpdateSourceTrigger=PropertyChanged}"/>
+                         UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=SearchCommand}" Key="Enter"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <TextBlock Text="Enter car brand:"
                            HorizontalAlignment="Left"
                            Padding="5"
@@ -42,7 +46,11 @@
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"
                          Text ="{Binding Path=BrandText,
-                         UpdateSourceTrigger=PropertyChanged}"/>
+                         UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=SearchCommand}" Key="Enter"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <TextBlock Text="Enter number of seats:"
                            HorizontalAlignment="Left"
                            Padding="5"
@@ -52,7 +60,11 @@
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"
                          Text ="{Binding Path=SeatsText,
-                         UpdateSourceTrigger=PropertyChanged}"/>
+                         UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=SearchCommand}" Key="Enter"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <TextBlock Text="Choose pick-up date:"
                            HorizontalAlignment="Left"
                            Padding="5"

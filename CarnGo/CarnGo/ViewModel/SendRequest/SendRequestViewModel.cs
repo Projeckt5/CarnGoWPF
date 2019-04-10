@@ -98,8 +98,8 @@ namespace CarnGo
 
         
         public CarDetailsViewModel Car { get; private set; }= new CarDetailsViewModel { AudioPlayer = true, ChildSeats = false, Gps = true, Model = "Ford Mustang", Smoking = false, Year = 2010 };
-        
 
+        public Object CarDetail => Car;
         #endregion
 
         #region Commands

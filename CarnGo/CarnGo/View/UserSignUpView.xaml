@@ -54,7 +54,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     Content="Or Login Here"
                     HorizontalAlignment="Center"
                     Command="{Binding NavigateLoginCommand}"
-                    Foreground="{StaticResource ForegroundMainBrush}" Height="63"/>
+                    Foreground="{StaticResource ForegroundMainBrush}"/>
             <ListView ItemsSource="{Binding AllErrors}"
                       IsHitTestVisible="False"
                       Foreground="Red"

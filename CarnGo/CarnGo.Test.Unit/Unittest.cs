@@ -90,7 +90,7 @@ namespace CarnGo.Test.Unit
 
             var testUser1 = new UserModel("Martin", "Gildberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.Lessor);
             var testUser2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
-            var testCar = new CarProfileModel(testUser1, "X-360", "BMW", 1989, "1234567");
+            var testCar = new CarProfileModel(testUser1, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 100);
 
             var testmessage1 = new MessageFromLessorModel(testUser2, testUser1, testCar, "Du kommer bare :)", true);
             var testmessage2 = new MessageFromLessorModel(testUser2, testUser1, testCar, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false);

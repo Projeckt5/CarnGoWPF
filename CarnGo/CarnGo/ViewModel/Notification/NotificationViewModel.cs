@@ -18,7 +18,7 @@ namespace CarnGo
             #region Dummy Data (Notification)
             var User1 = new UserModel("Martin", "Gildberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.Lessor);
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
-            var Car = new CarProfileModel(User1, "X-360", "BMW", 1989, "1234567");
+            var Car = new CarProfileModel(User1, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 1);
             //Car.CarPicture = new BitmapImage(new Uri("../../Images/Bilfoto.jpg"));
 
 
