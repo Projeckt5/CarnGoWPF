@@ -12,12 +12,7 @@ namespace CarnGo.Test.Unit
     [TestFixture]
     public class UserModelTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            //Arrange
-        }
-
+        
         [Test]
         public void DoSomeTest_TheTestisDo_DoTheTest()
         {
@@ -29,28 +24,60 @@ namespace CarnGo.Test.Unit
             Assert.That(true, Is.EqualTo(true));
         }
 
-    
+
         [Test]
         public void Search_Clear_Empty()
         {
+            //System.NullRefereceException. Objekt referencen er ikke sat til en instans af objekt
+
             //Arrange
             var clear = new SearchViewModel();
 
             //Act
-           clear.ClearSearch();
-           var testFrom = new DateTime(2019, 01, 01);
-           var testTo = new DateTime(2019, 01, 01);
+            clear.ClearSearch();
+            var testFrom = new DateTime(2019, 01, 01);
+            var testTo = new DateTime(2019, 01, 01);
 
-           //Assert
+            var falseTestFrom = new DateTime(1995, 13, 06);
+            var falseTestTo = new DateTime(1995, 13, 06);
+
+            //Assert
 
             Assert.IsEmpty(clear.LocationText);
             Assert.IsEmpty(clear.BrandText);
             Assert.IsEmpty(clear.SeatsText);
-            Assert.AreSame(testFrom, clear.DateFrom);
+            Assert.AreEqual(testFrom, clear.DateFrom);
             Assert.AreSame(testTo, clear.DateTo);
+            Assert.AreNotSame(falseTestTo, clear.DateTo);
+            Assert.AreNotSame(falseTestFrom, clear.DateFrom);
+            
+        }
 
+        [Test]
+        public void SendRequest_RentCar_ErrorTest()
+        {
+
+            //Smider string.Empty tilbage i stedet for den forventede Errortext
+
+            //Arrange
+            var request = new SendRequestViewModel();
+            //Act
+
+            var test = request.Message;
+            test = "Message to leaser";
+            var testError = "*Informaton was not entered correctly";
+
+            request.To = new DateTime(1995, 06, 13);
+
+           
+            //Assert
+            if (request.Message == "Message to leaser" || request.To < DateTime.Now || request.From < DateTime.Now || request.To < request.From)
+            {
+                Assert.AreSame(testError, request.ErrorText);
+            }
 
         }
+
 
         [Test]
         public void Notification_Message_Isthesame()
@@ -70,12 +97,20 @@ namespace CarnGo.Test.Unit
             var testmessage3 = new MessageFromRenterModel(testUser2, testUser1, testCar, "Må jeg godt låne din flotte bil?");
 
       
-            var item = new NotificationItemViewModel(testmessage2);
+            var item1 = new NotificationItemViewModel(testmessage1);
+            var item2 = new NotificationItemViewModel(testmessage2);
+            var item3 = new NotificationItemViewModel(testmessage3);
 
-            not.Messages.Add(item);
+            not.Messages.Add(item1);
+            not.Messages.Add(item2);
+            not.Messages.Add(item3);
 
             Assert.IsNotEmpty(not.Messages);
-            
+            Assert.AreEqual(6,not.Messages.Count);
+
+            not.Messages.Remove(item3);
+
+            Assert.AreEqual(5, not.Messages.Count);
 
         }
 
@@ -83,24 +118,24 @@ namespace CarnGo.Test.Unit
       
 
         [Test]
-        public void Carprofile_Profile_isSame()
+        public void Carprofile_EditProfile_VariableIsSame()
         {
             //Arrange
             var testpcarview = new CarProfileViewModel();
             var modelacces = new CarProfileModel();
-            
 
+        
             //Act
+
+            
             var testEditing = false;
             var testIsReadOnly = true;
 
             //Assert
-            Assert.AreSame(testEditing, testpcarview.Editing);
-            Assert.AreSame(testIsReadOnly, testpcarview.IsReadOnly);
-
-
-
-        }
+            Assert.AreEqual(testEditing, testpcarview.Editing);
+            Assert.AreEqual(testIsReadOnly, testpcarview.IsReadOnly);
+            
+         }
 
         [Test]
         public void Carprofile_Save_isSame()
@@ -116,8 +151,8 @@ namespace CarnGo.Test.Unit
 
             //Assert
             Assert.AreSame(profi._editedCarProfileModel, profi._originalCarProfileModel);
-            Assert.IsTrue(profi.Editing);
-            Assert.IsFalse(profi.IsReadOnly);
+            Assert.IsTrue(profi.IsReadOnly);
+            Assert.IsFalse(profi.Editing);
         }
 
         [Test]
@@ -126,8 +161,6 @@ namespace CarnGo.Test.Unit
             //Arrange
             var Edit = new EditUserViewModel();
             var User = new UserModel();
-
-
 
 
             //Act
@@ -146,7 +179,7 @@ namespace CarnGo.Test.Unit
         }
 
 
-        //Help Functions
+        
 
        
 
