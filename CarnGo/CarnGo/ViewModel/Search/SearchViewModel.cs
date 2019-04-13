@@ -18,7 +18,7 @@ namespace CarnGo
 
         public SearchViewModel()
         {
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
         }

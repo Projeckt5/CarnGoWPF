@@ -32,7 +32,7 @@ namespace CarnGo
         #region constructor
         public SendRequestViewModel()
         {
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
 
         }
 
