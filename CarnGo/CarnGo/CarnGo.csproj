@@ -111,6 +111,7 @@
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Security\Validation\ValidationException.cs" />
     <Compile Include="ViewModel\BaseViewModelWithValidation.cs" />
     <Compile Include="Security\Validation\EmailValidator.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />

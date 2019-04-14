@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security;
+using CarnGo.Security;
 using Prism.Events;
 using Prism.Ioc;
 using Unity;
@@ -18,6 +21,9 @@ namespace CarnGo
         {
             Container.RegisterSingleton<ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
+            Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
+            Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
+            Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
         }
 
         public static T Resolve<T>()
