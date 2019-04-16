@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using CarnGo;
+using NSubstitute;
 using NSubstitute.ClearExtensions;
+using Prism.Events;
 
 namespace CarnGo.Test.Unit
 {
@@ -60,7 +62,7 @@ namespace CarnGo.Test.Unit
             //Smider string.Empty tilbage i stedet for den forventede Errortext
 
             //Arrange
-            var request = new SendRequestViewModel();
+            var request = new SendRequestViewModel(Substitute.For<IEventAggregator>());
             //Act
 
             var test = request.Message;
