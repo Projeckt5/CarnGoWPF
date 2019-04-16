@@ -154,7 +154,7 @@ namespace CarnGo
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.SendRequestPage);
 
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<CarProfileDataEvent>().Publish(carProfileModel);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Publish(carProfileModel);
         }
 
         #endregion
