@@ -65,7 +65,7 @@
                      Grid.Column="1" Grid.Row="0" 
             />
 
-            <TextBox IsReadOnly="True" Text="{Binding Path=ChildSeats,Converter={StaticResource CarDetailConverter}}" FontFamily="{StaticResource FontAwesome}"
+            <TextBox IsReadOnly="True" Text="{Binding Path=ChildSeat,Converter={StaticResource CarDetailConverter}}" FontFamily="{StaticResource FontAwesome}"
                      Grid.Column="2" Grid.Row="0"
             />
 

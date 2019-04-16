@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CarnGo"
+             x:Name="Basepage"
              xmlns:userControls="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
@@ -11,14 +12,15 @@
              xmlns:prism="http://prismlibrary.com/">
 
     <Page.Resources>
-        <DataTemplate DataType="{x:Type local:CarDetailsViewModel}">
+        <DataTemplate DataType="{x:Type local:CarEquipment}">
             <userControls:CarDetails></userControls:CarDetails>
         </DataTemplate>
     </Page.Resources>
     <!-- Borderbrush must be more significant and match others -->
     <Border Background="{StaticResource BackgroundMainBrush}"
             BorderThickness="0"
-            BorderBrush="{StaticResource BlueMainBrush}"
+            BorderBrush="{StaticResource BlueMainBrush}"     
+            Height="{Binding ElementName=Mainwindow,Path=ActualHeight}"
             >
 
         <Grid>
@@ -32,17 +34,22 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Name="ScrollDefinition" Height="2*"/>
                 </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" 
-                   Margin="0,15,0,0"
-                   Content="{Binding CarModelName}"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
+                <DockPanel Margin="50 0 50 0" Grid.Row="0">
+                    <Label  
+                   
+                   Content="{Binding Car.Brand}"
+                  
                    />
-
-            <!-- This must be made into a style for alle pictures 
+                    <Label Margin="1 0 0 0"
+                           Content="{Binding Car.Model}"
+                         />
+                    <Label Margin="1 0 0 0"
+                           Content="{Binding Car.Age}"
+                    />
+                </DockPanel>
+                <!-- This must be made into a style for alle pictures 
                  The file where the picture must also be a part of the projekt 
             -->
             <Border Grid.Row="1" 
@@ -51,19 +58,56 @@
                 BorderBrush="{StaticResource BlueMainBrush}"
                 SnapsToDevicePixels="True"
                 MinHeight="180"
-                >
-                <Image Source="{Binding CarImage}" Stretch="Fill" />
-            </Border>
                 
-            
-                <StackPanel Grid.Row="2" Margin="50,0,50,0" CanVerticallyScroll="True">
-                    <Label  Content="Details"
-                            HorizontalAlignment="Left"                        
-                        />
-                    <ContentControl Content="{Binding Path=Car}"></ContentControl>
+                >
+                <Image Source="{Binding Car.CarPicture}" Stretch="Fill" />
+            </Border>
+            <Label Grid.Row="2"  Content="Details"
+                    HorizontalAlignment="Center"                        
+            />
+                
+                   
+                    <StackPanel Grid.Row="3" Margin="50,0,50,0" CanVerticallyScroll="True">
+                    <!--
+                        <ContentControl Content="{Binding Path=Car}"></ContentControl>
+                        -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Location:</Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Car.Location}"></Label>
+                        <Label Grid.Row="1" Grid.Column="0">Registration number:</Label>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Car.RegNr}"></Label>
+                        <Label Grid.Row="2" Grid.Column="0">Seats:</Label>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Car.Seats}"></Label>
+                        <Label Grid.Row="3" Grid.Column="0">Price:</Label>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Car.Price}"></Label>
+                        <Label Grid.Row="4" Grid.Column="0">Rental price:</Label>
+                        <Label Grid.Row="4" Grid.Column="1" Content="{Binding Car.RentalPrice}"></Label>
+                        <Label Grid.Row="5" Grid.Column="0">Fuel type:</Label>
+                        <Label Grid.Row="5" Grid.Column="1" Content="{Binding Car.FuelType}"></Label>
+
+                    </Grid>
+                    <Label HorizontalAlignment="Center" >Car description:</Label>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Car.CarDescription}"></TextBlock>
+                    <ContentControl Content="{Binding Path=Car.CarEquipment}"></ContentControl>
+                    
+                    
 
                 </StackPanel>
-            
+
+                
+
 
             </Grid>
 
@@ -135,8 +179,11 @@
                         <i:EventTrigger EventName="GotFocus">
                             <i:InvokeCommandAction Command="{Binding Path=EmptyTextBoxCommand, Mode=OneWay}"/>
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding Path=TextBoxLostFocusCommand, Mode=OneWay}"/>
+                        </i:EventTrigger>
                     </i:Interaction.Triggers>
-
+                    
                 </TextBox>
                 
 

@@ -38,20 +38,34 @@ namespace CarnGo
 
         private void SearchCarProfileEvent(CarProfileModel obj)
         {
-            CarModelName = obj.Brand;
-            CarImage = obj.CarPicture;
-            
+            Car = obj;
+
 
             //Bilinformation skal trækkes ud af databasen 
         }
 
         #endregion
 
+        #region Fields
+
+        private CarProfileModel _car=
+        new CarProfileModel { CarEquipment = new CarEquipment{
+                AudioPlayer = true,
+                ChildSeat = false,
+                Gps = true,
+                Smoking = false
+            },Model = "Mustang",Brand = "Ford",
+            Age =2010,
+            CarDescription = "Bilen har kun været brugt 5 gange i løbet af de 10 år jeg har eget den, så den er så god som ny.",CarPicture = new BitmapImage(new Uri("../../Images/Bilfoto.jpg", UriKind.Relative)),
+            RegNr = "1107959",RentalPrice = 5000,FuelType = "Premium91",Seats = 5,Price = 200000,Location = "Århus",StartLeaseTime=new DateTime(2019,4,25),EndLeaseTime = new DateTime(2019,5,25)
+        };
+        
+
+        #endregion
 
         #region Properties
 
-        public string CarModelName { get; set; } = "Mercedes Benz CLA 250";
-        public BitmapImage CarImage { get; set; }=new BitmapImage(new Uri("../../Images/Bilfoto.jpg",UriKind.Relative));
+
         public string ErrorText
         {
             get => _errorText;
@@ -97,9 +111,17 @@ namespace CarnGo
         }
 
         
-        public CarDetailsViewModel Car { get; private set; }= new CarDetailsViewModel { AudioPlayer = true, ChildSeats = false, Gps = true, Model = "Ford Mustang", Smoking = false, Year = 2010 };
+        public CarProfileModel Car
+        {
+            get => _car;
+            private set
+            {
+                _car = value;
+                OnPropertyChanged(nameof(Car));
+            }
+        }
 
-        public Object CarDetail => Car;
+        
         #endregion
 
         #region Commands
@@ -107,7 +129,7 @@ namespace CarnGo
 
         public ICommand RentCarCommand => _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction));
 
-        private void RentCarFunction()
+        public void RentCarFunction()
         {
             if (Message == "Message to leaser" || To < DateTime.Now || From < DateTime.Now || To < From)
             {
@@ -123,7 +145,7 @@ namespace CarnGo
 
             //sendingMessage lægges ind i database MANGLER
 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
+            //ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 
         private ICommand _emptyTextBoxCommand;
@@ -134,6 +156,17 @@ namespace CarnGo
         {
             Message = "";
         }
+
+        private ICommand _textBoxLostFocusCommand;
+        public ICommand TextBoxLostFocusCommand => _textBoxLostFocusCommand ?? (_textBoxLostFocusCommand = new DelegateCommand(TextBoxLostFocusFunction));
+
+        public void TextBoxLostFocusFunction()
+        {
+            if (Message == "")
+                Message = "Message to leaser";
+
+        }
+
         #endregion
 
         #region ErrorHandling
