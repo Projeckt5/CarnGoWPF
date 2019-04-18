@@ -60,6 +60,7 @@
                          FontSize="{StaticResource FontSizeRegular}"
                          BorderThickness="1"
                          Text ="{Binding Path=SeatsText,
+                         ValidatesOnDataErrors=True,
                          UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding Path=SearchCommand}" Key="Enter"/>
@@ -69,23 +70,26 @@
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <DatePicker FontSize="{StaticResource FontSizeRegular}"
+                <DatePicker Name="DateFrom"
+                            FontSize="{StaticResource FontSizeRegular}"
                             Padding="5"
-                            SelectedDate="{Binding Path=DateFrom,
+                            ToolTip="{Binding Errors[DateFrom]}"
+                            SelectedDate="{Binding Path=DateFrom}"
+                            DisplayDate="{Binding Path=DateFrom,
                             UpdateSourceTrigger=PropertyChanged,
-                            Mode=TwoWay,
-                            TargetNullValue={x:Static System:DateTime.Now}}"/>
+                            ValidatesOnDataErrors=True}"/>
                 <TextBlock Text="Choose drop off date:"
                            HorizontalAlignment="Left"
                            Padding="5"
                            Foreground="{StaticResource ForegroundMainBrush}"/>
-                <DatePicker FontSize="{StaticResource FontSizeRegular}"
+                <DatePicker Name="DateTo"
+                            FontSize="{StaticResource FontSizeRegular}"
                             Padding="5"
-                            SelectedDate="{Binding Path=DateTo,
+                            ToolTip="{Binding Errors[DateTo]}"
+                            SelectedDate="{Binding Path=DateTo}"
+                            DisplayDate="{Binding Path=DateTo,
                             UpdateSourceTrigger=PropertyChanged,
-                            Mode=TwoWay,
-                            TargetNullValue={x:Static System:DateTime.Now}}"/>
-
+                            ValidatesOnDataErrors=True}"/>
                 <WrapPanel Margin="5" HorizontalAlignment="Center">
                     <!-- Search button -->
                     <Button Padding="6"
