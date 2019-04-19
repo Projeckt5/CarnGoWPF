@@ -93,8 +93,6 @@ namespace CarnGo
                 }
 
             }
-
-
         }
 
         public bool? Gps

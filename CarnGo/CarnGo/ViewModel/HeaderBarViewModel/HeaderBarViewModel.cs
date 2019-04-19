@@ -69,7 +69,7 @@ namespace CarnGo
 
         public ICommand FindCarCommand => new DelegateCommand(()=>
                                                  ViewModelLocator.ApplicationViewModel
-                                                     .GoToPage(ApplicationPage.SendRequestPage));
+                                                     .GoToPage(ApplicationPage.SearchPage));
 
         #endregion
         #region Command Helpers
@@ -85,7 +85,7 @@ namespace CarnGo
         {
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.SearchPage);
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 
         private void ShowNotification()

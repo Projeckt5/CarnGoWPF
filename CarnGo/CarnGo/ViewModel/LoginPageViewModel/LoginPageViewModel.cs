@@ -1,100 +1,142 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Security;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Input;
+using CarnGo.Security;
+using Prism.Commands;
 
 namespace CarnGo
 {
-    class LoginPageViewModel : UserModel
+    public class LoginPageViewModel : BaseViewModelWithValidation
     {
-        // Made a password here for testing my code.
-        public string Password { get; set; }
+        #region Private Field
+        private readonly IValidator<string> _emailValidator = new EmailValidator();
+        private readonly IValidator<SecureString> _passwordValidator = new PasswordValidator();
+        private string _email;
+        private SecureString _password;
+        private bool _IsLogin;
+        private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
+        #endregion
 
-        public bool ValidateLoginCredentials { get; set; }
-
-        // initialise
-        public LoginPageViewModel(string email, string password)
+        #region Constructor
+        public LoginPageViewModel()
         {
-            this.Email = email;
-            // this.Password = password;
-        }
-        // Validate string - bruges ikke endnu
-        private bool StringValidator(string input)
-        {
-            string pattern = "[^a-zA-Z]";
-
-            if (Regex.IsMatch(input, pattern))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
 
         }
-        //Validate Integer - bruges ikke endnu
-        private bool IntegerValidator(string input)
+        #endregion
+
+        #region Public Properties
+
+        public bool IsLogin
         {
-            string pattern = "[^0-9]";
-            if (Regex.IsMatch(input, pattern))
+            get => _IsLogin;
+            set
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (_IsLogin == value)
+                    return;
+                _IsLogin = value;
+                ValidateEmail();
+                OnPropertyChanged(nameof(IsLogin));
             }
         }
 
-        // Clears the user input so there is an empty field everytime.
-        private void ClearTexts(string email, string password)
+        public string Email
         {
-            email = string.Empty;
-            password = string.Empty;
+            get => _email;
+            set
+            {
+                if (_email == value)
+                    return;
+                _email = value;
+                ValidateEmail();
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+        public SecureString PasswordSecureString
+        {
+            get => _password;
+            set
+            {
+                if (_password == value)
+                    return;
+                _password = value;
+                ValidatePassword();
+                OnPropertyChanged(nameof(PasswordSecureString));
+            }
         }
 
-
-
-        internal bool LoginCommand(string email, string password)
+        public ObservableCollection<string> AllErrors
         {
-            if (string.IsNullOrEmpty(Email))
+            get => _allErrors;
+            set
             {
-                MessageBox.Show("Enter the email");
-                return false;
+                if (_allErrors == value)
+                    return;
+                _allErrors = value;
+                OnPropertyChanged(nameof(AllErrors));
             }
-            else
+        }
+
+        #endregion
+
+
+        #region Public Commands
+
+        public ICommand LoginCommand => new DelegateCommand(async () => await Login());
+        public ICommand RegisterUserCommand => new DelegateCommand(() => ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.UserSignUpPage));
+
+
+
+        #endregion
+
+
+        #region Command Helpers
+        //TODO make async and add loading flag
+        private async Task Login()
+        {
+            IsLogin = true;
+            AllErrors.Clear();
+            ValidateAll();
+            if (HasErrors)
             {
-                if (Email != email)
+                List<string> allErrorsList = new List<string>();
+                foreach (var error in ErrorsDictionary)
                 {
-                    MessageBox.Show("Incorrect email");
-                    ClearTexts(email, password);
-                    return false;
+                    allErrorsList.AddRange(error.Value);
                 }
-                else
-                {
-                    if (string.IsNullOrEmpty(password))
-                    {
-                        MessageBox.Show("Enter password");
-                        return false;
-                    }
-                    else if (Password != password)
-                    {
-                        MessageBox.Show("Incorrect password");
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-
-                }
+                AllErrors = new ObservableCollection<string>(allErrorsList);
             }
+            //TODO: AWAIT REGISTERING THE USER ON THE DB
+            await Task.Delay(2000);
+            IsLogin = false;
+        }
+        #endregion
+        #region Error Handling
+       
+        private void ValidateAll()
+        {
+            ValidateEmail();
+            ValidatePassword();
         }
 
+        private void ValidateEmail()
+        {
+            Validate(nameof(Email), Email, _emailValidator);
+        }
+        private void ValidatePassword()
+        {
+            Validate(nameof(PasswordSecureString), PasswordSecureString, _passwordValidator);
+        }
 
+        #endregion
     }
+
 }
+
+

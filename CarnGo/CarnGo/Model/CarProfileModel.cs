@@ -29,19 +29,25 @@ namespace CarnGo
 
        
 
-        public CarProfileModel(UserModel owner,string model, string brand, int age, string regNr)
+        public CarProfileModel(UserModel owner, string model, string brand, int age, string regNr, 
+            string location, int seats, DateTime startlease, DateTime endlease, int price)
         {
             Model = model;
             Brand = brand;
             Age = age;
-            Regnr = regNr;
+            RegNr = regNr;
             Owner = owner;
-            StartLeaseTime = DateTime.Today;
-            EndLeaseTime = DateTime.Today;
+            Location = location;
+            Seats = seats;
+            Price = price;
+            StartLeaseTime = startlease;
+            EndLeaseTime = endlease;
         }
         #endregion
 
         #region Fields
+
+        
         private string _model;
         private string _brand;
         private int _age;
@@ -60,11 +66,21 @@ namespace CarnGo
         private string _fuelType;
         private string _carDescription;
 
+       
+
         #endregion
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
 
+        public CarEquipment CarEquipment
+        {
+            get => _equipment;
+            set
+            {
+                _equipment = value;
+                OnPropertyChanged(nameof(CarEquipment));
+            } }
         public BitmapImage CarPicture
         {
             get { return _carPicture; }
@@ -106,13 +122,13 @@ namespace CarnGo
             }
         }
 
-        public string Regnr
+        public string RegNr
         {
             get { return _regNr; }
             set
             {
                 _regNr = value.Length == 7 ? value : throw new ArgumentException("Registration number must contain 7 digits");
-                OnPropertyChanged(nameof(_regNr));
+                OnPropertyChanged(nameof(RegNr));
             }
         }
 
@@ -122,7 +138,7 @@ namespace CarnGo
             set
             {
                 _location = value.Length > 1 ? value : throw new ArgumentException("Location must contain more than 1 characters");
-                OnPropertyChanged(nameof(_location));
+                OnPropertyChanged(nameof(Location));
             }
         }
 
@@ -132,6 +148,7 @@ namespace CarnGo
             set
             {
                 _seats = (value > 0 && value < 20) ? value : throw new ArgumentException("Car must have between 0 and 20 seats");
+                OnPropertyChanged(nameof(Seats));
             }
         }
 
@@ -141,6 +158,7 @@ namespace CarnGo
             set
             {
                 _price = value > 0 ? value : throw new ArgumentException("Price must be higher than 0");
+                OnPropertyChanged(nameof(Price));
             }
         }
 
@@ -199,13 +217,16 @@ namespace CarnGo
 
         public string CarDescription
         {
-            get { return _fuelType; }
+            get { return _carDescription; }
             set
             {
                 _carDescription = value;
                 OnPropertyChanged(nameof(CarDescription));
             }
         }
+
+        
+
         #endregion
     }
 }

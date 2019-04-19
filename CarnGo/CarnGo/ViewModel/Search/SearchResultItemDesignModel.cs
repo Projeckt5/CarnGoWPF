@@ -11,8 +11,6 @@ namespace CarnGo
         {
             Model = "CLA 250";
             Brand = "Mercedes";
-            Age = 2010;
-            Regnr = "CA86304";
             Location = "Aarhus";
             Seats = 2;
             Price = 400;
@@ -26,6 +24,7 @@ namespace CarnGo
                 Email = "hmm@gmail.com",
                 UserType = UserType.Lessor
             };
+
         }
     #endregion
     }

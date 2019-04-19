@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Prism.Commands;
 using Prism.Events;
+using Unity;
+
 
 namespace CarnGo
 {
@@ -20,34 +22,60 @@ namespace CarnGo
         #region fields
 
         private string _errorText = "";
-        private bool _dirty;
+       
         private CarProfileModel _carProfileModel;
         private DateTime _to = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
         private DateTime _from= new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-        private string _message = "Message to leaser";
-        
+        private string _message = "Message to lessor";
+
+        private CarProfileModel _car =
+            new CarProfileModel
+            {
+                CarEquipment = new CarEquipment
+                {
+                    AudioPlayer = true,
+                    ChildSeat = false,
+                    Gps = true,
+                    Smoking = false
+                },
+                Model = "Mustang",
+                Brand = "Ford",
+                Age = 2010,
+                CarDescription = "Bilen har kun været brugt 5 gange i løbet af de 10 år jeg har eget den, så den er så god som ny.",
+                CarPicture = new BitmapImage(new Uri("../../Images/Bilfoto.jpg", UriKind.Relative)),
+                RegNr = "1107959",
+                RentalPrice = 5000,
+                FuelType = "Premium91",
+                Seats = 5,
+                Price = 200000,
+                Location = "Århus",
+                StartLeaseTime = new DateTime(2019, 4, 25),
+                EndLeaseTime = new DateTime(2019, 5, 25)
+            };
         #endregion
 
-
         #region constructor
-        public SendRequestViewModel()
+
+        public SendRequestViewModel(IEventAggregator events)
         {
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+           // IoCContainer.Resolve<IEventAggregator>()
+           events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
 
         }
 
         private void SearchCarProfileEvent(CarProfileModel obj)
         {
+            Car = obj;
+
+
             //Bilinformation skal trækkes ud af databasen 
         }
 
         #endregion
 
-
         #region Properties
 
-        public string CarModelName { get; set; } = "Mercedes Benz CLA 250";
-        public BitmapImage CarImage { get; set; }=new BitmapImage(new Uri("../../Images/Bilfoto.jpg",UriKind.Relative));
+
         public string ErrorText
         {
             get => _errorText;
@@ -90,11 +118,20 @@ namespace CarnGo
                 _from = value;
                 OnPropertyChanged(nameof(From));
             }
-        } 
+        }
 
-        public CarDetailsViewModel Car { get; private set; }= new CarDetailsViewModel { AudioPlayer = true, ChildSeats = false, Gps = true, Model = "Ford Mustang", Smoking = false, Year = 2010 };
-        public object CarDetail => Car;
+        
+        public CarProfileModel Car
+        {
+            get => _car;
+            private set
+            {
+                _car = value;
+                OnPropertyChanged(nameof(Car));
+            }
+        }
 
+        
         #endregion
 
         #region Commands
@@ -102,9 +139,9 @@ namespace CarnGo
 
         public ICommand RentCarCommand => _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction));
 
-        private void RentCarFunction()
+        public void RentCarFunction()
         {
-            if (Message == "Message to leaser" || To < DateTime.Now || From < DateTime.Now || To < From)
+            if (Message == "Message to lessor" || To < DateTime.Now || From < DateTime.Now || To < From)
             {
                 ErrorText = "*Informaton was not entered correctly";
                 return;
@@ -129,6 +166,17 @@ namespace CarnGo
         {
             Message = "";
         }
+
+        private ICommand _textBoxLostFocusCommand;
+        public ICommand TextBoxLostFocusCommand => _textBoxLostFocusCommand ?? (_textBoxLostFocusCommand = new DelegateCommand(TextBoxLostFocusFunction));
+
+        public void TextBoxLostFocusFunction()
+        {
+            if (Message == "")
+                Message = "Message to lessor";
+
+        }
+
         #endregion
 
         #region ErrorHandling

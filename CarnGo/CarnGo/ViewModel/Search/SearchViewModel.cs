@@ -12,15 +12,15 @@ using Prism.Events;
 namespace CarnGo
 {
 
-    public class SearchViewModel : CarProfileModel
+    public class SearchViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Constructor
 
         public SearchViewModel()
         {
-            EventAggregatorSingleton.EventAggregatorObj.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
-            DateFrom = new DateTime(2019, 01, 01);
-            DateTo = new DateTime(2019, 01, 01);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            DateFrom = DateTime.Today;
+            DateTo = DateTime.Today;
         }
 
         #endregion
@@ -38,6 +38,8 @@ namespace CarnGo
         #endregion
 
         #region Properties
+
+        public CarProfileModel CarProfileModel { get; set; }
 
         public ObservableCollection<SearchResultItemViewModel> SearchResultItems
         {
@@ -118,6 +120,9 @@ namespace CarnGo
 
         private void Search()
         {
+            if (!IsValid)
+                return;
+
             ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
@@ -125,13 +130,13 @@ namespace CarnGo
             if (!string.IsNullOrEmpty(LocationText))
             {
                 _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.Location.ToLower() == LocationText.ToLower()));
+                    x => x.Location.ToLower().Contains(LocationText.ToLower())));
             }
 
             if (!string.IsNullOrEmpty(BrandText))
             {
                 _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.Brand.ToLower() == BrandText.ToLower()));
+                    x => x.Brand.ToLower().Contains(BrandText.ToLower())));
             }
 
             if (!string.IsNullOrEmpty(SeatsText))
@@ -140,31 +145,13 @@ namespace CarnGo
                     x => x.Seats == int.Parse(SeatsText)));
             }
 
-            // Checks first if dates differ from default values
-            if ((DateFrom > new DateTime(2019, 01, 01)) && (DateTo > new DateTime(2019, 01, 01)))
+            if ((DateFrom.Date != DateTime.Today.Date && DateTo.Date != DateTime.Today.Date))
             {
-                if (DateFrom < DateTo)
-                {
                     _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                               x => x.StartLeaseTime <= DateFrom));
+                        x => x.StartLeaseTime <= DateFrom));
 
                     _criteria.Add(new Predicate<SearchResultItemViewModel>(
                         x => x.EndLeaseTime >= DateTo));
-                }
-                else
-                {
-                    // Warn that drop off date must be later than pickup date
-                }
-            }
-            else if (DateFrom > new DateTime(2019, 01, 01))
-            {
-                _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.StartLeaseTime <= DateFrom));
-            }
-            else if (DateTo > new DateTime(2019, 01, 01))
-            {
-                _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                    x => x.EndLeaseTime >= DateTo));
             }
             cv.Filter = Filtering;
             OnPropertyChanged(nameof(cv));
@@ -180,7 +167,7 @@ namespace CarnGo
             return isIn;
         }
 
-        private void ClearSearch()
+        public void ClearSearch()
         {
             ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
@@ -189,8 +176,8 @@ namespace CarnGo
             LocationText = String.Empty;
             BrandText = string.Empty;
             SeatsText = string.Empty;
-            DateFrom = new DateTime(2019, 01, 01);
-            DateTo = new DateTime(2019, 01, 01);
+            DateFrom = DateTime.Today;
+            DateTo = DateTime.Today; 
 
             cv.Filter = null;
             OnPropertyChanged(nameof(cv));
@@ -221,6 +208,103 @@ namespace CarnGo
         {
             get { return _clearSearchCommand ?? (_clearSearchCommand = new DelegateCommand(ClearSearch)); }
         }
+
+        #endregion
+
+        #region ErrorHandling
+
+        string IDataErrorInfo.Error
+        {
+            get { return null; }
+        }
+
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get { return GetValidationError(propertyName); }
+        }
+
+        public Dictionary<string, string> Errors { get; set; } = new Dictionary<string, string>();
+
+        public string GetValidationError(string propertyName)
+        {
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "SeatsText":
+                    error = ValidateSeatsText();
+                    break;
+
+                case "DateFrom":
+                    error = ValidateDateFrom();
+                    break;
+
+                case "DateTo":
+                    error = ValidateDateTo();
+                    break;
+            }
+
+            if (Errors.ContainsKey(propertyName))
+                Errors[propertyName] = error;
+            else if (!string.IsNullOrEmpty(error))
+                Errors.Add(propertyName, error);
+
+            OnPropertyChanged(nameof(Errors));
+            return error;
+        }
+
+        // Checks that number of seats qualifies as a number and exceeds 0
+        private string ValidateSeatsText()
+        {
+            if (!string.IsNullOrEmpty(SeatsText))
+            {
+                bool isNumeric = int.TryParse(SeatsText, out int number);
+
+                if (!isNumeric)
+                    return "Number of seats must be an integer";
+
+                if (number <= 0)
+                    return "Number of seats must be larger than 0";
+            }
+            return null;
+        }
+
+        private string ValidateDateTo()
+        {
+            if (DateTo.Date < DateTime.Today.Date)
+                return "Drop off date must be after the current date";
+            else if (DateTo.Date < DateFrom.Date)
+                return "Drop off date must be after the pick-up date";
+
+            return null;
+        }
+
+        private string ValidateDateFrom()
+        {
+            if (DateFrom.Date < DateTime.Today.Date)
+                return "Pick-up and drop off dates must be after the current date";
+
+            return null;
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return true;
+            }
+        }
+
+        private static readonly string[] ValidatedProperties =
+        {
+            "SeatsText",
+            "DateFrom",
+            "DateTo"
+        };
 
         #endregion
     }

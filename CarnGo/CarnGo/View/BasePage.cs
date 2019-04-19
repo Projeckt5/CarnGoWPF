@@ -12,13 +12,13 @@ namespace CarnGo
     }
 
     public class BasePage<TViewModel> : BasePage
-        where TViewModel : BaseViewModel, new()
+        where TViewModel : BaseViewModel
     {
         private TViewModel _pageViewModel;
 
         public BasePage()
         {
-            PageViewModel = new TViewModel();
+            PageViewModel = IoCContainer.Resolve<TViewModel>();
         }
 
         public TViewModel PageViewModel

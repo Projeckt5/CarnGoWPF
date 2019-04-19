@@ -34,8 +34,7 @@ namespace CarnGo
         }
         public IEnumerable GetErrors(string propertyName)
         {
-            ErrorsDictionary.TryGetValue(propertyName, out var errorsForProperty);
-            return errorsForProperty;
+            return ErrorsDictionary.TryGetValue(propertyName, out var errorsForProperty) ? errorsForProperty : new List<string>();
         }
 
         public bool HasErrors => ErrorsDictionary.Values.FirstOrDefault(err => err.Count > 0) != null;
