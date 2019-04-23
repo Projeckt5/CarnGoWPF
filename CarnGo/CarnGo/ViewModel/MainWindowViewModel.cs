@@ -6,7 +6,16 @@ namespace CarnGo
 {
     public class MainWindowViewModel : BaseViewModel
     {
-
+        private string _headerBarVisibility;
+        public string HeaderBarVisibility
+        {
+            get => _headerBarVisibility;
+            set
+            {
+                _headerBarVisibility = value;
+                OnPropertyChanged(nameof(HeaderBarVisibility));
+            }
+        }
         private ICommand _loadingCommand;
         private bool _loadingFlag;
 
