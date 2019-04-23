@@ -119,8 +119,27 @@ namespace CarnGo.Test.Unit
         }
 
        */
-      
+        /*[Test]
+         public void Carprofile_Save_isSame()
+         {
+             //Arrange
+             var profi = new CarProfileViewModel();
+             var mode = new CarProfileModel();
+ 
+ 
+ 
+             //Act
+             profi.SaveFunction();
+ 
+             //Assert
+             Assert.AreSame(profi._editedCarProfileModel, profi._originalCarProfileModel);
+             Assert.IsTrue(profi.IsReadOnly);
+             Assert.IsFalse(profi.Editing);
+         }
+         */
 
+
+            // Skal ikke være det samme
         [Test]
         public void Carprofile_EditProfile_EditingIsEqual()
         {
@@ -139,24 +158,7 @@ namespace CarnGo.Test.Unit
             
          }
 
-        [Test]
-        public void Carprofile_Save_isSame()
-        {
-            //Arrange
-            var profi = new CarProfileViewModel();
-            var mode = new CarProfileModel();
-
-
-
-            //Act
-            profi.SaveFunction();
-
-            //Assert
-            Assert.AreSame(profi._editedCarProfileModel, profi._originalCarProfileModel);
-            Assert.IsTrue(profi.IsReadOnly);
-            Assert.IsFalse(profi.Editing);
-        }
-
+       
         [Test]
         public void EditUser_FirstName_isNotSame()
         {
@@ -243,6 +245,116 @@ namespace CarnGo.Test.Unit
             //Assert
             
             Assert.AreEqual(testIsReadOnly, testpcarview.IsReadOnly);
+            
+        }
+
+
+        //Skal være det samme
+        [Test]
+        public void Carprofile_EditProfile_EditingIsEqual()
+        {
+            //Arrange
+            var testpcarview = new CarProfileViewModel();
+            var modelacces = new CarProfileModel();
+
+        
+            //Act
+
+            
+            var testEditing = true;
+            
+            //Assert
+            Assert.AreNotEqual(testEditing, testpcarview.Editing);
+            
+         }
+
+       
+        [Test]
+        public void EditUser_FirstName_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+            string testFirstName = "Edward";
+            
+            //Assert
+            Assert.AreSame(testFirstName, Edit.FirstName);
+           
+        }
+        [Test]
+        public void EditUser_LastName_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+            
+            string testLastName = "Brunton";
+         
+
+            //Assert
+           
+            Assert.AreSame(testLastName, Edit.LastName);
+        
+        }
+        [Test]
+        public void EditUser_Email_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+            string testEmail = "Edward.Brunton@me.com";
+        
+
+            //Assert
+           Assert.AreNotSame(testEmail, Edit.Email);
+           
+
+        }
+        [Test]
+        public void EditUser_Adress_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+           
+            string testAddress = "Bernhard Jensens blvd 95, 10.3";
+
+            //Assert
+            Assert.AreNotSame(testAddress, Edit.Address);
+
+        }
+
+        [Test]
+        public void Carprofile_EditProfile_ReadOnlyIsSame()
+        {
+            //Arrange
+            var testpcarview = new CarProfileViewModel();
+            var modelacces = new CarProfileModel();
+
+        
+            //Act
+
+            var testIsReadOnly = false;
+
+            //Assert
+            
+            Assert.AreNotEqual(testIsReadOnly, testpcarview.IsReadOnly);
             
         }
 
