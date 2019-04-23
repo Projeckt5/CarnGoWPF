@@ -15,9 +15,9 @@ namespace CarnGo
     public class UserSignUpViewModel : BaseViewModelWithValidation
     {
         #region Private Fields
-        private readonly IValidator<string> _emailValidator = new EmailValidator();
-        private readonly IValidator<SecureString> _passwordValidator = new PasswordValidator();
-        private readonly IValidator<List<SecureString>> _passwordMatchValidator = new PasswordMatchValidator();
+        private readonly IValidator<string> _emailValidator;
+        private readonly IValidator<SecureString> _passwordValidator;
+        private readonly IValidator<List<SecureString>> _passwordMatchValidator;
         private string _email;
         private SecureString _password;
         private SecureString _passwordValidate;
@@ -122,7 +122,7 @@ namespace CarnGo
                 //TODO: AWAIT REGISTERING THE USER ON THE DB
                 await Task.Delay(2000);
             }
-            catch (Exception e)
+            catch (ValidationException e)
             {
                 List<string> allErrorsList = new List<string>();
                 foreach (var error in ErrorsDictionary)
