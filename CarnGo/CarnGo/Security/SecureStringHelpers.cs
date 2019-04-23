@@ -23,7 +23,7 @@ namespace CarnGo.Security
         }
         public static SecureString ConvertToSecureString(this string value)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (value == null)
                 return null;
             var secure = new SecureString();
             secure.Clear();
