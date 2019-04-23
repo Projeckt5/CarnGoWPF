@@ -13,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarnGo.View
+namespace CarnGo
 {
     /// <summary>
-    /// Interaction logic for SendRequestView.xaml
+    /// Interaction logic for MessageView.xaml
     /// </summary>
-    public partial class SendRequestView:BasePage<SendRequestViewModel>
+    public partial class MessageView : Page
     {
-        public SendRequestView()
+        public MessageView()
         {
             InitializeComponent();
         }
-
-     
     }
 }

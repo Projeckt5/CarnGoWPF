@@ -31,6 +31,8 @@ namespace CarnGo
                     return new LoginView();
                 case ApplicationPage.SendRequestPage:
                     return new SendRequestView();
+                case ApplicationPage.MessageView:
+                    return new MessageView();
                 default:
                     throw new ArgumentException("The value to convert was not an ApplicationPage");
             }

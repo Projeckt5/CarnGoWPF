@@ -13,5 +13,16 @@ namespace CarnGo
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+
+            IoCContainer.Setup();
+
+            //Show Main Window
+            Current.MainWindow = new MainWindow();
+            Current.MainWindow.Show();
+        }
     }
 }

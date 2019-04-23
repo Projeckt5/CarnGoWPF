@@ -25,9 +25,14 @@ namespace CarnGo
         private bool _isRegistering;
         #endregion
         #region Default Constructor
-        public UserSignUpViewModel()
+        public UserSignUpViewModel(
+            IValidator<string> emailValidator,
+            IValidator<SecureString> passwordValidator,
+            IValidator<List<SecureString>> passwordMatchValidator)
         {
-            
+            _emailValidator = emailValidator;
+            _passwordValidator = passwordValidator;
+            _passwordMatchValidator = passwordMatchValidator;
         }
         #endregion
         #region Public Properties
@@ -102,26 +107,39 @@ namespace CarnGo
 
         #endregion
         #region Command Helpers
-        private async Task RegisterUser()
+        public async Task RegisterUser()
         {
             IsRegistering = true;
-            AllErrors.Clear();
-            ValidateAll();
-            if (HasErrors)
+            try
+            {
+                AllErrors.Clear();
+                ValidateAll();
+                if (HasErrors)
+                {
+                    throw new ValidationException();
+                }
+
+                //TODO: AWAIT REGISTERING THE USER ON THE DB
+                await Task.Delay(2000);
+            }
+            catch (Exception e)
             {
                 List<string> allErrorsList = new List<string>();
                 foreach (var error in ErrorsDictionary)
                 {
                     allErrorsList.AddRange(error.Value);
                 }
+
                 AllErrors = new ObservableCollection<string>(allErrorsList);
             }
-            //TODO: AWAIT REGISTERING THE USER ON THE DB
-            await Task.Delay(2000);
-            IsRegistering = false;
+            finally
+            {
+                IsRegistering = false;
+            }
         }
         #endregion
         #region Error Handling
+
 
         public void ValidateAll()
         {

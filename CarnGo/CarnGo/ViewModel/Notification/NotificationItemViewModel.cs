@@ -66,7 +66,7 @@ namespace CarnGo
         private void NotificationExecute()
         {
             //Probably needs to send the specific message with it. 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.LoginPage);
+            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.MessageView);
         }
         #endregion
     }

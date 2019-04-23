@@ -1,4 +1,6 @@
-﻿namespace CarnGo
+﻿using Unity;
+
+namespace CarnGo
 {
     public class ViewModelLocator
     {
@@ -15,7 +17,7 @@
         /// <summary>
         /// Singleton instance of ViewModelLocator
         /// </summary>
-        public static ApplicationViewModel ApplicationViewModel { get; set; } = new ApplicationViewModel();
+        public static ApplicationViewModel ApplicationViewModel => IoCContainer.Resolve<ApplicationViewModel>();
         #endregion
     }
 }

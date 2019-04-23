@@ -72,8 +72,8 @@ namespace CarnGo
 
         public string CarRegNr
         {
-            get => _editedCarProfileModel.Regnr;
-            set => _editedCarProfileModel.Regnr = value;
+            get => _editedCarProfileModel.RegNr;
+            set => _editedCarProfileModel.RegNr = value;
         }
         public DateTime CarStartLeaseDate
         {
