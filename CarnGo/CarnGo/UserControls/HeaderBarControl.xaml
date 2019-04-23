@@ -44,7 +44,7 @@
                     FontSize="{StaticResource FontSizeXLarge}"
                     Style="{StaticResource TextAndIconButton}"
                     Padding="10"
-                    Command="{Binding FindCarCommand}">
+                    Command="{Binding NavigateSearchPageCommand}">
                 <StackPanel>
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Find car" 
