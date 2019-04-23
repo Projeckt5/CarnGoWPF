@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using FirstTryProject.Data;
 using FirstTryProject.Model;
-using FirstTryProject.Migrations;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FirstTryProject

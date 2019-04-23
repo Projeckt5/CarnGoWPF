@@ -8,7 +8,7 @@ namespace FirstTryProject.Model
     public class CarOwner
     {
         [Key]
-        public string KontactInfo { get; set; }
+        public string ContactInfo { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

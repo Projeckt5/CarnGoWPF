@@ -172,7 +172,7 @@ namespace FirstTryProject.Data
             { 
                 foreach (var lokaleCarOwner in db.CarOwners)
                 {
-                    if (lokaleCarOwner.KontactInfo == carOwner.KontactInfo)
+                    if (lokaleCarOwner.ContactInfo == carOwner.ContactInfo)
                     { 
                         isAlreadyInThere = true;
                         lokaleCarOwner.Name = carOwner.Name;
@@ -200,7 +200,7 @@ namespace FirstTryProject.Data
             {
                 foreach (var lokaleCarOwner in db.CarOwners)
                 {
-                    if (lokaleCarOwner.KontactInfo == carOwner.KontactInfo)
+                    if (lokaleCarOwner.ContactInfo == carOwner.ContactInfo)
                     {
                         isAlreadyInThere = true;
                         lokaleCarOwner.Name = carOwner.Name;
@@ -249,7 +249,7 @@ namespace FirstTryProject.Data
             {
                 foreach (var lokaleCarOwner in db.CarOwners)
                 {
-                    if (lokaleCarOwner.KontactInfo == carOwner.KontactInfo)
+                    if (lokaleCarOwner.ContactInfo == carOwner.ContactInfo)
                     {
                         isAlreadyInThere = true;
                         lokaleCarOwner.Name = carOwner.Name;
@@ -303,7 +303,7 @@ namespace FirstTryProject.Data
             {
                 foreach (var lokaleCarOwner in db.CarOwners)
                 {
-                    if (lokaleCarOwner.KontactInfo == carOwner.KontactInfo)
+                    if (lokaleCarOwner.ContactInfo == carOwner.ContactInfo)
                     {
                         isAlreadyInThere = true;
                         lokaleCarOwner.Name = carOwner.Name;
@@ -374,7 +374,7 @@ namespace FirstTryProject.Data
             {
                 foreach (var lokaleCarOwner in db.CarOwners)
                 {
-                    if (lokaleCarOwner.KontactInfo == carOwner.KontactInfo)
+                    if (lokaleCarOwner.ContactInfo == carOwner.ContactInfo)
                     {
                         isAlreadyInThere = true;
                         lokaleCarOwner.Name = carOwner.Name;
@@ -528,10 +528,118 @@ namespace FirstTryProject.Data
                 return tempPossibleToRentDays;
             }
         }
-
-        public void DeleteCar()
+            //Removing data
+        public void DeleteCar(string licenceplateNumber)
         {
+            using (var db = new AppDbContext())
+            {
+                foreach (var car in db.Cars)
+                {
+                    if (car.LicenceplateNumber == licenceplateNumber)
+                    {
+                        db.Cars.Remove(car);
+                        break;
+                    }
+                }
 
+                db.SaveChanges();
+            }
+        }
+
+        public void DeleteCarOwner(string contactinfo)
+        {
+            using (var db = new AppDbContext())
+            {
+                foreach (var carOwner in db.CarOwners)
+                {
+                    if (carOwner.ContactInfo == contactinfo)
+                    {
+                        db.CarOwners.Remove(carOwner);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+        
+        public void DeleteCarOwnerMessage(int carOwnerMessageid) 
+        {
+            using (var db = new AppDbContext())
+            { 
+                foreach (var carOwnerMessage in db.CarOwnerMessages)
+                {
+                    if (carOwnerMessage.CarOwnerMessageid == carOwnerMessageid)
+                    {
+                        db.CarOwnerMessages.Remove(carOwnerMessage);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void DeleteCarRenter(string contactInfo)
+        {
+            using (var db = new AppDbContext())
+            {
+                foreach (var renter in db.CarRenters)
+                {
+                    if (renter.ContactInfo == contactInfo)
+                    {
+                        db.CarRenters.Remove(renter);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void DeleteCarRenterMessage(int carRenterMessageid)
+        {
+            using (var db = new AppDbContext())
+            {
+                foreach (var carRenterMessage in db.CarRenterMessages)
+                {
+                    if (carRenterMessage.CarRenterMessageid == carRenterMessageid)
+                    {
+                        db.CarRenterMessages.Remove(carRenterMessage);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void DeleteDayThatIsRented(DateTime date)
+        {
+            using (var db = new AppDbContext())
+            {
+                foreach (var dayThatIsRented in db.DaysThatIsRented)
+                {
+                    if (dayThatIsRented.Date == date)
+                    {
+                        db.DaysThatIsRented.Remove(dayThatIsRented);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void DeletePossibleToRentDay(DateTime date)
+        {
+            using (var db = new AppDbContext())
+            {
+                foreach (var possibleToRentDay in db.PossibleToRentDays)
+                {
+                    if (possibleToRentDay.Date == date)
+                    {
+                        db.PossibleToRentDays.Remove(possibleToRentDay);
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
         }
 
 
