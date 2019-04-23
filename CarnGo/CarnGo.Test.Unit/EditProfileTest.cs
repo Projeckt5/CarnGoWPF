@@ -12,8 +12,9 @@ namespace CarnGo.Test.Unit
     [TestFixture]
     public class UserModelTests
     {
-        
-        [Test]
+        /*
+
+          [Test]
         public void DoSomeTest_TheTestisDo_DoTheTest()
         {
             //Arrange
@@ -101,6 +102,7 @@ namespace CarnGo.Test.Unit
             var item2 = new NotificationItemViewModel(testmessage2);
             var item3 = new NotificationItemViewModel(testmessage3);
 
+           
             not.Messages.Add(item1);
             not.Messages.Add(item2);
             not.Messages.Add(item3);
@@ -114,11 +116,11 @@ namespace CarnGo.Test.Unit
 
         }
 
-       
+       */
       
 
         [Test]
-        public void Carprofile_EditProfile_VariableIsSame()
+        public void Carprofile_EditProfile_EditingIsEqual()
         {
             //Arrange
             var testpcarview = new CarProfileViewModel();
@@ -129,11 +131,9 @@ namespace CarnGo.Test.Unit
 
             
             var testEditing = false;
-            var testIsReadOnly = true;
-
+            
             //Assert
             Assert.AreEqual(testEditing, testpcarview.Editing);
-            Assert.AreEqual(testIsReadOnly, testpcarview.IsReadOnly);
             
          }
 
@@ -156,7 +156,7 @@ namespace CarnGo.Test.Unit
         }
 
         [Test]
-        public void EditUser_Edit_isNotSame()
+        public void EditUser_FirstName_isNotSame()
         {
             //Arrange
             var Edit = new EditUserViewModel();
@@ -166,23 +166,83 @@ namespace CarnGo.Test.Unit
             //Act
 
             string testFirstName = "Alparslan";
+            
+            //Assert
+            Assert.AreNotSame(testFirstName, Edit.FirstName);
+           
+        }
+        [Test]
+        public void EditUser_LastName_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+            
             string testLastName = "Esen";
+         
+
+            //Assert
+           
+            Assert.AreNotSame(testLastName, Edit.LastName);
+        
+        }
+        [Test]
+        public void EditUser_Email_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
             string testEmail = "LolMyBackBroke@Pain.dk";
+        
+
+            //Assert
+           Assert.AreNotSame(testEmail, Edit.Email);
+           
+
+        }
+        [Test]
+        public void EditUser_Adress_isNotSame()
+        {
+            //Arrange
+            var Edit = new EditUserViewModel();
+            var User = new UserModel();
+
+
+            //Act
+
+           
             string testAddress = "Skadestuen";
 
             //Assert
-            Assert.AreNotSame(testFirstName, Edit.FirstName);
-            Assert.AreNotSame(testLastName, Edit.LastName);
-            Assert.AreNotSame(testEmail, Edit.Email);
             Assert.AreNotSame(testAddress, Edit.Address);
-            
+
         }
 
+        [Test]
+        public void Carprofile_EditProfile_ReadOnlyIsSame()
+        {
+            //Arrange
+            var testpcarview = new CarProfileViewModel();
+            var modelacces = new CarProfileModel();
 
         
+            //Act
 
-       
+            var testIsReadOnly = true;
 
+            //Assert
+            
+            Assert.AreEqual(testIsReadOnly, testpcarview.IsReadOnly);
+            
+        }
 
     }
 }
