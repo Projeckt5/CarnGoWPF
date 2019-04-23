@@ -24,6 +24,7 @@ namespace CarnGo
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
+            Container.RegisterSingleton<MainWindowViewModel>();
             Container.AddExtension(new Diagnostic());
         }
 
