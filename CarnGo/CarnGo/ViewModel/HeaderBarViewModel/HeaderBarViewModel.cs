@@ -10,13 +10,16 @@ namespace CarnGo
     public class SearchEvent : PubSubEvent<string> { }
     public class HeaderBarViewModel : BaseViewModel
     {
+
         #region Private Fields
+        private readonly IEventAggregator _eventAggregator;
         private int _numUnreadNotifications = 0;
         private bool _unreadNotifications = false;
         #endregion
         #region Default Constructor
-        public HeaderBarViewModel()
+        public HeaderBarViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
         }
         #endregion
         #region Public Properties
@@ -32,22 +35,13 @@ namespace CarnGo
                 if (_numUnreadNotifications == value)
                     return;
                 _numUnreadNotifications = value;
-                UnreadNotifications = _numUnreadNotifications > 0;
                 OnPropertyChanged(nameof(NumUnreadNotifications));
-            }
-        }
-
-        public bool UnreadNotifications
-        {
-            get=>_unreadNotifications;
-            set
-            {
-                if (_unreadNotifications == value)
-                    return;
-                _unreadNotifications = value;
                 OnPropertyChanged(nameof(UnreadNotifications));
             }
         }
+
+        public bool UnreadNotifications => _numUnreadNotifications > 0;
+
         #endregion
         #region Public Commands
 
@@ -67,7 +61,7 @@ namespace CarnGo
 
         public ICommand LogoutCommand => new DelegateCommand(Logout);
 
-        public ICommand FindCarCommand => new DelegateCommand(()=>
+        public ICommand NavigateSearchPageCommand => new DelegateCommand(()=>
                                                  ViewModelLocator.ApplicationViewModel
                                                      .GoToPage(ApplicationPage.SearchPage));
 
@@ -85,7 +79,7 @@ namespace CarnGo
         {
             ViewModelLocator.ApplicationViewModel
                 .GoToPage(ApplicationPage.SearchPage);
-            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Publish(SearchKeyWord);
+            _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 
         private void ShowNotification()

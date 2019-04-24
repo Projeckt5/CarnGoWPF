@@ -1,4 +1,6 @@
-﻿namespace CarnGo
+﻿using Unity;
+
+namespace CarnGo
 {
     public class ApplicationViewModel : BaseViewModel
     {
@@ -17,6 +19,12 @@
                     return;
                 _applicationPage = value;
                 OnPropertyChanged(nameof(CurrentPage));
+                if (ViewModelLocator.ApplicationViewModel.CurrentPage == ApplicationPage.LoginPage)
+                    IoCContainer.Resolve<MainWindowViewModel>().HeaderBarVisibility = "Hidden";
+                else
+                {
+                    IoCContainer.Resolve<MainWindowViewModel>().HeaderBarVisibility = "Visible";
+                }
             }
         }
 

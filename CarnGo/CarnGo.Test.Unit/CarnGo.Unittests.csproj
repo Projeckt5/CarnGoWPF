@@ -67,10 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SendRequest.Unit.Tests.cs" />
-    <Compile Include="Unittest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecureStringHelpersTest.cs" />
     <Compile Include="Validator.Unittest.cs" />
+    <Compile Include="ViewModels\HeaderBarViewModelTest.cs" />
     <Compile Include="ViewModels\UserSignUpViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

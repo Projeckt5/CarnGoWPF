@@ -39,6 +39,7 @@ namespace CarnGo
             if (currentPageFrame == null)
                 return;
             currentPageFrame.Content = e.NewValue;
+            
         }
     }
 
