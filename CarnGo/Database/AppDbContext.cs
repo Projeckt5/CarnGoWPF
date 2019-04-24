@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using FirstTryProject.Model;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FirstTryProject.Data
+namespace Database
 {
     public class AppDbContext : DbContext
     {

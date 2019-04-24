@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace FirstTryProject.Model
+namespace Database.Models
 {
     public class DayThatIsRented 
     {

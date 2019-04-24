@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using FirstTryProject.Data;
-using FirstTryProject.Model;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FirstTryProject
