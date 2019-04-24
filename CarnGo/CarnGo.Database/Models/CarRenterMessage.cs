@@ -18,5 +18,7 @@ namespace FirstTryProject.Model
         public string RentedFromTo { get; set; }
         [Required]
         public CarRenter CarRenter { get; set; }
+        [Required]
+        public int Recipientid { get; set; }
     }
 }

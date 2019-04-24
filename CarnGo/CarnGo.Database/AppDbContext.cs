@@ -148,6 +148,7 @@ namespace FirstTryProject.Data
                         carRenterMessages.Car = carRenterMessage.Car;
                         carRenterMessages.RentedFromTo = carRenterMessage.RentedFromTo;
                         carRenterMessages.CarRenter = carRenterMessage.CarRenter;
+                        carRenterMessages.Recipientid = carRenterMessages.Recipientid;
 
                         break;
                     }
