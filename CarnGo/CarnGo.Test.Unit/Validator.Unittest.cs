@@ -19,8 +19,9 @@ namespace CarnGo.Test.Unit
     {
         
         private UserModel _uutUserModel;
-       
-     
+        private IValidator<List<SecureString>> _fakePasswordMatchValidator;
+
+
         [SetUp]
         public void Setup()
         {
@@ -33,8 +34,9 @@ namespace CarnGo.Test.Unit
                 
 
             };
-
             
+        
+
 
         }
 
@@ -84,7 +86,110 @@ namespace CarnGo.Test.Unit
 
             Assert.That(uut.Validate(SecurePassword), Is.EqualTo(false));
         }
+
+        [Test]
+        public void PasswordValidate_OnlyNumbers_Fail()
+        {
+            var uut = new PasswordValidator();
+            var passsordWithOnlyNumbers = "12345678";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passsordWithOnlyNumbers);
+
+
+
+            Assert.That(uut.Validate(SecurePassword), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void PasswordValidate_EmptyField_fail()
+        {
+            var uut = new PasswordValidator();
+            var passwordEmpty = "";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordEmpty);
+
+
+
+            Assert.That(uut.Validate(SecurePassword), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void PasswordValidate_Length_Success()
+        {
+            var uut = new PasswordValidator();
+            var passwordTrueLength = "123BenBen";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordTrueLength);
+
+
+
+            Assert.That(uut.Validate(SecurePassword), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void PasswordValidate_Length_Fail()
+        {
+            var uut = new PasswordValidator();
+            var passwordFailLength = "12Ben";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordFailLength);
+
+
+
+            Assert.That(uut.Validate(SecurePassword), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void PasswordValidate_NordicChars_Success()
+        {
+            var uut = new PasswordValidator();
+            var passwordSuccessNordicChars = "12Beøæå";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordSuccessNordicChars);
+
+
+
+            Assert.That(uut.Validate(SecurePassword), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void PasswordMatch_PasswordMatching_Success()
+        {
+            var uut = new PasswordMatchValidator();
+            var passwordMatch = "12Beøæå";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordMatch);
+
+           
+
+            List<SecureString> mylist = new List<SecureString>{ SecurePassword, SecurePassword};
+            
+
+            
+           
+           
+            
+
+
+            Assert.That(uut.Validate(mylist), Is.EqualTo(true));
+        }
+
+        [Test]
+        public void PasswordMatch_PasswordMatching_Fail()
+        {
+            var uut = new PasswordMatchValidator();
+            var passwordMatch = "12Beøæå";
+            var passwordMatch2 = "12Beøæå2";
+
+            var SecurePassword = SecureStringHelpers.ConvertToSecureString(passwordMatch);
+            var SecurePassword2 = SecureStringHelpers.ConvertToSecureString(passwordMatch2);
+
+
+            List<SecureString> mylist = new List<SecureString> { SecurePassword, SecurePassword2};
        
+
+            Assert.That(uut.Validate(mylist), Is.EqualTo(false));
+        }
 
     }
 }

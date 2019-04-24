@@ -60,6 +60,11 @@ namespace CarnGo
         #region Commands
         private ICommand _notificationPressedCommand;
         public ICommand NotificationPressedCommand => _notificationPressedCommand ?? (_notificationPressedCommand = new DelegateCommand(NotificationExecute));
+
+        private ICommand _messagePressedCommand;
+
+        public ICommand MesssagePressedCommand =>
+            _messagePressedCommand ?? (_messagePressedCommand = new DelegateCommand(MessageExecute));
         #endregion
 
         #region Executes & CanExecutes
@@ -67,6 +72,11 @@ namespace CarnGo
         {
             //Probably needs to send the specific message with it. 
             ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.MessageView);
+        }
+
+        private void MessageExecute()
+        {
+            //Send event
         }
         #endregion
     }
