@@ -364,6 +364,11 @@
   <ItemGroup>
     <Resource Include="Images\Bilfoto.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Database\CarnGo.Database.csproj">
+      <Project>{e319c964-aa15-47c1-a914-d44696e5a665}</Project>
+      <Name>CarnGo.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -518,7 +518,20 @@ namespace FirstTryProject.Data
                 return tempPossibleToRentDays;
             }
         }
-            //Removing data
+            //Database search
+/*
+        public void SearchForUser(out CarOwner gottenUser, )
+        {
+
+        }
+
+        public void SearchForUser(out CarRenter gottenUser)
+        {
+
+        }
+        */
+
+        //Removing data
         public void DeleteCar(string licenceplateNumber)
         {
             using (var db = new AppDbContext())
