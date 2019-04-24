@@ -68,7 +68,7 @@ namespace CarnGo
             Car = obj;
 
 
-            //Bilinformation skal trækkes ud af databasen 
+            
         }
 
         #endregion

@@ -17,6 +17,7 @@ namespace CarnGo.Test.Unit
         private SendRequestViewModel _uut;
         private CarProfileModel _uutCarModel;
         private IEventAggregator _event;
+        private CarProfileDataEvent _dataEvent;
         [SetUp]
         public void Setup()
         {
@@ -43,12 +44,19 @@ namespace CarnGo.Test.Unit
                 StartLeaseTime = new DateTime(2019, 4, 25),
                 EndLeaseTime = new DateTime(2019, 5, 25)
             };
-            // _event = Substitute.For<IEventAggregator>();
+            _event = Substitute.For<IEventAggregator>();
+            _dataEvent = Substitute.For<CarProfileDataEvent>();
             // _uut = new SendRequestViewModel(_event);
             var eventagg = new EventAggregator();
             _uut = new SendRequestViewModel(eventagg);
             eventagg.GetEvent<CarProfileDataEvent>().Publish(_uutCarModel);
             ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.StartPage);
+        }
+
+        [Test]
+        public void SearchCarProfileEvent()
+        {
+            Assert.That(_uutCarModel,Is.EqualTo(_uut.Car));
         }
 
         [Test]
