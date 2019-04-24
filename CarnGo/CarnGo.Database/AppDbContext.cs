@@ -9,20 +9,9 @@ namespace FirstTryProject.Data
 {
     public class AppDbContext : DbContext
     {
-        protected string InUse;
-        protected string LocalDatabase = "Data Source=LAPTOP-SV4Q19DE;Initial Catalog=LokalTestDB;Integrated Security=True";
-        protected string AzureDatabase = "Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30";
-        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-#if DEBUG
-            InUse = LocalDatabase;
-#endif
-
-#if !DEBUG
-            InUse = AzureDB;
-#endif
-            optionsBuilder.UseSqlServer(InUse);
+            optionsBuilder.UseSqlServer("Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30");
 
         }
         private DbSet<CarRenter> CarRenters { get; set; }
