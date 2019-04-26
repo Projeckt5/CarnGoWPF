@@ -516,18 +516,6 @@ namespace Database
                 return tempPossibleToRentDays;
             }
         }
-            //Database search
-/*
-        public void SearchForUser(out CarOwner gottenUser, )
-        {
-
-        }
-
-        public void SearchForUser(out CarRenter gottenUser)
-        {
-
-        }
-        */
 
         //Removing data
         public void DeleteCar(string licenceplateNumber)
