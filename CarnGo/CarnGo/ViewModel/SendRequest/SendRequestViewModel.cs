@@ -13,8 +13,6 @@ using System.Windows.Navigation;
 using Prism.Commands;
 using Prism.Events;
 using Unity;
-using Database;
-using Database.Models;
 
 
 namespace CarnGo

@@ -19,6 +19,7 @@ namespace CarnGo.Test.Unit.ViewModels
         private IValidator<string> _fakeEmailValidator;
         private IValidator<SecureString> _fakePaswwordValidator;
         private IValidator<List<SecureString>> _fakePasswordMatchValidator;
+        private IQueryDatabase _fakeQueryDatabase;
 
         [SetUp]
         public void TestSetup()
@@ -26,7 +27,8 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeEmailValidator = Substitute.For<IValidator<string>>();
             _fakePaswwordValidator = Substitute.For<IValidator<SecureString>>();
             _fakePasswordMatchValidator = Substitute.For<IValidator<List<SecureString>>>();
-            _uut = new UserSignUpViewModel(_fakeEmailValidator,_fakePaswwordValidator,_fakePasswordMatchValidator);
+            _fakeQueryDatabase = Substitute.For<IQueryDatabase>();
+            _uut = new UserSignUpViewModel(_fakeEmailValidator,_fakePaswwordValidator,_fakePasswordMatchValidator, _fakeQueryDatabase);
         }
 
         [TestCase(true)]

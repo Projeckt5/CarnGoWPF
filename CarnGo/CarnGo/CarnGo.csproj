@@ -105,6 +105,7 @@
     <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\DatabaseQueries\IQueryDatabase.cs" />
+    <Compile Include="Model\DatabaseQueries\RealDatabaseQuerier.cs" />
     <Compile Include="Model\DatabaseQueries\TestDatabaseQuerier.cs" />
     <Compile Include="Model\MessageFromLessorModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
