@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Database.Models
+namespace CarnGo.Database.Models
 {
     public class CarRenterMessage 
     {

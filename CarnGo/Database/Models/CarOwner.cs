@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Security;
 
-namespace Database.Models
+namespace CarnGo.Database.Models
 {
     public class CarOwner
     {

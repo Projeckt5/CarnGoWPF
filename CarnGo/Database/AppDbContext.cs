@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Database.Models;
+using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Database
+namespace CarnGo.Database
 {
     public class AppDbContext : DbContext
     {

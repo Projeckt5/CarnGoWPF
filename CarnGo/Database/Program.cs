@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace FirstTryProject
+namespace CarnGo.Database
 {
     class Program
     {
