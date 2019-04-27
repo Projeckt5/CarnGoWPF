@@ -15,6 +15,8 @@ namespace Database
             context = new AppDbContext();;
         }
 
+
+        //Adding Data
         public void AddCarRenter(CarRenter carRenter)
         {
             context.AddCarRenter(carRenter);

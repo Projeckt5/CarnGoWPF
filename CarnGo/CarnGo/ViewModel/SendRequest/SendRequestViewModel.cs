@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using Prism.Commands;
 using Prism.Events;
 using Unity;
+using Database;
+using Database.Models;
 
 
 namespace CarnGo
@@ -147,7 +149,11 @@ namespace CarnGo
                 return;
             }
 
-
+            /*var message=new CarRenterMessage();
+            message.Commentary = Message;
+            message.Car
+            var repo = new CarnGoReposetory();
+            repo.AddCarRenterMessage(message);*/
             //var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
             //sendingMessage.From = From;
             //sendingMessage.To = To;

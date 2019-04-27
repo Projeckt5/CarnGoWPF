@@ -4,7 +4,7 @@ namespace CarnGo
 {
     public class ApplicationViewModel : BaseViewModel
     {
-        private ApplicationPage _applicationPage = ApplicationPage.UserSignUpPage;
+        private ApplicationPage _applicationPage = ApplicationPage.StartPage;
         private UserModel _currentUser = null;
 
         /// <summary>
