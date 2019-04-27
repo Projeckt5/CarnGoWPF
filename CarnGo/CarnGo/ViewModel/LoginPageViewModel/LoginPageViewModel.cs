@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CarnGo.Security;
 using Prism.Commands;
-using Database;
-using Database.Models;
+using CarnGo.Database;
+using CarnGo.Database.Models;
 
 namespace CarnGo
 {

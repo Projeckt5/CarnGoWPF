@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using CarnGo.Database.Models;
 using Prism.Commands;
 using Prism.Events;
 using Unity;
