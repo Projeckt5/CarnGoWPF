@@ -7,7 +7,7 @@ using Database.Models;
 
 namespace Database
 {
-    class CarnGoReposetory
+    public class CarnGoReposetory
     {
         private AppDbContext context;
         public CarnGoReposetory()

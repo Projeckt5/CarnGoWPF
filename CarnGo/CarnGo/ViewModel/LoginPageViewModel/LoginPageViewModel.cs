@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CarnGo.Security;
 using Prism.Commands;
+using Database;
+using Database.Models;
 
 namespace CarnGo
 {
@@ -113,6 +115,8 @@ namespace CarnGo
                 AllErrors = new ObservableCollection<string>(allErrorsList);
             }
             //TODO: AWAIT REGISTERING THE USER ON THE DB
+            //var repo=new CarnGoReposetory();
+           
             await Task.Delay(2000);
             IsLogin = false;
         }

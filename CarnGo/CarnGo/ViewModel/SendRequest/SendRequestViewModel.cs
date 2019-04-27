@@ -149,17 +149,21 @@ namespace CarnGo
                 return;
             }
 
+            /*if (!ConfirmRentingDates(Car car))
+            {
+                ErrorText = "*Another Lessor has rented the car in this time span";
+                return;
+            }*/
+
+            //var list = GetListOfDayThatIsRented(From, To,new Car() , new CarRenter());
+            
+            
             /*var message=new CarRenterMessage();
             message.Commentary = Message;
             message.Car
             var repo = new CarnGoReposetory();
             repo.AddCarRenterMessage(message);*/
-            //var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
-            //sendingMessage.From = From;
-            //sendingMessage.To = To;
-            //sendingMessage.Message = Message;
-
-            //sendingMessage lægges ind i database MANGLER
+            
 
             ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
@@ -182,6 +186,48 @@ namespace CarnGo
                 Message = "Message to lessor";
 
         }
+
+        #endregion
+
+        #region Functions
+
+        public bool ConfirmRentingDates(Car car)
+        {
+           
+            List<DateTime> dates = new List<DateTime>();
+            foreach (var date in car.DaysThatIsRented)
+            {
+                if (date.Date >= From && date.Date <= To)
+                {
+                    dates.Add(date.Date);
+                }
+            }
+            for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
+            {
+                foreach (var date in dates)
+                {
+                    if (date == rentingDate)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+
+            return true;
+        }
+
+        public List<DayThatIsRented> GetListOfDayThatIsRented(DateTime from, DateTime to, Car car,CarRenter renter)
+        {
+            var list = new List<DayThatIsRented>();
+            for (var i = to; i <= from; i=i.AddDays(1))
+            {
+                list.Add(new DayThatIsRented(){Date=i, Car=car});
+            }
+
+            return list;
+        }
+        
 
         #endregion
 
