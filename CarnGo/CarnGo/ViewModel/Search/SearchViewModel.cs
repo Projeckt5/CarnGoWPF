@@ -16,11 +16,13 @@ namespace CarnGo
     {
         #region Constructor
 
-        public SearchViewModel()
+        public SearchViewModel(IEventAggregator eventAggregator)
         {
-            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            //IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
+            _criteria = new List<Predicate<SearchResultItemViewModel>>();
         }
 
         #endregion
@@ -32,8 +34,9 @@ namespace CarnGo
         protected string _seatsText;
         protected DateTime _dateFrom;
         protected DateTime _dateTo;
-        private List<Predicate<SearchResultItemViewModel>> _criteria = new List<Predicate<SearchResultItemViewModel>>();
+        private List<Predicate<SearchResultItemViewModel>> _criteria;
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
+        private CollectionView cv;
 
         #endregion
 
@@ -114,6 +117,18 @@ namespace CarnGo
             }
         }
 
+        public List<Predicate<SearchResultItemViewModel>> Criteria
+        {
+            get => _criteria;
+            set { _criteria = value; }
+        }
+
+        public CollectionView Cv
+        {
+            get => cv;
+            set { cv = value; }
+        }
+
         #endregion
 
         #region Methods
@@ -123,7 +138,7 @@ namespace CarnGo
             if (!IsValid)
                 return;
 
-            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -169,7 +184,7 @@ namespace CarnGo
 
         public void ClearSearch()
         {
-            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -282,7 +297,7 @@ namespace CarnGo
         private string ValidateDateFrom()
         {
             if (DateFrom.Date < DateTime.Today.Date)
-                return "Pick-up and drop off dates must be after the current date";
+                return "Pick-up date must be after the current date";
 
             return null;
         }
