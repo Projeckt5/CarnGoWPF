@@ -2,16 +2,17 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Prism.Commands;
+using Prism.Events;
 
 namespace CarnGo
 {
     public class SearchDesignModel : SearchViewModel
     {
-        public static SearchDesignModel Instance => new SearchDesignModel();
+        public static SearchDesignModel Instance => new SearchDesignModel(IoCContainer.Resolve<IEventAggregator>());
 
         #region Constructor
 
-        public SearchDesignModel()
+        public SearchDesignModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             UserModel jensJensen = new UserModel
             {

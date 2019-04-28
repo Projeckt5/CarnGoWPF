@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="510"
-             >
-    <Viewbox StretchDirection="Both" Stretch="Uniform" d:DataContext="{x:Static local:SearchDesignModel.Instance}">
+             d:DataContext="{d:DesignInstance Type=local:SearchDesignModel}">
+    <Viewbox StretchDirection="Both" Stretch="Uniform">
         <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{StaticResource BackgroundMainBrush}">
             <ItemsControl ItemsSource="{Binding SearchResultItems, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemTemplate>
