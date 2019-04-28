@@ -16,9 +16,12 @@ namespace CarnGo
 {
     public class NotificationItemViewModel : BaseViewModel
     {
+        private readonly IApplication _application;
+
         #region Constructors
-        public NotificationItemViewModel(MessageModel message)
+        public NotificationItemViewModel(IApplication application, MessageModel message)
         {
+            _application = application;
             //TODO: Move to factory
             switch (message.MsgType)
             {
@@ -71,7 +74,7 @@ namespace CarnGo
         private void NotificationExecute()
         {
             //Probably needs to send the specific message with it. 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.MessageView);
+            _application.GoToPage(ApplicationPage.MessageView);
         }
 
         private void MessageExecute()

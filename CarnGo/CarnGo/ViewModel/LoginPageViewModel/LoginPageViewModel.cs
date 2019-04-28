@@ -17,6 +17,7 @@ namespace CarnGo
 {
     public class LoginPageViewModel : BaseViewModelWithValidation
     {
+
         #region Private Field
         private readonly IValidator<string> _emailValidator = new EmailValidator();
         private readonly IValidator<SecureString> _passwordValidator = new PasswordValidator();
@@ -24,12 +25,13 @@ namespace CarnGo
         private SecureString _password;
         private bool _IsLogin;
         private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
+        private readonly IApplication _application;
         #endregion
 
         #region Constructor
-        public LoginPageViewModel()
+        public LoginPageViewModel(IApplication application)
         {
-
+            _application = application;
         }
         #endregion
 
@@ -91,7 +93,7 @@ namespace CarnGo
         #region Public Commands
 
         public ICommand LoginCommand => new DelegateCommand(async () => await Login());
-        public ICommand RegisterUserCommand => new DelegateCommand(() => ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.UserSignUpPage));
+        public ICommand RegisterUserCommand => new DelegateCommand(() => _application.GoToPage(ApplicationPage.UserSignUpPage));
 
 
 

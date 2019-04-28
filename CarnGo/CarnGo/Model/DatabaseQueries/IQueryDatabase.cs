@@ -5,7 +5,7 @@ namespace CarnGo
 {
     public interface IQueryDatabase
     {
-        Task RegisterUser(string email, SecureString password);
+        Task RegisterUserTask(string email, SecureString password);
         Task<UserModel> GetUserTask(string email, SecureString password);
     }
 }

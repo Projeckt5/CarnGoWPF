@@ -9,8 +9,7 @@
              x:Name="root">
     
     <Border Height="60" 
-            Background="{StaticResource BlueMainBrush}"
-            DataContext="{x:Static carnGo:HeaderBarDesignModel.Instance}">
+            Background="{StaticResource BlueMainBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -97,7 +96,8 @@
                                         UpdateSourceTrigger=PropertyChanged,
                                         ConverterParameter=true}">
                     <Viewbox>
-                        <TextBlock Text="{Binding NumUnreadNotifications}"
+                        <TextBlock Text="{Binding NumUnreadNotifications, 
+                                        UpdateSourceTrigger=PropertyChanged}"
                                    Foreground="{StaticResource ForegroundLightBrush}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"

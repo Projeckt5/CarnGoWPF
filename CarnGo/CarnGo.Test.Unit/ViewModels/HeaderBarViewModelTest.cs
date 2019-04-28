@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using Prism.Events;
 
@@ -9,35 +10,50 @@ namespace CarnGo.Test.Unit.ViewModels
     {
         private HeaderBarViewModel _uut;
         private IEventAggregator _fakeEventAggregator;
+        private IApplication _fakeApplication;
         private SearchEvent _fakeSearchEvent;
+        private NotificationMessageUpdateEvent _fakeUpdateEvent;
 
         [SetUp]
         public void TestSetup()
         {
             _fakeEventAggregator = Substitute.For<IEventAggregator>();
+            _fakeApplication = Substitute.For<IApplication>();
             _fakeSearchEvent = Substitute.For<SearchEvent>();
-            _uut = new HeaderBarViewModel(_fakeEventAggregator);
+            _fakeUpdateEvent = Substitute.For<NotificationMessageUpdateEvent>();
+            _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
+            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Returns(_fakeUpdateEvent);
+            _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication);
         }
 
         [Test]
         public void Search_SearchInvokesEventAggregator_EventAggregatorGetsRightEventArgs()
         {
             _uut.SearchKeyWord = "Test";
-            _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
-            
+
             _uut.SearchCommand.Execute(null);
 
             _fakeEventAggregator.GetEvent<SearchEvent>().Received().Publish(Arg.Is<string>(str=>str.Contains("Test")));
         }
 
+
+        [Test]
+        public void Search_SearchInvokesApplication_PageChanged()
+        {
+            _uut.SearchKeyWord = "Test";
+
+            _uut.SearchCommand.Execute(null);
+
+            _fakeApplication.Received().GoToPage(Arg.Is<ApplicationPage>(page => page == ApplicationPage.SearchPage));
+        }
+
         [Test]
         public void Logout_UserLogout_UserIsNull()
         {
-            ViewModelLocator.ApplicationViewModel.CurrentUser = new UserModel("fake","fake","fake@fake.com","fake",UserType.OrdinaryUser);
 
             _uut.LogoutCommand.Execute(null);
 
-            Assert.That(_uut.UserModel, Is.Null);
+            _fakeApplication.Received().LogUserOut();
         }
 
 

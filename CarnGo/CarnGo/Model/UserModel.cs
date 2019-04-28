@@ -26,15 +26,16 @@ namespace CarnGo
         /// <param name="lastname"></param>
         /// <param name="email"></param>
         /// <param name="address"></param>
-        /// <param name="usertype"></param>
+        /// <param name="userType"></param>
         public UserModel(string firstname, string lastname, string email,
-            string address, UserType usertype)
+            string address, UserType userType)
         {
             Firstname = firstname;
             Lastname = lastname;
             Email = email;
             Address = address;
-            UserType = usertype; 
+            UserType = userType; 
+            _messageModels = new List<MessageModel>();
         }
         #endregion
 
@@ -44,6 +45,8 @@ namespace CarnGo
         private string _email;
         private string _address;
         private UserType _usertype;
+        private List<MessageModel> _messageModels;
+
         #endregion
 
         //TODO Try/Catch block for Database exceptions
@@ -105,6 +108,18 @@ namespace CarnGo
             {
                 _usertype = value;
                 OnPropertyChanged(nameof(UserType));
+            }
+        }
+
+        public List<MessageModel> MessageModels
+        {
+            get => _messageModels;
+            set
+            {
+                if (_messageModels == value)
+                    return;
+                _messageModels = value;
+                OnPropertyChanged(nameof(MessageModels));
             }
         }
         #endregion

@@ -16,8 +16,8 @@
                                 />
         <ScrollViewer Grid.Row="1">
             <local:PageNavigation CurrentPage="{Binding}"
-                                  DataContext="{Binding ApplicationViewModel.CurrentPage,
-                                        Source={x:Static local:ViewModelLocator.Instance},
+                                  DataContext="{Binding CurrentPage,
+                                        Source={x:Static local:IoCContainer.Application},
                                         Converter={local:ApplicationPageValueConverter}}"
             />
         </ScrollViewer>

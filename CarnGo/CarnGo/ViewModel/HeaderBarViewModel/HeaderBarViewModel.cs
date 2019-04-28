@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -13,18 +15,22 @@ namespace CarnGo
 
         #region Private Fields
         private readonly IEventAggregator _eventAggregator;
-        private int _numUnreadNotifications = 0;
-        private bool _unreadNotifications = false;
+        private readonly IApplication _application;
+        private int _numUnreadNotifications;
         #endregion
         #region Default Constructor
-        public HeaderBarViewModel(IEventAggregator eventAggregator)
+        public HeaderBarViewModel(IEventAggregator eventAggregator, IApplication application)
         {
             _eventAggregator = eventAggregator;
+            _application = application;
+            _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(UpdateUnreadNotifications);
+            NumUnreadNotifications = _application.CurrentUser?.MessageModels.Count(msg => msg.MessageRead == false) ?? 0;
         }
         #endregion
         #region Public Properties
 
-        public UserModel UserModel => ViewModelLocator.ApplicationViewModel.CurrentUser;
+        public UserModel UserModel => _application.CurrentUser;
+
         public string SearchKeyWord { get; set; }
 
         public int NumUnreadNotifications
@@ -40,45 +46,41 @@ namespace CarnGo
             }
         }
 
-        public bool UnreadNotifications => _numUnreadNotifications > 0;
+        public bool UnreadNotifications => NumUnreadNotifications > 0;
 
         #endregion
         #region Public Commands
 
-        public ICommand NavigateHomeCommand => new DelegateCommand(() =>
-                                                   ViewModelLocator.ApplicationViewModel
-                                                       .GoToPage(ApplicationPage.StartPage));
+        public ICommand NavigateHomeCommand => new DelegateCommand(() =>_application.GoToPage(ApplicationPage.StartPage));
 
         public ICommand NotificationCommand => new DelegateCommand(ShowNotification);
 
 
-        public ICommand NavigateUserCommand => new DelegateCommand(() =>
-                                                   ViewModelLocator.ApplicationViewModel
-                                                       .GoToPage(ApplicationPage.EditUserPage));
+        public ICommand NavigateUserCommand => new DelegateCommand(() => _application.GoToPage(ApplicationPage.EditUserPage));
 
         public ICommand SearchCommand => new DelegateCommand(Search);
 
 
         public ICommand LogoutCommand => new DelegateCommand(Logout);
 
-        public ICommand NavigateSearchPageCommand => new DelegateCommand(()=>
-                                                 ViewModelLocator.ApplicationViewModel
-                                                     .GoToPage(ApplicationPage.SearchPage));
+        public ICommand NavigateSearchPageCommand => new DelegateCommand(()=> _application.GoToPage(ApplicationPage.SearchPage));
 
         #endregion
         #region Command Helpers
 
+        public void UpdateUnreadNotifications(List<MessageModel> messageModels)
+        {
+            NumUnreadNotifications = messageModels.Count(msg => msg.MessageRead == false);
+        }
+
         private void Logout()
         {
-            ViewModelLocator.ApplicationViewModel.CurrentUser = null;
-            ViewModelLocator.ApplicationViewModel
-                .GoToPage(ApplicationPage.LoginPage);
+            _application.LogUserOut();
         }
 
         private void Search()
         {
-            ViewModelLocator.ApplicationViewModel
-                .GoToPage(ApplicationPage.SearchPage);
+            _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 

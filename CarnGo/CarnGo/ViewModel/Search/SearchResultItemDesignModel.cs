@@ -4,10 +4,11 @@ namespace CarnGo
 {
     public class SearchResultItemDesignModel : SearchResultItemViewModel
     {
-        public static SearchResultItemDesignModel Instance => new SearchResultItemDesignModel();
+        public static SearchResultItemDesignModel Instance => new SearchResultItemDesignModel(IoCContainer.Resolve<IApplication>());
 
         #region Constructor
-        public SearchResultItemDesignModel()
+        public SearchResultItemDesignModel(IApplication application)
+            :base(application)
         {
             Model = "CLA 250";
             Brand = "Mercedes";

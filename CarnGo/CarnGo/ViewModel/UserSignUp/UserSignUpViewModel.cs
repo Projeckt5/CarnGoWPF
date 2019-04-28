@@ -19,6 +19,7 @@ namespace CarnGo
         private readonly IValidator<SecureString> _passwordValidator;
         private readonly IValidator<List<SecureString>> _passwordMatchValidator;
         private readonly IQueryDatabase _databaseAccess;
+        private readonly IApplication _application;
         private string _email;
         private SecureString _password;
         private SecureString _passwordValidate;
@@ -30,12 +31,14 @@ namespace CarnGo
             IValidator<string> emailValidator,
             IValidator<SecureString> passwordValidator,
             IValidator<List<SecureString>> passwordMatchValidator,
-            IQueryDatabase databaseAccess)
+            IQueryDatabase databaseAccess,
+            IApplication application)
         {
             _emailValidator = emailValidator;
             _passwordValidator = passwordValidator;
             _passwordMatchValidator = passwordMatchValidator;
             _databaseAccess = databaseAccess;
+            _application = application;
         }
         #endregion
         #region Public Properties
@@ -122,7 +125,8 @@ namespace CarnGo
                     throw new ValidationException();
                 }
 
-                await _databaseAccess.RegisterUser(Email, PasswordSecureString);
+                await _databaseAccess.RegisterUserTask(Email, PasswordSecureString);
+                NavigateLoginPage();
             }
             catch (ValidationException e)
             {
@@ -142,7 +146,7 @@ namespace CarnGo
 
         public void NavigateLoginPage()
         {
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.LoginPage);
+            _application.GoToPage(ApplicationPage.LoginPage);
         }
         #endregion
         #region Error Handling

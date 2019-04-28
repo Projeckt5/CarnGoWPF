@@ -20,9 +20,9 @@ namespace CarnGo
             var message1 = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
             var message2 = new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false);
             var message3 = new MessageFromRenterModel(User2, User1, Car, "Må jeg godt låne din flotte bil?");
-            var Notification1 = new NotificationItemViewModel(message1);
-            var Notification2 = new NotificationItemViewModel(message2);
-            var Notification3 = new NotificationItemViewModel(message3);
+            var Notification1 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(),message1);
+            var Notification2 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(),message2);
+            var Notification3 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(),message3);
             Messages = new List<NotificationItemViewModel>
             {
                 Notification1,

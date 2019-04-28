@@ -104,6 +104,7 @@
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
     <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\DatabaseQueries\Exceptions\UserNotFoundException.cs" />
     <Compile Include="Model\DatabaseQueries\IQueryDatabase.cs" />
     <Compile Include="Model\DatabaseQueries\RealDatabaseQuerier.cs" />
     <Compile Include="Model\DatabaseQueries\TestDatabaseQuerier.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Security\Validation\ValidationException.cs" />
+    <Compile Include="ViewModel\Application\IApplication.cs" />
     <Compile Include="ViewModel\BaseViewModelWithValidation.cs" />
     <Compile Include="Security\Validation\EmailValidator.cs" />
     <Compile Include="Security\SecureStringHelpers.cs" />
@@ -144,11 +146,9 @@
     <Compile Include="ValueConverters\DateTimeToStringValueConverter.cs" />
     <Compile Include="ValueConverters\InvertBooleanValueConverter.cs" />
     <Compile Include="ValueConverters\MessageConverter.cs" />
-    <Compile Include="ViewModelLocator\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\CarProfile\CarProfileViewModel.cs" />
     <Compile Include="ViewModel\EditUser\EditUserViewModel.cs" />
-    <Compile Include="ViewModel\HeaderBarViewModel\Design\HeaderBarDesignModel.cs" />
     <Compile Include="ViewModel\MessageViewModel\MessageItemViewModel.cs" />
     <Compile Include="ViewModel\MessageViewModel\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
