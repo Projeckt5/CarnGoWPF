@@ -83,6 +83,7 @@
     <Compile Include="Security\SecureStringHelpersTest.cs" />
     <Compile Include="Validator.Unittest.cs" />
     <Compile Include="ViewModels\HeaderBarViewModelTest.cs" />
+    <Compile Include="ViewModels\SearchViewModelTest.cs" />
     <Compile Include="ViewModels\UserSignUpViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

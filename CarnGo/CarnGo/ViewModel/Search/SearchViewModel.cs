@@ -297,7 +297,7 @@ namespace CarnGo
         private string ValidateDateFrom()
         {
             if (DateFrom.Date < DateTime.Today.Date)
-                return "Pick-up and drop off dates must be after the current date";
+                return "Pick-up date must be after the current date";
 
             return null;
         }
