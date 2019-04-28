@@ -14,11 +14,13 @@ namespace CarnGo
 
     public class SearchViewModel : BaseViewModel, IDataErrorInfo
     {
+        private readonly IApplication _application;
+
         #region Constructor
 
-        public SearchViewModel(IEventAggregator eventAggregator)
+        public SearchViewModel(IEventAggregator eventAggregator, IApplication application)
         {
-            //IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            _application = application;
             eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;

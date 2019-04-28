@@ -15,17 +15,19 @@ namespace CarnGo.Test.Unit.ViewModels
     {
         private SearchViewModel _uut;
         private IEventAggregator _eventAggregator;
+        private IApplication _application;
         private DateTime _today;
         private SearchEvent _searchEvent;
 
         [SetUp]
         public void SetUp()
         {
-            _eventAggregator = new EventAggregator();
-            //_eventAggregator = Substitute.For<IEventAggregator>();
-            _uut = new SearchViewModel(_eventAggregator);
+            _eventAggregator = Substitute.For<IEventAggregator>();
+            _application = Substitute.For<IApplication>();
+            _searchEvent = Substitute.For<SearchEvent>();
+            _eventAggregator.GetEvent<SearchEvent>().Returns(_searchEvent);
+            _uut = new SearchViewModel(_eventAggregator, _application);
             _today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-            _searchEvent = new SearchEvent();
 
             UserModel jensJensen = new UserModel
             {
@@ -38,7 +40,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.SearchResultItems = new ObservableCollection<SearchResultItemViewModel>()
             {
-                new SearchResultItemViewModel
+                new SearchResultItemViewModel(_application)
                 {
                     Model = "CLA 250",
                     Brand = "Mercedes",
@@ -49,7 +51,7 @@ namespace CarnGo.Test.Unit.ViewModels
                     EndLeaseTime = new DateTime(2019, 08, 07),
                     Owner = jensJensen,
                 },
-                new SearchResultItemViewModel
+                new SearchResultItemViewModel(_application)
                 {
                     Model = "Model S",
                     Brand = "Tesla",
@@ -60,7 +62,7 @@ namespace CarnGo.Test.Unit.ViewModels
                     EndLeaseTime = new DateTime(2019, 09, 15),
                     Owner = jensJensen
                 },
-                new SearchResultItemViewModel
+                new SearchResultItemViewModel(_application)
                 {
                     Model = "Berlingo",
                     Brand = "Citroen",
