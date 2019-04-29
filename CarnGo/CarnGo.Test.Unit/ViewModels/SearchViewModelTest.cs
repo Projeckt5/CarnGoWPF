@@ -7,17 +7,27 @@ using NSubstitute.Extensions;
 using NUnit.Framework;
 using Prism.Events;
 using Prism.Mvvm;
+using System.Windows.Data;
 
 namespace CarnGo.Test.Unit.ViewModels
 {
     [TestFixture]
     public class SearchViewModelTest
     {
+        #region Fields
+
         private SearchViewModel _uut;
         private IEventAggregator _eventAggregator;
         private IApplication _application;
         private DateTime _today;
         private SearchEvent _searchEvent;
+        private object _car1;
+        private object _car2;
+        private object _car3;
+
+        #endregion
+
+        #region Setup
 
         [SetUp]
         public void SetUp()
@@ -28,6 +38,7 @@ namespace CarnGo.Test.Unit.ViewModels
             _eventAggregator.GetEvent<SearchEvent>().Returns(_searchEvent);
             _uut = new SearchViewModel(_eventAggregator, _application);
             _today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+            _uut.SearchResultItems = new ObservableCollection<SearchResultItemViewModel>();
 
             UserModel jensJensen = new UserModel
             {
@@ -37,44 +48,241 @@ namespace CarnGo.Test.Unit.ViewModels
                 Email = "hmm@gmail.com",
                 UserType = UserType.Lessor
             };
-
-            _uut.SearchResultItems = new ObservableCollection<SearchResultItemViewModel>()
+            _car1 = new SearchResultItemViewModel(_application)
             {
-                new SearchResultItemViewModel(_application)
-                {
-                    Model = "CLA 250",
-                    Brand = "Mercedes",
-                    Location = "Aarhus",
-                    Seats = 2,
-                    Price = 400,
-                    StartLeaseTime = new DateTime(2019, 07, 07),
-                    EndLeaseTime = new DateTime(2019, 08, 07),
-                    Owner = jensJensen,
-                },
-                new SearchResultItemViewModel(_application)
-                {
-                    Model = "Model S",
-                    Brand = "Tesla",
-                    Location = "Odense",
-                    Seats = 5,
-                    Price = 600,
-                    StartLeaseTime = new DateTime(2019, 09, 01),
-                    EndLeaseTime = new DateTime(2019, 09, 15),
-                    Owner = jensJensen
-                },
-                new SearchResultItemViewModel(_application)
-                {
-                    Model = "Berlingo",
-                    Brand = "Citroen",
-                    Location = "Copenhagen",
-                    Seats = 5,
-                    Price = 200,
-                    StartLeaseTime = new DateTime(2019, 05, 01),
-                    EndLeaseTime = new DateTime(2019, 05, 30),
-                    Owner = jensJensen
-                }
+                Model = "CLA 250",
+                Brand = "Mercedes",
+                Location = "Aarhus",
+                Seats = 2,
+                Price = 400,
+                StartLeaseTime = _today,
+                EndLeaseTime = _today.AddMonths(1),
+                Owner = jensJensen,
             };
+            _car2 = new SearchResultItemViewModel(_application)
+            {
+                Model = "Model S",
+                Brand = "Tesla",
+                Location = "Odense",
+                Seats = 5,
+                Price = 600,
+                StartLeaseTime = _today.AddMonths(1),
+                EndLeaseTime = _today.AddMonths(2),
+                Owner = jensJensen
+            };
+            _car3 = new SearchResultItemViewModel(_application)
+            {
+                Model = "Berlingo",
+                Brand = "Citroen",
+                Location = "Copenhagen",
+                Seats = 5,
+                Price = 200,
+                StartLeaseTime = _today.AddMonths(2),
+                EndLeaseTime = _today.AddMonths(3),
+                Owner = jensJensen
+            };
+            _uut.SearchResultItems.Add((SearchResultItemViewModel) _car1);
+            _uut.SearchResultItems.Add((SearchResultItemViewModel) _car2);
+            _uut.SearchResultItems.Add((SearchResultItemViewModel) _car3);
         }
+
+        #endregion
+
+        #region Search and Filtering
+
+        [Test]
+        public void SearchCommand_FilterByLocation_Car1PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "Aarhus";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car1));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByLocation_Car2And3DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "Aarhus";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car2));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByBrand_Car2PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.BrandText = "tesla";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car2));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByBrand_Car1And3DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.BrandText = "tesla";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car1));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterBySeats_Car2And3PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.SeatsText = "5";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car2));
+            Assert.IsTrue(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterBySeats_Car1DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.SeatsText = "5";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car1));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByDates_Car1PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.DateFrom = _today.AddDays(15);
+            _uut.DateTo = _today.AddDays(20);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car1));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByDates_Car2And3DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.DateFrom = _today.AddDays(15);
+            _uut.DateTo = _today.AddDays(20);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car2));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByLocationAndSeats_Car1PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "aarhus";
+            _uut.SeatsText = "2";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car1));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByLocationAndSeats_Car2And3DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "aarhus";
+            _uut.SeatsText = "2";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car2));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByAllCriteria_Car2PassesFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.BrandText = "Tesla";
+            _uut.LocationText = "Odense";
+            _uut.SeatsText = "5";
+            _uut.DateFrom = _today.AddMonths(1);
+            _uut.DateTo = _today.AddMonths(2);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car2));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByAllCriteria_Car1And3DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.BrandText = "Tesla";
+            _uut.LocationText = "Odense";
+            _uut.SeatsText = "5";
+            _uut.DateFrom = _today.AddMonths(1);
+            _uut.DateTo = _today.AddMonths(2);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car1));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_FilterByLocation_NoCarsPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "Amsterdam";
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car1));
+            Assert.IsFalse(cv.PassesFilter(_car2));
+            Assert.IsFalse(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void SearchCommand_NoSearchCriteria_AllCarsPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car1));
+            Assert.IsTrue(cv.PassesFilter(_car2));
+            Assert.IsTrue(cv.PassesFilter(_car3));
+        }
+
+        [Test]
+        public void ClearSearchCommand_FilterByBrandAndSeats_AllCarsPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.BrandText = "Mercedes";
+            _uut.SeatsText = "2";
+            _uut.SearchCommand.Execute(null);
+            _uut.ClearSearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsTrue(cv.PassesFilter(_car1));
+            Assert.IsTrue(cv.PassesFilter(_car2));
+            Assert.IsTrue(cv.PassesFilter(_car3));
+        }
+
+        #endregion
+
+        #region Validation and ErrorHandling
 
         [TestCase("1")]
         [TestCase("60")]
@@ -213,13 +421,9 @@ namespace CarnGo.Test.Unit.ViewModels
             CollectionAssert.Contains(_uut.Errors.Values, "Number of seats must be larger than 0");
         }
 
-        [Test]
-        public void SearchCommand_NoSearchCriteria_CriteriaCollectionIsEmpty()
-        {
-            _uut.SearchCommand.Execute(null);
+        #endregion
 
-            CollectionAssert.IsEmpty(_uut.Criteria);
-        }
+        #region EventAggregator
 
         // how to test subscription to headerbar search event?
         //[Test]
@@ -231,17 +435,6 @@ namespace CarnGo.Test.Unit.ViewModels
         //    Assert.That(_uut.LocationText, Is.EqualTo("tester"));
         //}
 
-        // how to test filter properly?
-        //[Test]
-        //public void Filter_LocationCriteria_ItemsPassesFilterCorrectly()
-        //{
-        //    CollectionView Cv = new CollectionView(_uut.SearchResultItems);
-        //    _uut.LocationText = "aarhus";
-        //    Cv.Filter = _uut.Filtering;
-        //    //_uut.SearchCommand.Execute(null);
-        //    //_uut.Cv.PassesFilter();
-
-        //    Assert.IsTrue(Cv.PassesFilter(_uut.SearchResultItems.Where(car => car.Location.Contains("aarhus"))));
-        //}
+        #endregion
     }
 }
