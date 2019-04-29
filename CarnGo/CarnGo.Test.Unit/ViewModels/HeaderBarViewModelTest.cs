@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using System.Collections.Generic;
+using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using Prism.Events;
@@ -60,35 +61,24 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_UnreadNotificationsFalse()
         {
-            _uut.NumUnreadNotifications = 10;
+            var testUser = new UserModel("Test", "Test", "Test@Test.Test", "Test", UserType.Lessor)
+            {
+                MessageModels = new List<MessageModel>()
+                {
+                    new MessageModel()
+                    {
+                        MessageRead = false,
+                        Message = "Test",
+                        MsgType = MessageType.LessorMessage
+                    }
+                }
+            };
+            _fakeApplication.CurrentUser.Returns(testUser);
 
             _uut.NotificationCommand.Execute(null);
 
             Assert.That(_uut.UnreadNotifications, Is.False);
         }
 
-        [Test]
-        public void Notification_ShowNotifications_NumUnreadNotifications0()
-        {
-            _uut.NumUnreadNotifications = 10;
-
-            _uut.NotificationCommand.Execute(null);
-
-            Assert.That(_uut.NumUnreadNotifications, Is.EqualTo(0));
-        }
-
-
-        [Test]
-        public void Notification_NumUnreadNotificationSetTwice_PropertyChangedInvokedOnce()
-        {
-            int invoked = 0;
-            _uut.PropertyChanged += (sender, args) => ++invoked;
-
-            _uut.NumUnreadNotifications = 10;
-            _uut.NumUnreadNotifications = 10;
-
-            //Equal to 2 because it invokes both NumUnreadNotifications and UnreadNotifications
-            Assert.That(invoked, Is.EqualTo(2));
-        }
     }
 }

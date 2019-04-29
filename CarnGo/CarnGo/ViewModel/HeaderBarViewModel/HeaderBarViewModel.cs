@@ -16,8 +16,6 @@ namespace CarnGo
         #region Private Fields
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
-        private int _numUnreadNotifications;
-        private List<MessageModel> _notificationMessageModels;
 
         #endregion
         #region Default Constructor
@@ -25,39 +23,15 @@ namespace CarnGo
         {
             _eventAggregator = eventAggregator;
             _application = application;
-            _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(UpdateUnreadNotifications);
-            NumUnreadNotifications = _application.CurrentUser?.MessageModels.Count(msg => msg.MessageRead == false) ?? 0;
         }
         #endregion
         #region Public Properties
 
         public UserModel UserModel => _application.CurrentUser;
 
-        public List<MessageModel> NotificationMessageModels
-        {
-            get => _notificationMessageModels;
-            set
-            {
-                if (_notificationMessageModels == value)
-                    return;
-                _notificationMessageModels = value;
-                OnPropertyChanged(nameof(NotificationMessageModels));
-            }
-        }
         public string SearchKeyWord { get; set; }
 
-        public int NumUnreadNotifications
-        {
-            get => _numUnreadNotifications;
-            set
-            {
-                if (_numUnreadNotifications == value)
-                    return;
-                _numUnreadNotifications = value;
-                OnPropertyChanged(nameof(NumUnreadNotifications));
-                OnPropertyChanged(nameof(UnreadNotifications));
-            }
-        }
+        public int NumUnreadNotifications => UserModel.MessageModels.Count(msg => msg.MessageRead == false);
 
         public bool UnreadNotifications => NumUnreadNotifications > 0;
 
@@ -81,11 +55,6 @@ namespace CarnGo
         #endregion
         #region Command Helpers
 
-        public void UpdateUnreadNotifications(List<MessageModel> messageModels)
-        {
-            NumUnreadNotifications = messageModels.Count(msg => msg.MessageRead == false);
-        }
-
         private void Logout()
         {
             _application.LogUserOut();
@@ -99,8 +68,9 @@ namespace CarnGo
 
         private void ShowNotification()
         {
-            NotificationMessageModels = UserModel?.MessageModels ?? new List<MessageModel>{};
-            NumUnreadNotifications = 0;
+            UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
+            OnPropertyChanged(nameof(UnreadNotifications));
+            _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
         }
         #endregion
     }

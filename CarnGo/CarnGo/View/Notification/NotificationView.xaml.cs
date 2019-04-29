@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Prism.Events;
 
 namespace CarnGo
 {
@@ -23,7 +24,7 @@ namespace CarnGo
         public NotificationView()
         {
             InitializeComponent();
-            DataContext = new NotificationViewModel(IoCContainer.Resolve<IApplication>());
+            DataContext = new NotificationViewModel(IoCContainer.Resolve<IApplication>(), IoCContainer.Resolve<IEventAggregator>());
         }
     }
 }
