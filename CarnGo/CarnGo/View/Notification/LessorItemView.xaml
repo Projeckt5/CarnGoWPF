@@ -16,11 +16,11 @@
         <Style TargetType="TextBlock" x:Key="Confirmation" BasedOn="{StaticResource BaseTextBlockStyle}">
             <Setter Property="Foreground" Value="Red"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Confirmation}" Value="true">
+                <DataTrigger Binding="{Binding NotificationMessage.Confirmation}" Value="true">
                     <Setter Property="Foreground" Value="Green"/>
                     <Setter Property="Text" Value="Confirmed"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Confirmation}" Value="false">
+                <DataTrigger Binding="{Binding NotificationMessage.Confirmation}" Value="false">
                     <Setter Property="Foreground" Value="Red"/>
                     <Setter Property="Text" Value="Denied"></Setter>
                 </DataTrigger>
@@ -33,19 +33,19 @@
     <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="75">
         <Grid>
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
             <Image Source="../../Images/Bilfoto.jpg" Margin="10 10 10 10 " MaxWidth="100" MaxHeight="50"></Image>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*"></RowDefinition>
-                <RowDefinition Height="4*"></RowDefinition>
-                
-            </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" 
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" 
                        Style="{StaticResource Confirmation}" 
                        FontSize="{StaticResource FontSizeSmall}" 
                        Margin="0 0 20 0" 
@@ -60,7 +60,7 @@
                            FontFamily="{StaticResource RobotoBold}" 
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
-                           Text="{Binding Lessor}" 
+                           Text="{Binding NotificationMessage.Lessor}" 
                            >
                 </TextBlock>
 
@@ -70,10 +70,10 @@
                         HorizontalAlignment="Left" Margin="10 10 0 0" 
                         Style="{StaticResource BaseTextBlockStyle}" 
                         FontSize="{StaticResource FontSizeSmall}"
-                        Text="{Binding Message}"
+                        Text="{Binding NotificationMessage.Message}"
                         />
 
+            </Grid>
         </Grid>
-    </Grid>
     </Border>
 </UserControl>

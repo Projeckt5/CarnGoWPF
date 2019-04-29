@@ -119,6 +119,7 @@
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\MessageType.cs" />
+    <Compile Include="Model\NotificationModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -156,8 +157,7 @@
     <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\CarProfile\CarProfileViewModel.cs" />
     <Compile Include="ViewModel\EditUser\EditUserViewModel.cs" />
-    <Compile Include="ViewModel\MessageViewModel\MessageItemViewModel.cs" />
-    <Compile Include="ViewModel\MessageViewModel\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModel\MessageViewModel\MessageViewModel.cs" />
     <Compile Include="ViewModel\Notification\NotificationViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchDesignModel.cs" />
     <Compile Include="ViewModel\Search\SearchResultItemDesignModel.cs" />
@@ -173,14 +173,8 @@
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Messages\MessageBox.xaml.cs">
-      <DependentUpon>MessageBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Messages\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Messages\MessageViewItem.xaml.cs">
-      <DependentUpon>MessageViewItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Notification\RenterItemView.xaml.cs">
       <DependentUpon>RenterItemView.xaml</DependentUpon>
@@ -278,15 +272,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Messages\MessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\Messages\MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Messages\MessageViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
