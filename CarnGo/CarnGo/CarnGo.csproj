@@ -123,6 +123,10 @@
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Security\Validation\CarAgeValidator.cs" />
+    <Compile Include="Security\Validation\LicensePlateValidator.cs" />
+    <Compile Include="Security\Validation\NameValidator.cs" />
+    <Compile Include="Security\Validation\PriceValidator.cs" />
     <Compile Include="Security\Validation\ValidationException.cs" />
     <Compile Include="ViewModel\Application\IApplication.cs" />
     <Compile Include="ViewModel\BaseViewModelWithValidation.cs" />
