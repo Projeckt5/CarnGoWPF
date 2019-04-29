@@ -38,7 +38,6 @@ namespace CarnGo
         protected DateTime _dateTo;
         private List<Predicate<SearchResultItemViewModel>> _criteria;
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
-        private CollectionView cv;
 
         #endregion
 
@@ -119,18 +118,6 @@ namespace CarnGo
             }
         }
 
-        public List<Predicate<SearchResultItemViewModel>> Criteria
-        {
-            get => _criteria;
-            set { _criteria = value; }
-        }
-
-        public CollectionView Cv
-        {
-            get => cv;
-            set { cv = value; }
-        }
-
         #endregion
 
         #region Methods
@@ -140,7 +127,7 @@ namespace CarnGo
             if (!IsValid)
                 return;
 
-            cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -174,7 +161,7 @@ namespace CarnGo
             OnPropertyChanged(nameof(cv));
         }
 
-        protected bool Filtering(object item)
+        public bool Filtering(object item)
         {
             SearchResultItemViewModel s = item as SearchResultItemViewModel;
             bool isIn = true;
@@ -186,7 +173,7 @@ namespace CarnGo
 
         public void ClearSearch()
         {
-            cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
