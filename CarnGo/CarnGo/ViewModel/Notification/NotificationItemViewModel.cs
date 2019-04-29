@@ -27,22 +27,22 @@ namespace CarnGo
             {
                 case MessageType.RenterMessage:
                 {
-                    var renterMessage = (MessageFromRenterModel) message;
-                    MsgType = renterMessage.MsgType;  
-                    Message = renterMessage.Message;
-                    CarPicture = renterMessage.RentCar.CarPicture;
-                    Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
+                    var renterMessage = (MessageFromRenterModel)message;
+                    NotificationMessage.MsgType = renterMessage.MsgType;
+                    NotificationMessage.Message = renterMessage.Message;
+                    NotificationMessage.CarPicture = renterMessage.RentCar.CarPicture;
+                    NotificationMessage.Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
                 }
                     break;
                 case MessageType.LessorMessage:
                 {
-                    var lessorMessage = (MessageFromLessorModel) message;
-                    MsgType = lessorMessage.MsgType;
-                    Message = lessorMessage.Message;
-                    CarPicture = lessorMessage.RentCar.CarPicture;
-                    Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
-                    Confirmation = lessorMessage.StatusConfirmation; 
-                        
+                    var lessorMessage = (MessageFromLessorModel)message;
+                    NotificationMessage.MsgType = lessorMessage.MsgType;
+                    NotificationMessage.Message = lessorMessage.Message;
+                    NotificationMessage.CarPicture = lessorMessage.RentCar.CarPicture;
+                    NotificationMessage.Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
+                    NotificationMessage.Confirmation = lessorMessage.StatusConfirmation;
+
                 }
                     break;
             }
@@ -52,12 +52,7 @@ namespace CarnGo
 
         //TODO Make this a model?
         #region Properties
-        public MessageType MsgType { get; set; }
-        public string Message { get; set; }
-        public BitmapImage CarPicture { get; set; }
-        public string Lessor { get; set; }
-        public string Renter { get; set; }
-        public bool Confirmation { get; set; }
+        public NotificationModel NotificationMessage { get; set; } = new NotificationModel();
         #endregion
 
         #region Commands
@@ -75,6 +70,7 @@ namespace CarnGo
         {
             //Probably needs to send the specific message with it. 
             _application.GoToPage(ApplicationPage.MessageView);
+
         }
 
         private void MessageExecute()
@@ -83,4 +79,6 @@ namespace CarnGo
         }
         #endregion
     }
+
+   
 }
