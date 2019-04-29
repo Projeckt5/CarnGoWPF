@@ -9,12 +9,16 @@ namespace CarnGo
 {
     public class NotificationViewModel : BaseViewModel
     {
+        private readonly IApplication _application;
+
         #region Constructor
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public NotificationViewModel()
+        public NotificationViewModel(IApplication application)
         {
+            _application = application;
+
             #region Dummy Data (Notification)
             var User1 = new UserModel("Martin", "Gildberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.Lessor);
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
@@ -25,9 +29,9 @@ namespace CarnGo
             var message1 = new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true);
             var message2 = new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false);
             var message3 = new MessageFromRenterModel(User2, User1, Car, "Må jeg godt låne din flotte bil?");
-            var Notification1 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(),message1);
-            var Notification2 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(), message2);
-            var Notification3 = new NotificationItemViewModel(IoCContainer.Resolve<IApplication>(), message3);
+            var Notification1 = new NotificationItemViewModel(_application, message1);
+            var Notification2 = new NotificationItemViewModel(_application, message2);
+            var Notification3 = new NotificationItemViewModel(_application, message3);
             Messages = new List<NotificationItemViewModel>
             {
                 Notification1,

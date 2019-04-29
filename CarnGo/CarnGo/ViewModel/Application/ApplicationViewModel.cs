@@ -22,14 +22,11 @@ namespace CarnGo
         {
             _applicationPage = ApplicationPage.StartPage;
             _queryDatabase = queryDatabase;
-            _currentUser = new UserModel("Test", "Test", "Test@Test.Com", "TestAddress", UserType.OrdinaryUser)
+            CurrentUser = new UserModel("Test", "Test", "Test@Test.Test", "Test", UserType.Lessor)
             {
                 MessageModels = new List<MessageModel>()
                 {
-                    new MessageModel()
-                    {
-                        Message = "Test", MessageRead = false, MsgType = MessageType.LessorMessage
-                    }
+
                 }
             };
         }

@@ -21,7 +21,6 @@ namespace CarnGo.Test.Unit
         private UserModel _uutUserModel;
         private IValidator<List<SecureString>> _fakePasswordMatchValidator;
 
-
         [SetUp]
         public void Setup()
         {

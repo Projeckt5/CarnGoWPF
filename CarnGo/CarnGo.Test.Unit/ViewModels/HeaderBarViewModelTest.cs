@@ -48,7 +48,7 @@ namespace CarnGo.Test.Unit.ViewModels
         }
 
         [Test]
-        public void Logout_UserLogout_UserIsNull()
+        public void Logout_UserLogout_ApplicationReceivedLogOut()
         {
 
             _uut.LogoutCommand.Execute(null);

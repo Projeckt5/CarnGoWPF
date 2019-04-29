@@ -17,6 +17,8 @@ namespace CarnGo
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
         private int _numUnreadNotifications;
+        private List<MessageModel> _notificationMessageModels;
+
         #endregion
         #region Default Constructor
         public HeaderBarViewModel(IEventAggregator eventAggregator, IApplication application)
@@ -31,6 +33,17 @@ namespace CarnGo
 
         public UserModel UserModel => _application.CurrentUser;
 
+        public List<MessageModel> NotificationMessageModels
+        {
+            get => _notificationMessageModels;
+            set
+            {
+                if (_notificationMessageModels == value)
+                    return;
+                _notificationMessageModels = value;
+                OnPropertyChanged(nameof(NotificationMessageModels));
+            }
+        }
         public string SearchKeyWord { get; set; }
 
         public int NumUnreadNotifications
@@ -80,12 +93,13 @@ namespace CarnGo
 
         private void Search()
         {
-            _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+            _application.GoToPage(ApplicationPage.SearchPage);
         }
 
         private void ShowNotification()
         {
+            NotificationMessageModels = UserModel?.MessageModels ?? new List<MessageModel>{};
             NumUnreadNotifications = 0;
         }
         #endregion
