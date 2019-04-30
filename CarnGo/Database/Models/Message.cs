@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarnGo.Database.Models
 {
@@ -14,5 +15,7 @@ namespace CarnGo.Database.Models
         public string Lessor { get; set; }
         public string Renter { get; set; }
         public int MsgType { get; set; }
+        
+        public List<MessagesWithUsers> MessagesWithUsers { get; set; }
     }
 }

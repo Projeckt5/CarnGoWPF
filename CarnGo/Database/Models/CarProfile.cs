@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+//using System.Windows.Media.Imaging;
+
 namespace CarnGo.Database.Models
 {
     
@@ -18,9 +20,11 @@ namespace CarnGo.Database.Models
         public int RentalPrice { get; set; }
         public string FuelType { get; set; }
         public string CarDescription { get; set; }
-        //private UserModel _owner;
+        public User Owner { get; set; }
 
-        public CarEquipment Equipment { get; set; }
+        
+        public User User { get; set; }
+        public CarEquipment CarEquipment { get; set; }
         public List<PossibleToRentDay> PossibleToRentDays { get; set; }
         public List<DayThatIsRented> DaysThatIsRented { get; set; }
         

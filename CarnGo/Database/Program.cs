@@ -9,8 +9,9 @@ namespace CarnGo.Database
         {
             Console.WriteLine("Wellcome to the database console interface");
             Console.WriteLine("Your choice of commands are:" +
-                              "\n\"1\" : Pull all data" +
-                              "\n\"2\" : Empty database");
+                              "\n\"1\" : Create Database" +
+                              "\n\"2\" : Pull all data" +
+                              "\n\"3\" : Empty database");
             do
             {
                 try
@@ -19,11 +20,16 @@ namespace CarnGo.Database
                     var command = Console.ReadLine();
                     switch (command)
                     {
+
                         case "1":
-                                Commands.PullAllData();
+                            Commands.CreateDatabase();
                             break;
 
                         case "2":
+                                Commands.PullAllData();
+                            break;
+
+                        case "3":
                             Commands.EmptyDatabase();
                             break;
 

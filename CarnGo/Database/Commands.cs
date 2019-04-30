@@ -11,6 +11,12 @@ namespace CarnGo.Database
 {
     class Commands
     {
+        public static void CreateDatabase()
+        {
+            AppDbContext db = new AppDbContext();
+            db.Database.EnsureCreated();
+        }
+
         public static void PullAllData()
         {
 
