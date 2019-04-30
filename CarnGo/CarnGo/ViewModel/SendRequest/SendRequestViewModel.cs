@@ -222,7 +222,7 @@ namespace CarnGo
             var list = new List<DayThatIsRented>();
             for (var i = to; i <= from; i=i.AddDays(1))
             {
-                list.Add(new DayThatIsRented(){Date=i, Car=car});
+                //list.Add(new DayThatIsRented(){Date=i, Car=car}); TODO, no longer valid after DB change
             }
 
             return list;

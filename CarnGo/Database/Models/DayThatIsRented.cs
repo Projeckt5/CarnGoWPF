@@ -10,6 +10,6 @@ namespace CarnGo.Database.Models
         [Required]
         public User User { get; set; }
         [Required]
-        public CarProfile Car { get; set; }
+        public CarProfile CarProfile { get; set; }
     }
 } 
