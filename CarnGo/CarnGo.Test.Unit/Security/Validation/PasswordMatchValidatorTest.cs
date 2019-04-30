@@ -11,10 +11,10 @@ using CarnGo.Security;
 using NSubstitute;
 using NSubstitute.Extensions;
 
-namespace CarnGo.Test.Unit.Security.Validation
+namespace CarnGo.Test.Unit
 {
     [TestFixture]
-    public class PasswordValidatorTest
+    public class PasswordMatchValidatorTest
     {
         private PasswordMatchValidator _uut;
 
