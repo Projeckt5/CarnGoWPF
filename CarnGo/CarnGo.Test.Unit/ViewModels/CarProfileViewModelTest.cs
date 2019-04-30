@@ -30,7 +30,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _fakeApplication.CurrentUser.Returns(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser));
 
-            _uut = new CarProfileViewModel(_fakeApplication, new CarProfileModel(_fakeApplication.CurrentUser, "R8", "Audi", 2017, "1337133", "", 0, DateTime.Today, DateTime.Today, 0));
+            _uut = new CarProfileViewModel(_fakeApplication, new CarProfileModel(_fakeApplication.CurrentUser, "R8", "Audi", 4, "1337133", "Unknown", 4, DateTime.Today, DateTime.Today, 10000));
         }
 
         [Test]
