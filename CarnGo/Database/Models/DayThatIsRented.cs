@@ -8,8 +8,8 @@ namespace CarnGo.Database.Models
         [Key]
         public DateTime Date { get; set; }
         [Required]
-        public CarRenter CarRenter { get; set; }
+        public User User { get; set; }
         [Required]
-        public Car Car { get; set; }
+        public CarProfile Car { get; set; }
     }
-}
+} 

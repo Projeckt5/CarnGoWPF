@@ -11,16 +11,15 @@ namespace CarnGo.Database
         {
             optionsBuilder.UseSqlServer("Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30");
 
-        }
-        private DbSet<CarRenter> CarRenters { get; set; }
-        private DbSet<CarRenterMessage> CarRenterMessages { get; set; }
-        private DbSet<CarOwner> CarOwners { get; set; }
-        private DbSet<CarOwnerMessage> CarOwnerMessages { get; set; }
-        private DbSet<Car> Cars { get; set; }
+        } 
+        private DbSet<CarEquipment> CarEquipment { get; set; }
+        private DbSet<User> Users { get; set; }
+        private DbSet<Message> Messages { get; set; }
+        private DbSet<CarProfile> CarProfiles { get; set; }
         private DbSet<DayThatIsRented> DaysThatIsRented { get; set; }
         private DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
-
-
+          
+        /*
         //Reposetory pattern
             // Setting Data
         public void AddCarRenter(CarRenter carRenter)
@@ -230,7 +229,7 @@ namespace CarnGo.Database
 
 
         
-        public void AddCar(Car car, CarOwner carOwner)
+        public void AddCar(CarProfile car, CarOwner carOwner)
         {
             bool isAlreadyInThere = false;
             using (var db = new AppDbContext())
@@ -255,13 +254,13 @@ namespace CarnGo.Database
                 }
 
                 isAlreadyInThere = false;
-                foreach (var lokaleCar in db.Cars)
+                foreach (var lokaleCar in db.CarProfiles)
                 {
-                    if (lokaleCar.LicenceplateNumber == car.LicenceplateNumber)
+                    if (lokaleCar.RegNr == car.RegNr)
                     {
                         isAlreadyInThere = true;
-                        lokaleCar.Picture = car.Picture;
-                        lokaleCar.HaveTowbar = car.HaveTowbar;
+                        lokaleCar.Model = car.Model;
+                        lokaleCar.Brand = car.Brand;
                         lokaleCar.Condition = car.Condition;
                         lokaleCar.IsReserved = car.IsReserved;
                         lokaleCar.Weight = car.Weight;
@@ -284,7 +283,7 @@ namespace CarnGo.Database
             }
         }
         
-        public void AddDayThatIsRented(DayThatIsRented dayThatIsRented, Car car, CarOwner carOwner)
+        public void AddDayThatIsRented(DayThatIsRented dayThatIsRented, CarProfile car, CarOwner carOwner)
         {
             bool isAlreadyInThere = false;
             using (var db = new AppDbContext())
@@ -309,13 +308,13 @@ namespace CarnGo.Database
                 }
 
                 isAlreadyInThere = false;
-                foreach (var lokaleCar in db.Cars)
+                foreach (var lokaleCar in db.CarProfiles)
                 {
-                    if (lokaleCar.LicenceplateNumber == car.LicenceplateNumber)
+                    if (lokaleCar.RegNr == car.RegNr)
                     {
                         isAlreadyInThere = true;
-                        lokaleCar.Picture = car.Picture;
-                        lokaleCar.HaveTowbar = car.HaveTowbar;
+                        lokaleCar.Model = car.Model;
+                        lokaleCar.Brand = car.Brand;
                         lokaleCar.Condition = car.Condition;
                         lokaleCar.IsReserved = car.IsReserved;
                         lokaleCar.Weight = car.Weight;
@@ -333,7 +332,7 @@ namespace CarnGo.Database
 
                 if (!isAlreadyInThere)
                 {
-                    db.Cars.AddAsync(car);
+                    db.CarProfiles.AddAsync(car);
                 }
 
                 isAlreadyInThere = false;
@@ -355,7 +354,7 @@ namespace CarnGo.Database
             }
         }
          
-        public void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay, Car car, CarOwner carOwner)
+        public void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay, CarProfile car, CarOwner carOwner)
         {
             bool isAlreadyInThere = false;
             using (var db = new AppDbContext())
@@ -380,13 +379,13 @@ namespace CarnGo.Database
                 }
 
                 isAlreadyInThere = false;
-                foreach (var lokaleCar in db.Cars)
+                foreach (var lokaleCar in db.CarProfiles)
                 {
-                    if (lokaleCar.LicenceplateNumber == car.LicenceplateNumber)
+                    if (lokaleCar.RegNr == car.RegNr)
                     {
                         isAlreadyInThere = true;
-                        lokaleCar.Picture = car.Picture;
-                        lokaleCar.HaveTowbar = car.HaveTowbar;
+                        lokaleCar.Model = car.Model;
+                        lokaleCar.Brand = car.Brand;
                         lokaleCar.Condition = car.Condition;
                         lokaleCar.IsReserved = car.IsReserved;
                         lokaleCar.Weight = car.Weight;
@@ -404,7 +403,7 @@ namespace CarnGo.Database
 
                 if (!isAlreadyInThere)
                 {
-                    db.Cars.AddAsync(car);
+                    db.CarProfiles.AddAsync(car);
                 }
 
                 isAlreadyInThere = false;
@@ -426,12 +425,12 @@ namespace CarnGo.Database
         }
             // Getting Data
 
-        public List<Car> GetCars()
+        public List<CarProfile> GetCars()
         {
-            List<Car> tempCar = new List<Car>();
+            List<CarProfile> tempCar = new List<CarProfile>();
             using (var db = new AppDbContext())
             {
-                foreach (var car in db.Cars)
+                foreach (var car in db.CarProfiles)
                 {
                     tempCar.Add(car);
                 }
@@ -522,11 +521,11 @@ namespace CarnGo.Database
         {
             using (var db = new AppDbContext())
             {
-                foreach (var car in db.Cars)
+                foreach (var car in db.CarProfiles)
                 {
-                    if (car.LicenceplateNumber == licenceplateNumber)
+                    if (car.RegNr == licenceplateNumber)
                     {
-                        db.Cars.Remove(car);
+                        db.CarProfiles.Remove(car);
                         break;
                     }
                 }
@@ -630,10 +629,11 @@ namespace CarnGo.Database
                 db.SaveChanges();
             }
         }
-
+        */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<PossibleToRentDay>()
                 .HasOne(p => p.Car)
                 .WithMany(b => b.PossibleToRentDays);
@@ -650,10 +650,6 @@ namespace CarnGo.Database
                 .HasOne(p => p.CarRenter)
                 .WithMany(b => b.CarRenterMessages);
 
-            modelBuilder.Entity<Car>()
-                .HasOne(p => p.CarOwner)
-                .WithMany(b => b.Cars);
-
             modelBuilder.Entity<CarRenterMessage>()
                 .HasOne(p => p.CarRenter)
                 .WithMany(b => b.CarRenterMessages);
@@ -662,7 +658,7 @@ namespace CarnGo.Database
                 .HasOne(p => p.CarOwner)
                 .WithMany(b => b.CarOwnerMessages);
 
-
+    */
 
         }
     }

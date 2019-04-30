@@ -191,7 +191,7 @@ namespace CarnGo
 
         #region Functions
 
-        public bool ConfirmRentingDates(Car car)
+        public bool ConfirmRentingDates(CarProfile car)
         {
            
             List<DateTime> dates = new List<DateTime>();
@@ -217,7 +217,7 @@ namespace CarnGo
             return true;
         }
 
-        public List<DayThatIsRented> GetListOfDayThatIsRented(DateTime from, DateTime to, Car car,CarRenter renter)
+        public List<DayThatIsRented> GetListOfDayThatIsRented(DateTime from, DateTime to, CarProfile car,User renter)
         {
             var list = new List<DayThatIsRented>();
             for (var i = to; i <= from; i=i.AddDays(1))

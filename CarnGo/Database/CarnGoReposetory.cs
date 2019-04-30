@@ -14,7 +14,7 @@ namespace CarnGo.Database
         {
             context = new AppDbContext();;
         }
-
+        /*
 
         //Adding Data
         public void AddCarRenter(CarRenter carRenter)
@@ -38,23 +38,23 @@ namespace CarnGo.Database
             context.AddCarOwnerMessage(carOwnerMessage, carOwner);
         }
 
-        public void AddCar(Car car, CarOwner carOwner)
+        public void AddCar(CarProfile car, CarOwner carOwner)
         {
             context.AddCar(car, carOwner);
         }
 
-        public void AddDayThatIsRented(DayThatIsRented dayThatIsRented, Car car, CarOwner carOwner)
+        public void AddDayThatIsRented(DayThatIsRented dayThatIsRented, CarProfile car, CarOwner carOwner)
         {
             context.AddDayThatIsRented(dayThatIsRented, car, carOwner);
         }
 
-        public void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay, Car car, CarOwner carOwner)
+        public void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay, CarProfile car, CarOwner carOwner)
         {
             context.AddPossibleToRentDay(possibleToRentDay, car, carOwner);
         }
         // Getting Data
 
-        public List<Car> GetCars()
+        public List<CarProfile> GetCars()
         {
             return context.GetCars();
         }
@@ -126,6 +126,6 @@ namespace CarnGo.Database
         {
             context.DeletePossibleToRentDay(date);
         }
-
+        */
     }
 }

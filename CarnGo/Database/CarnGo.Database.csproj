@@ -135,11 +135,10 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Commands.cs" />
-    <Compile Include="Models\Car.cs" />
-    <Compile Include="Models\CarOwner.cs" />
-    <Compile Include="Models\CarOwnerMessage.cs" />
-    <Compile Include="Models\CarRenter.cs" />
-    <Compile Include="Models\CarRenterMessage.cs" />
+    <Compile Include="Models\CarEquipment.cs" />
+    <Compile Include="Models\CarProfile.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\DayThatIsRented.cs" />
     <Compile Include="Models\PossibleToRentDay.cs" />
     <Compile Include="Program.cs" />
