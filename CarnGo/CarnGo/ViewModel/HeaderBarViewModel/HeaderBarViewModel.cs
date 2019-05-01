@@ -83,7 +83,7 @@ namespace CarnGo
             _application.GoToPage(ApplicationPage.SearchPage);
         }
 
-        private async Task ShowNotification()
+        public async Task ShowNotification()
         {
             if(IsQueryingDatabase)
                 return;

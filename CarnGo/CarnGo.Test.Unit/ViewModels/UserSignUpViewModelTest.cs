@@ -43,7 +43,6 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(false);
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
-            _uut.IsRegistering = true;
 
             await _uut.RegisterUser();
 
