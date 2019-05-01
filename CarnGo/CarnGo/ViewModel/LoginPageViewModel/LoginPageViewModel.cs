@@ -152,7 +152,7 @@ namespace CarnGo
 
         public void CreateUserModel()
         {
-            var repo=new CarnGoReposetory();
+          //  var repo=new CarnGoReposetory();
             //var usermodel=GetUserModel(Email); database
             //var usermodel=new UserModel(); skal fjernes
             //if(PasswordSecureString!=usermodel.Password)

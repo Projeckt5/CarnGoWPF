@@ -247,7 +247,7 @@ namespace CarnGo
             var list = new List<DayThatIsRented>();
             for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
             {
-                list.Add(new DayThatIsRented(){Car=new Car(),CarRenter = new CarRenter(),Date = rentingDate});//ændre denne linie til database er færdig
+                list.Add(new DayThatIsRented(){CarProfile = new CarProfile(),Date = rentingDate,User=new User()});//ændre denne linie til database er færdig
             }
 
             return list;

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Prism.Events;
 using System.Drawing;
 using CarnGo.Database.Models;
 using NSubstitute;
+using Prism.Events;
 
 
 namespace CarnGo.Test.Unit
@@ -17,16 +17,16 @@ namespace CarnGo.Test.Unit
     {
         public SendRequestUnitTest()
         {
-            _car = new Car();
-            var carRenter = new CarRenter();
+            _car = new CarProfile();
+            var user = new User();
             _startDate = new DateTime(2019, 1, 1);
             var possibleDates = new List<PossibleToRentDay>();
             var alreadyRentedDates = new List<DayThatIsRented>();
             for (var date = _startDate; date <= _startDate.AddMonths(1); date = date.AddDays(1))
             {
-                possibleDates.Add(new PossibleToRentDay() { Car = _car, Date = date });
+                possibleDates.Add(new PossibleToRentDay() { CarProfile = _car, Date = date });
                 if (date <= _startDate.AddDays(6))
-                    alreadyRentedDates.Add(new DayThatIsRented() { Car = _car, CarRenter = carRenter, Date = date });
+                    alreadyRentedDates.Add(new DayThatIsRented() { User = user, CarProfile = _car, Date = date });
             }
             _car.DaysThatIsRented=new List<DayThatIsRented>(alreadyRentedDates);
             _car.PossibleToRentDays=new List<PossibleToRentDay>(possibleDates);
@@ -36,7 +36,7 @@ namespace CarnGo.Test.Unit
         private IEventAggregator _event;
         private IApplication _application;
         private CarProfileDataEvent _dataEvent;
-        private Car _car;
+        private CarProfile _car;
         private DateTime _startDate;
         [SetUp]
         public void Setup()

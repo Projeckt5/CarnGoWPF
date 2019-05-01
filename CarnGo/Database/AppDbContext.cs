@@ -22,7 +22,11 @@ namespace CarnGo.Database
 
         //reposetory pattern, CRUD
 
-
+        public void AddDayThatIsRentedList(List<DayThatIsRented> list)
+        {
+            DaysThatIsRented.AddRange(list);
+            SaveChanges();
+        }
         //Update
         public void UpdateCarEquipment(CarEquipment carEquipment)
         {
