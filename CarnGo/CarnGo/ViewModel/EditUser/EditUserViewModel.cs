@@ -15,9 +15,9 @@ namespace CarnGo
 
         #region Default Constructor
 
-        public EditUserViewModel()
+        public EditUserViewModel(IApplication application)
         {
-            _userModel = new UserModel("Edward","Brunton","Edward.Brunton@me.com","Bernhard Jensens blvd 95, 10.3", UserType.OrdinaryUser);
+            _userModel = application.CurrentUser;
             FirstName = _userModel.Firstname;
             LastName = _userModel.Lastname;
             Email = _userModel.Email;
