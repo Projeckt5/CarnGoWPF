@@ -13,6 +13,7 @@ namespace CarnGo
             Model = "CLA 250";
             Brand = "Mercedes";
             Location = "Aarhus";
+            RegNr = "AF75903";
             Seats = 2;
             Price = 400;
             StartLeaseTime = DateTime.Today;

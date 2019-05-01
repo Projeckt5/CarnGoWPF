@@ -67,9 +67,9 @@ namespace CarnGo
            events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
-        private void SearchCarProfileEvent(CarProfileModel obj)
+        private void SearchCarProfileEvent(string regNr)
         {
-            Car = obj;
+            Car.RegNr = regNr;
 
 
             
