@@ -16,30 +16,33 @@ namespace CarnGo
 {
     public class NotificationItemViewModel : BaseViewModel
     {
+        private readonly IApplication _application;
+
         #region Constructors
-        public NotificationItemViewModel(MessageModel message)
+        public NotificationItemViewModel(IApplication application, MessageModel message)
         {
+            _application = application;
             //TODO: Move to factory
             switch (message.MsgType)
             {
                 case MessageType.RenterMessage:
                 {
-                    var renterMessage = (MessageFromRenterModel) message;
-                    MsgType = renterMessage.MsgType;  
-                    Message = renterMessage.Message;
-                    CarPicture = renterMessage.RentCar.CarPicture;
-                    Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
+                    var renterMessage = (MessageFromRenterModel)message;
+                    NotificationMessage.MsgType = renterMessage.MsgType;
+                    NotificationMessage.Message = renterMessage.Message;
+                    NotificationMessage.CarPicture = renterMessage.RentCar.CarPicture;
+                    NotificationMessage.Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
                 }
                     break;
                 case MessageType.LessorMessage:
                 {
-                    var lessorMessage = (MessageFromLessorModel) message;
-                    MsgType = lessorMessage.MsgType;
-                    Message = lessorMessage.Message;
-                    CarPicture = lessorMessage.RentCar.CarPicture;
-                    Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
-                    Confirmation = lessorMessage.StatusConfirmation; 
-                        
+                    var lessorMessage = (MessageFromLessorModel)message;
+                    NotificationMessage.MsgType = lessorMessage.MsgType;
+                    NotificationMessage.Message = lessorMessage.Message;
+                    NotificationMessage.CarPicture = lessorMessage.RentCar.CarPicture;
+                    NotificationMessage.Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
+                    NotificationMessage.Confirmation = lessorMessage.StatusConfirmation;
+
                 }
                     break;
             }
@@ -49,25 +52,33 @@ namespace CarnGo
 
         //TODO Make this a model?
         #region Properties
-        public MessageType MsgType { get; set; }
-        public string Message { get; set; }
-        public BitmapImage CarPicture { get; set; }
-        public string Lessor { get; set; }
-        public string Renter { get; set; }
-        public bool Confirmation { get; set; }
+        public NotificationModel NotificationMessage { get; set; } = new NotificationModel();
         #endregion
 
         #region Commands
         private ICommand _notificationPressedCommand;
         public ICommand NotificationPressedCommand => _notificationPressedCommand ?? (_notificationPressedCommand = new DelegateCommand(NotificationExecute));
+
+        private ICommand _messagePressedCommand;
+
+        public ICommand MesssagePressedCommand =>
+            _messagePressedCommand ?? (_messagePressedCommand = new DelegateCommand(MessageExecute));
         #endregion
 
         #region Executes & CanExecutes
         private void NotificationExecute()
         {
             //Probably needs to send the specific message with it. 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.MessageView);
+            _application.GoToPage(ApplicationPage.MessageView);
+
+        }
+
+        private void MessageExecute()
+        {
+            //Send event
         }
         #endregion
     }
+
+   
 }

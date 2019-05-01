@@ -28,7 +28,7 @@ namespace CarnGo
                 case ApplicationPage.UserSignUpPage:
                     return  new UserSignUp();
                 case ApplicationPage.StartPage:
-                    return new LoginView();
+                    return new StartPage();
                 case ApplicationPage.SendRequestPage:
                     return new SendRequestView();
                 case ApplicationPage.MessageView:

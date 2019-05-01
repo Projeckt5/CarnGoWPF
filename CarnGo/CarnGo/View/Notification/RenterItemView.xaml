@@ -32,7 +32,7 @@
                            FontFamily="{StaticResource RobotoBold}" 
                            TextDecorations="" FontSize="{StaticResource FontSizeSmall}"
                            Margin="10 0 0 0" 
-                           Text="{Binding Renter}" FontWeight="ExtraBold"
+                           Text="{Binding NotificationMessage.Renter}" FontWeight="ExtraBold"
                            >
                 </TextBlock>
 
@@ -42,7 +42,7 @@
                         HorizontalAlignment="Left" Margin="10 10 0 0" 
                         Style="{StaticResource BaseTextBlockStyle}" 
                         FontSize="{StaticResource FontSizeSmall}"
-                        Text="{Binding Message}"
+                        Text="{Binding NotificationMessage.Message}"
                         />
 
             </Grid>

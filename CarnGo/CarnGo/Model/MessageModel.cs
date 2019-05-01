@@ -11,6 +11,8 @@ namespace CarnGo
     {
         #region Properties
         private string _message;
+        private bool _messageRead;
+
         public string Message
         {
             get => _message;
@@ -18,6 +20,18 @@ namespace CarnGo
             {
                 _message = value;
                 OnPropertyChanged(nameof(Message));
+            }
+        }
+
+        public bool MessageRead
+        {
+            get => _messageRead;
+            set
+            {
+                if(_messageRead == value)
+                    return;
+                _messageRead = value;
+                OnPropertyChanged(nameof(MessageRead));
             }
         }
 

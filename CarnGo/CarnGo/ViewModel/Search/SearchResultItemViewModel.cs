@@ -11,9 +11,14 @@ namespace CarnGo
 
     public class SearchResultItemViewModel : BaseViewModel
     {
+        private readonly IApplication _application;
+
         #region Constructor
 
-        public SearchResultItemViewModel() { }
+        public SearchResultItemViewModel(IApplication application)
+        {
+            _application = application;
+        }
 
         #endregion
 
@@ -151,8 +156,7 @@ namespace CarnGo
             CarProfileModel carProfileModel = new CarProfileModel(Owner, Model, Brand, 2000, "A570403", Location, Seats, StartLeaseTime,
                 EndLeaseTime, Price);
 
-            ViewModelLocator.ApplicationViewModel
-                .GoToPage(ApplicationPage.SendRequestPage);
+            _application.GoToPage(ApplicationPage.SendRequestPage);
 
             IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Publish(carProfileModel);
         }

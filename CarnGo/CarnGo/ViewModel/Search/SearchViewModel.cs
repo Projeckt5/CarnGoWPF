@@ -14,13 +14,17 @@ namespace CarnGo
 
     public class SearchViewModel : BaseViewModel, IDataErrorInfo
     {
+        private readonly IApplication _application;
+
         #region Constructor
 
-        public SearchViewModel()
+        public SearchViewModel(IEventAggregator eventAggregator, IApplication application)
         {
-            IoCContainer.Resolve<IEventAggregator>().GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            _application = application;
+            eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
+            _criteria = new List<Predicate<SearchResultItemViewModel>>();
         }
 
         #endregion
@@ -32,7 +36,7 @@ namespace CarnGo
         protected string _seatsText;
         protected DateTime _dateFrom;
         protected DateTime _dateTo;
-        private List<Predicate<SearchResultItemViewModel>> _criteria = new List<Predicate<SearchResultItemViewModel>>();
+        private List<Predicate<SearchResultItemViewModel>> _criteria;
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
 
         #endregion
@@ -157,7 +161,7 @@ namespace CarnGo
             OnPropertyChanged(nameof(cv));
         }
 
-        protected bool Filtering(object item)
+        public bool Filtering(object item)
         {
             SearchResultItemViewModel s = item as SearchResultItemViewModel;
             bool isIn = true;
@@ -282,7 +286,7 @@ namespace CarnGo
         private string ValidateDateFrom()
         {
             if (DateFrom.Date < DateTime.Today.Date)
-                return "Pick-up and drop off dates must be after the current date";
+                return "Pick-up date must be after the current date";
 
             return null;
         }

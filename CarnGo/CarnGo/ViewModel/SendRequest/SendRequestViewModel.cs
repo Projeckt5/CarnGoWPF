@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using CarnGo.Database.Models;
 using Prism.Commands;
 using Prism.Events;
 using Unity;
@@ -19,6 +20,8 @@ namespace CarnGo
 {
     public class SendRequestViewModel:BaseViewModel,IDataErrorInfo
     {
+        private readonly IApplication _application;
+
         #region fields
 
         private string _errorText = "";
@@ -56,11 +59,10 @@ namespace CarnGo
 
         #region constructor
 
-        public SendRequestViewModel(IEventAggregator events)
+        public SendRequestViewModel(IEventAggregator events, IApplication application)
         {
-           // IoCContainer.Resolve<IEventAggregator>()
+            _application = application;
            events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
-
         }
 
         private void SearchCarProfileEvent(CarProfileModel obj)
@@ -68,7 +70,7 @@ namespace CarnGo
             Car = obj;
 
 
-            //Bilinformation skal trækkes ud af databasen 
+            
         }
 
         #endregion
@@ -147,15 +149,23 @@ namespace CarnGo
                 return;
             }
 
+            /*if (!ConfirmRentingDates(Car car))
+            {
+                ErrorText = "*Another Lessor has rented the car in this time span";
+                return;
+            }*/
 
-            //var sendingMessage=new MessageFromRenterModel(ViewModelLocator.ApplicationViewModel.CurrentUser,_carProfileModel.Owner);            
-            //sendingMessage.From = From;
-            //sendingMessage.To = To;
-            //sendingMessage.Message = Message;
+            //var list = GetListOfDayThatIsRented(From, To,new Car() , new CarRenter());
 
-            //sendingMessage lægges ind i database MANGLER
 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
+            /*var message=new CarRenterMessage();
+            message.Commentary = Message;
+            message.Car
+            var repo = new CarnGoReposetory();
+            repo.AddCarRenterMessage(message);*/
+
+
+            _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 
         private ICommand _emptyTextBoxCommand;
@@ -176,6 +186,48 @@ namespace CarnGo
                 Message = "Message to lessor";
 
         }
+
+        #endregion
+
+        #region Functions
+
+        public bool ConfirmRentingDates(CarProfile car)
+        {
+           
+            List<DateTime> dates = new List<DateTime>();
+            foreach (var date in car.DaysThatIsRented)
+            {
+                if (date.Date >= From && date.Date <= To)
+                {
+                    dates.Add(date.Date);
+                }
+            }
+            for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
+            {
+                foreach (var date in dates)
+                {
+                    if (date == rentingDate)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+
+            return true;
+        }
+
+        public List<DayThatIsRented> GetListOfDayThatIsRented(DateTime from, DateTime to, CarProfile car,User renter)
+        {
+            var list = new List<DayThatIsRented>();
+            for (var i = to; i <= from; i=i.AddDays(1))
+            {
+                //list.Add(new DayThatIsRented(){Date=i, Car=car}); TODO, no longer valid after DB change
+            }
+
+            return list;
+        }
+        
 
         #endregion
 

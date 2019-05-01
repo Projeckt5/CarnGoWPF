@@ -18,6 +18,8 @@ namespace CarnGo
         private readonly IValidator<string> _emailValidator;
         private readonly IValidator<SecureString> _passwordValidator;
         private readonly IValidator<List<SecureString>> _passwordMatchValidator;
+        private readonly IQueryDatabase _databaseAccess;
+        private readonly IApplication _application;
         private string _email;
         private SecureString _password;
         private SecureString _passwordValidate;
@@ -28,11 +30,15 @@ namespace CarnGo
         public UserSignUpViewModel(
             IValidator<string> emailValidator,
             IValidator<SecureString> passwordValidator,
-            IValidator<List<SecureString>> passwordMatchValidator)
+            IValidator<List<SecureString>> passwordMatchValidator,
+            IQueryDatabase databaseAccess,
+            IApplication application)
         {
             _emailValidator = emailValidator;
             _passwordValidator = passwordValidator;
             _passwordMatchValidator = passwordMatchValidator;
+            _databaseAccess = databaseAccess;
+            _application = application;
         }
         #endregion
         #region Public Properties
@@ -102,7 +108,7 @@ namespace CarnGo
         #region Public Commands
 
         public ICommand RegisterCommand => new DelegateCommand(async ()=> await RegisterUser());
-        public ICommand NavigateLoginCommand => new DelegateCommand(()=> ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.LoginPage));
+        public ICommand NavigateLoginCommand => new DelegateCommand(NavigateLoginPage);
 
 
         #endregion
@@ -119,8 +125,8 @@ namespace CarnGo
                     throw new ValidationException();
                 }
 
-                //TODO: AWAIT REGISTERING THE USER ON THE DB
-                await Task.Delay(2000);
+                await _databaseAccess.RegisterUserTask(Email, PasswordSecureString);
+                NavigateLoginPage();
             }
             catch (ValidationException e)
             {
@@ -136,6 +142,11 @@ namespace CarnGo
             {
                 IsRegistering = false;
             }
+        }
+
+        public void NavigateLoginPage()
+        {
+            _application.GoToPage(ApplicationPage.LoginPage);
         }
         #endregion
         #region Error Handling

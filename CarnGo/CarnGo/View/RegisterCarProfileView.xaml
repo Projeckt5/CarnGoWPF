@@ -14,7 +14,7 @@
             BorderThickness="0"
             BorderBrush="{StaticResource BlueMainBrush}"
             Height="350"
-            Width="600"
+
             CornerRadius="0"
             >
 
@@ -35,7 +35,8 @@
                         Margin="50,20,50,10"
                         BorderThickness="2" 
                         BorderBrush="{StaticResource BlueMainBrush}"
-                        SnapsToDevicePixels="True">
+                        SnapsToDevicePixels="True"
+                        Width="192">
 
                     <Image Source="../Images/Bilfoto.jpg" 
                            HorizontalAlignment="Right"
@@ -59,7 +60,8 @@
 
 
                 <StackPanel Grid.Row="2" 
-                            Margin="50,0,50,0">
+                            Margin="50,0,50,0"
+                            HorizontalAlignment="Center">
 
 
 
@@ -67,7 +69,7 @@
                                   HorizontalAlignment="Left">
                         <TextBox Tag="Enter Car Description:" 
                                  Height="100"
-                                 HorizontalAlignment="Left"
+                                 HorizontalAlignment="Center"
                                  Text="{Binding CarDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Width="192"/>
                     </ScrollViewer>
@@ -75,17 +77,18 @@
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Column="1" >
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Border Margin="0, 20, 50, 0"
-                        BorderBrush="{StaticResource BlueMainBrush}">
+                <Border Margin="0, 20, 0, 0"
+                        BorderBrush="{StaticResource BlueMainBrush}"
+                        HorizontalAlignment="Center">
 
-                    <Grid>
+                    <Grid HorizontalAlignment="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -113,7 +116,7 @@
                         </Grid.ColumnDefinitions>
 
                         <!--CarMake TextBox-->
-                        <TextBox HorizontalAlignment="Left" 
+                        <TextBox HorizontalAlignment="Center" 
                                  Grid.Row="1" 
                                  Grid.Column="0" 
                                  Width="110"
@@ -123,7 +126,7 @@
                             />
 
                             <!--CarModel TextBox-->
-                        <TextBox HorizontalAlignment="Left"
+                        <TextBox HorizontalAlignment="Center"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
                                  Width="110"
@@ -133,7 +136,7 @@
                             />
 
                         <!--CarAge TextBox-->
-                        <TextBox HorizontalAlignment="Left" 
+                        <TextBox HorizontalAlignment="Center" 
                                  Grid.Column="0"
                                  Grid.Row="3" 
                                  Width="110"
@@ -143,7 +146,7 @@
                         />
 
                         <!--CarReg TextBox-->
-                        <TextBox HorizontalAlignment="Left"
+                        <TextBox HorizontalAlignment="Center"
                                    Grid.Row="3"
                                    Grid.Column="1"
                                    Width="110"
@@ -152,13 +155,13 @@
                                    IsReadOnly="{Binding IsReadOnly}"
                         />
 
-                        <Label HorizontalAlignment="Left"
+                        <Label HorizontalAlignment="Center"
                                Grid.Row="4"
                                Grid.Column="0"
                                Content="Lease Start:" 
                                />
 
-                        <Label HorizontalAlignment="Left"
+                        <Label HorizontalAlignment="Center"
                                Grid.Row="4"
                                Grid.Column="1"
                                Content="Lease End:"
@@ -166,7 +169,7 @@
                         />
 
                         <!--Lease Start-->
-                        <DatePicker HorizontalAlignment="Left" 
+                        <DatePicker HorizontalAlignment="Center" 
                                     Grid.Row="5"
                                     Grid.Column="0"
                                     Width="110"
@@ -175,7 +178,7 @@
                         />
 
                         <!--Lease End-->
-                        <DatePicker HorizontalAlignment="Left" 
+                        <DatePicker HorizontalAlignment="Center" 
                                     Margin="0, 0, 0, 0"
                                     Grid.Row="5" 
                                     Grid.Column="1" 
@@ -184,13 +187,13 @@
                                     IsEnabled="{Binding Editing}"
                                     />
 
-                        <Label HorizontalAlignment="Left"
+                        <Label HorizontalAlignment="Center"
                                Grid.Row="6" 
                                Grid.Column="0"
                                Content="Number of seats:"
                                />
 
-                        <Label HorizontalAlignment="Left"
+                        <Label HorizontalAlignment="Center"
                                Grid.Row="6" 
                                Grid.Column="1"
                                Content="Fuel Type:"
@@ -198,7 +201,7 @@
                         />
 
                         <!--CarSeats TextBox-->
-                        <TextBox HorizontalAlignment="Left" 
+                        <TextBox HorizontalAlignment="Center" 
                                    Margin="0, 0, 0, 0"
                                    Grid.Row="7"
                                    Grid.Column="0" 
@@ -232,7 +235,7 @@
                 <TextBox FontSize="{StaticResource FontSizeRegular}"
                          Grid.Row="1" 
                          Tag="Price in DKK"
-                         HorizontalAlignment="Left"
+                         HorizontalAlignment="Center"
                          VerticalAlignment="Top"
                          Width="200"
                          Text="{Binding CarRentalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -245,7 +248,7 @@
                         HorizontalContentAlignment="Center"
                         HorizontalAlignment="Center"
                         Content="Save" 
-                        Margin="65,0,162,0"
+                        Margin="65,0,65,0"
                         Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
                         Command="{Binding SaveCommand}"
                     />
@@ -254,7 +257,7 @@
                         HorizontalContentAlignment="Center"
                         HorizontalAlignment="Center"
                         Content="Edit"
-                        Margin="65,0,162,0"
+                        Margin="65,0,65,0"
                         Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}" Height="38" VerticalAlignment="Top"
                         Command="{Binding EditCarProfileCommand}"
                         />

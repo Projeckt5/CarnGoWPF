@@ -17,13 +17,16 @@ namespace CarnGo
     {
         public static UnityContainer Container { get; set; } = new UnityContainer();
 
+        public static IApplication Application => Container.Resolve<IApplication>();
+
         public static void Setup()
         {
-            Container.RegisterSingleton<ApplicationViewModel>();
+            Container.RegisterSingleton<IApplication, ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
+            Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
             Container.RegisterSingleton<MainWindowViewModel>();
             Container.AddExtension(new Diagnostic());
         }

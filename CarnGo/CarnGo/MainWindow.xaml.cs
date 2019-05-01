@@ -28,5 +28,10 @@ namespace CarnGo
             InitializeComponent();
             DataContext = IoCContainer.Resolve<MainWindowViewModel>();
         }
+
+        private void HeaderBarControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

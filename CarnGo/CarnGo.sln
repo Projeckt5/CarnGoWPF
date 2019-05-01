@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo", "CarnGo\CarnGo.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Unittests", "CarnGo.Test.Unit\CarnGo.Unittests.csproj", "{9A68D027-AA4E-49C8-B64A-F4489DDCC104}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Database", "Database\CarnGo.Database.csproj", "{E319C964-AA15-47C1-A914-D44696E5A665}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

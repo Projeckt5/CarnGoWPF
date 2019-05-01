@@ -18,7 +18,7 @@ namespace CarnGo
     /// <summary>
     /// Interaction logic for SearchView.xaml
     /// </summary>
-    public partial class SearchView : Page
+    public partial class SearchView : BasePage<SearchViewModel>
     {
         public SearchView()
         {
