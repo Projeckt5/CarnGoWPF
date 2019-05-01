@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using CarnGo.Database.Models;
 
 
 namespace CarnGo
@@ -72,6 +73,10 @@ namespace CarnGo
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
+
+        public List<DayThatIsRented> DayThatIsRented { get; set; }
+
+        
 
         public CarEquipment CarEquipment
         {

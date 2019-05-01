@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using CarnGo.Database;
 using CarnGo.Database.Models;
 using Prism.Commands;
 using Prism.Events;
@@ -150,13 +152,14 @@ namespace CarnGo
 
             /*if (!ConfirmRentingDates(Car car))
             {
-                ErrorText = "*Another Lessor has rented the car in this time span";
                 return;
             }*/
 
-            //var list = GetListOfDayThatIsRented(From, To,new Car() , new CarRenter());
-            
-            
+            /*var list = CreateDayThatIsRentedList();
+
+            var repo = new CarnGoReposetory();
+            repo.AddDayThatIsRentedList(list);
+            */
             /*var message=new CarRenterMessage();
             message.Commentary = Message;
             message.Car
@@ -192,41 +195,64 @@ namespace CarnGo
 
         public bool ConfirmRentingDates(Car car)
         {
-           
-            List<DateTime> dates = new List<DateTime>();
-            foreach (var date in car.DaysThatIsRented)
+            try
             {
-                if (date.Date >= From && date.Date <= To)
+                for (var rentingDate = From; rentingDate <= To; rentingDate = rentingDate.AddDays(1))
                 {
-                    dates.Add(date.Date);
-                }
-            }
-            for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
-            {
-                foreach (var date in dates)
-                {
-                    if (date == rentingDate)
+                    foreach (var date in car.DaysThatIsRented)
                     {
-                        return false;
+                       
+                        if (date.Date == rentingDate)
+                        {
+                            ErrorText = "*Another lessor has rented this car in the specified period";
+                            return false;
+                        }
+
                     }
                 }
 
+
+
+                for (var rentingDate = From; rentingDate <= To; rentingDate = rentingDate.AddDays(1))
+                {
+
+                    bool rent = false;
+                    foreach (var date in car.PossibleToRentDays)
+                    {
+                        if (date.Date == rentingDate)
+                        {
+                            rent = true;
+                        }
+                    }
+
+                    if (!rent)
+                    {
+                        ErrorText = "*It is not possible to rent the car in the specified period";
+                        return false;
+                    }
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                
             }
 
             return true;
         }
 
-        public List<DayThatIsRented> GetListOfDayThatIsRented(DateTime from, DateTime to, Car car,CarRenter renter)
+
+        public List<DayThatIsRented> CreateDayThatIsRentedList()
         {
             var list = new List<DayThatIsRented>();
-            for (var i = to; i <= from; i=i.AddDays(1))
+            for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
             {
-                list.Add(new DayThatIsRented(){Date=i, Car=car});
+                list.Add(new DayThatIsRented(){Car=new Car(),CarRenter = new CarRenter(),Date = rentingDate});//ændre denne linie til database er færdig
             }
 
             return list;
         }
-        
+
+
 
         #endregion
 

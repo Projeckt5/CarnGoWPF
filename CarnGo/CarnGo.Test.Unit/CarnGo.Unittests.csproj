@@ -82,6 +82,10 @@
       <Project>{f9c7e9d8-5e6a-4a89-b1cf-2c4af0eef5da}</Project>
       <Name>CarnGo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Database\CarnGo.Database.csproj">
+      <Project>{e319c964-aa15-47c1-a914-d44696e5a665}</Project>
+      <Name>CarnGo.Database</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

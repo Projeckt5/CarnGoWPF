@@ -113,12 +113,18 @@ namespace CarnGo
                     allErrorsList.AddRange(error.Value);
                 }
                 AllErrors = new ObservableCollection<string>(allErrorsList);
+                
+            }
+            else
+            {
+                //Login function database
             }
             //TODO: AWAIT REGISTERING THE USER ON THE DB
-            //var repo=new CarnGoReposetory();
+            
            
             await Task.Delay(2000);
             IsLogin = false;
+            IoCContainer.Resolve<ApplicationViewModel>().GoToPage(ApplicationPage.StartPage);
         }
         #endregion
         #region Error Handling
@@ -136,6 +142,30 @@ namespace CarnGo
         private void ValidatePassword()
         {
             Validate(nameof(PasswordSecureString), PasswordSecureString, _passwordValidator);
+        }
+
+        #endregion
+
+        #region DatabaseFunction
+
+        public void CreateUserModel()
+        {
+            var repo=new CarnGoReposetory();
+            //var usermodel=GetUserModel(Email); database
+            //var usermodel=new UserModel(); skal fjernes
+            //if(PasswordSecureString!=usermodel.Password)
+            //{
+               // fejlbesked
+               //return
+            //}
+            //convertering fra database til usermodel
+            //var currentUser = new UserModel();
+            //currentUser.Email = usermodel.Email;
+            //currentUser.Firstname = usermodel.FirstName;
+            //currentUser.Lastname = usermodel.LastName;
+            //currentUser.Address = usermodel.Address;
+            //currentUser.UserType = usermodel.UserType;
+
         }
 
         #endregion
