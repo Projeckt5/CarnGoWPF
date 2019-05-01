@@ -85,12 +85,13 @@ namespace CarnGo
 
         private async Task ShowNotification()
         {
+            if(IsQueryingDatabase)
+                return;
 
-            IsQueryingDatabase = true;
             try
             {
-
-                UserModel.MessageModels = await _databaseQuery.GetUserMessages(UserModel);
+                IsQueryingDatabase = true;
+                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessages(UserModel);
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);

@@ -2,6 +2,7 @@
 using Prism.Commands;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Prism.Events;
@@ -31,6 +32,7 @@ namespace CarnGo
                     notificationItemViewModels.Add(new NotificationItemViewModel(_application, currentUserMessageModel));
                 }
 
+                notificationItemViewModels.Reverse();
                 Messages = notificationItemViewModels;
             });
         }

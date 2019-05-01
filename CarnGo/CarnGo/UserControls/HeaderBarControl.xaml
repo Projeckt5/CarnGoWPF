@@ -109,10 +109,10 @@
                 <Popup x:Name="NotificationPopup" 
                        IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
                        StaysOpen="False"
-                       HorizontalOffset="-150">
+                       HorizontalOffset="-200">
                     <Border Padding="10"
                             Background="{StaticResource BlueLightBrush}">
-                        <carnGo:NotificationView MaxHeight="200"/>
+                        <carnGo:NotificationView MaxHeight="250"/>
                     </Border>
                 </Popup>
             </Grid>
