@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CarnGo.Security;
 using Prism.Commands;
@@ -104,30 +105,41 @@ namespace CarnGo
         //TODO make async and add loading flag
         private async Task Login()
         {
-            IsLogin = true;
-            AllErrors.Clear();
-            ValidateAll();
-            if (HasErrors)
+            if (IsLogin)
+                return;
+
+            try
             {
-                List<string> allErrorsList = new List<string>();
-                foreach (var error in ErrorsDictionary)
+
+                IsLogin = true;
+                AllErrors.Clear();
+                ValidateAll();
+                if (HasErrors)
                 {
-                    allErrorsList.AddRange(error.Value);
+                    List<string> allErrorsList = new List<string>();
+                    foreach (var error in ErrorsDictionary)
+                    {
+                        allErrorsList.AddRange(error.Value);
+                    }
+
+                    AllErrors = new ObservableCollection<string>(allErrorsList);
+                    return;
                 }
-                AllErrors = new ObservableCollection<string>(allErrorsList);
-                
+
+                await Task.Delay(2000);
+
+                _application.GoToPage(ApplicationPage.StartPage);
             }
-            else
+            catch (Exception e)
             {
-                //Login function database
+                MessageBox.Show(e.Message);
             }
-            //TODO: AWAIT REGISTERING THE USER ON THE DB
-            
-           
-            await Task.Delay(2000);
-            IsLogin = false;
-            IoCContainer.Resolve<ApplicationViewModel>().GoToPage(ApplicationPage.StartPage);
+            finally
+            {
+                IsLogin = false;
+            }
         }
+
         #endregion
         #region Error Handling
        
