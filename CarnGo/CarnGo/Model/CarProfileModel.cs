@@ -83,12 +83,14 @@ namespace CarnGo
             get => _equipment;
             set
             {
+                if (_equipment == value)
+                    return;
                 _equipment = value;
                 OnPropertyChanged(nameof(CarEquipment));
             } }
         public BitmapImage CarPicture
         {
-            get { return _carPicture; }
+            get => _carPicture;
             set
             {
                 _carPicture = value;
@@ -99,9 +101,11 @@ namespace CarnGo
 
         public string Model
         {
-            get { return _model; }
+            get => _model;
             set
             {
+                if (_model == value)
+                    return;
                 _model = value;
                 OnPropertyChanged(nameof(Model));
             }
@@ -109,9 +113,11 @@ namespace CarnGo
 
         public string Brand
         {
-            get { return _brand; }
+            get => _brand;
             set
             {
+                if (_brand == value)
+                    return;
                 _brand = value;
                 OnPropertyChanged(nameof(Brand));
             }
@@ -119,59 +125,71 @@ namespace CarnGo
 
         public int Age
         {
-            get { return _age; }
+            get => _age;
             set
             {
-                _age = value > 1900 && value <= DateTime.Now.Year ? value : throw new ArgumentException("Invalid Year");
+                if (_age == value)
+                    return;
+                _age = value;
                 OnPropertyChanged(nameof(Age));
             }
         }
 
         public string RegNr
         {
-            get { return _regNr; }
+            get => _regNr;
             set
             {
-                _regNr = value.Length == 7 ? value : throw new ArgumentException("Registration number must contain 7 digits");
+                if (_regNr == value)
+                    return;
+                _regNr = value;
                 OnPropertyChanged(nameof(RegNr));
             }
         }
 
         public string Location
         {
-            get { return _location; }
+            get => _location;
             set
             {
-                _location = value.Length > 1 ? value : throw new ArgumentException("Location must contain more than 1 characters");
+                if (_location == value)
+                    return;
+                _location = value;
                 OnPropertyChanged(nameof(Location));
             }
         }
 
         public int Seats
         {
-            get { return _seats; }
+            get => _seats;
             set
             {
-                _seats = (value > 0 && value < 20) ? value : throw new ArgumentException("Car must have between 0 and 20 seats");
+                if (_seats == value)
+                    return;
+                _seats = value;
                 OnPropertyChanged(nameof(Seats));
             }
         }
 
         public int Price
         {
-            get { return _price; }
+            get => _price;
             set
             {
-                _price = value > 0 ? value : throw new ArgumentException("Price must be higher than 0");
+                if (_price == value)
+                    return;
+                _price = value;
                 OnPropertyChanged(nameof(Price));
             }
         }
 
         public DateTime StartLeaseTime
         {
-            get { return _startLeaseTime; }
+            get => _startLeaseTime;
             set
             {
+                if (_startLeaseTime == value)
+                    return;
                 //TODO Make try/catch block to check if Database sendes exception
                 _startLeaseTime = value;
                 OnPropertyChanged(nameof(StartLeaseTime));
@@ -181,9 +199,11 @@ namespace CarnGo
 
         public DateTime EndLeaseTime
         {
-            get { return _endLeaseTime;  }
+            get => _endLeaseTime;
             set
             {
+                if (_endLeaseTime == value)
+                    return;
                 //TODO Make try/catch block to check if Database sendes exception
                 _endLeaseTime = value;
                 OnPropertyChanged(nameof(EndLeaseTime));
@@ -192,9 +212,11 @@ namespace CarnGo
 
         public UserModel Owner
         {
-            get { return _owner;  }
+            get => _owner;
             set
             {
+                if (_owner == value)
+                    return;
                 _owner = value;
                 OnPropertyChanged(nameof(Owner));
             }
@@ -205,6 +227,8 @@ namespace CarnGo
             get { return _rentalPrice; }
             set
             {
+                if (_rentalPrice == value)
+                    return;
                 _rentalPrice = value;
                 OnPropertyChanged(nameof(RentalPrice));
             }
@@ -215,6 +239,8 @@ namespace CarnGo
             get { return _fuelType; }
             set
             {
+                if (_fuelType == value)
+                    return;
                 _fuelType = value;
                 OnPropertyChanged(nameof(FuelType));
             }

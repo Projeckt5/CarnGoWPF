@@ -22,6 +22,8 @@ namespace CarnGo
 {
     public class SendRequestViewModel:BaseViewModel,IDataErrorInfo
     {
+        private readonly IApplication _application;
+
         #region fields
 
         private string _errorText = "";
@@ -59,11 +61,10 @@ namespace CarnGo
 
         #region constructor
 
-        public SendRequestViewModel(IEventAggregator events)
+        public SendRequestViewModel(IEventAggregator events, IApplication application)
         {
-           // IoCContainer.Resolve<IEventAggregator>()
+            _application = application;
            events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
-
         }
 
         private void SearchCarProfileEvent(CarProfileModel obj)
@@ -165,9 +166,9 @@ namespace CarnGo
             message.Car
             var repo = new CarnGoReposetory();
             repo.AddCarRenterMessage(message);*/
-            
 
-            ViewModelLocator.ApplicationViewModel.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
+
+            _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 
         private ICommand _emptyTextBoxCommand;
@@ -193,7 +194,7 @@ namespace CarnGo
 
         #region Functions
 
-        public bool ConfirmRentingDates(Car car)
+        public bool ConfirmRentingDates(CarProfile car)
         {
             try
             {

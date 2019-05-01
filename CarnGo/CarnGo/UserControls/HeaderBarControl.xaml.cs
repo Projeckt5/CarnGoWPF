@@ -10,6 +10,7 @@ namespace CarnGo
         public HeaderBarControl()
         {
             InitializeComponent();
+            DataContext = IoCContainer.Resolve<HeaderBarViewModel>();
         }
     }
 }

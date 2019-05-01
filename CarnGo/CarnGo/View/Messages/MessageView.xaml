@@ -8,36 +8,111 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MessageView">
 
-    <Grid Background="{StaticResource BackgroundMainBrush}" MaxHeight="800">
+    <Grid Background="{StaticResource BackgroundMainBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="300" MaxWidth="350"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- Notification View -->
         <!-- NOT DONE YET!!! -->
         <Grid Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="12*"/>
                 </Grid.RowDefinitions>
                 <local:SearchBarControl Grid.Row="0" 
                                          Margin="5" MaxHeight="30"
                                          Background="{StaticResource BackgroundDarkBrush}"/>
-                <local:MessageBox Grid.Row="1"></local:MessageBox>
+                <local:NotificationView Grid.Row="1"></local:NotificationView>
             </Grid>
-           
+
         </Grid>
 
-        <Grid Grid.Column="1">
-            <ItemsControl>
-                <!--<ItemsControl.ItemTemplate>
-                    <DataTemplate>-->
-                        <local:MessageViewItem></local:MessageViewItem>
-                    <!--</DataTemplate>
-                </ItemsControl.ItemTemplate>-->
-            </ItemsControl>
+        <Grid Grid.Column="1" Background="{StaticResource BackgroundMainBrush}" VerticalAlignment="Top" Margin="0 0 0 150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="../../Images/Bilfoto.jpg"
+                       Margin="20 10 10 0 "
+                       MinHeight="40"
+                       MinWidth="60"
+                       />
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" 
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            >
+                        <TextBlock
+                        Text="User"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                        Margin="0 0 10 0"
+                        />
+
+                        <TextBlock Text="Date"
+                               Style="{StaticResource BaseTextBlockStyle}"
+                               />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                >
+                        <TextBlock
+                            Text="Anders Andersen"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            />
+
+                        <TextBlock
+                            Text="19-04-2019"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../../Images/profilepicture.png"
+                       HorizontalAlignment ="Right"
+                       VerticalAlignment="Top"
+                       Margin="20 10 10 0 "
+                       />
+
+                <Border Grid.Column="1"
+                    BorderThickness="2" BorderBrush="Black"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0 10 0 0"
+                    MinHeight="50"
+                    MinWidth="200"
+                    >
+                    <TextBlock  
+                       Text="Message Comments"
+                       Padding="5 0 0 0"
+                        Style="{StaticResource BaseTextBlockStyle}"
+                       />
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

@@ -5,7 +5,7 @@ namespace CarnGo
 {
     public class RealDatabaseQuerier : IQueryDatabase
     {
-        public Task RegisterUser(string email, SecureString password)
+        public Task RegisterUserTask(string email, SecureString password)
         {
             throw new System.NotImplementedException();
         }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CarnGo"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="500"
-             >
+>
 
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" x:Key="NotificationButton">
@@ -25,7 +25,7 @@
                             <Button Background="{StaticResource BackgroundLightBrush}"
                                     Style="{StaticResource NotificationButton}"
                                     Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
-                                <ContentControl Content="{Binding Path=MsgType, Converter={local:MessageConverter}}"/>
+                                <ContentControl Content="{Binding Path=NotificationMessage.MsgType, Converter={local:MessageConverter}}"/>
                             </Button>
                         </DataTemplate>
 

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Prism.Commands;
@@ -15,90 +9,96 @@ namespace CarnGo
     {
 
  
-        public CarProfileModel _originalCarProfileModel;
-        public CarProfileModel _editedCarProfileModel;
+        private CarProfileModel _carProfile;
         private bool _editing;
+        private IApplication _application;
         public bool _isReadOnly;
-
-        public bool IsOwner { get; set; }
         
         
-        //TODO: Not sure if i should validate who the owner is og get it passed inn
-        public CarProfileViewModel()
+        public CarProfileViewModel(IApplication application, CarProfileModel carProfile)
         {
-            var _editedCarProfileModel = new CarProfileModel(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser),"R8", "Audi", 2017, "1337133", "", 0, DateTime.Today, DateTime.Today, 0);
+            _application = application;
+            _carProfile = carProfile;
             Editing = false;
             IsReadOnly = true;
         }
 
-        
+        public CarProfileViewModel(IApplication application)
+        {
+            _application = application;
+            _carProfile = new CarProfileModel();
+            Editing = true;
+            IsReadOnly = false;
+        }
+
+
 
 
         #region Public Properties
 
         public string CarMake
         {
-            get => _editedCarProfileModel.Brand;
-            set => _editedCarProfileModel.Brand = value;
+            get => _carProfile.Brand;
+            set => _carProfile.Brand = value;
         }
         public string CarModel
         {
-            get => _editedCarProfileModel.Model;
-            set => _editedCarProfileModel.Model = value;
+            get => _carProfile.Model;
+            set => _carProfile.Model = value;
         }
 
         public int CarSeats
         {
-            get => _editedCarProfileModel.Seats;
-            set => _editedCarProfileModel.Seats = value;
+            get => _carProfile.Seats;
+            set => _carProfile.Seats = value;
         }
         public string CarFuelType
         {
-            get => _editedCarProfileModel.FuelType;
-            set => _editedCarProfileModel.FuelType = value;
+            get => _carProfile.FuelType;
+            set => _carProfile.FuelType = value;
         }
 
         public int CarRentalPrice
         {
-            get => _editedCarProfileModel.RentalPrice;
-            set => _editedCarProfileModel.RentalPrice = value;
+            get => _carProfile.RentalPrice;
+            set => _carProfile.RentalPrice = value;
         }
 
         public int CarAge
         {
-            get => _editedCarProfileModel.Age;
-            set => _editedCarProfileModel.Age = value;
+            get => _carProfile.Age;
+            set => _carProfile.Age = value;
         }
 
         public string CarRegNr
         {
-            get => _editedCarProfileModel.RegNr;
-            set => _editedCarProfileModel.RegNr = value;
+            get => _carProfile.RegNr;
+            set => _carProfile.RegNr = value;
         }
         public DateTime CarStartLeaseDate
         {
-            get => _editedCarProfileModel.StartLeaseTime;
-            set => _editedCarProfileModel.StartLeaseTime = value;
+            get => _carProfile.StartLeaseTime;
+            set => _carProfile.StartLeaseTime = value;
         }
         public DateTime CarEndLeaseDate
         {
-            get => _editedCarProfileModel.EndLeaseTime;
-            set => _editedCarProfileModel.EndLeaseTime = value;
+            get => _carProfile.EndLeaseTime;
+            set => _carProfile.EndLeaseTime = value;
         }
         public BitmapImage CarPicture
         {
-            get => _editedCarProfileModel.CarPicture;
-            set => _editedCarProfileModel.CarPicture = value;
+            get => _carProfile.CarPicture;
+            set => _carProfile.CarPicture = value;
         }
         public UserModel CarOwner
         {
-            get => _editedCarProfileModel.Owner;
-            set => _editedCarProfileModel.Owner = value;
+            get => _carProfile.Owner;
+            set => _carProfile.Owner = value;
         }
         public string CarDescription
         {
-            get => _editedCarProfileModel.CarDescription;
-            set => _editedCarProfileModel.CarDescription = value;
+            get => _carProfile.CarDescription;
+            set => _carProfile.CarDescription = value;
         }
 
         public bool Editing
@@ -141,7 +141,6 @@ namespace CarnGo
 
         public void SaveFunction()
         {
-            _originalCarProfileModel = _editedCarProfileModel;
             Editing = false;
             IsReadOnly = true;
         }
@@ -154,7 +153,7 @@ namespace CarnGo
 
         private void UploadPhotoFunction()
         {
-
+            
         }
     }
 }

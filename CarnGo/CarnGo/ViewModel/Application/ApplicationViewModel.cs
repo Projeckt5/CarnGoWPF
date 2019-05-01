@@ -1,11 +1,38 @@
-﻿using Unity;
+﻿using System;
+using System.Collections.Generic;
+using System.Security;
+using System.Threading.Tasks;
+using CarnGo.Security;
+using Prism.Events;
+using Unity;
 
 namespace CarnGo
 {
-    public class ApplicationViewModel : BaseViewModel
+
+    public class NotificationMessageUpdateEvent: PubSubEvent<List<MessageModel>>{ }
+
+    public class ApplicationViewModel : BaseViewModel, IApplication
     {
-        private ApplicationPage _applicationPage = ApplicationPage.StartPage;
-        private UserModel _currentUser = null;
+        private readonly IQueryDatabase _queryDatabase;
+        private ApplicationPage _applicationPage;
+        
+        private UserModel _currentUser;
+
+        public ApplicationViewModel(IQueryDatabase queryDatabase)
+        {
+            _applicationPage = ApplicationPage.StartPage;
+            _queryDatabase = queryDatabase;
+            _currentUser = new UserModel("Test", "Test", "Test@Test.Com", "TestAddress", UserType.OrdinaryUser)
+            {
+                MessageModels = new List<MessageModel>()
+                {
+                    new MessageModel()
+                    {
+                        Message = "Test", MessageRead = false, MsgType = MessageType.LessorMessage
+                    }
+                }
+            };
+        }
 
         /// <summary>
         /// The current page of the application
@@ -19,12 +46,7 @@ namespace CarnGo
                     return;
                 _applicationPage = value;
                 OnPropertyChanged(nameof(CurrentPage));
-                if (ViewModelLocator.ApplicationViewModel.CurrentPage == ApplicationPage.LoginPage)
-                    IoCContainer.Resolve<MainWindowViewModel>().HeaderBarVisibility = "Hidden";
-                else
-                {
-                    IoCContainer.Resolve<MainWindowViewModel>().HeaderBarVisibility = "Visible";
-                }
+                IoCContainer.Resolve<MainWindowViewModel>().HeaderBarVisibility = CurrentPage == ApplicationPage.LoginPage ? "Hidden" : "Visible";
             }
         }
 
@@ -36,7 +58,7 @@ namespace CarnGo
         public UserModel CurrentUser
         {
             get => _currentUser;
-            set
+            private set
             {
                 if (_currentUser == value)
                     return;
@@ -52,6 +74,26 @@ namespace CarnGo
         public void GoToPage(ApplicationPage page)
         {
             CurrentPage = page;
+        }
+
+        public async Task LogUserIn(string email, SecureString password)
+        {
+            try
+            {
+                CurrentUser = await _queryDatabase.GetUserTask(email, password);
+                GoToPage(ApplicationPage.StartPage);
+            }
+            catch (UserNotFoundException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void LogUserOut()
+        {
+            CurrentUser = null;
+            GoToPage(ApplicationPage.LoginPage);
         }
     }
 }
