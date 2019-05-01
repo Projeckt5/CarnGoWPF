@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using NSubstitute;
+﻿using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using Prism.Events;
+using System.Collections.Generic;
 
 namespace CarnGo.Test.Unit.ViewModels
 {
@@ -100,6 +99,25 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeDatabaseQuery.Received()
                 .UpdateUserMessages(Arg.Is<UserModel>(um => um == _fakeApplication.CurrentUser),
                     _fakeApplication.CurrentUser.MessageModels);
+        }
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsReceivedFromDb()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            _fakeDatabaseQuery.Received().GetUserMessages(Arg.Any<UserModel>());
+        }
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsSendToPopUp()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>()
+                .Received().Publish(Arg.Is<List<MessageModel>>(noti => noti == _uut.UserModel.MessageModels));
         }
 
     }
