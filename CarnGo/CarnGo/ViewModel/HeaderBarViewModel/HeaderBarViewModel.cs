@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
@@ -16,15 +18,16 @@ namespace CarnGo
         #region Private Fields
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
-        private int _numUnreadNotifications;
+        private readonly IQueryDatabase _databaseQuery;
+        private bool _isQueryingDatabase;
+
         #endregion
         #region Default Constructor
-        public HeaderBarViewModel(IEventAggregator eventAggregator, IApplication application)
+        public HeaderBarViewModel(IEventAggregator eventAggregator, IApplication application, IQueryDatabase databaseQuery)
         {
             _eventAggregator = eventAggregator;
             _application = application;
-            _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(UpdateUnreadNotifications);
-            NumUnreadNotifications = _application.CurrentUser?.MessageModels.Count(msg => msg.MessageRead == false) ?? 0;
+            _databaseQuery = databaseQuery;
         }
         #endregion
         #region Public Properties
@@ -33,27 +36,28 @@ namespace CarnGo
 
         public string SearchKeyWord { get; set; }
 
-        public int NumUnreadNotifications
-        {
-            get => _numUnreadNotifications;
-            set
-            {
-                if (_numUnreadNotifications == value)
-                    return;
-                _numUnreadNotifications = value;
-                OnPropertyChanged(nameof(NumUnreadNotifications));
-                OnPropertyChanged(nameof(UnreadNotifications));
-            }
-        }
+        public int NumUnreadNotifications => UserModel.MessageModels.Count(msg => msg.MessageRead == false);
 
         public bool UnreadNotifications => NumUnreadNotifications > 0;
+
+        public bool IsQueryingDatabase
+        {
+            get=>_isQueryingDatabase;
+            set
+            {
+                if (_isQueryingDatabase == value)
+                    return;
+                _isQueryingDatabase = value;
+                OnPropertyChanged(nameof(IsQueryingDatabase));
+            }
+        }
 
         #endregion
         #region Public Commands
 
         public ICommand NavigateHomeCommand => new DelegateCommand(() =>_application.GoToPage(ApplicationPage.StartPage));
 
-        public ICommand NotificationCommand => new DelegateCommand(ShowNotification);
+        public ICommand NotificationCommand => new DelegateCommand(async () => await ShowNotification());
 
 
         public ICommand NavigateUserCommand => new DelegateCommand(() => _application.GoToPage(ApplicationPage.EditUserPage));
@@ -68,11 +72,6 @@ namespace CarnGo
         #endregion
         #region Command Helpers
 
-        public void UpdateUnreadNotifications(List<MessageModel> messageModels)
-        {
-            NumUnreadNotifications = messageModels.Count(msg => msg.MessageRead == false);
-        }
-
         private void Logout()
         {
             _application.LogUserOut();
@@ -80,14 +79,35 @@ namespace CarnGo
 
         private void Search()
         {
-            _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+            _application.GoToPage(ApplicationPage.SearchPage);
         }
 
-        private void ShowNotification()
+        private async Task ShowNotification()
         {
-            NumUnreadNotifications = 0;
+            if(IsQueryingDatabase)
+                return;
+
+            try
+            {
+                IsQueryingDatabase = true;
+                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessages(UserModel);
+                UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
+                OnPropertyChanged(nameof(UnreadNotifications));
+                _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
+                await _databaseQuery.UpdateUserMessages(UserModel, UserModel.MessageModels);
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                IsQueryingDatabase = false;
+            }
         }
+
+
         #endregion
     }
 }

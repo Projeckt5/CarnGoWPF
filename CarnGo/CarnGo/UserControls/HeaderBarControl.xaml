@@ -75,10 +75,11 @@
 
             <!--Notification Icon-->
             <Grid Grid.Column="4">
-                <ToggleButton Style="{StaticResource IconGrowToggleButton}" 
+                <ToggleButton Style="{StaticResource LoadableToggleButton}" 
                               x:Name="NotificationButton" 
                               Foreground="{StaticResource BackgroundMainBrush}"
                               Command="{Binding NotificationCommand}"
+                              carnGo:IsBusyAttachedProperty.IsBusy="{Binding IsQueryingDatabase, UpdateSourceTrigger=PropertyChanged}"
                               IsHitTestVisible="{Binding IsOpen, Mode=OneWay, ElementName=NotificationPopup, Converter={carnGo:InvertBooleanValueConverter}}">
                     <TextBlock Text="{StaticResource FontAwesomeBellIcon}" 
                                FontFamily="{StaticResource FontAwesome}"/>
@@ -108,10 +109,10 @@
                 <Popup x:Name="NotificationPopup" 
                        IsOpen="{Binding IsChecked,ElementName=NotificationButton}" 
                        StaysOpen="False"
-                       HorizontalOffset="-150">
+                       HorizontalOffset="-200">
                     <Border Padding="10"
                             Background="{StaticResource BlueLightBrush}">
-                        <carnGo:NotificationView MaxHeight="200"/>
+                        <carnGo:NotificationView MaxHeight="250"/>
                     </Border>
                 </Popup>
             </Grid>
