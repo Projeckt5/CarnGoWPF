@@ -7,7 +7,7 @@ using Prism.Events;
 namespace CarnGo
 {
 
-    public class CarProfileDataEvent : PubSubEvent<CarProfileModel> { }
+    public class CarProfileDataEvent : PubSubEvent<string> { }
 
     public class SearchResultItemViewModel : BaseViewModel
     {
@@ -27,6 +27,7 @@ namespace CarnGo
         protected string _model;
         protected string _brand;
         protected string _location;
+        protected string _regNr;
         protected int _seats;
         protected int _price;
         protected DateTime _startLeaseTime;
@@ -46,6 +47,18 @@ namespace CarnGo
                     return;
                 _model = value;
                 OnPropertyChanged(nameof(Model));
+            }
+        }
+
+        public string RegNr
+        {
+            get => _regNr;
+            set
+            {
+                if (_regNr == value)
+                    return;
+                _regNr = value;
+                OnPropertyChanged(nameof(RegNr));
             }
         }
 
@@ -153,12 +166,10 @@ namespace CarnGo
 
         private void SendRequest()
         {
-            CarProfileModel carProfileModel = new CarProfileModel(Owner, Model, Brand, 2000, "A570403", Location, Seats, StartLeaseTime,
-                EndLeaseTime, Price);
 
             _application.GoToPage(ApplicationPage.SendRequestPage);
 
-            IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Publish(carProfileModel);
+            IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Publish(RegNr);
         }
 
         #endregion

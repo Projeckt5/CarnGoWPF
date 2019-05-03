@@ -115,9 +115,11 @@ namespace CarnGo
         #region Command Helpers
         public async Task RegisterUser()
         {
-            IsRegistering = true;
+            if (IsRegistering)
+                return;
             try
             {
+                IsRegistering = true;
                 AllErrors.Clear();
                 ValidateAll();
                 if (HasErrors)

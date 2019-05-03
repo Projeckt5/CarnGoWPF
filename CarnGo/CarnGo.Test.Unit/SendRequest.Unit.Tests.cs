@@ -4,26 +4,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Prism.Events;
 using System.Drawing;
+using CarnGo.Database.Models;
 using NSubstitute;
+using Prism.Events;
 
 
 namespace CarnGo.Test.Unit
 {
     [TestFixture]
-    public class SendRequest
+    public class SendRequestUnitTest
     {
+        public SendRequestUnitTest()
+        {
+            _car = new CarProfile();
+            var user = new User();
+            _startDate = new DateTime(2019, 1, 1);
+            var possibleDates = new List<PossibleToRentDay>();
+            var alreadyRentedDates = new List<DayThatIsRented>();
+            for (var date = _startDate; date <= _startDate.AddMonths(1); date = date.AddDays(1))
+            {
+                possibleDates.Add(new PossibleToRentDay() { CarProfile = _car, Date = date });
+                if (date <= _startDate.AddDays(6))
+                    alreadyRentedDates.Add(new DayThatIsRented() { User = user, CarProfile = _car, Date = date });
+            }
+            _car.DaysThatIsRented=new List<DayThatIsRented>(alreadyRentedDates);
+            _car.PossibleToRentDays=new List<PossibleToRentDay>(possibleDates);
+        }
         private SendRequestViewModel _uut;
         private CarProfileModel _uutCarModel;
         private IEventAggregator _event;
         private IApplication _application;
         private CarProfileDataEvent _dataEvent;
+        private CarProfile _car;
+        private DateTime _startDate;
         [SetUp]
         public void Setup()
         {
+            
+           
             _uutCarModel= new CarProfileModel
             {
+                
                 CarEquipment = new CarEquipment
                 {
                     AudioPlayer = true,
@@ -161,5 +183,62 @@ namespace CarnGo.Test.Unit
             Assert.That(_uut.ErrorCollection["From"], Is.EqualTo("The Date entered has to be after the current date or after"));
         }
 
+        [Test]
+        public void ConfirmRentingDates_InPossibbleRangeAndOutOfButCloseToAlreadyRentedRange_returnTrue()
+        {
+            _uut.From = _startDate.AddDays(7);
+            _uut.To = _uut.From.AddDays(7);
+            bool assert=_uut.ConfirmRentingDates(_car);
+            Assert.True(assert);
+        }
+
+        [Test]
+        public void ConfirmRentingDates_OutofButCloseTopossibleRange_returnFalse()
+        {
+            _uut.From = _startDate.AddDays(23);
+            _uut.To =_startDate.AddMonths(1).AddDays(1);
+            bool assert= _uut.ConfirmRentingDates(_car);
+            Assert.False(assert);
+        }
+     
+        [Test]
+        public void ConfirmRentingDates_InPossibbleRangeAndOutOfAlreadyRentedRangeCloseToBeingOutOfPossibleRange_returnTrue()
+        {
+            _uut.From = _startDate.AddDays(23);
+            _uut.To = _startDate.AddMonths(1);
+            bool assert = _uut.ConfirmRentingDates(_car);
+            Assert.True(assert);
+        }
+
+        [Test]
+        public void
+            ConfirmRentingDates_InPossibbleRangeAndInAlreadyRentedRangeCloseToBeingOutOfAlreadyRentedRange_returnTrue()
+        {
+            _uut.From = _startDate.AddDays(6);
+            _uut.To = _startDate.AddMonths(14);
+            bool assert = _uut.ConfirmRentingDates(_car);
+            Assert.False(assert);
+        }
+
+        [Test]
+        public void
+            ConfirmRentingDates_InPossibbleRangeAndInAlreadyRentedRangeCloseToBeingOutOfAlreadyRentedRange_WriteErrorMessage()
+        {
+            _uut.From = _startDate.AddDays(6);
+            _uut.To = _startDate.AddMonths(14);
+            bool assert = _uut.ConfirmRentingDates(_car);
+            Assert.That(_uut.ErrorText, Is.EqualTo("*Another lessor has rented this car in the specified period"));
+        }
+
+        [Test]
+        public void ConfirmRentingDates_OutofButCloseTopossibleRange_WriteErrorMessage()
+        {
+            _uut.From = _startDate.AddDays(23);
+            _uut.To = _startDate.AddMonths(1).AddDays(1);
+            bool assert = _uut.ConfirmRentingDates(_car);
+            Assert.That(_uut.ErrorText, Is.EqualTo("*It is not possible to rent the car in the specified period"));
+        }
+       
+        
     }
 }
