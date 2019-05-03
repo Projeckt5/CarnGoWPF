@@ -116,6 +116,11 @@ namespace CarnGo
                 }
                 AllErrors = new ObservableCollection<string>(allErrorsList);
             }
+           
+            //Remember me
+            if(Remember.Checked)
+            { re}
+               
             //TODO: AWAIT REGISTERING THE USER ON THE DB
             //var repo=new CarnGoReposetory();
            
