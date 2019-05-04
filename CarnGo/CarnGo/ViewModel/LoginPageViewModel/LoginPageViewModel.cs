@@ -27,6 +27,7 @@ namespace CarnGo
         private bool _IsLogin;
         private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
         private readonly IApplication _application;
+
         #endregion
 
         #region Constructor
@@ -102,7 +103,6 @@ namespace CarnGo
 
 
         #region Command Helpers
-        //TODO make async and add loading flag
         private async Task Login()
         {
             if (IsLogin)
@@ -126,11 +126,11 @@ namespace CarnGo
                     return;
                 }
 
-                await Task.Delay(2000);
+                await _application.LogUserIn(Email, PasswordSecureString);
 
                 _application.GoToPage(ApplicationPage.StartPage);
             }
-            catch (Exception e)
+            catch (AuthenticationFailedException e)
             {
                 MessageBox.Show(e.Message);
             }

@@ -36,7 +36,7 @@ namespace CarnGo.Database
             var user = await Users.FindAsync(email);
             user.AuthorizationString = Guid.NewGuid();
             if (user.Password != password)
-                throw new WrongPasswordException();
+                throw new AuthenticationFailedException();
             return user;
         }
 
@@ -44,6 +44,8 @@ namespace CarnGo.Database
         public async Task<User> GetUser(string email, Guid authorization)
         {
             var user = await Users.FindAsync(email);
+            if(user == null)
+                throw new AuthenticationFailedException();
             if (user.AuthorizationString != authorization)
                 throw new AuthorizationFailedException();
             return user;

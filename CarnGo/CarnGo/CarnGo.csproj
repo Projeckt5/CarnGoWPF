@@ -176,7 +176,6 @@
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
     <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
-    <Compile Include="Model\DatabaseQueries\Exceptions\UserNotFoundException.cs" />
     <Compile Include="Model\DatabaseQueries\IAppToDbModelConverter.cs" />
     <Compile Include="Model\DatabaseQueries\IDbToAppModelConverter.cs" />
     <Compile Include="Model\DatabaseQueries\IQueryDatabase.cs" />

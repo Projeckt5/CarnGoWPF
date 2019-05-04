@@ -13,7 +13,7 @@ namespace CarnGo.Database
             
         }
 
-        public AuthorizationFailedException(string msg):
+        public AuthorizationFailedException(string msg = "The user authorization is not up to date") :
             base(msg)
         {
             

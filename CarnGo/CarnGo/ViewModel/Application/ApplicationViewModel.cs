@@ -87,7 +87,7 @@ namespace CarnGo
                 CurrentUser = await _queryDatabase.GetUserTask(email, password);
                 GoToPage(ApplicationPage.StartPage);
             }
-            catch (UserNotFoundException e)
+            catch (AuthenticationFailedException e)
             {
                 Console.WriteLine(e);
                 throw;
