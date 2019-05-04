@@ -153,6 +153,8 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Models\CarEquipment.cs" />
     <Compile Include="Models\CarProfile.cs" />
+    <Compile Include="Models\Exceptions\AuthorizationFailedException.cs" />
+    <Compile Include="Models\Exceptions\WrongPasswordException.cs" />
     <Compile Include="Models\MessagesWithUsers.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Message.cs" />
