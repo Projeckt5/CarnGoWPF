@@ -1,14 +1,15 @@
 ﻿using System;
+using Prism.Events;
 
 namespace CarnGo
 {
     public class SearchResultItemDesignModel : SearchResultItemViewModel
     {
-        public static SearchResultItemDesignModel Instance => new SearchResultItemDesignModel(IoCContainer.Resolve<IApplication>());
+        public static SearchResultItemDesignModel Instance => new SearchResultItemDesignModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>());
 
         #region Constructor
-        public SearchResultItemDesignModel(IApplication application)
-            :base(application)
+        public SearchResultItemDesignModel(IEventAggregator eventAggregator, IApplication application)
+            :base(eventAggregator, application)
         {
             Model = "CLA 250";
             Brand = "Mercedes";
