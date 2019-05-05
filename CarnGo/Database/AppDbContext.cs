@@ -27,6 +27,16 @@ namespace CarnGo.Database
             DaysThatIsRented.AddRange(list);
             SaveChanges();
         }
+
+        public CarProfile GetCarProfileForSendRequestView(string regnr)
+        {
+            var carprofile =new CarProfile();
+            carprofile=CarProfiles.Include(d => d.DaysThatIsRented)
+                .Include(p => p.PossibleToRentDays)
+                .Include(u => u.Owner)
+                .Single(e => e.RegNr == regnr);
+            return carprofile;
+        }
         //Update
         public void UpdateCarEquipment(CarEquipment carEquipment)
         {
