@@ -128,6 +128,7 @@
     <Compile Include="Security\Validation\NameValidator.cs" />
     <Compile Include="Security\Validation\PriceValidator.cs" />
     <Compile Include="Security\Validation\ValidationException.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\Application\IApplication.cs" />
     <Compile Include="ViewModel\BaseViewModelWithValidation.cs" />
     <Compile Include="Security\Validation\EmailValidator.cs" />

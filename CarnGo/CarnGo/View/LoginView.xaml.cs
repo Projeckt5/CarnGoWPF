@@ -20,13 +20,55 @@ namespace CarnGo
         public LoginView()
         {
             InitializeComponent();
+            UserLoad();
+            PassLoad();
         }
 
         private void Remember(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-            //Load Username
-            //Load Password
+            if (RememberMe.IsEnabled)
+            {
+                // Save Username
+                UserSave();
+
+                //Save Password
+                PassSave();
+            }
         }
+
+        //Saving Functions 
+        private void UserSave()
+        {
+            Properties.Settings.Default.Username = Email.Text;
+            Properties.Settings.Default.Save();
+
+        }
+
+        private void PassSave()
+        {
+            Properties.Settings.Default.Password = Pass.Password;
+            Properties.Settings.Default.Save();
+
+        }
+
+        //Loading Functions
+
+        private void UserLoad()
+        {
+
+            if (Properties.Settings.Default.Username != string.Empty)
+            {
+                Email.Text = Properties.Settings.Default.Username;
+            }
+        }
+
+        private void PassLoad()
+        {
+            if (Properties.Settings.Default.Username != string.Empty)
+            {
+                Pass.Password = Properties.Settings.Default.Password;
+            }
+        }
+
     }
 }
