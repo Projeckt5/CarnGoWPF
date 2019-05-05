@@ -13,7 +13,7 @@ namespace CarnGo.Database.Models
         public bool Audioplayer { get; set; }
         public bool GPS { get; set; }
         public bool Childseat { get; set; }
-        
+        public int CarProfileId { get; set; }
         public CarProfile CarProfile { get; set; }
     }
     

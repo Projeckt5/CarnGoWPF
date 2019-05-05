@@ -26,13 +26,13 @@ namespace CarnGo
         {
             Container.RegisterSingleton<IApplication, ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
-            Container.RegisterType<AppDbContext>(new InjectionConstructor());
+            Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager(), new InjectionConstructor());
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
             Container.RegisterType<IAppToDbModelConverter, TestApptoDbModelConverter>(new InjectionConstructor());
             Container.RegisterType<IDbToAppModelConverter, TestDbToAppModelConverter>(new InjectionConstructor());
-            Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
+            Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>(); //Update with real database querier
             Container.AddExtension(new Diagnostic());
         }
 

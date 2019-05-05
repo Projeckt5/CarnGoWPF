@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="IAppDbContext.cs" />
     <Compile Include="Models\CarEquipment.cs" />
     <Compile Include="Models\CarProfile.cs" />
     <Compile Include="Models\Exceptions\AuthorizationFailedException.cs" />

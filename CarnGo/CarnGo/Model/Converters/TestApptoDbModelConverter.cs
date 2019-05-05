@@ -19,12 +19,12 @@ namespace CarnGo
             {
                 FirstName = "TestFirstName",
                 LastName = "TestLastName",
-                Adress = "TestAddress",
+                Address = "TestAddress",
                 Email = "Test@Test.com",
-                AuthorizationString = Guid.Parse("TestGuid123"),
+                AuthorizationString = Guid.NewGuid(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 Cars = new List<CarProfile>(),
-                Password = "P4ssw0rd".ConvertToSecureString(),
+                Password = "P4ssw0rd",
                 UserType = 1
             };
 

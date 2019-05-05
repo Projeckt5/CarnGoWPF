@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarnGo.Database
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30");
 
-        } 
+        }
         private DbSet<CarEquipment> CarEquipment { get; set; }
         private DbSet<User> Users { get; set; }
         private DbSet<Message> Messages { get; set; }
@@ -31,7 +31,7 @@ namespace CarnGo.Database
         }
 
         //Get
-        public async Task<User> GetUser(string email, SecureString password)
+        public async Task<User> GetUser(string email, string password)
         {
             var user = await Users.FindAsync(email);
             if (user.Password != password)
@@ -46,7 +46,7 @@ namespace CarnGo.Database
         public async Task<User> GetUser(string email, Guid authorization)
         {
             var user = await Users.FindAsync(email);
-            if(user == null)
+            if (user == null)
                 throw new AuthenticationFailedException();
             if (user.AuthorizationString != authorization)
                 throw new AuthorizationFailedException();
@@ -59,7 +59,7 @@ namespace CarnGo.Database
                 .Include(msg => msg.MessagesWithUsers
                     .Where(mwu => mwu.User == user))
                 .ToListAsync();
-            
+
             return messages;
         }
 
@@ -163,7 +163,7 @@ namespace CarnGo.Database
             Remove(dayThatIsRented);
             SaveChanges();
         }
-        
+
         public void RemovePossibleToRentDay(DateTime ID)
         {
             var possibleToRentDay = new PossibleToRentDay { Date = ID };
@@ -225,19 +225,23 @@ namespace CarnGo.Database
 
             modelBuilder.Entity<CarProfile>()
                 .HasOne(p => p.CarEquipment)
-                .WithOne(b => b.CarProfile);
+                .WithOne(b => b.CarProfile)
+                .HasForeignKey<CarEquipment>();
 
             modelBuilder.Entity<CarProfile>()
-                .HasOne(p => p.User)
-                .WithMany(b => b.Cars);
+                .HasOne(p => p.Owner)
+                .WithMany(b => b.Cars)
+                .HasForeignKey(p=>p.OwnerEmail);
 
             modelBuilder.Entity<User>()
                 .HasMany(p => p.MessagesWithUsers)
-                .WithOne(b => b.User);
+                .WithOne(b => b.User)
+                .HasForeignKey(p=>p.UserEmail);
 
             modelBuilder.Entity<Message>()
                 .HasMany(p => p.MessagesWithUsers)
-                .WithOne(b => b.Message);
+                .WithOne(b => b.Message)
+                .HasForeignKey(p=>p.MessageId);
 
         }
     }

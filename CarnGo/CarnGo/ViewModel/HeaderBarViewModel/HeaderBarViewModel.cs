@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
+using CarnGo.Database;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
@@ -97,7 +98,11 @@ namespace CarnGo
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessages(UserModel, UserModel.MessageModels);
             }
-            catch (Exception e)
+            catch (AuthenticationFailedException e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            catch (AuthorizationFailedException e)
             {
                 System.Windows.MessageBox.Show(e.Message);
             }
