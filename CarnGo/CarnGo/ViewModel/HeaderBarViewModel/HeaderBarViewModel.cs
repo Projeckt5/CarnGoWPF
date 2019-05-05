@@ -92,11 +92,11 @@ namespace CarnGo
             try
             {
                 IsQueryingDatabase = true;
-                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessages(UserModel);
+                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessagesTask(UserModel);
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
-                await _databaseQuery.UpdateUserMessages(UserModel, UserModel.MessageModels);
+                await _databaseQuery.UpdateUserMessagesTask(UserModel, UserModel.MessageModels);
             }
             catch (AuthenticationFailedException e)
             {

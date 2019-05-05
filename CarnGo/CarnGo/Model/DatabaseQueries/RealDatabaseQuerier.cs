@@ -40,7 +40,7 @@ namespace CarnGo
             return userModel;
         }
 
-        public async Task<List<MessageModel>> GetUserMessages(UserModel user)
+        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
         {
             var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
             var dbMessages = await _dbContext.GetMessages(dbUser);
@@ -48,9 +48,10 @@ namespace CarnGo
             return messages;
         }
 
-        public async Task UpdateUserMessages(UserModel user, List<MessageModel> messages)
+        public async Task UpdateUserMessagesTask(UserModel user, List<MessageModel> messages)
         {
             var messagesAsDbMessages = _appToDbModelConverter.Convert(messages);
+            //TODO: UPDATE ON THE WHOLE COLLECTION INSTEAD
             foreach (var dbMessage in messagesAsDbMessages)
             {
                 await _dbContext.UpdateMessage(dbMessage);
