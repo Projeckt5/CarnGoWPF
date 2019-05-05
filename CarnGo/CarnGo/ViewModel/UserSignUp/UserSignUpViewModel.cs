@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CarnGo
@@ -124,21 +125,22 @@ namespace CarnGo
                 ValidateAll();
                 if (HasErrors)
                 {
-                    throw new ValidationException();
+                    List<string> allErrorsList = new List<string>();
+                    foreach (var error in ErrorsDictionary)
+                    {
+                        allErrorsList.AddRange(error.Value);
+                    }
+
+                    AllErrors = new ObservableCollection<string>(allErrorsList);
+                    return;
                 }
 
                 await _databaseAccess.RegisterUserTask(Email, PasswordSecureString);
                 NavigateLoginPage();
             }
-            catch (ValidationException e)
+            catch (Exception e)
             {
-                List<string> allErrorsList = new List<string>();
-                foreach (var error in ErrorsDictionary)
-                {
-                    allErrorsList.AddRange(error.Value);
-                }
-
-                AllErrors = new ObservableCollection<string>(allErrorsList);
+                MessageBox.Show(e.Message);
             }
             finally
             {
@@ -146,7 +148,7 @@ namespace CarnGo
             }
         }
 
-        public void NavigateLoginPage()
+        private void NavigateLoginPage()
         {
             _application.GoToPage(ApplicationPage.LoginPage);
         }

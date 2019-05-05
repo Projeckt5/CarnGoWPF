@@ -120,5 +120,34 @@ namespace CarnGo.Test.Unit.ViewModels
                 .Received().Publish(Arg.Is<List<MessageModel>>(noti => noti == _uut.UserModel.MessageModels));
         }
 
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsAreRead()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            Assert.That(_uut.UserModel.MessageModels.TrueForAll(m => m.MessageRead));
+        }
+
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsAreUpdatedAsReadInDb()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            _fakeDatabaseQuery.Received().UpdateUserMessages(
+                Arg.Is<UserModel>(user => user.Equals(_uut.UserModel)),
+                Arg.Is<List<MessageModel>>(msgList => msgList.TrueForAll(msg => msg.MessageRead)));
+        }
+
+        [Test]
+        public void Notification_LoadsWhileGettingNotifications_IsQueryingDatabaseFalse()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            Assert.That(_uut.IsQueryingDatabase, Is.False);
+        }
     }
 }

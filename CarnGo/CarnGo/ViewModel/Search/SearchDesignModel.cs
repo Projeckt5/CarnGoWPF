@@ -25,7 +25,7 @@ namespace CarnGo
 
             SearchResultItems = new ObservableCollection<SearchResultItemViewModel>
             {
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "CLA 250",
                         Brand = "Mercedes",
@@ -37,7 +37,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 08, 07),
                         Owner = jensJensen,
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "CLA 250",
                         Brand = "Mercedes",
@@ -49,7 +49,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 12, 15),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "Model S",
                         Brand = "Tesla",
@@ -61,7 +61,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 09, 15),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "Fortwo",
                         Brand = "Smart",
@@ -73,7 +73,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 10, 30),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "CLA 250",
                         Brand = "Mercedes",
@@ -85,7 +85,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 06, 20),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "CLA 250",
                         Brand = "Mercedes",
@@ -97,7 +97,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 5, 17),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "Berlingo",
                         Brand = "Citroen",
@@ -109,7 +109,7 @@ namespace CarnGo
                         EndLeaseTime = new DateTime(2019, 05, 30),
                         Owner = jensJensen
                 },
-                new SearchResultItemViewModel(IoCContainer.Resolve<IApplication>())
+                new SearchResultItemViewModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>())
                 {
                         Model = "A6",
                         Brand = "Audi",

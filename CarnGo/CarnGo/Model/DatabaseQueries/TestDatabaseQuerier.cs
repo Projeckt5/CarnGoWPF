@@ -19,9 +19,6 @@ namespace CarnGo
         {
             await Task.Delay(2000);
 
-            if(string.IsNullOrEmpty(email))
-                throw new UserNotFoundException("User wasn't found");
-
             var User1 = new UserModel("asd", "asd", "asd@hotmail.com", "asd", UserType.Lessor);
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
             var Car = new CarProfileModel(User2, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 1);

@@ -11,12 +11,11 @@ namespace CarnGo
 
     public class SearchResultItemViewModel : BaseViewModel
     {
-        private readonly IApplication _application;
-
         #region Constructor
 
-        public SearchResultItemViewModel(IApplication application)
+        public SearchResultItemViewModel(IEventAggregator eventAggregator, IApplication application)
         {
+            _eventAggregator = eventAggregator;
             _application = application;
         }
 
@@ -33,6 +32,8 @@ namespace CarnGo
         protected DateTime _startLeaseTime;
         protected DateTime _endLeaseTime;
         protected UserModel _owner;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IApplication _application;
 
         #endregion
 
@@ -169,7 +170,7 @@ namespace CarnGo
 
             _application.GoToPage(ApplicationPage.SendRequestPage);
 
-            IoCContainer.Resolve<IEventAggregator>().GetEvent<CarProfileDataEvent>().Publish(RegNr);
+            _eventAggregator.GetEvent<CarProfileDataEvent>().Publish(RegNr);
         }
 
         #endregion
