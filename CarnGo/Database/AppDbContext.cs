@@ -37,6 +37,17 @@ namespace CarnGo.Database
                 .Single(e => e.RegNr == regnr);
             return carprofile;
         }
+
+        public User GetUser(string email)
+        {
+            return Users.Single(u => u.Email == email);
+        }
+
+        public void AddMessageToLessor(Message message)
+        {
+            Messages.Add(message);
+        }
+
         //Update
         public void UpdateCarEquipment(CarEquipment carEquipment)
         {

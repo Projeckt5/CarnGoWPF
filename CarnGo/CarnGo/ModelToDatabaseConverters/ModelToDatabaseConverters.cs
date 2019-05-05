@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarnGo.Database.Models;
 
-namespace CarnGo.ModelToDatabaseConverters
+namespace CarnGo
 {
     public static class ModelToDatabaseConverters
     {

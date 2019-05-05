@@ -18,6 +18,7 @@ using Prism.Events;
 using Unity;
 
 
+
 namespace CarnGo
 {
     public class SendRequestViewModel:BaseViewModel,IDataErrorInfo
@@ -64,22 +65,26 @@ namespace CarnGo
         public SendRequestViewModel(IEventAggregator events, IApplication application)
         {
             _application = application;
-           events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
-        private void SearchCarProfileEvent(CarProfileModel obj)
+        private void SearchCarProfileEvent(string regnr)
         {
-            Car = obj;
+            var repo=new AppDbContext();
+            CarProfile = repo.GetCarProfileForSendRequestView(regnr);
+            Car = ModelToDatabaseConverters.CarProfileToCarProfileModelForSendRequestViewModel(CarProfile);
 
 
-            
+
+
+
         }
 
         #endregion
 
         #region Properties
 
-
+        public CarProfile CarProfile { get; set; }
         public string ErrorText
         {
             get => _errorText;
@@ -151,22 +156,17 @@ namespace CarnGo
                 return;
             }
 
-            /*if (!ConfirmRentingDates(Car car))
+            if(!ConfirmRentingDates(CarProfile))
             {
                 return;
-            }*/
+            }
 
-            /*var list = CreateDayThatIsRentedList();
+            var list = CreateDayThatIsRentedList();
 
-            var repo = new CarnGoReposetory();
+            var repo = new AppDbContext();
             repo.AddDayThatIsRentedList(list);
-            */
-            /*var message=new CarRenterMessage();
-            message.Commentary = Message;
-            message.Car
-            var repo = new CarnGoReposetory();
-            repo.AddCarRenterMessage(message);*/
-
+            
+            SendMessageToLessor();           
 
             _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
@@ -247,13 +247,30 @@ namespace CarnGo
             var list = new List<DayThatIsRented>();
             for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
             {
-                list.Add(new DayThatIsRented(){CarProfile = new CarProfile(),Date = rentingDate,User=new User()});//ændre denne linie til database er færdig
+                list.Add(new DayThatIsRented(){CarProfile = CarProfile,Date = rentingDate,User=CarProfile.User});//ændre denne linie til database er færdig
             }
 
             return list;
         }
 
-
+        public void SendMessageToLessor()
+        {
+            var message=new Message();
+            var messageBetweenLessor=new MessagesWithUsers();
+            var messageBetweenRenter=new MessagesWithUsers();
+            message.TheMessage = Message;
+            message.HaveBeenSeen = false;
+            //adding lessor and renter strings to database missing
+            message.Confirmation = false;
+            messageBetweenLessor.Message = message;
+            messageBetweenRenter.Message = message;
+            messageBetweenLessor.User = CarProfile.User;
+            var db = new AppDbContext();
+            messageBetweenRenter.User = db.GetUser(IoCContainer.Application.CurrentUser.Email);         
+            message.MessagesWithUsers=new List<MessagesWithUsers>{messageBetweenRenter,messageBetweenLessor};
+            db.AddMessageToLessor(message);
+            
+        }
 
         #endregion
 
