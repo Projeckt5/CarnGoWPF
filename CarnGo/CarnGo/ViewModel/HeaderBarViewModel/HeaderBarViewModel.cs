@@ -79,8 +79,8 @@ namespace CarnGo
 
         private void Search()
         {
-            _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
             _application.GoToPage(ApplicationPage.SearchPage);
+            _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 
         public async Task ShowNotification()

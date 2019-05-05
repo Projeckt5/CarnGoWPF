@@ -25,6 +25,7 @@ namespace CarnGo
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
             _criteria = new List<Predicate<SearchResultItemViewModel>>();
+            _searchResultItems = new ObservableCollection<SearchResultItemViewModel>();
         }
 
         #endregion
@@ -38,6 +39,7 @@ namespace CarnGo
         protected DateTime _dateTo;
         private List<Predicate<SearchResultItemViewModel>> _criteria;
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
+        private ICollectionView _cv;
 
         #endregion
 
@@ -127,7 +129,7 @@ namespace CarnGo
             if (!IsValid)
                 return;
 
-            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            _cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -157,8 +159,8 @@ namespace CarnGo
                     _criteria.Add(new Predicate<SearchResultItemViewModel>(
                         x => x.EndLeaseTime >= DateTo));
             }
-            cv.Filter = Filtering;
-            OnPropertyChanged(nameof(cv));
+            _cv.Filter = Filtering;
+            OnPropertyChanged(nameof(_cv));
         }
 
         public bool Filtering(object item)
@@ -173,18 +175,18 @@ namespace CarnGo
 
         public void ClearSearch()
         {
-            ICollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            _cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
-            LocationText = String.Empty;
+            LocationText = string.Empty;
             BrandText = string.Empty;
             SeatsText = string.Empty;
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today; 
 
-            cv.Filter = null;
-            OnPropertyChanged(nameof(cv));
+            _cv.Filter = null;
+            OnPropertyChanged(nameof(_cv));
         }
 
         private void SearchEventHandler(string location)
