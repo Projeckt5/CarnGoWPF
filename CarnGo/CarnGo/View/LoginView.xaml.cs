@@ -20,8 +20,8 @@ namespace CarnGo
         public LoginView()
         {
             InitializeComponent();
-            UserLoad();
-            PassLoad();
+            //UserLoad();
+            //PassLoad();
         }
 
         private void Remember(object sender, RoutedEventArgs e)
