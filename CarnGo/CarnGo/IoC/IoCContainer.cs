@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security;
+using CarnGo.Database;
 using CarnGo.Security;
+using Microsoft.EntityFrameworkCore;
 using Prism.Events;
 using Prism.Ioc;
 using Unity;
 using Unity.Injection;
+using Unity.Lifetime;
 
 namespace CarnGo
 {
@@ -23,10 +26,13 @@ namespace CarnGo
         {
             Container.RegisterSingleton<IApplication, ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
+            Container.RegisterType<AppDbContext>(new InjectionConstructor());
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
-            Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
+            Container.RegisterType<IAppToDbModelConverter, TestApptoDbModelConverter>(new InjectionConstructor());
+            Container.RegisterType<IDbToAppModelConverter, TestDbToAppModelConverter>(new InjectionConstructor());
+            Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
             Container.AddExtension(new Diagnostic());
         }
 

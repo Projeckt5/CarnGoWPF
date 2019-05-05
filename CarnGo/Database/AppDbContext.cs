@@ -34,9 +34,11 @@ namespace CarnGo.Database
         public async Task<User> GetUser(string email, SecureString password)
         {
             var user = await Users.FindAsync(email);
-            user.AuthorizationString = Guid.NewGuid();
             if (user.Password != password)
                 throw new AuthenticationFailedException();
+            Update(user);
+            user.AuthorizationString = Guid.NewGuid();
+            await SaveChangesAsync();
             return user;
         }
 
