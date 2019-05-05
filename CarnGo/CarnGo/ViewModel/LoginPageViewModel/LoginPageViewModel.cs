@@ -52,6 +52,8 @@ namespace CarnGo
             }
         }
 
+       
+
         public string Email
         {
             get => _email;

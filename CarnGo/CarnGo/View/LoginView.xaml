@@ -23,15 +23,15 @@
             <TextBlock Text="Enter your credentials below"
                        HorizontalAlignment="Center"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-            <TextBox Tag="Email"
+            <TextBox x:Name="Email" Tag="Email"
                      FontSize="{StaticResource FontSizeLarge}"
                      Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-            <PasswordBox Tag="Password"
+            <PasswordBox x:Name="Pass" Tag="Password"
                          local:EncryptedPasswordAttachedProperty.MonitorEncryptedPassword="True"
                          local:EncryptedPasswordAttachedProperty.EncryptedPassword="{Binding PasswordSecureString, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="{StaticResource FontSizeLarge}"/>
             <DockPanel>
-                <CheckBox Content="Remember me" 
+                <CheckBox x:Name="RememberMe" Content="Remember me" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Center" 
                           Command= "" Checked="Remember"
