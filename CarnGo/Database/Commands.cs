@@ -24,6 +24,13 @@ namespace CarnGo.Database
 
         public static void EmptyDatabase()
         {
+            AppDbContext db = new AppDbContext();
+            var listOfTables = new List<string> { "CarEquipment", "DaysThatIsRented", "MessagesWithUsersJunction", "Messages", "PossibleToRentDays", "CarProfiles", "Users" };
+
+            foreach (var tableName in listOfTables)
+            {
+                db.Database.ExecuteSqlCommand("DROP TABLE [" + tableName + "]");
+            }
         }
     }
 }
