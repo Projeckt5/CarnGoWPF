@@ -190,6 +190,7 @@
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\MessageType.cs" />
+    <Compile Include="Model\ModelFactory\TestModelFactory.cs" />
     <Compile Include="Model\NotificationModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />
