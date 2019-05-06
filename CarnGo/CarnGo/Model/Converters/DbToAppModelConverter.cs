@@ -33,8 +33,8 @@ namespace CarnGo
                 dbCarProfile.RegNr,
                 dbCarProfile.Location,
                 dbCarProfile.Seats,
-                dbCarProfile.DaysThatIsRented[0].Date,
-                dbCarProfile.DaysThatIsRented[1].Date,
+                dbCarProfile.StartLeaseTime,
+                dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
         }
 
