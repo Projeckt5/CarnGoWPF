@@ -41,7 +41,7 @@ namespace CarnGo.Test.Unit.ViewModels
                 }
             });
 
-            _fakeDatabaseQuery.GetUserMessages(Arg.Any<UserModel>()).Returns(new List<MessageModel>()
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>()).Returns(new List<MessageModel>()
             {
                 new MessageModel()
                 {
@@ -97,7 +97,7 @@ namespace CarnGo.Test.Unit.ViewModels
             _uut.NotificationCommand.Execute(null);
 
             _fakeDatabaseQuery.Received()
-                .UpdateUserMessages(Arg.Is<UserModel>(um => um == _fakeApplication.CurrentUser),
+                .UpdateUserMessagesTask(Arg.Is<UserModel>(um => um == _fakeApplication.CurrentUser),
                     _fakeApplication.CurrentUser.MessageModels);
         }
 
@@ -107,7 +107,7 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _uut.NotificationCommand.Execute(null);
 
-            _fakeDatabaseQuery.Received().GetUserMessages(Arg.Any<UserModel>());
+            _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>());
         }
 
 
@@ -137,7 +137,7 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _uut.NotificationCommand.Execute(null);
 
-            _fakeDatabaseQuery.Received().UpdateUserMessages(
+            _fakeDatabaseQuery.Received().UpdateUserMessagesTask(
                 Arg.Is<UserModel>(user => user.Equals(_uut.UserModel)),
                 Arg.Is<List<MessageModel>>(msgList => msgList.TrueForAll(msg => msg.MessageRead)));
         }

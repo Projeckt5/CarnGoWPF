@@ -4,17 +4,18 @@ using System.Security;
 using System.Threading.Tasks;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+using CarnGo.Security;
 
 namespace CarnGo
 {
     public class RealDatabaseQuerier : IQueryDatabase
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IAppDbContext _dbContext;
         private readonly IDbToAppModelConverter _dbToAppModelConverter;
         private readonly IAppToDbModelConverter _appToDbModelConverter;
 
 
-        public RealDatabaseQuerier(AppDbContext dbContext, 
+        public RealDatabaseQuerier(IAppDbContext dbContext, 
             IDbToAppModelConverter dbToAppModelConverter,
             IAppToDbModelConverter appToDbModelConverter)
         {
@@ -27,19 +28,19 @@ namespace CarnGo
             var user = new User
             {
                 Email = email,
-                Password = password
+                Password = password.ConvertToString()
             };
             await _dbContext.AddUser(user);
         }
 
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
-            var user = await _dbContext.GetUser(email, password);
+            var user = await _dbContext.GetUser(email, password.ConvertToString());
             var userModel = _dbToAppModelConverter.Convert(user);
             return userModel;
         }
 
-        public async Task<List<MessageModel>> GetUserMessages(UserModel user)
+        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
         {
             var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
             var dbMessages = await _dbContext.GetMessages(dbUser);
@@ -47,9 +48,10 @@ namespace CarnGo
             return messages;
         }
 
-        public async Task UpdateUserMessages(UserModel user, List<MessageModel> messages)
+        public async Task UpdateUserMessagesTask(UserModel user, List<MessageModel> messages)
         {
             var messagesAsDbMessages = _appToDbModelConverter.Convert(messages);
+            //TODO: UPDATE ON THE WHOLE COLLECTION INSTEAD
             foreach (var dbMessage in messagesAsDbMessages)
             {
                 await _dbContext.UpdateMessage(dbMessage);
