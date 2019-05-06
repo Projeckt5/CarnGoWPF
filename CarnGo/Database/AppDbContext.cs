@@ -21,6 +21,7 @@ namespace CarnGo.Database
         private DbSet<CarProfile> CarProfiles { get; set; }
         private DbSet<DayThatIsRented> DaysThatIsRented { get; set; }
         private DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
+        private DbSet<MessagesWithUsers> MessagesWithUsersJunction { get; set; }
 
         //reposetory pattern, CRUD
 
@@ -34,7 +35,7 @@ namespace CarnGo.Database
         public async Task<User> GetUser(string email, string password)
         {
             var user = await Users.FindAsync(email);
-            if (user.Password != password)
+            if (user == null || user.Password != password)
                 throw new AuthenticationFailedException();
             Update(user);
             user.AuthorizationString = Guid.NewGuid();
@@ -47,7 +48,7 @@ namespace CarnGo.Database
         {
             var user = await Users.FindAsync(email);
             if (user == null)
-                throw new AuthenticationFailedException();
+                throw new AuthenticationFailedException($"No user found for the email: {email}");
             if (user.AuthorizationString != authorization)
                 throw new AuthorizationFailedException();
             return user;
@@ -55,65 +56,66 @@ namespace CarnGo.Database
 
         public async Task<List<Message>> GetMessages(User user)
         {
-            var messages = await Messages
-                .Include(msg => msg.MessagesWithUsers
-                    .Where(mwu => mwu.User == user))
-                .ToListAsync();
+            var userWithMessage = await Users
+                .Include(u => u.MessagesWithUsers)
+                .ThenInclude(mwu=>mwu.Message)
+                .ThenInclude(m => m.CarProfile)
+                .SingleAsync(u => u == user);
 
-            return messages;
+            return userWithMessage.MessagesWithUsers.Select(mwu => mwu.Message).ToList();
         }
 
         //Update
-        public void UpdateCarEquipment(CarEquipment carEquipment)
+        public async Task UpdateCarEquipment(CarEquipment carEquipment)
         {
-            var result = CarEquipment.Single(b => b.CarEquipmentID == carEquipment.CarEquipmentID);
+            var result = await CarEquipment.SingleOrDefaultAsync(b => b.CarEquipmentID == carEquipment.CarEquipmentID);
 
-            if (result == null) return;
+            if (result == default(CarEquipment)) return;
             result = carEquipment;
             SaveChanges();
         }
 
-        public void UpdateUser(User user)
+        public async Task UpdateUser(User user)
         {
-            var result = Users.Single(b => b.Email == user.Email);
+            var result = await Users.SingleOrDefaultAsync(b => b.Email == user.Email);
 
-            if (result == null) return;
+            if (result == default(User)) return;
             result = user;
             SaveChanges();
         }
 
         public async Task UpdateMessage(Message message)
         {
-            var result = Messages.Single(b => b.MessageID == message.MessageID);
+            var result = Messages.SingleOrDefault(b => b.MessageID == message.MessageID);
 
-            if (result == null) return;
+            if (result == default(Message)) return;
             result = message;
             await SaveChangesAsync();
         }
 
-        public void UpdateCarProfile(CarProfile carProfile)
+        public async Task UpdateCarProfile(CarProfile carProfile)
         {
-            var result = CarProfiles.Single(b => b.RegNr == carProfile.RegNr);
+            var result = await CarProfiles.SingleOrDefaultAsync(b => b.RegNr == carProfile.RegNr);
 
-            if (result == null) return;
+            if (result == default(CarProfile)) return;
             result = carProfile;
             SaveChanges();
         }
 
-        public void UpdateDayThatIsRented(DayThatIsRented dayThatIsRented)
+        public async Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented)
         {
-            var result = DaysThatIsRented.Single(b => b.Date == dayThatIsRented.Date);
+            var result = await DaysThatIsRented.SingleOrDefaultAsync(b => b.Date == dayThatIsRented.Date);
 
-            if (result == null) return;
+            if (result == default(DayThatIsRented)) return;
             result = dayThatIsRented;
             SaveChanges();
         }
 
-        public void UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay)
+        public async Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay)
         {
-            var result = PossibleToRentDays.Single(b => b.Date == possibleToRentDay.Date);
+            var result = await PossibleToRentDays.SingleOrDefaultAsync(b => b.Date == possibleToRentDay.Date);
 
-            if (result == null) return;
+            if (result == default(PossibleToRentDay)) return;
             result = possibleToRentDay;
             SaveChanges();
         }
@@ -184,6 +186,8 @@ namespace CarnGo.Database
 
         public async Task AddUser(User user)
         {
+            if(Users.Find(user.Email) != null)
+                throw new AuthenticationFailedException("The user already exists");
             await Users.AddAsync(user);
             await SaveChangesAsync();
         }
@@ -215,6 +219,7 @@ namespace CarnGo.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+
             modelBuilder.Entity<PossibleToRentDay>()
                 .HasOne(p => p.CarProfile)
                 .WithMany(b => b.PossibleToRentDays);
@@ -233,16 +238,22 @@ namespace CarnGo.Database
                 .WithMany(b => b.Cars)
                 .HasForeignKey(p=>p.OwnerEmail);
 
+            modelBuilder.Entity<MessagesWithUsers>().HasKey(k => new {k.MessageId, k.UserEmail});
+
             modelBuilder.Entity<User>()
                 .HasMany(p => p.MessagesWithUsers)
                 .WithOne(b => b.User)
-                .HasForeignKey(p=>p.UserEmail);
+                .HasForeignKey(p => p.UserEmail);
 
             modelBuilder.Entity<Message>()
                 .HasMany(p => p.MessagesWithUsers)
                 .WithOne(b => b.Message)
-                .HasForeignKey(p=>p.MessageId);
+                .HasForeignKey(p => p.MessageId);
 
+            modelBuilder.Entity<Message>()
+                .HasOne(p => p.CarProfile)
+                .WithMany(b => b.MessagesCarOccursIn)
+                .HasForeignKey(p => p.CarProfileRegNr);
         }
     }
 

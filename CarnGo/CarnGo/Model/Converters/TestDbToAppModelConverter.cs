@@ -17,23 +17,53 @@ namespace CarnGo
                 Lastname = "TestLastName",
                 Address = "TestAddress",
                 Email = "Test@Test.com",
-                AuthorizationString = Guid.Parse("TestGuid123"),
+                AuthorizationString = dbUser.AuthorizationString,
                 MessageModels = new List<MessageModel>(),
                 UserType = UserType.Lessor
             };
         }
 
+        public CarProfileModel Convert(CarProfile dbCarProfile)
+        {
+            var owner = Convert(dbCarProfile.Owner);
+            return new CarProfileModel(owner,
+                dbCarProfile.Model,
+                dbCarProfile.Brand,
+                dbCarProfile.Age,
+                dbCarProfile.RegNr,
+                dbCarProfile.Location,
+                dbCarProfile.Seats,
+                dbCarProfile.DaysThatIsRented[0].Date,
+                dbCarProfile.DaysThatIsRented[1].Date,
+                dbCarProfile.Price);
+        }
+
+
         public List<MessageModel> Convert(List<Message> dbMessages)
         {
-            return new List<MessageModel>()
+            var returnList = new List<MessageModel>();
+            foreach (var dbMessage in dbMessages)
             {
-                new MessageModel()
+
+                var lessor = dbMessage.MessagesWithUsers.Select(mwu => mwu.User).Single(u => u.Email == dbMessage.LessorEmail);
+                var lessorUserModel = Convert(lessor);
+                var renter = dbMessage.MessagesWithUsers.Select(mwu => mwu.User).Single(u => u.Email == dbMessage.RenterEmail);
+                var renterUserModel = Convert(renter);
+                var car = Convert(dbMessage.CarProfile);
+                switch ((MessageType)dbMessage.MsgType)
                 {
-                    Message = "TestMessage",
-                    MessageRead = false,
-                    MsgType = MessageType.LessorMessage
-                }
-            };
+                    case MessageType.LessorMessage:
+                        returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,dbMessage.Confirmation));
+                        break;
+                    case MessageType.RenterMessage:
+                        returnList.Add(new MessageFromRenterModel(renterUserModel,lessorUserModel,car,dbMessage.TheMessage));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }   
+            }
+
+            return returnList;
         }
     }
 }

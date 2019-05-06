@@ -24,11 +24,11 @@ namespace CarnGo.Database
         void RemoveMessage(int ID);
         void RemovePossibleToRentDay(DateTime ID);
         void RemoveUser(string ID);
-        void UpdateCarEquipment(CarEquipment carEquipment);
-        void UpdateCarProfile(CarProfile carProfile);
-        void UpdateDayThatIsRented(DayThatIsRented dayThatIsRented);
+        Task UpdateCarEquipment(CarEquipment carEquipment);
+        Task UpdateCarProfile(CarProfile carProfile);
+        Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented);
         Task UpdateMessage(Message message);
-        void UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay);
-        void UpdateUser(User user);
+        Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay);
+        Task UpdateUser(User user);
     }
 }

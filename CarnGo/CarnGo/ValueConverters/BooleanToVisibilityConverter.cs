@@ -14,7 +14,7 @@ namespace CarnGo
                 if (parameter == null)
                     return flag ? Visibility.Hidden : Visibility.Visible;
                 else
-                    return flag ? Visibility.Visible : Visibility.Hidden;
+                    return flag ? Visibility.Visible : Visibility.Collapsed;
             }
             return Visibility.Collapsed;
         }

@@ -109,6 +109,8 @@
                     <TextBlock  
                        Text="{Binding Path=CurrentMessage.Message}"
                        Padding="5 0 0 0"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"
                        Style="{StaticResource BaseTextBlockStyle}"
                        />
                 </Border>
