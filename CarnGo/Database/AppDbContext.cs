@@ -28,7 +28,7 @@ namespace CarnGo.Database
         public void AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
             DaysThatIsRented.AddRange(list);
-            SaveChanges();
+       
         }
 
         //Get
@@ -110,6 +110,28 @@ namespace CarnGo.Database
                 .ToListAsync();
             return possibleToRentDays;
         }
+
+
+        public CarProfile GetCarProfileForSendRequestView(string regnr)
+        {
+            var carprofile =new CarProfile();
+            carprofile=CarProfiles.Include(d => d.DaysThatIsRented)
+                .Include(p => p.PossibleToRentDays)
+                .Include(u => u.Owner)
+                .Single(e => e.RegNr == regnr);
+            return carprofile;
+        }
+
+        public User GetUser(string email)
+        {
+            return Users.Single(u => u.Email == email);
+        }
+
+        public void AddMessageToLessor(Message message)
+        {
+            Messages.Add(message);
+        }
+
         //Update
         public async Task UpdateCarEquipment(CarEquipment carEquipment)
         {

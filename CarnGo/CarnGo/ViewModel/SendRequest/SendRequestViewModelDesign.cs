@@ -9,7 +9,7 @@ namespace CarnGo
 {
     public class SendRequestViewModelDesign:SendRequestViewModel
     {
-        public SendRequestViewModelDesign(IEventAggregator events, IApplication application):base(events, application)
+        public SendRequestViewModelDesign(IEventAggregator events, IApplication application,IQueueDatabaseForSendRequestViewModel queue,ISendRequestViewModelHelperFunction helper):base(events, application,queue,helper)
         {
             //Car = new CarDetailsViewModel{AudioPlayer = true,ChildSeats = false,Gps = true,Model = "Ford Mustang",Smoking = false,Year = 2010};
             From=DateTime.Now;
