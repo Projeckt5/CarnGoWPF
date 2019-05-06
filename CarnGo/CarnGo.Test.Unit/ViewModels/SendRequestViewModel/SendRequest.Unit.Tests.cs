@@ -79,7 +79,7 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
                 Brand = "Ford",
                 Age = 2010,
                 CarDescription = "Bilen har kun været brugt 5 gange i løbet af de 10 år jeg har eget den, så den er så god som ny.",
-                User = new User{Adress="Århus",
+                User = new User{Address="Århus",
                     Email ="martinx1995x@hotmail.com",
                     FirstName = "Martin",
                     LastName = "Jespersen",

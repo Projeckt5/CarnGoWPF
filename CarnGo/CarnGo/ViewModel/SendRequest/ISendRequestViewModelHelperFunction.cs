@@ -9,7 +9,7 @@ namespace CarnGo
 {
     public interface ISendRequestViewModelHelperFunction
     {
-        bool ConfirmRentingDates(CarProfile car, DateTime to, DateTime from,ref string errorMessage);
+        bool ConfirmRentingDates(CarProfile car, DateTime to, DateTime from, ref string errorMessage);
 
 
 
