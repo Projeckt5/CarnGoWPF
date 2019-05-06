@@ -9,12 +9,12 @@ using CarnGo.Database.Models;
 
 namespace CarnGo
 {
-    public class RealQueueDatabaseForSendRequestViewModel:IQueueDatabaseForSendRequestViewModel
+    public class RealQueueDatabaseForSendRequestViewModel : IQueueDatabaseForSendRequestViewModel
     {
         private AppDbContext context;
         public RealQueueDatabaseForSendRequestViewModel()
         {
-            context=new AppDbContext();
+            context = new AppDbContext();
         }
         public void AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
@@ -39,3 +39,4 @@ namespace CarnGo
         }
     }
 }
+

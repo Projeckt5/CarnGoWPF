@@ -38,6 +38,9 @@
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.2.4\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
@@ -181,12 +184,17 @@
     <Compile Include="Model\CarProfileModel.cs" />
     <Compile Include="Model\Converters\ApptoDbModelConverter.cs" />
     <Compile Include="Model\Converters\DbToAppModelConverter.cs" />
+    <Compile Include="Model\Converters\CarProfileToCarProfileModelConverter.cs" />
     <Compile Include="Model\Converters\TestDbToAppModelConverter.cs" />
     <Compile Include="Model\Converters\IAppToDbModelConverter.cs" />
     <Compile Include="Model\Converters\IDbToAppModelConverter.cs" />
     <Compile Include="Model\Converters\TestApptoDbModelConverter.cs" />
     <Compile Include="Model\DatabaseQueries\IQueryDatabase.cs" />
+    <Compile Include="Model\DatabaseQueries\IQueueDatabaseForSendRequestViewModel.cs" />
+    <Compile Include="Model\DatabaseQueries\RealQueueDatabaseForSendRequestViewModel.cs" />
+    <Compile Include="ViewModel\SendRequest\ISendRequestViewModelHelperFunction.cs" />
     <Compile Include="Model\DatabaseQueries\RealDatabaseQuerier.cs" />
+    <Compile Include="ViewModel\SendRequest\SendRequestViewModelHelperFunction.cs" />
     <Compile Include="Model\DatabaseQueries\TestDatabaseQuerier.cs" />
     <Compile Include="Model\MessageFromLessorModel.cs" />
     <Compile Include="Model\MessageFromRenterModel.cs" />
@@ -247,7 +255,6 @@
     <Compile Include="ViewModel\SendRequest\CarDetailsViewModelDesign.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
     <Compile Include="ViewModel\UserSignUp\UserSignUpViewModel.cs" />
-    <Compile Include="ViewModel\SendRequest\SendRequestViewModelDesign.cs" />
     <Compile Include="View\BasePage.cs" />
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>

@@ -8,13 +8,13 @@ using CarnGo.Database.Models;
 
 namespace CarnGo
 {
-    public class SendRequestViewModelHelperFunction:ISendRequestViewModelHelperFunction
+    public class SendRequestViewModelHelperFunction : ISendRequestViewModelHelperFunction
     {
-        public bool ConfirmRentingDates(CarProfile car,DateTime to,DateTime from,ref string errorMessage)
+        public bool ConfirmRentingDates(CarProfile car, DateTime to, DateTime from, ref string errorMessage)
         {
             try
             {
-                for (var rentingDate =from; rentingDate <= to; rentingDate = rentingDate.AddDays(1))
+                for (var rentingDate = from; rentingDate <= to; rentingDate = rentingDate.AddDays(1))
                 {
                     foreach (var date in car.DaysThatIsRented)
                     {
@@ -58,7 +58,7 @@ namespace CarnGo
         }
 
 
-        public List<DayThatIsRented> CreateDayThatIsRentedList(DateTime from,DateTime to,CarProfile carProfile)
+        public List<DayThatIsRented> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfile carProfile)
         {
             var list = new List<DayThatIsRented>();
             for (var rentingDate = from; rentingDate.Date <= to.Date; rentingDate = rentingDate.AddDays(1))
@@ -69,7 +69,7 @@ namespace CarnGo
             return list;
         }
 
-        public Message CreateMessageToLessor(string mes,CarProfile carProfile,User renter)
+        public Message CreateMessageToLessor(string mes, CarProfile carProfile, User renter)
         {
             var message = new Message();
             var messageBetweenLessor = new MessagesWithUsers();
@@ -83,10 +83,11 @@ namespace CarnGo
             messageBetweenLessor.User = carProfile.User;
 
             messageBetweenRenter.User = renter;
-                                      
+
             message.MessagesWithUsers = new List<MessagesWithUsers> { messageBetweenRenter, messageBetweenLessor };
             return message;
 
         }
     }
 }
+
