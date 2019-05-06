@@ -172,6 +172,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\EncryptedPasswordAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\RememberMeProperties.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
     <Compile Include="Model\ApplicationPage.cs" />
     <Compile Include="AttachedProperties\FlagHasTextAttachedProperty.cs" />
