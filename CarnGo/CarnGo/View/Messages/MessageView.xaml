@@ -74,12 +74,12 @@
                                 VerticalAlignment="Center"
                                 >
                         <TextBlock
-                            Text="Anders Andersen"
+                            Text="{Binding Path=CurrentMessage.Renter}"
                             Style="{StaticResource BaseTextBlockStyle}"
                             />
 
                         <TextBlock
-                            Text="19-04-2019"
+                            Text="05-05-2019"
                             Style="{StaticResource BaseTextBlockStyle}"
                             />
                     </StackPanel>
@@ -107,9 +107,9 @@
                     MinWidth="200"
                     >
                     <TextBlock  
-                       Text="Message Comments"
+                       Text="{Binding Path=CurrentMessage.Message}"
                        Padding="5 0 0 0"
-                        Style="{StaticResource BaseTextBlockStyle}"
+                       Style="{StaticResource BaseTextBlockStyle}"
                        />
                 </Border>
             </Grid>

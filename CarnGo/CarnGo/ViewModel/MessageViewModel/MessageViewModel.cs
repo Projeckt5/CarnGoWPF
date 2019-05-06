@@ -5,34 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
+using Prism.Events;
 
-namespace CarnGo.ViewModel.MessageViewModel
+namespace CarnGo
 {
-    public class MessageViewModel
+    public class MessageViewModel : BaseViewModel
     {
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public MessageViewModel()
+        public MessageViewModel(IApplication application, IEventAggregator eventAggregator)
         {
-
+            _application = application;
+            _eventAggregator = eventAggregator;
+            CurrentMessage = new NotificationModel()
+            {
+                Message = "Hej med dig",
+                Renter = "Anders Andersen"
+            };
+            eventAggregator.GetEvent<ClickOnNotificationEvent>().Subscribe(ClickOnNotificationEventHandler);
         }
 
-        public NotificationModel CurrentMessage { get; set; }
+        private NotificationModel _currentMessage = null;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IApplication _application;
 
-        //#region Commands
-        //private ICommand _messagePressedCommand;
 
-        //public ICommand MesssagePressedCommand =>
-        //    _messagePressedCommand ?? (_messagePressedCommand = new DelegateCommand(MessageExecute));
+        public NotificationModel CurrentMessage
+        {
+            get { return _currentMessage;  }
+            set
+            {
+                _currentMessage = value; 
+                OnPropertyChanged(nameof(CurrentMessage));
+            }
+        }
 
-        //#endregion
-
-        //#region Executes & CanExecutes
-        //private void MessageExecute()
-        //{
-        //    //Send event
-        //}
-        //#endregion
+        private void ClickOnNotificationEventHandler(NotificationModel message)
+        {
+            CurrentMessage = message; 
+        }
     }
 }

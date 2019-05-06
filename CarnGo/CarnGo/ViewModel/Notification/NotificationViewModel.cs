@@ -29,7 +29,7 @@ namespace CarnGo
 
                 foreach (var currentUserMessageModel in msgList)
                 {
-                    notificationItemViewModels.Add(new NotificationItemViewModel(_application, currentUserMessageModel));
+                    notificationItemViewModels.Add(new NotificationItemViewModel(_application, _eventAggregator, currentUserMessageModel));
                 }
 
                 notificationItemViewModels.Reverse();
