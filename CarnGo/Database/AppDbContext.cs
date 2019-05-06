@@ -27,7 +27,7 @@ namespace CarnGo.Database
         public void AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
             DaysThatIsRented.AddRange(list);
-            SaveChanges();
+       
         }
 
         //Get

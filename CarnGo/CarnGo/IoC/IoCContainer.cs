@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security;
 using CarnGo.Security;
+
 using Prism.Events;
 using Prism.Ioc;
 using Unity;
@@ -21,11 +22,14 @@ namespace CarnGo
 
         public static void Setup()
         {
+            
             Container.RegisterSingleton<IApplication, ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
+            Container.RegisterType<IQueueDatabaseForSendRequestViewModel, RealQueueDatabaseForSendRequestViewModel>();
+            Container.RegisterType<ISendRequestViewModelHelperFunction, SendRequestViewModelHelperFunction>();
             Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
             Container.AddExtension(new Diagnostic());
         }
