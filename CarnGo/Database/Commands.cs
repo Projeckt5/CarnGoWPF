@@ -33,13 +33,46 @@ namespace CarnGo.Database
 
                 foreach (var message in messages)
                 {
-                    Console.WriteLine("Lessor: " + message.LessorEmail + " Renter: " + message.RenterEmail + " Confirmation: " + message.Confirmation + " Message type: " + message.MsgType + " The message: " + message.TheMessage + " Has seen: " + message.HaveBeenSeen + " Message ID: " + message.MessageID);
+                    Console.WriteLine("        Lessor: " + message.LessorEmail);
+                    Console.WriteLine("        Renter: " + message.RenterEmail);
+                    Console.WriteLine("  Confirmation: " + message.Confirmation);
+                    Console.WriteLine("  Message type: " + message.MsgType);
+                    Console.WriteLine("   The message: " + message.TheMessage);
+                    Console.WriteLine("      Has seen: " + message.HaveBeenSeen);
+                    Console.WriteLine("    Message ID: " + message.MessageID);
                 }
 
 
                 foreach (var user in users)
                 {
-                    Console.WriteLine("Name: " + user.FirstName + " " + user.LastName + " Address: " + user.Address + " Email: " + user.Email + " Password: " + user.Password + " User type: " + user.UserType + " Number of cars: " + user.Cars.Count);
+                    Console.WriteLine("          Name: " + user.FirstName + " " + user.LastName);
+                    Console.WriteLine("       Address: " + user.Address);
+                    Console.WriteLine("         Email: " + user.Email);
+                    Console.WriteLine("      Password: " + user.Password);
+                    Console.WriteLine("     User type: " + user.UserType);
+                    Console.WriteLine("Number of cars: " + user.Cars.Count);
+                }
+
+                foreach (var car in carProfiles)
+                {
+                    Console.WriteLine("         Brand: " + car.Brand);
+                    Console.WriteLine("         Model: " + car.Model);
+                    Console.WriteLine("           Age: " + car.Age);
+                    Console.WriteLine("   Description: " + car.CarDescription);
+                    Console.WriteLine("         Owner: " + car.Owner.FirstName + " " + car.Owner.LastName);
+                }
+
+                foreach (var possible in possibleToRent)
+                {
+                    Console.WriteLine("           Car: " + possible.CarProfile.Brand);
+                    Console.WriteLine("          Date: " + possible.Date);
+                }
+
+                foreach (var rented in daysRented)
+                {
+                    Console.WriteLine("           Car: " + rented.CarProfile.Model);
+                    Console.WriteLine("        Renter: " + rented.User.FirstName + " " + rented.User.LastName);
+                    Console.WriteLine("          Date: "rented.Date);
                 }
 
                 
