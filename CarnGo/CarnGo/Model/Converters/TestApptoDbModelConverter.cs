@@ -31,8 +31,8 @@ namespace CarnGo
             _message = new Message()
             {
                 TheMessage = "TestMsg",
-                Lessor = "TestLessor",
-                Renter = "TestRenter",
+                LessorEmail = "TestLessor",
+                RenterEmail = "TestRenter",
                 MsgType = 1,
                 HaveBeenSeen = false,
                 Confirmation = false,
@@ -53,6 +53,7 @@ namespace CarnGo
 
         public User Convert(UserModel appUser)
         {
+            _user.AuthorizationString = appUser.AuthorizationString;
             return _user;
         }
 

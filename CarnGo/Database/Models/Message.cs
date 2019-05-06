@@ -11,10 +11,11 @@ namespace CarnGo.Database.Models
         public bool HaveBeenSeen { get; set; }
         public bool Confirmation { get; set; }
         public string TheMessage { get; set; }
-        //public BitmapImage CarPicture { get; set; }
-        public string Lessor { get; set; }
-        public string Renter { get; set; }
+        public string LessorEmail { get; set; }
+        public string RenterEmail { get; set; }
         public int MsgType { get; set; }
+        public CarProfile CarProfile { get; set; }
+        public string CarProfileRegNr { get; set; }
         
         public List<MessagesWithUsers> MessagesWithUsers { get; set; }
     }

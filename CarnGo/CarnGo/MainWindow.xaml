@@ -15,7 +15,7 @@
         <local:HeaderBarControl Grid.Row="0" Visibility="{Binding ShowHeaderBar, 
             Source={x:Static local:IoCContainer.Application}, 
             Converter={local:BooleanToVisibilityConverter},
-            ConverterParameter=True}" 
+            ConverterParameter=true}" 
                                 />
         <ScrollViewer Grid.Row="1">
             <local:PageNavigation CurrentPage="{Binding}"

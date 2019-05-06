@@ -22,6 +22,8 @@ namespace CarnGo.Database.Models
         public string CarDescription { get; set; }
         public User Owner { get; set; }
 
+
+        public List<Message> MessagesCarOccursIn { get; set; }
         
         public User User { get; set; }
         public CarEquipment CarEquipment { get; set; }
