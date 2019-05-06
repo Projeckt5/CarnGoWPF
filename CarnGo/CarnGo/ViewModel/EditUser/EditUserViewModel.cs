@@ -1,4 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using CarnGo.Database.Models;
+using Microsoft.Win32;
 using Prism.Commands;
 
 namespace CarnGo
@@ -10,6 +14,7 @@ namespace CarnGo
         private UserModel _userModel;
 
         private ICommand _saveCommand;
+
 
         #endregion
 
@@ -31,10 +36,12 @@ namespace CarnGo
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public BitmapImage UserImage { get; set; }
         #endregion
 
         #region Public Commands
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveFunction));
+        public ICommand UploadPhotoCommand => new DelegateCommand(() => UploadPhotoFunction());
         #endregion
 
         #region Command Helpers
@@ -44,7 +51,19 @@ namespace CarnGo
             _userModel.Lastname = LastName;
             _userModel.Email = Email;
             _userModel.Address = Address;
+            _userModel.UserImage = UserImage;
             OnPropertyChanged(nameof(UserModel));
+        }
+
+        private void UploadPhotoFunction()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            if (fileDialog.ShowDialog() == true)
+            {
+                UserImage = new BitmapImage(new Uri(fileDialog.FileName));
+            }
+            OnPropertyChanged(nameof(UserImage));
         }
 
         #endregion

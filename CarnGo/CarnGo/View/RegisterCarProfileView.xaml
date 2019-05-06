@@ -38,21 +38,30 @@
                         SnapsToDevicePixels="True"
                         Width="192">
 
-                    <Image Source="../Images/Bilfoto.jpg" 
+                    <Image Source="{Binding CarPicture}" 
                            HorizontalAlignment="Right"
-                           Width="192" />
+                           Width="192"
+                           Height="150"/>
 
                 </Border>
 
                 <Grid Grid.Row="1" 
                       Margin="50,0,50,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="32*"/>
+                        <ColumnDefinition Width="29*"/>
+                    </Grid.ColumnDefinitions>
 
 
-                    <Button Grid.Column="0" 
+                    <Button Grid.Column="2" 
                             Content="Upload"
-                            Margin="00,0,10,0" 
+                            Margin="43.243,0,109,0" 
                             Width="92"
-                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"/>
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                            Command="{Binding UploadPhotoCommand}" Grid.ColumnSpan="2"
+                            />
 
 
 
@@ -125,7 +134,7 @@
                                  IsReadOnly="{Binding IsReadOnly}"
                             />
 
-                            <!--CarModel TextBox-->
+                        <!--CarModel TextBox-->
                         <TextBox HorizontalAlignment="Center"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
