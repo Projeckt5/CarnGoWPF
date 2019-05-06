@@ -18,11 +18,6 @@ namespace CarnGo
         {
             _application = application;
             _eventAggregator = eventAggregator;
-            CurrentMessage = new NotificationModel()
-            {
-                Message = "Hej med dig",
-                Renter = "Anders Andersen"
-            };
             eventAggregator.GetEvent<ClickOnNotificationEvent>().Subscribe(ClickOnNotificationEventHandler);
         }
 
