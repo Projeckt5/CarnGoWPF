@@ -35,27 +35,6 @@ namespace CarnGo
         public UserModel Renter { get; set; }
         public UserModel Lessor { get; set; }
         public CarProfileModel RentCar { get; set; }
-
-
-        public DateTime From
-        {
-            get { return _from; }
-            set
-            {
-                _from = value;
-                OnPropertyChanged(nameof(From));
-            }
-        }
-
-        public DateTime To
-        {
-            get { return _to; }
-            set
-            {
-                _to = value;
-                OnPropertyChanged(nameof(To));
-            }
-        }
         #endregion
 
     }

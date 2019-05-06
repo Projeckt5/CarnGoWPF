@@ -179,6 +179,8 @@
     <Compile Include="AttachedProperties\MonitorPasswordBoxAttachedProperty.cs" />
     <Compile Include="Model\CarEquipment.cs" />
     <Compile Include="Model\CarProfileModel.cs" />
+    <Compile Include="Model\Converters\ApptoDbModelConverter.cs" />
+    <Compile Include="Model\Converters\DbToAppModelConverter.cs" />
     <Compile Include="Model\Converters\TestDbToAppModelConverter.cs" />
     <Compile Include="Model\Converters\IAppToDbModelConverter.cs" />
     <Compile Include="Model\Converters\IDbToAppModelConverter.cs" />

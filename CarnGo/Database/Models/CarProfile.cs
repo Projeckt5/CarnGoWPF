@@ -27,6 +27,9 @@ namespace CarnGo.Database.Models
         
         public User User { get; set; }
         public CarEquipment CarEquipment { get; set; }
+        public DateTime StartLeaseTime { get; set; }
+
+        public DateTime EndLeaseTime { get; set; }
         public List<PossibleToRentDay> PossibleToRentDays { get; set; }
         public List<DayThatIsRented> DaysThatIsRented { get; set; }
         public string OwnerEmail { get; set; }
