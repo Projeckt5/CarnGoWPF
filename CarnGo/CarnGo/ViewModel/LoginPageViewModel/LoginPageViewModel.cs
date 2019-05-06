@@ -110,10 +110,10 @@ namespace CarnGo
             if (IsLogin)
                 return;
 
+            IsLogin = true;
+
             try
             {
-
-                IsLogin = true;
                 AllErrors.Clear();
                 ValidateAll();
                 if (HasErrors)
@@ -134,7 +134,7 @@ namespace CarnGo
             }
             catch (AuthenticationFailedException e)
             {
-                MessageBox.Show(e.Message);
+                AllErrors.Add(e.Message);
             }
             finally
             {

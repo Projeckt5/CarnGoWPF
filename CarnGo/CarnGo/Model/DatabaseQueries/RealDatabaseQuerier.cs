@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using CarnGo.Database;
 using CarnGo.Database.Models;
@@ -36,6 +37,8 @@ namespace CarnGo
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
             var user = await _dbContext.GetUser(email, password.ConvertToString());
+            if(user == null)
+                throw new AuthenticationException();
             var userModel = _dbToAppModelConverter.Convert(user);
             return userModel;
         }

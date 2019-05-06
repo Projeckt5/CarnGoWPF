@@ -140,7 +140,7 @@ namespace CarnGo
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                AllErrors.Add(e.Message);
             }
             finally
             {
