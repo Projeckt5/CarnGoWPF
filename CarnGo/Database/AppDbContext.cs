@@ -64,7 +64,52 @@ namespace CarnGo.Database
 
             return userWithMessage.MessagesWithUsers.Select(mwu => mwu.Message).ToList();
         }
+        
+        public async Task<List<Message>> GetAllMessages()
+        {
+            var messages = await Messages
+                .ToListAsync();
+            return messages;
+        }
+        
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await Users
+                .ToListAsync();
+            return users;
+        }
+        
+        
+        public async Task<List<CarEquipment>> GetAllCarEquipment()
+        {
+            var carEquipments = await CarEquipment
+                .ToListAsync();
+            return carEquipments;
+        }
+        
+        
+        public async Task<List<CarProfile>> GetAllCarProfiles()
+        {
+            var carProfile = await CarProfiles
+                .ToListAsync();
+            return carProfile;
+        }
+        
+        
+        public async Task<List<DayThatIsRented>> GetAllDayThatIsRented()
+        {
+            var daysRented = await DaysThatIsRented
+                .ToListAsync();
+            return daysRented;
+        }
 
+        
+        public async Task<List<PossibleToRentDay>> GetAllPossibleToRentDay()
+        {
+            var possibleToRentDays = await PossibleToRentDays
+                .ToListAsync();
+            return possibleToRentDays;
+        }
         //Update
         public async Task UpdateCarEquipment(CarEquipment carEquipment)
         {
