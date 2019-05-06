@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Prism.Events;
+
 namespace CarnGo
 {
     /// <summary>
@@ -23,6 +25,8 @@ namespace CarnGo
         public MessageView()
         {
             InitializeComponent();
+            DataContext = new MessageViewModel(IoCContainer.Resolve<IApplication>(),
+                IoCContainer.Resolve<IEventAggregator>());
         }
     }
 }

@@ -13,8 +13,10 @@ namespace CarnGo.Database
     {
         public static void CreateDatabase()
         {
-            AppDbContext db = new AppDbContext();
-            db.Database.EnsureCreated();
+            using (var db = new AppDbContext())
+            {
+                db.Database.EnsureCreated();
+            }
         }
 
         public static void PullAllData()
@@ -24,6 +26,15 @@ namespace CarnGo.Database
 
         public static void EmptyDatabase()
         {
+            using (var db = new AppDbContext())
+            {
+                var listOfTables = new List<string> { "CarEquipment", "DaysThatIsRented", "MessagesWithUsersJunction", "Messages", "PossibleToRentDays", "CarProfiles", "Users" };
+
+                foreach (var tableName in listOfTables)
+                {
+                    db.Database.ExecuteSqlCommand("DROP TABLE [" + tableName + "]");
+                }
+            }
         }
     }
 }

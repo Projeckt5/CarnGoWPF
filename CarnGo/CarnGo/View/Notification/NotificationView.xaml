@@ -27,6 +27,7 @@
                                     Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
                                 <ContentControl Content="{Binding Path=NotificationMessage.MsgType, Converter={local:MessageConverter}}"/>
                             </Button>
+
                         </DataTemplate>
 
                     </ItemsControl.ItemTemplate>
