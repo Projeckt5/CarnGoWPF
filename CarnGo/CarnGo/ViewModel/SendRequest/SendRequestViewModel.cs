@@ -13,16 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+
 using Prism.Commands;
 using Prism.Events;
 using Unity;
+
 
 
 namespace CarnGo
 {
     public class SendRequestViewModel:BaseViewModel,IDataErrorInfo
     {
-        private readonly IApplication _application;
+        public IApplication _application;
+        public IQueueDatabaseForSendRequestViewModel _dbContext;
+        public ISendRequestViewModelHelperFunction _helper;
+        public IEventAggregator _events;
+        
 
         #region fields
 
@@ -61,25 +67,32 @@ namespace CarnGo
 
         #region constructor
 
-        public SendRequestViewModel(IEventAggregator events, IApplication application)
+        public SendRequestViewModel(IEventAggregator events, IApplication application,IQueueDatabaseForSendRequestViewModel dbcontext,ISendRequestViewModelHelperFunction helper)
         {
+            _events = events;
+            _helper = helper;
+            _dbContext = dbcontext;
             _application = application;
-           events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            _events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
         }
 
-        private void SearchCarProfileEvent(string regNr)
+        public void SearchCarProfileEvent(string regnr)
         {
-            Car.RegNr = regNr;
-
-
             
+            CarProfile = _dbContext.GetCarProfileForSendRequestView(regnr);
+            Car = ModelToDatabaseConverters.CarProfileToCarProfileModelForSendRequestViewModel(CarProfile);
+
+
+
+
+
         }
 
         #endregion
 
         #region Properties
 
-
+        public CarProfile CarProfile { get; set; }
         public string ErrorText
         {
             get => _errorText;
@@ -147,27 +160,25 @@ namespace CarnGo
         {
             if (Message == "Message to lessor" || To < DateTime.Now || From < DateTime.Now || To < From)
             {
-                ErrorText = "*Informaton was not entered correctly";
+                ErrorText = "*Information was not entered correctly";
                 return;
             }
 
-            /*if (!ConfirmRentingDates(Car car))
+            string text="";
+            bool confirm = _helper.ConfirmRentingDates(CarProfile, To, From,ref text);
+            if (!confirm)
             {
+                //ErrorText = text;
                 return;
-            }*/
+            }
 
-            /*var list = CreateDayThatIsRentedList();
+            var list = _helper.CreateDayThatIsRentedList(From,To,CarProfile);
+           
+            _dbContext.AddDayThatIsRentedList(list);
 
-            var repo = new CarnGoReposetory();
-            repo.AddDayThatIsRentedList(list);
-            */
-            /*var message=new CarRenterMessage();
-            message.Commentary = Message;
-            message.Car
-            var repo = new CarnGoReposetory();
-            repo.AddCarRenterMessage(message);*/
-
-
+            var renterUser=_dbContext.GetUser(_application.CurrentUser.Email);
+            var message=_helper.CreateMessageToLessor(Message,CarProfile,renterUser);           
+            _dbContext.AddMessageToLessor(message);
             _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 
@@ -193,65 +204,6 @@ namespace CarnGo
         #endregion
 
         #region Functions
-
-        public bool ConfirmRentingDates(CarProfile car)
-        {
-            try
-            {
-                for (var rentingDate = From; rentingDate <= To; rentingDate = rentingDate.AddDays(1))
-                {
-                    foreach (var date in car.DaysThatIsRented)
-                    {
-                       
-                        if (date.Date == rentingDate)
-                        {
-                            ErrorText = "*Another lessor has rented this car in the specified period";
-                            return false;
-                        }
-
-                    }
-                }
-
-
-
-                for (var rentingDate = From; rentingDate <= To; rentingDate = rentingDate.AddDays(1))
-                {
-
-                    bool rent = false;
-                    foreach (var date in car.PossibleToRentDays)
-                    {
-                        if (date.Date == rentingDate)
-                        {
-                            rent = true;
-                        }
-                    }
-
-                    if (!rent)
-                    {
-                        ErrorText = "*It is not possible to rent the car in the specified period";
-                        return false;
-                    }
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                
-            }
-
-            return true;
-        }
-
-
-        public List<DayThatIsRented> CreateDayThatIsRentedList()
-        {
-            var list = new List<DayThatIsRented>();
-            for (var rentingDate = From; rentingDate.Date <= To.Date; rentingDate = rentingDate.AddDays(1))
-            {
-                list.Add(new DayThatIsRented(){CarProfile = new CarProfile(),Date = rentingDate,User=new User()});//ændre denne linie til database er færdig
-            }
-
-            return list;
-        }
 
 
 

@@ -75,7 +75,7 @@ namespace CarnGo
         #region Properties
 
         public List<DayThatIsRented> DayThatIsRented { get; set; }
-
+        public List<PossibleToRentDay> PossibleToRentDays { get; set; }
         
 
         public CarEquipment CarEquipment
