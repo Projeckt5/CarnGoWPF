@@ -72,7 +72,7 @@ namespace CarnGo.Database
                 {
                     Console.WriteLine("           Car: " + rented.CarProfile.Model);
                     Console.WriteLine("        Renter: " + rented.User.FirstName + " " + rented.User.LastName);
-                    Console.WriteLine("          Date: "rented.Date);
+                    Console.WriteLine("          Date: " + rented.Date);
                 }
 
                 
