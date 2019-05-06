@@ -138,7 +138,7 @@ namespace CarnGo
                 await _databaseAccess.RegisterUserTask(Email, PasswordSecureString);
                 NavigateLoginPage();
             }
-            catch (Exception e)
+            catch (AuthenticationFailedException e)
             {
                 AllErrors.Add(e.Message);
             }

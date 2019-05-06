@@ -66,56 +66,56 @@ namespace CarnGo.Database
         }
 
         //Update
-        public void UpdateCarEquipment(CarEquipment carEquipment)
+        public async Task UpdateCarEquipment(CarEquipment carEquipment)
         {
-            var result = CarEquipment.Single(b => b.CarEquipmentID == carEquipment.CarEquipmentID);
+            var result = await CarEquipment.SingleOrDefaultAsync(b => b.CarEquipmentID == carEquipment.CarEquipmentID);
 
-            if (result == null) return;
+            if (result == default(CarEquipment)) return;
             result = carEquipment;
             SaveChanges();
         }
 
-        public void UpdateUser(User user)
+        public async Task UpdateUser(User user)
         {
-            var result = Users.Single(b => b.Email == user.Email);
+            var result = await Users.SingleOrDefaultAsync(b => b.Email == user.Email);
 
-            if (result == null) return;
+            if (result == default(User)) return;
             result = user;
             SaveChanges();
         }
 
         public async Task UpdateMessage(Message message)
         {
-            var result = Messages.Single(b => b.MessageID == message.MessageID);
+            var result = Messages.SingleOrDefault(b => b.MessageID == message.MessageID);
 
-            if (result == null) return;
+            if (result == default(Message)) return;
             result = message;
             await SaveChangesAsync();
         }
 
-        public void UpdateCarProfile(CarProfile carProfile)
+        public async Task UpdateCarProfile(CarProfile carProfile)
         {
-            var result = CarProfiles.Single(b => b.RegNr == carProfile.RegNr);
+            var result = await CarProfiles.SingleOrDefaultAsync(b => b.RegNr == carProfile.RegNr);
 
-            if (result == null) return;
+            if (result == default(CarProfile)) return;
             result = carProfile;
             SaveChanges();
         }
 
-        public void UpdateDayThatIsRented(DayThatIsRented dayThatIsRented)
+        public async Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented)
         {
-            var result = DaysThatIsRented.Single(b => b.Date == dayThatIsRented.Date);
+            var result = await DaysThatIsRented.SingleOrDefaultAsync(b => b.Date == dayThatIsRented.Date);
 
-            if (result == null) return;
+            if (result == default(DayThatIsRented)) return;
             result = dayThatIsRented;
             SaveChanges();
         }
 
-        public void UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay)
+        public async Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay)
         {
-            var result = PossibleToRentDays.Single(b => b.Date == possibleToRentDay.Date);
+            var result = await PossibleToRentDays.SingleOrDefaultAsync(b => b.Date == possibleToRentDay.Date);
 
-            if (result == null) return;
+            if (result == default(PossibleToRentDay)) return;
             result = possibleToRentDay;
             SaveChanges();
         }
@@ -186,6 +186,8 @@ namespace CarnGo.Database
 
         public async Task AddUser(User user)
         {
+            if(Users.Find(user.Email) != null)
+                throw new AuthenticationFailedException("The user already exists");
             await Users.AddAsync(user);
             await SaveChangesAsync();
         }
