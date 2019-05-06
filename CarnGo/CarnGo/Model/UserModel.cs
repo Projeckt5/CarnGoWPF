@@ -65,6 +65,8 @@ namespace CarnGo
             }
         }
 
+        public Guid AuthorizationString { get; set; }
+
         /// <summary>
         /// Lastname of the current user
         /// </summary>

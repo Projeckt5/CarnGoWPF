@@ -2,6 +2,7 @@
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using Prism.Events;
+using System.Collections.Generic;
 
 namespace CarnGo.Test.Unit.ViewModels
 {
@@ -13,6 +14,7 @@ namespace CarnGo.Test.Unit.ViewModels
         private IApplication _fakeApplication;
         private SearchEvent _fakeSearchEvent;
         private NotificationMessageUpdateEvent _fakeUpdateEvent;
+        private IQueryDatabase _fakeDatabaseQuery;
 
         [SetUp]
         public void TestSetup()
@@ -20,10 +22,34 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeEventAggregator = Substitute.For<IEventAggregator>();
             _fakeApplication = Substitute.For<IApplication>();
             _fakeSearchEvent = Substitute.For<SearchEvent>();
+            _fakeDatabaseQuery = Substitute.For<IQueryDatabase>();
             _fakeUpdateEvent = Substitute.For<NotificationMessageUpdateEvent>();
             _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
             _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Returns(_fakeUpdateEvent);
-            _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication);
+            _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication, _fakeDatabaseQuery);
+
+            _fakeApplication.CurrentUser.Returns( new UserModel("Test", "Test", "Test@Test.Test", "Test", UserType.Lessor)
+            {
+                MessageModels = new List<MessageModel>()
+                {
+                    new MessageModel()
+                    {
+                        MessageRead = false,
+                        Message = "Test",
+                        MsgType = MessageType.LessorMessage
+                    }
+                }
+            });
+
+            _fakeDatabaseQuery.GetUserMessages(Arg.Any<UserModel>()).Returns(new List<MessageModel>()
+            {
+                new MessageModel()
+                {
+                    MessageRead = false,
+                    Message = "Test",
+                    MsgType = MessageType.LessorMessage
+                }
+            });
         }
 
         [Test]
@@ -48,7 +74,7 @@ namespace CarnGo.Test.Unit.ViewModels
         }
 
         [Test]
-        public void Logout_UserLogout_UserIsNull()
+        public void Logout_UserLogout_ApplicationReceivedLogOut()
         {
 
             _uut.LogoutCommand.Execute(null);
@@ -60,35 +86,68 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_UnreadNotificationsFalse()
         {
-            _uut.NumUnreadNotifications = 10;
-
             _uut.NotificationCommand.Execute(null);
 
             Assert.That(_uut.UnreadNotifications, Is.False);
         }
 
         [Test]
-        public void Notification_ShowNotifications_NumUnreadNotifications0()
+        public void Notification_ShowNotifications_NotificationsUpdatedAsRead()
         {
-            _uut.NumUnreadNotifications = 10;
-
             _uut.NotificationCommand.Execute(null);
 
-            Assert.That(_uut.NumUnreadNotifications, Is.EqualTo(0));
+            _fakeDatabaseQuery.Received()
+                .UpdateUserMessages(Arg.Is<UserModel>(um => um == _fakeApplication.CurrentUser),
+                    _fakeApplication.CurrentUser.MessageModels);
         }
 
 
         [Test]
-        public void Notification_NumUnreadNotificationSetTwice_PropertyChangedInvokedOnce()
+        public void Notification_ShowNotifications_NotificationsReceivedFromDb()
         {
-            int invoked = 0;
-            _uut.PropertyChanged += (sender, args) => ++invoked;
+            _uut.NotificationCommand.Execute(null);
 
-            _uut.NumUnreadNotifications = 10;
-            _uut.NumUnreadNotifications = 10;
+            _fakeDatabaseQuery.Received().GetUserMessages(Arg.Any<UserModel>());
+        }
 
-            //Equal to 2 because it invokes both NumUnreadNotifications and UnreadNotifications
-            Assert.That(invoked, Is.EqualTo(2));
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsSendToPopUp()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>()
+                .Received().Publish(Arg.Is<List<MessageModel>>(noti => noti == _uut.UserModel.MessageModels));
+        }
+
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsAreRead()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            Assert.That(_uut.UserModel.MessageModels.TrueForAll(m => m.MessageRead));
+        }
+
+
+
+        [Test]
+        public void Notification_ShowNotifications_NotificationsAreUpdatedAsReadInDb()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            _fakeDatabaseQuery.Received().UpdateUserMessages(
+                Arg.Is<UserModel>(user => user.Equals(_uut.UserModel)),
+                Arg.Is<List<MessageModel>>(msgList => msgList.TrueForAll(msg => msg.MessageRead)));
+        }
+
+        [Test]
+        public void Notification_LoadsWhileGettingNotifications_IsQueryingDatabaseFalse()
+        {
+            _uut.NotificationCommand.Execute(null);
+
+            Assert.That(_uut.IsQueryingDatabase, Is.False);
         }
     }
 }

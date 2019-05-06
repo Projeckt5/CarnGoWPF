@@ -13,6 +13,8 @@ namespace CarnGo
         private string _message;
         private bool _messageRead;
 
+        public int Id { get; set; }
+
         public string Message
         {
             get => _message;

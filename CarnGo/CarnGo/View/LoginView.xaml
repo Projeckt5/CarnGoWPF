@@ -31,7 +31,11 @@
                          local:EncryptedPasswordAttachedProperty.EncryptedPassword="{Binding PasswordSecureString, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="{StaticResource FontSizeLarge}"/>
             <DockPanel>
-                <CheckBox Content="Remember me" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Content="Remember me" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" 
+                          Command= "" Checked="Remember"
+                          />
                 <Button Style="{StaticResource TextButton}"
                         Content="Forgot?"
                         Padding="10 2 0 0"

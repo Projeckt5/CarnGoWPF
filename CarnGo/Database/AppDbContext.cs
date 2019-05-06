@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
+using System.Threading.Tasks;
 using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +29,38 @@ namespace CarnGo.Database
             DaysThatIsRented.AddRange(list);
             SaveChanges();
         }
+
+        //Get
+        public async Task<User> GetUser(string email, SecureString password)
+        {
+            var user = await Users.FindAsync(email);
+            user.AuthorizationString = Guid.NewGuid();
+            if (user.Password != password)
+                throw new AuthenticationFailedException();
+            return user;
+        }
+
+
+        public async Task<User> GetUser(string email, Guid authorization)
+        {
+            var user = await Users.FindAsync(email);
+            if(user == null)
+                throw new AuthenticationFailedException();
+            if (user.AuthorizationString != authorization)
+                throw new AuthorizationFailedException();
+            return user;
+        }
+
+        public async Task<List<Message>> GetMessages(User user)
+        {
+            var messages = await Messages
+                .Include(msg => msg.MessagesWithUsers
+                    .Where(mwu => mwu.User == user))
+                .ToListAsync();
+            
+            return messages;
+        }
+
 
         public CarProfile GetCarProfileForSendRequestView(string regnr)
         {
@@ -67,13 +101,13 @@ namespace CarnGo.Database
             SaveChanges();
         }
 
-        public void UpdateMessage(Message message)
+        public async Task UpdateMessage(Message message)
         {
             var result = Messages.Single(b => b.MessageID == message.MessageID);
 
             if (result == null) return;
             result = message;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public void UpdateCarProfile(CarProfile carProfile)
@@ -167,11 +201,10 @@ namespace CarnGo.Database
             SaveChanges();
         }
 
-        public void AddUser(User user)
+        public async Task AddUser(User user)
         {
-            Users.Add(user);
-            SaveChanges();
-
+            await Users.AddAsync(user);
+            await SaveChangesAsync();
         }
 
         public void AddMessage(Message message)
@@ -227,5 +260,6 @@ namespace CarnGo.Database
 
         }
     }
+
 }
     

@@ -12,7 +12,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <local:HeaderBarControl Grid.Row="0" Visibility="{Binding HeaderBarVisibility}" 
+        <local:HeaderBarControl Grid.Row="0" Visibility="{Binding ShowHeaderBar, 
+            Source={x:Static local:IoCContainer.Application}, 
+            Converter={local:BooleanToVisibilityConverter},
+            ConverterParameter=True}" 
                                 />
         <ScrollViewer Grid.Row="1">
             <local:PageNavigation CurrentPage="{Binding}"

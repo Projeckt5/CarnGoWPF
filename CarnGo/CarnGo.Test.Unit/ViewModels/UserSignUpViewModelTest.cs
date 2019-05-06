@@ -17,7 +17,7 @@ namespace CarnGo.Test.Unit.ViewModels
     {
         private UserSignUpViewModel _uut;
         private IValidator<string> _fakeEmailValidator;
-        private IValidator<SecureString> _fakePaswwordValidator;
+        private IValidator<SecureString> _fakePasswordValidator;
         private IValidator<List<SecureString>> _fakePasswordMatchValidator;
         private IQueryDatabase _fakeQueryDatabase;
         private IApplication _fakeApplication;
@@ -26,11 +26,11 @@ namespace CarnGo.Test.Unit.ViewModels
         public void TestSetup()
         {
             _fakeEmailValidator = Substitute.For<IValidator<string>>();
-            _fakePaswwordValidator = Substitute.For<IValidator<SecureString>>();
+            _fakePasswordValidator = Substitute.For<IValidator<SecureString>>();
             _fakePasswordMatchValidator = Substitute.For<IValidator<List<SecureString>>>();
             _fakeQueryDatabase = Substitute.For<IQueryDatabase>();
             _fakeApplication = Substitute.For<IApplication>();
-            _uut = new UserSignUpViewModel(_fakeEmailValidator,_fakePaswwordValidator,_fakePasswordMatchValidator, _fakeQueryDatabase, _fakeApplication);
+            _uut = new UserSignUpViewModel(_fakeEmailValidator,_fakePasswordValidator,_fakePasswordMatchValidator, _fakeQueryDatabase, _fakeApplication);
         }
 
         [TestCase(true)]
@@ -39,11 +39,10 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(false);
             _fakeEmailValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
-            _fakePaswwordValidator.Validate(Arg.Any<SecureString>()).Returns(false);
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(false);
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(false);
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
-            _uut.IsRegistering = true;
 
             await _uut.RegisterUser();
 
@@ -55,8 +54,8 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(false);
             _fakeEmailValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
-            _fakePaswwordValidator.Validate(Arg.Any<SecureString>()).Returns(false);
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(false);
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(false);
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
 
@@ -70,17 +69,53 @@ namespace CarnGo.Test.Unit.ViewModels
         public async Task Register_RegisterNavigatesToLogin_GoToLoginPage()
         {
             _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(true);
-            _fakeEmailValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
-            _fakePaswwordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
-            _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
 
             await _uut.RegisterUser();
 
             _fakeApplication.Received().GoToPage(Arg.Is<ApplicationPage>(page => page == ApplicationPage.LoginPage));
         }
 
+
+        [Test]
+        public void RegisterCommand_RegisterReturnsNewDelegateCommand_CommandReturned()
+        {
+            var command = _uut.RegisterCommand;
+
+            Assert.That(command, Is.InstanceOf<ICommand>());
+        }
+
+        [Test]
+        public void RegisterCommand_RegisterCallDbIfValidationTrue_DbGetsEmailPassword()
+        {
+            _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(true);
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
+            _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
+
+            _uut.RegisterCommand.Execute(null);
+
+            _fakeQueryDatabase.Received().RegisterUserTask(
+                Arg.Is<string>(email => email == _uut.Email),
+                Arg.Is<SecureString>(pwd => pwd == _uut.PasswordSecureString));
+        }
+
+        [Test]
+        public void RegisterCommand_RegisterDoesntCallDbIfValidationFalse_DbNotCalled()
+        {
+            _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(false);
+            _fakeEmailValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(false);
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(false);
+            _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+
+            _uut.RegisterCommand.Execute(null);
+
+            _fakeQueryDatabase.DidNotReceive().RegisterUserTask(
+                Arg.Any<string>(),
+                Arg.Any<SecureString>());
+        }
 
         [Test]
         public void AllErrors_AllErrorsSet_AllErrorsOnlySetOnes()
@@ -93,15 +128,6 @@ namespace CarnGo.Test.Unit.ViewModels
             _uut.AllErrors = testList;
 
             Assert.That(invoked, Is.EqualTo(1));
-        }
-
-
-        [Test]
-        public void RegisterCommand_RegisterReturnsNewDelegateCommand_CommandReturned()
-        {
-            var command = _uut.RegisterCommand;
-            
-            Assert.That(command,Is.InstanceOf<ICommand>());
         }
 
 
@@ -136,7 +162,7 @@ namespace CarnGo.Test.Unit.ViewModels
         public void PasswordSecureString_SetPropertyTwice_MatchValidatorOnlyCalledOnce(string password)
         {
             var passwordSecureString = password.ConvertToSecureString();
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
 
             _uut.PasswordSecureString = passwordSecureString;
@@ -153,13 +179,13 @@ namespace CarnGo.Test.Unit.ViewModels
         public void PasswordSecureString_SetPropertyTwice_ValidatorOnlyCalledOnce(string password)
         {
             var passwordSecureString = password.ConvertToSecureString();
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
 
             _uut.PasswordSecureString = passwordSecureString;
             _uut.PasswordSecureString = passwordSecureString;
 
-            _fakePaswwordValidator.Received(1).Validate(Arg.Any<SecureString>());
+            _fakePasswordValidator.Received(1).Validate(Arg.Any<SecureString>());
         }
 
 
@@ -170,7 +196,7 @@ namespace CarnGo.Test.Unit.ViewModels
         public void PasswordValidateSecureString_SetPropertyTwice_MatchValidatorOnlyCalledOnce(string password)
         {
             var passwordSecureString = password.ConvertToSecureString();
-            _fakePaswwordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
+            _fakePasswordValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
             _fakePasswordMatchValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
 
             _uut.PasswordValidateSecureString = passwordSecureString;

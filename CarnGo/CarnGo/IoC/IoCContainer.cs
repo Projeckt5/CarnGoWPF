@@ -27,7 +27,6 @@ namespace CarnGo
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
             Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>(new InjectionConstructor()); //Update with real database querier
-            Container.RegisterSingleton<MainWindowViewModel>();
             Container.AddExtension(new Diagnostic());
         }
 
