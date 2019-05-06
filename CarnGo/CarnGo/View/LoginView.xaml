@@ -7,8 +7,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CarnGo"
       mc:Ignorable="d" 
+      Background="{StaticResource BlueLightBrush}"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LoginView">
+      Title="LoginView"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoginPageLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Border Background="{StaticResource BackgroundMainBrush}"
             Margin="50"
             Padding="20 30"
@@ -23,18 +30,18 @@
             <TextBlock Text="Enter your credentials below"
                        HorizontalAlignment="Center"
                        Foreground="{StaticResource ForegroundMainBrush}"/>
-            <TextBox Tag="Email"
+            <TextBox x:Name="Email" Tag="Email"
                      FontSize="{StaticResource FontSizeLarge}"
                      Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-            <PasswordBox Tag="Password"
+            <PasswordBox x:Name="Pass" Tag="Password"
                          local:EncryptedPasswordAttachedProperty.MonitorEncryptedPassword="True"
                          local:EncryptedPasswordAttachedProperty.EncryptedPassword="{Binding PasswordSecureString, Mode=TwoWay, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="{StaticResource FontSizeLarge}"/>
             <DockPanel>
-                <CheckBox Content="Remember me" 
+                <CheckBox x:Name="RememberMe" Content="Remember me" 
                           HorizontalAlignment="Left" 
-                          VerticalAlignment="Center" 
-                          Command= "" Checked="Remember"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding RememberUser}"
                           />
                 <Button Style="{StaticResource TextButton}"
                         Content="Forgot?"
@@ -55,6 +62,12 @@
                     Content="Or register here..."
                     Foreground="{StaticResource ForegroundMainBrush}"
                     Command="{Binding RegisterUserCommand}"/>
+
+            <ListView ItemsSource="{Binding AllErrors}"
+                      IsHitTestVisible="False"
+                      Foreground="Red"
+                      BorderThickness="0"
+                      Background="{StaticResource BackgroundMainBrush}"/>
         </StackPanel>
     </Border>
 </local:BasePage>

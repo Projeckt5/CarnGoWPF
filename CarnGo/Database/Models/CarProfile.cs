@@ -22,13 +22,15 @@ namespace CarnGo.Database.Models
         public string CarDescription { get; set; }
         public User Owner { get; set; }
 
+
+        public List<Message> MessagesCarOccursIn { get; set; }
         
         public User User { get; set; }
         public CarEquipment CarEquipment { get; set; }
         public List<PossibleToRentDay> PossibleToRentDays { get; set; }
         public List<DayThatIsRented> DaysThatIsRented { get; set; }
-        
-
+        public string OwnerEmail { get; set; }
+        public string UserEmail { get; set; }
     }
     
 }

@@ -22,11 +22,5 @@ namespace CarnGo
             InitializeComponent();
         }
 
-        private void Remember(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-            //Load Username
-            //Load Password
-        }
     }
 }

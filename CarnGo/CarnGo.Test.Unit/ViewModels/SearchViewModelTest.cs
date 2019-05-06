@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using NSubstitute;
 using NSubstitute.Extensions;
@@ -34,7 +35,7 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _eventAggregator = Substitute.For<IEventAggregator>();
             _application = Substitute.For<IApplication>();
-            _searchEvent = Substitute.For<SearchEvent>();
+            _searchEvent = new SearchEvent();
             _eventAggregator.GetEvent<SearchEvent>().Returns(_searchEvent);
             _uut = new SearchViewModel(_eventAggregator, _application);
             _today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
@@ -48,7 +49,7 @@ namespace CarnGo.Test.Unit.ViewModels
                 Email = "hmm@gmail.com",
                 UserType = UserType.Lessor
             };
-            _car1 = new SearchResultItemViewModel(_application)
+            _car1 = new SearchResultItemViewModel(_eventAggregator, _application)
             {
                 Model = "CLA 250",
                 Brand = "Mercedes",
@@ -60,7 +61,7 @@ namespace CarnGo.Test.Unit.ViewModels
                 EndLeaseTime = _today.AddMonths(1),
                 Owner = jensJensen,
             };
-            _car2 = new SearchResultItemViewModel(_application)
+            _car2 = new SearchResultItemViewModel(_eventAggregator, _application)
             {
                 Model = "Model S",
                 Brand = "Tesla",
@@ -72,7 +73,7 @@ namespace CarnGo.Test.Unit.ViewModels
                 EndLeaseTime = _today.AddMonths(2),
                 Owner = jensJensen
             };
-            _car3 = new SearchResultItemViewModel(_application)
+            _car3 = new SearchResultItemViewModel(_eventAggregator, _application)
             {
                 Model = "Berlingo",
                 Brand = "Citroen",
@@ -269,6 +270,21 @@ namespace CarnGo.Test.Unit.ViewModels
         }
 
         [Test]
+        public void SearchCommand_AllButSingleCriteriaMatchCar1_Car1DoesNotPassFilter()
+        {
+            CollectionView cv = new CollectionView(_uut.SearchResultItems);
+            _uut.LocationText = "Aarhus";
+            _uut.BrandText = "Mercedes";
+            _uut.SeatsText = "2";
+            _uut.DateFrom = _today.AddDays(1);
+            _uut.DateTo = _today.AddMonths(2);
+            _uut.SearchCommand.Execute(null);
+            cv.Filter = _uut.Filtering;
+
+            Assert.IsFalse(cv.PassesFilter(_car1));
+        }
+
+        [Test]
         public void ClearSearchCommand_FilterByBrandAndSeats_AllCarsPassFilter()
         {
             CollectionView cv = new CollectionView(_uut.SearchResultItems);
@@ -428,15 +444,17 @@ namespace CarnGo.Test.Unit.ViewModels
 
         #region EventAggregator
 
-        // how to test subscription to headerbar search event?
-        //[Test]
-        //public void hmm()
-        //{
-        //    _eventAggregator.GetEvent<SearchEvent>().Returns(_searchEvent);
-        //    _searchEvent.Publish("tester");
-        //    //_eventAggregator.GetEvent<SearchEvent>().Publish("tester");
-        //    Assert.That(_uut.LocationText, Is.EqualTo("tester"));
-        //}
+        [Test]
+        public void EventAggregatorSubscription_SearchEventPublished_LocationTextEqualsEventArg()
+        {
+            string searchKeyWord = "Aarhus";
+
+            _eventAggregator
+                .GetEvent<SearchEvent>()
+                .Publish(searchKeyWord);
+
+            Assert.AreEqual(searchKeyWord, _uut.LocationText);
+        }
 
         #endregion
     }

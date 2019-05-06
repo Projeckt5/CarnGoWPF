@@ -11,17 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using CarnGo.Annotations;
 using Prism.Commands;
+using Prism.Events;
 
 namespace CarnGo
 {
+    public class ClickOnNotificationEvent : PubSubEvent<NotificationModel> { }
     public class NotificationItemViewModel : BaseViewModel
     {
         private readonly IApplication _application;
-
+        private readonly IEventAggregator _eventAggregator; 
+        
         #region Constructors
-        public NotificationItemViewModel(IApplication application, MessageModel message)
+        public NotificationItemViewModel(IApplication application, IEventAggregator eventAggregator, MessageModel message)
         {
             _application = application;
+            _eventAggregator = eventAggregator; 
             //TODO: Move to factory
             switch (message.MsgType)
             {
@@ -69,7 +73,9 @@ namespace CarnGo
         private void NotificationExecute()
         {
             //Probably needs to send the specific message with it. 
-            _application.GoToPage(ApplicationPage.MessageView);
+            _eventAggregator.GetEvent<ClickOnNotificationEvent>().Publish(NotificationMessage);
+            if(_application.CurrentPage != ApplicationPage.MessageView)
+                _application.GoToPage(ApplicationPage.MessageView);
 
         }
 

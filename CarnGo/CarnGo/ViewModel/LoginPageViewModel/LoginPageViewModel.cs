@@ -27,6 +27,7 @@ namespace CarnGo
         private bool _IsLogin;
         private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
         private readonly IApplication _application;
+        private bool _rememberUser;
 
         #endregion
 
@@ -49,6 +50,17 @@ namespace CarnGo
                 _IsLogin = value;
                 ValidateEmail();
                 OnPropertyChanged(nameof(IsLogin));
+            }
+        }
+        public bool RememberUser
+        {
+            get => _rememberUser;
+            set
+            {
+                if (_rememberUser == value)
+                    return;
+                _rememberUser = value;
+                OnPropertyChanged(nameof(RememberUser));
             }
         }
 
@@ -96,7 +108,14 @@ namespace CarnGo
 
         public ICommand LoginCommand => new DelegateCommand(async () => await Login());
         public ICommand RegisterUserCommand => new DelegateCommand(() => _application.GoToPage(ApplicationPage.UserSignUpPage));
-
+        public ICommand LoginPageLoadedCommand => new DelegateCommand(() =>
+        {
+            if (Properties.Settings.Default.Username != string.Empty)
+            {
+                RememberUser = Properties.Settings.Default.RememberMe;
+                Email = Properties.Settings.Default.Username;
+            }
+        });
 
 
         #endregion
@@ -108,10 +127,10 @@ namespace CarnGo
             if (IsLogin)
                 return;
 
+            IsLogin = true;
+
             try
             {
-
-                IsLogin = true;
                 AllErrors.Clear();
                 ValidateAll();
                 if (HasErrors)
@@ -127,17 +146,26 @@ namespace CarnGo
                 }
 
                 await _application.LogUserIn(Email, PasswordSecureString);
-
-                _application.GoToPage(ApplicationPage.StartPage);
+                if (RememberUser)
+                {
+                    RememberUserLocally(PasswordSecureString);
+                }
             }
             catch (AuthenticationFailedException e)
             {
-                MessageBox.Show(e.Message);
+                AllErrors.Add(e.Message);
             }
             finally
             {
                 IsLogin = false;
             }
+        }
+
+        private void RememberUserLocally(SecureString passwordSecureString)
+        {
+            Properties.Settings.Default.RememberMe = RememberUser;
+            Properties.Settings.Default.Username = Email;
+            Properties.Settings.Default.Save();
         }
 
         #endregion

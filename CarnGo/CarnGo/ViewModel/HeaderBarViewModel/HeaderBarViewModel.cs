@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
+using CarnGo.Database;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
@@ -79,8 +80,8 @@ namespace CarnGo
 
         private void Search()
         {
-            _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
             _application.GoToPage(ApplicationPage.SearchPage);
+            _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
         }
 
         public async Task ShowNotification()
@@ -91,13 +92,17 @@ namespace CarnGo
             try
             {
                 IsQueryingDatabase = true;
-                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessages(UserModel);
+                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessagesTask(UserModel);
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
-                await _databaseQuery.UpdateUserMessages(UserModel, UserModel.MessageModels);
+                await _databaseQuery.UpdateUserMessagesTask(UserModel, UserModel.MessageModels);
             }
-            catch (Exception e)
+            catch (AuthenticationFailedException e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+            }
+            catch (AuthorizationFailedException e)
             {
                 System.Windows.MessageBox.Show(e.Message);
             }
