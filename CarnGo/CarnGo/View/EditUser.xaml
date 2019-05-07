@@ -46,18 +46,9 @@
                             Command="{Binding UploadPhotoCommand}"/>
 
                 </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1">
 
-                    <TextBlock Grid.Row="0"
-                               HorizontalAlignment="Center"
+                    <TextBlock HorizontalAlignment="Center"
                                Margin="0,35,0,0" 
                                TextWrapping="Wrap" 
                                VerticalAlignment="Top" 
@@ -65,32 +56,28 @@
                                Foreground="{StaticResource BlueMainBrush}"
                                Text="Personal information:"/>
 
-                    <TextBox Grid.Row="1"
-                             HorizontalAlignment="Center" 
+                    <TextBox HorizontalAlignment="Center" 
                              TextWrapping="Wrap" 
                              Tag="First name"
                              Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              VerticalAlignment="Top"
                              Width="246"/>
 
-                    <TextBox Grid.Row="2"
-                             HorizontalAlignment="Center" 
+                    <TextBox HorizontalAlignment="Center" 
                              TextWrapping="Wrap" 
                              Tag="Last name"
                              Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              VerticalAlignment="Top"
                              Width="246"/>
 
-                    <TextBox Grid.Row="3"
-                             HorizontalAlignment="Center" 
+                    <TextBox HorizontalAlignment="Center" 
                              TextWrapping="Wrap" 
                              Tag="E-Mail"
                              Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              VerticalAlignment="Top"
                              Width="246"/>
 
-                    <TextBox Grid.Row="4"
-                             HorizontalAlignment="Center" 
+                    <TextBox HorizontalAlignment="Center" 
                              TextWrapping="Wrap" 
                              Tag="Full address"
                              Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -100,27 +87,16 @@
                     <Button Content="Save"
                             Style="{StaticResource LoadableButton}"
                             local:IsBusyAttachedProperty.IsBusy="{Binding IsSaving}"
-                            Grid.Row="5"
-                            HorizontalAlignment="Center" 
                             Command="{Binding SaveCommand}"
                             VerticalAlignment="Top"
                     />
-
-
-
-                </Grid>
-
-
-
-
-
-
-
-
+                    <Button Content="{Binding RegisterUnregisterMessage, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource TextButton}"
+                            Command="{Binding RegisterAsCarRenterCommand}"
+                            VerticalAlignment="Top"
+                    />
+                </StackPanel>
             </Grid>
-
         </Border>
-
-
     </Grid>
 </local:BasePage>

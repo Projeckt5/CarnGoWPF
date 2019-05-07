@@ -19,7 +19,7 @@ namespace CarnGo
                 Email = dbUser.Email,
                 AuthorizationString = dbUser.AuthorizationString,
                 MessageModels = new List<MessageModel>(),
-                UserType = UserType.Lessor
+                UserType = (UserType)dbUser.UserType
             };
         }
 

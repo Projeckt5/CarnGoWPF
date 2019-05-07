@@ -25,7 +25,7 @@ namespace CarnGo
 
         public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
-            _applicationPage = ApplicationPage.StartPage;
+            _applicationPage = ApplicationPage.LoginPage;
             _queryDatabase = queryDatabase;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<NewUserDataReadyEvent>()

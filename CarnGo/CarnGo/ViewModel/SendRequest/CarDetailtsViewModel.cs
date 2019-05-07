@@ -25,12 +25,8 @@ namespace CarnGo
                 {
                     _year = value;
                     OnPropertyChanged(nameof(Year));
-
                 }
-
             }
-
-        
         }
         public string Model
         {
@@ -43,10 +39,7 @@ namespace CarnGo
                     OnPropertyChanged(nameof(Model));
 
                 }
-
             }
-
-
         }
         public bool? AudioPlayer
         {
@@ -59,10 +52,7 @@ namespace CarnGo
                     OnPropertyChanged(nameof(AudioPlayer));
 
                 }
-
             }
-
-
         }
         public bool? ChildSeats
         {
@@ -73,12 +63,8 @@ namespace CarnGo
                 {
                     _childSeats = value;
                     OnPropertyChanged(nameof(ChildSeats));
-
                 }
-
             }
-
-
         }
         public bool? Smoking
         {
@@ -91,7 +77,6 @@ namespace CarnGo
                     OnPropertyChanged(nameof(Smoking));
 
                 }
-
             }
         }
 
@@ -106,10 +91,7 @@ namespace CarnGo
                     OnPropertyChanged(nameof(Gps));
 
                 }
-
             }
-
-
         }
-        }
+    }
 }

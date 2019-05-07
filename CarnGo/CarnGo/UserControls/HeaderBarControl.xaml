@@ -47,7 +47,8 @@
                 <StackPanel>
                     <TextBlock FontFamily="{StaticResource RobotoRegular}" 
                                Text="Find car" 
-                               Foreground="{StaticResource BackgroundMainBrush}"/>
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
                     <TextBlock FontFamily="{StaticResource FontAwesome}" 
                                HorizontalAlignment="Center"
                                Foreground="{StaticResource BackgroundMainBrush}"
@@ -63,7 +64,6 @@
                     Padding="10">
                 <StackPanel>
                     <TextBlock Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
-                               
                                FontFamily="{StaticResource RobotoRegular}" 
                                Foreground="{StaticResource BackgroundMainBrush}"
                                HorizontalAlignment="Center"/>
@@ -74,8 +74,29 @@
                 </StackPanel>
             </Button>
 
+            <!--Manage Cars Icon-->
+            <Button Grid.Column="4"
+                    Visibility="{Binding ManageCarsVisible,
+                                        Converter={carnGo:BooleanToVisibilityConverter}, 
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        ConverterParameter=true}"
+                    Style="{StaticResource TextAndIconButton}"
+                    Foreground="{StaticResource BackgroundMainBrush}"
+                    Command="{Binding ManageCarCommand}">
+                <StackPanel>
+                    <TextBlock Text="Your Cars"
+                               FontFamily="{StaticResource RobotoRegular}" 
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" 
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource BackgroundMainBrush}"
+                               Text="{StaticResource FontAwesomeSideCarIcon}"/>
+                </StackPanel>
+            </Button>
+
             <!--Notification Icon-->
-            <Grid Grid.Column="4">
+            <Grid Grid.Column="5">
                 <ToggleButton Style="{StaticResource LoadableToggleButton}" 
                               x:Name="NotificationButton" 
                               Foreground="{StaticResource BackgroundMainBrush}"

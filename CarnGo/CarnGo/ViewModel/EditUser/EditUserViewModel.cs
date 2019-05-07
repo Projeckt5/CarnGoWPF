@@ -20,6 +20,8 @@ namespace CarnGo
 
         private ICommand _saveCommand;
         private bool _isSaving;
+        private string _registerUnregisterMessage;
+        private UserType _userType;
 
         #endregion
 
@@ -34,12 +36,30 @@ namespace CarnGo
             LastName = UserModel.Lastname;
             Email = UserModel.Email;
             Address = UserModel.Address;
+            UserType = UserModel.UserType;
         }
         #endregion
 
         #region Public Properties
 
         public UserModel UserModel => _application.CurrentUser;
+
+        public string RegisterUnregisterMessage => UserType == UserType.Lessor
+            ? "Unregister as renter here..."
+            : "Register as renter here...";
+
+        public UserType UserType
+        {
+            get => _userType;
+            set
+            {
+                if (_userType == value)
+                    return;
+                _userType = value;
+                OnPropertyChanged(nameof(UserType));
+                OnPropertyChanged(nameof(RegisterUnregisterMessage));
+            }
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -62,6 +82,17 @@ namespace CarnGo
         #region Public Commands
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(async () => await SaveFunction()));
         public ICommand UploadPhotoCommand => new DelegateCommand(() => UploadPhotoFunction());
+        public ICommand RegisterAsCarRenterCommand => new DelegateCommand(async () => await RegisterAsCarRenter());
+
+        private async Task RegisterAsCarRenter()
+        {
+            //TODO: MAKE A REAL PROCESS INSTEAD OF JUST PROMOTING THEM LMAO
+            UserType = UserType == UserType.OrdinaryUser ? UserType.Lessor : UserType.OrdinaryUser;
+            UserModel.UserType = UserType;
+            await _queryDatabase.UpdateUser(UserModel);
+            _eventAggregator.GetEvent<NewUserDataReadyEvent>().Publish();
+        }
+
         #endregion
 
         #region Command Helpers
