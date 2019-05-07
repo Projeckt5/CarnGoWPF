@@ -24,15 +24,18 @@ namespace CarnGo
 
         public static void Setup()
         {
+            
             Container.RegisterSingleton<IApplication, ApplicationViewModel>();
             Container.RegisterSingleton<IEventAggregator,EventAggregator>();
             Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager(), new InjectionConstructor());
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
-            Container.RegisterType<IAppToDbModelConverter, TestApptoDbModelConverter>(new InjectionConstructor());
-            Container.RegisterType<IDbToAppModelConverter, TestDbToAppModelConverter>(new InjectionConstructor());
-            Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>(); //Update with real database querier
+            Container.RegisterType<IAppToDbModelConverter, ApptoDbModelConverter>(new InjectionConstructor());
+            Container.RegisterType<IDbToAppModelConverter, DbToAppModelConverter>(new InjectionConstructor());
+            Container.RegisterType<IQueueDatabaseForSendRequestViewModel, RealQueueDatabaseForSendRequestViewModel>();
+            Container.RegisterType<ISendRequestViewModelHelperFunction, SendRequestViewModelHelperFunction>();
+            Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
             Container.AddExtension(new Diagnostic());
         }
 

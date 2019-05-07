@@ -28,7 +28,7 @@ namespace CarnGo.Database
         public void AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
             DaysThatIsRented.AddRange(list);
-            SaveChanges();
+       
         }
 
         //Get
@@ -63,6 +63,73 @@ namespace CarnGo.Database
                 .SingleAsync(u => u == user);
 
             return userWithMessage.MessagesWithUsers.Select(mwu => mwu.Message).ToList();
+        }
+        
+        public async Task<List<Message>> GetAllMessages()
+        {
+            var messages = await Messages
+                .ToListAsync();
+            return messages;
+        }
+        
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await Users
+                .ToListAsync();
+            return users;
+        }
+        
+        
+        public async Task<List<CarEquipment>> GetAllCarEquipment()
+        {
+            var carEquipments = await CarEquipment
+                .ToListAsync();
+            return carEquipments;
+        }
+        
+        
+        public async Task<List<CarProfile>> GetAllCarProfiles()
+        {
+            var carProfile = await CarProfiles
+                .ToListAsync();
+            return carProfile;
+        }
+        
+        
+        public async Task<List<DayThatIsRented>> GetAllDayThatIsRented()
+        {
+            var daysRented = await DaysThatIsRented
+                .ToListAsync();
+            return daysRented;
+        }
+
+        
+        public async Task<List<PossibleToRentDay>> GetAllPossibleToRentDay()
+        {
+            var possibleToRentDays = await PossibleToRentDays
+                .ToListAsync();
+            return possibleToRentDays;
+        }
+
+
+        public CarProfile GetCarProfileForSendRequestView(string regnr)
+        {
+            var carprofile =new CarProfile();
+            carprofile=CarProfiles.Include(d => d.DaysThatIsRented)
+                .Include(p => p.PossibleToRentDays)
+                .Include(u => u.Owner)
+                .Single(e => e.RegNr == regnr);
+            return carprofile;
+        }
+
+        public User GetUser(string email)
+        {
+            return Users.Single(u => u.Email == email);
+        }
+
+        public void AddMessageToLessor(Message message)
+        {
+            Messages.Add(message);
         }
 
         //Update

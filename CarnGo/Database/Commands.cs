@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -21,7 +22,80 @@ namespace CarnGo.Database
 
         public static void PullAllData()
         {
+            using (var db = new AppDbContext())
+            {
+                var messages = db.GetAllMessages().Result;
+                var carProfiles = db.GetAllCarProfiles().Result;
+                var carEquipment = db.GetAllCarEquipment().Result;
+                var users = db.GetAllUsers().Result;
+                var daysRented = db.GetAllDayThatIsRented().Result;
+                var possibleToRent = db.GetAllPossibleToRentDay().Result;
 
+
+                if (messages != null)
+                {
+                    foreach (var message in messages)
+                    {
+                        Console.WriteLine("        Lessor: " + message.LessorEmail);
+                        Console.WriteLine("        Renter: " + message.RenterEmail);
+                        Console.WriteLine("  Confirmation: " + message.Confirmation);
+                        Console.WriteLine("  Message type: " + message.MsgType);
+                        Console.WriteLine("   The message: " + message.TheMessage);
+                        Console.WriteLine("      Has seen: " + message.HaveBeenSeen);
+                        Console.WriteLine("    Message ID: " + message.MessageID);
+                    }
+                }
+
+
+                if (users != null)
+                {
+                    foreach (var user in users)
+                    {
+                        Console.WriteLine("          Name: " + user.FirstName + " " + user.LastName);
+                        Console.WriteLine("       Address: " + user.Address);
+                        Console.WriteLine("         Email: " + user.Email);
+                        Console.WriteLine("      Password: " + user.Password);
+                        Console.WriteLine("     User type: " + user.UserType);
+                        Console.WriteLine("Number of cars: " + user.Cars.Count);
+                    }
+                }
+
+
+                if (carProfiles != null)
+                {
+                    foreach (var car in carProfiles)
+                    {
+                        Console.WriteLine("         Brand: " + car.Brand);
+                        Console.WriteLine("         Model: " + car.Model);
+                        Console.WriteLine("           Age: " + car.Age);
+                        Console.WriteLine("   Description: " + car.CarDescription);
+                        Console.WriteLine("         Owner: " + car.Owner.FirstName + " " + car.Owner.LastName);
+                    }
+                }
+
+
+                if (possibleToRent != null)
+                {
+                    foreach (var possible in possibleToRent)
+                    {
+                        Console.WriteLine("           Car: " + possible.CarProfile.Brand);
+                        Console.WriteLine("          Date: " + possible.Date);
+                    }
+                }
+
+
+                if (daysRented != null)
+                {
+                    foreach (var rented in daysRented)
+                    {
+                        Console.WriteLine("           Car: " + rented.CarProfile.Model);
+                        Console.WriteLine("        Renter: " + rented.User.FirstName + " " + rented.User.LastName);
+                        Console.WriteLine("          Date: " + rented.Date);
+                    }
+                }
+
+                
+            }
         }
 
         public static void EmptyDatabase()

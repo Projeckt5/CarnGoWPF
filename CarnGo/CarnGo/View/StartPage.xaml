@@ -14,7 +14,7 @@
         <TextBlock VerticalAlignment="Center" 
                    HorizontalAlignment="Center" 
                    FontSize="50" 
-                   FontFamily="{StaticResource FontAwesome}"
+                   FontFamily="{StaticResource RobotoLight}"
                    Style="{StaticResource HeaderText}"
                    Foreground="{StaticResource BlueMainBrush}">Welcome to CarnGo
         </TextBlock>
