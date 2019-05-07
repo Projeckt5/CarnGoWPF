@@ -15,14 +15,13 @@ namespace CarnGo
         {
             var user = new User
             {
-                Email = appUser.Email,
-                FirstName = appUser.Firstname,
-                Address = appUser.Address,
-                LastName = appUser.Lastname,
+                Email = appUser.Email ?? "",
+                FirstName = appUser.Firstname ?? "",
+                Address = appUser.Address ?? "",
+                LastName = appUser.Lastname ?? "",
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthorizationString = appUser.AuthorizationString,
-                Password = string.Empty,
                 UserType = (int)appUser.UserType
             };
             return user;
@@ -34,14 +33,14 @@ namespace CarnGo
             var dbCarModel = new Database.Models.CarProfile()
             {
                 Age = car.Age,
-                Brand = car.Brand,
-                CarDescription = car.CarDescription,
+                Brand = car.Brand ?? "",
+                CarDescription = car.CarDescription ?? "",
                 CarEquipment = carEquip,
                 DaysThatIsRented = car.DayThatIsRented,
                 Price = car.Price,
                 RentalPrice = car.RentalPrice,
-                FuelType = car.FuelType,
-                Location = car.Location,
+                FuelType = car.FuelType ?? "",
+                Location = car.Location ?? "",
                 Seats = car.Seats,
                 EndLeaseTime = car.EndLeaseTime,
                 StartLeaseTime = car.StartLeaseTime
@@ -72,13 +71,13 @@ namespace CarnGo
                     messages.Add(new Message()
                     {
                         CarProfile = Convert(msg.RentCar),
-                        CarProfileRegNr = msg.RentCar.RegNr,
+                        CarProfileRegNr = msg.RentCar.RegNr ?? "",
                         Confirmation = msg.StatusConfirmation,
                         HaveBeenSeen = msg.MessageRead,
-                        LessorEmail = msg.Lessor.Email,
-                        RenterEmail = msg.Renter.Email,
+                        LessorEmail = msg.Lessor.Email ?? "",
+                        RenterEmail = msg.Renter.Email ?? "",
                         MsgType = (int)msg.MsgType,
-                        TheMessage = msg.Message,
+                        TheMessage = msg.Message ?? "",
                         MessageID = msg.Id,
                     });
                 }
@@ -88,12 +87,12 @@ namespace CarnGo
                     messages.Add(new Message()
                     {
                         CarProfile = Convert(msg.RentCar),
-                        CarProfileRegNr = msg.RentCar.RegNr,
+                        CarProfileRegNr = msg.RentCar.RegNr ?? "",
                         HaveBeenSeen = msg.MessageRead,
-                        RenterEmail = msg.Renter.Email,
-                        LessorEmail = msg.Lessor.Email,
+                        RenterEmail = msg.Renter.Email ?? "",
+                        LessorEmail = msg.Lessor.Email ?? "",
                         MsgType = (int)msg.MsgType,
-                        TheMessage = msg.Message,
+                        TheMessage = msg.Message ?? "",
                         MessageID = msg.Id
                     });
                 }

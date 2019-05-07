@@ -53,8 +53,8 @@ namespace CarnGo
             }
         }
 
-        public string FirstName => UserModel.Firstname.Length > 20 ? UserModel.Firstname.Substring(0,15) + "..." : UserModel.Firstname;
-        public bool ManageCarsVisible => UserModel.UserType == UserType.Lessor;
+        public string FirstName => UserModel.Firstname.Length > 20 ? UserModel?.Firstname.Substring(0,15) + "..." : UserModel.Firstname;
+        public bool ManageCarsVisible => UserModel?.UserType == UserType.Lessor;
 
         public string SearchKeyWord { get; set; }
 
