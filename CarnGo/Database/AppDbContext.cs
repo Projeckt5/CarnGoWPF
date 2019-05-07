@@ -71,17 +71,20 @@ namespace CarnGo.Database
             var result = await CarEquipment.SingleOrDefaultAsync(b => b.CarEquipmentID == carEquipment.CarEquipmentID);
 
             if (result == default(CarEquipment)) return;
+            Update(result);
             result = carEquipment;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task UpdateUser(User user)
         {
             var result = await Users.SingleOrDefaultAsync(b => b.Email == user.Email);
 
-            if (result == default(User)) return;
+            if (result == default(User))
+                throw new AuthenticationFailedException($"No user found for the email: {user.Email}");
+            Update(result);
             result = user;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task UpdateMessage(Message message)
@@ -89,6 +92,7 @@ namespace CarnGo.Database
             var result = Messages.SingleOrDefault(b => b.MessageID == message.MessageID);
 
             if (result == default(Message)) return;
+            Update(result);
             result = message;
             await SaveChangesAsync();
         }
