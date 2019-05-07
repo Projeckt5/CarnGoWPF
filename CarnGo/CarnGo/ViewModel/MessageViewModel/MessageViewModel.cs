@@ -19,13 +19,31 @@ namespace CarnGo
             _application = application;
             _eventAggregator = eventAggregator;
             eventAggregator.GetEvent<ClickOnNotificationEvent>().Subscribe(ClickOnNotificationEventHandler);
+
+            var messages = application.CurrentUser.MessageModels;
+            foreach (var message in messages)
+            {
+                Messages.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
+            }
         }
 
         private NotificationModel _currentMessage = null;
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
 
+        #region Properties
+        private List<NotificationItemViewModel> _messages;
 
+        public List<NotificationItemViewModel> Messages
+        {
+            get => _messages;
+            set
+            {
+                _messages = value;
+                OnPropertyChanged(nameof(Messages));
+            }
+        }
+        
         public NotificationModel CurrentMessage
         {
             get { return _currentMessage;  }
@@ -35,6 +53,8 @@ namespace CarnGo
                 OnPropertyChanged(nameof(CurrentMessage));
             }
         }
+        #endregion
+
 
         private void ClickOnNotificationEventHandler(NotificationModel message)
         {
