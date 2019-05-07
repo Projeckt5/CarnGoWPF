@@ -154,16 +154,18 @@
     <Compile Include="Security\Validation\EmailValidatorTest.cs" />
     <Compile Include="Security\Validation\PasswordMatchValidatorTest.cs" />
     <Compile Include="Security\Validation\PasswordValidatorTest.cs" />
-    <Compile Include="SendRequest.Unit.Tests.cs" />
+    <Compile Include="ViewModels\SendRequestViewModel\SendRequest.Unit.Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\SecureStringHelpersTest.cs" />
     <Compile Include="ViewModels\CarProfileViewModelTest.cs" />
     <Compile Include="ViewModels\HeaderBarViewModelTest.cs" />
     <Compile Include="ViewModels\SearchResultItemViewModelTest.cs" />
     <Compile Include="ViewModels\SearchViewModelTest.cs" />
+    <Compile Include="ViewModels\SendRequestViewModel\SendRequestViewModelHelperFunctions.Unit.Tests.cs" />
     <Compile Include="ViewModels\UserSignUpViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
