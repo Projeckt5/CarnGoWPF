@@ -30,12 +30,13 @@ namespace CarnGo
 
         public Database.Models.CarProfile Convert(CarProfileModel car)
         {
-            return new Database.Models.CarProfile()
+            var carEquip = Convert(car.CarEquipment);
+            var dbCarModel = new Database.Models.CarProfile()
             {
                 Age = car.Age,
                 Brand = car.Brand,
                 CarDescription = car.CarDescription,
-                CarEquipment = Convert(car.CarEquipment),
+                CarEquipment = carEquip,
                 DaysThatIsRented = car.DayThatIsRented,
                 Price = car.Price,
                 RentalPrice = car.RentalPrice,
@@ -45,17 +46,19 @@ namespace CarnGo
                 EndLeaseTime = car.EndLeaseTime,
                 StartLeaseTime = car.StartLeaseTime
             };
+            return dbCarModel;
         }
 
         private Database.Models.CarEquipment Convert(CarEquipment carEquipment)
         {
-            return new Database.Models.CarEquipment()
+            var dbCarEquipment = new Database.Models.CarEquipment()
             {
                 Audioplayer = carEquipment.AudioPlayer,
                 Childseat = carEquipment.ChildSeat,
                 Smoking = carEquipment.Smoking,
                 GPS = carEquipment.Gps,
             };
+            return dbCarEquipment;
         }
 
         public List<Database.Models.Message> Convert(List<MessageModel> appMessages)

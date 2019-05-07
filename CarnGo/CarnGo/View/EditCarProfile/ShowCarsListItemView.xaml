@@ -90,7 +90,8 @@
 
             <Button Grid.Column="2" 
                     Height="35"
-                    Width="75">
+                    Width="75"
+                    Command="{Binding GoToCar}">
                 Edit
             </Button>
 

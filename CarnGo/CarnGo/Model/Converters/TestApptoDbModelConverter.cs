@@ -61,5 +61,10 @@ namespace CarnGo
         {
             return _messages;
         }
+
+        public CarProfile Convert(CarProfileModel carProfile)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

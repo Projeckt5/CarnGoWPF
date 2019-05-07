@@ -60,5 +60,15 @@ namespace CarnGo
         {
             throw new NotImplementedException();
         }
+
+        public async Task UpdateCarProfileTask(CarProfileModel carProfile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<CarProfileModel>> GetCarProfileTask(UserModel user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

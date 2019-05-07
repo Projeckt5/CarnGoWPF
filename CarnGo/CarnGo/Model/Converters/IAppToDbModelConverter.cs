@@ -7,5 +7,6 @@ namespace CarnGo
     {
         User Convert(UserModel appUser);
         List<Message> Convert(List<MessageModel> appMessages);
+        CarProfile Convert(CarProfileModel carProfile);
     }
 }

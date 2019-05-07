@@ -107,13 +107,26 @@ namespace CarnGo
 
         #region Public Commands
 
+        public ICommand GoToCar => new DelegateCommand(() => _application.GoToPage(ApplicationPage.RegisterCarProfilePage));
 
+
+        #endregion
+
+        #region Command Helpers
+
+        private void EditCar()
+        {
+            _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
+
+            //_eventAggregator.GetEvent<CarProfileDataEvent>().Publish(CarRegNr);
+        }
+        
 
         #endregion
 
 
 
-       
+
 
     }
 }

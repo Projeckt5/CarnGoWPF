@@ -48,6 +48,14 @@ namespace CarnGo
             return returnUser;
         }
 
+        public async Task<List<CarProfileModel>> GetCarProfileTask(UserModel user)
+        {
+            List<CarProfileModel> carModels;
+
+            var dbCarProfile = await _dbContext.GetAllCars(_appToDbModelConverter.Convert(user));
+            return _dbToAppModelConverter.Convert(dbCarProfile);
+        }
+
 
         public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
         {
@@ -65,6 +73,12 @@ namespace CarnGo
             {
                 await _dbContext.UpdateMessage(dbMessage);
             }
+        }
+
+        public async Task UpdateCarProfileTask(CarProfileModel carProfile)
+        {
+            var dbCarProfile = _appToDbModelConverter.Convert(carProfile);
+            await _dbContext.UpdateCarProfile(dbCarProfile);
         }
 
         public async Task UpdateUser(UserModel user)

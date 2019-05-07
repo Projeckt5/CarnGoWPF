@@ -43,6 +43,20 @@ namespace CarnGo.Database
             return user;
         }
 
+        public async Task<CarProfile> GetCarProfile(string regNr)
+        {
+            var carProfile = await CarProfiles.FindAsync(regNr);
+            return carProfile;
+        }
+
+        public async Task<List<CarProfile>> GetAllCars(User user)
+        {
+            var carProfiles = await CarProfiles
+                .Where(c => c.User == user)
+                .ToListAsync();
+            return carProfiles;
+        }
+
 
         public async Task<User> GetUser(string email, Guid authorization)
         {
