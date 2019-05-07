@@ -254,8 +254,12 @@
     <Compile Include="ViewModel\LoginPageViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailsViewModelDesign.cs" />
     <Compile Include="ViewModel\SendRequest\CarDetailtsViewModel.cs" />
+    <Compile Include="ViewModel\ShowCars\ShowCarsListItemViewModel.cs" />
     <Compile Include="ViewModel\UserSignUp\UserSignUpViewModel.cs" />
     <Compile Include="View\BasePage.cs" />
+    <Compile Include="View\EditCarProfile\ShowCarsListItemView.xaml.cs">
+      <DependentUpon>ShowCarsListItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
     </Compile>
@@ -350,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SearchResultItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCarProfile\ShowCarsListItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
