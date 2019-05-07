@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,8 @@ namespace CarnGo
         private readonly IApplication _application;
         private readonly IQueryDatabase _databaseQuery;
         private bool _isQueryingDatabase;
+        private UserModel _currentUser;
+        private string _firstName;
 
         #endregion
         #region Default Constructor
@@ -29,11 +32,26 @@ namespace CarnGo
             _eventAggregator = eventAggregator;
             _application = application;
             _databaseQuery = databaseQuery;
+            _currentUser = new UserModel();
+            _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
         }
         #endregion
         #region Public Properties
 
-        public UserModel UserModel => _application.CurrentUser;
+        public UserModel UserModel
+        {
+            get => _currentUser;
+            set
+            {
+                if (_currentUser == value)
+                    return;
+                _currentUser = value;
+                OnPropertyChanged(nameof(UserModel));
+                OnPropertyChanged(nameof(FirstName));
+            }
+        }
+
+        public string FirstName => _currentUser.Firstname.Length > 20 ? _currentUser.Firstname.Substring(0,15) + "..." : _currentUser.Firstname;
 
         public string SearchKeyWord { get; set; }
 
@@ -92,7 +110,7 @@ namespace CarnGo
             try
             {
                 IsQueryingDatabase = true;
-                _application.CurrentUser.MessageModels = await _databaseQuery.GetUserMessagesTask(UserModel);
+                UserModel.MessageModels = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser);
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);

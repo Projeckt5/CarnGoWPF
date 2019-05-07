@@ -37,11 +37,17 @@ namespace CarnGo
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
             var user = await _dbContext.GetUser(email, password.ConvertToString());
-            if(user == null)
-                throw new AuthenticationException();
             var userModel = _dbToAppModelConverter.Convert(user);
             return userModel;
         }
+
+        public async Task<UserModel> GetUserTask(UserModel user)
+        {
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var returnUser = _dbToAppModelConverter.Convert(dbUser);
+            return returnUser;
+        }
+
 
         public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
         {
@@ -59,6 +65,12 @@ namespace CarnGo
             {
                 await _dbContext.UpdateMessage(dbMessage);
             }
+        }
+
+        public async Task UpdateUser(UserModel user)
+        {
+            var dbUser = _appToDbModelConverter.Convert(user);
+            await _dbContext.UpdateUserInformation(dbUser);
         }
     }
 }

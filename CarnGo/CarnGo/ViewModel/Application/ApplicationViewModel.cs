@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security;
 using System.Threading.Tasks;
 using CarnGo.Database.Models;
@@ -11,31 +12,24 @@ namespace CarnGo
 {
 
     public class NotificationMessageUpdateEvent: PubSubEvent<List<MessageModel>>{ }
+    public class UserUpdateEvent: PubSubEvent<UserModel>{ }
+    public class NewUserDataReadyEvent : PubSubEvent { }
 
     public class ApplicationViewModel : BaseViewModel, IApplication
     {
         private readonly IQueryDatabase _queryDatabase;
+        private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
         
-        private UserModel _currentUser;
+        private UserModel _currentUser = new UserModel();
 
-        public ApplicationViewModel(IQueryDatabase queryDatabase)
+        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
             _applicationPage = ApplicationPage.StartPage;
             _queryDatabase = queryDatabase;
-
-            var User1 = new UserModel("asd", "asd", "asd@hotmail.com", "asd", UserType.Lessor);
-            var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
-            var Car = new CarProfileModel(User2, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 1);
-            CurrentUser = new UserModel("Test", "Test", "Test@Test.Test", "Test", UserType.Lessor)
-            {
-                MessageModels = new List<MessageModel>()
-                {
-                    new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true),
-                    new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false),
-                    new MessageFromRenterModel(User2, User1, Car, "Må jeg godt låne din flotte bil?"),
-                }
-            };
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<NewUserDataReadyEvent>()
+                .Subscribe(async () => CurrentUser = await _queryDatabase.GetUserTask(CurrentUser));
         }
 
         /// <summary>
@@ -68,6 +62,7 @@ namespace CarnGo
                     return;
                 _currentUser = value;
                 OnPropertyChanged(nameof(CurrentUser));
+                _eventAggregator.GetEvent<UserUpdateEvent>().Publish(_currentUser);
             }
         }
 
@@ -96,7 +91,7 @@ namespace CarnGo
 
         public void LogUserOut()
         {
-            CurrentUser = null;
+            CurrentUser = new UserModel();
             GoToPage(ApplicationPage.LoginPage);
         }
     }

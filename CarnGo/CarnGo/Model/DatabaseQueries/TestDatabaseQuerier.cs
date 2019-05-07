@@ -50,5 +50,15 @@ namespace CarnGo
         {
             await Task.Delay(2000);
         }
+
+        public Task UpdateUser(UserModel user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserModel> GetUserTask(UserModel user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,6 +17,16 @@
             return new UserModel("TestFirstName", "TestLastName",
                 email, "TestAddress", UserType.Lessor);
         }
+        public static MessageModel CreateMessageModel()
+        {
+            return new MessageModel()
+            {
+                Id = 1,
+                Message = "Test",
+                MessageRead = false,
+                MsgType = MessageType.LessorMessage
+            };
+        }
 
         public static MessageModel CreateMessageModel(string msg, MessageType type)
         {

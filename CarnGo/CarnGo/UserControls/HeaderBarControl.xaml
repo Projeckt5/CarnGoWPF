@@ -62,7 +62,8 @@
                     Command="{Binding NavigateUserCommand}"
                     Padding="10">
                 <StackPanel>
-                    <TextBlock Text="{Binding UserModel.Firstname, FallbackValue=Unknown}"
+                    <TextBlock Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                               
                                FontFamily="{StaticResource RobotoRegular}" 
                                Foreground="{StaticResource BackgroundMainBrush}"
                                HorizontalAlignment="Center"/>

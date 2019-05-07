@@ -29,6 +29,6 @@ namespace CarnGo.Database
         Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented);
         Task UpdateMessage(Message message);
         Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay);
-        Task UpdateUser(User user);
+        Task UpdateUserInformation(User user);
     }
 }

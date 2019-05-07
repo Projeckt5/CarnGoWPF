@@ -18,7 +18,12 @@ namespace CarnGo
         /// </summary>
         public UserModel()
         {
-          
+            _messageModels = new List<MessageModel>();
+            Firstname = "";
+            Lastname = "";
+            Email = "";
+            Address = "";
+            UserType = UserType.NonUser;
         }
 
         /// <summary>

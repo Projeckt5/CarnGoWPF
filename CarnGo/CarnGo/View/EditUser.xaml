@@ -97,7 +97,9 @@
                              VerticalAlignment="Top"
                              Width="246"/>
 
-                    <Button Content="Save" 
+                    <Button Content="Save"
+                            Style="{StaticResource LoadableButton}"
+                            local:IsBusyAttachedProperty.IsBusy="{Binding IsSaving}"
                             Grid.Row="5"
                             HorizontalAlignment="Center" 
                             Command="{Binding SaveCommand}"

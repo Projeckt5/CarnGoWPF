@@ -10,5 +10,7 @@ namespace CarnGo
         Task<UserModel> GetUserTask(string email, SecureString password);
         Task<List<MessageModel>> GetUserMessagesTask(UserModel user);
         Task UpdateUserMessagesTask(UserModel user, List<MessageModel> messages);
+        Task UpdateUser(UserModel user);
+        Task<UserModel> GetUserTask(UserModel user);
     }
 }
