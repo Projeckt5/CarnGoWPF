@@ -25,7 +25,20 @@
                 <local:SearchBarControl Grid.Row="0" 
                                          Margin="5" MaxHeight="30"
                                          Background="{StaticResource BackgroundDarkBrush}"/>
-                <local:NotificationView Grid.Row="1"></local:NotificationView>
+                <ItemsControl ItemsSource="{Binding Messages}" Grid.Row="1">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Background="{StaticResource BackgroundLightBrush}"
+                                    Style="{StaticResource NotificationButton}"
+                                    Command="{Binding Path=NotificationPressedCommand, Mode=OneWay}">
+                                <ContentControl Content="{Binding Path=NotificationMessage.MsgType, Converter={local:MessageConverter}}"/>
+                            </Button>
+
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
 
         </Grid>
