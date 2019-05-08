@@ -65,7 +65,7 @@ namespace CarnGo
             return messages;
         }
 
-        public async Task UpdateUserMessagesTask(UserModel user, List<MessageModel> messages)
+        public async Task UpdateUserMessagesTask(List<MessageModel> messages)
         {
             var messagesAsDbMessages = _appToDbModelConverter.Convert(messages);
             //TODO: UPDATE ON THE WHOLE COLLECTION INSTEAD

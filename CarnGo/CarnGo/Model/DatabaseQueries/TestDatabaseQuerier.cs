@@ -46,7 +46,7 @@ namespace CarnGo
             return user.MessageModels;
         }
 
-        public async Task UpdateUserMessagesTask(UserModel user, List<MessageModel> messages)
+        public async Task UpdateUserMessagesTask(List<MessageModel> messages)
         {
             await Task.Delay(2000);
         }

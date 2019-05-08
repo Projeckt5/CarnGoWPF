@@ -22,7 +22,7 @@ namespace CarnGo
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthorizationString = appUser.AuthorizationString,
-                UserType = (int)appUser.UserType
+                UserType = (int)appUser.UserType,
             };
             return user;
         }
@@ -76,6 +76,7 @@ namespace CarnGo
                         HaveBeenSeen = msg.MessageRead,
                         LessorEmail = msg.Lessor.Email ?? "",
                         RenterEmail = msg.Renter.Email ?? "",
+                        SenderEmail = msg.Sender.Email ?? "",
                         MsgType = (int)msg.MsgType,
                         TheMessage = msg.Message ?? "",
                         MessageID = msg.Id,

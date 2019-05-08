@@ -119,11 +119,10 @@ namespace CarnGo
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
-                await _databaseQuery.UpdateUserMessagesTask(UserModel, UserModel.MessageModels);
+                await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
             catch (AuthorizationFailedException e)
             {
-                System.Windows.MessageBox.Show(e.Message);
                 Logout();
             }
             finally

@@ -1,12 +1,21 @@
-﻿namespace CarnGo
+﻿using System.Collections.Generic;
+
+namespace CarnGo
 {
     public class TestModelFactory
     {
         public static UserModel CreateUserModel()
         {
             return new UserModel("TestFirstName", "TestLastName",
-                "Test@Test.com", "TestAddress", UserType.Lessor);
+                "Test@Test.com", "TestAddress", UserType.Lessor)
+            {
+                MessageModels = new List<MessageModel>()
+                {
+                    CreateMessageModel("TestMsg",MessageType.LessorMessage)
+                }
+            };
         }
+
         public static UserModel CreateUserModel(string firstName, string lastName)
         {
             return new UserModel(firstName, lastName,
@@ -37,6 +46,12 @@
                 MessageRead = false,
                 MsgType = type
             };
+        }
+
+        public static UserModel CreateUserModel(UserType type)
+        {
+            return new UserModel("TestFirstName", "TestLastName",
+                "Test@Test.com", "TestAddress", type);
         }
     }
 }
