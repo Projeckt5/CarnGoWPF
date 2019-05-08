@@ -1,12 +1,24 @@
-﻿namespace CarnGo
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using CarnGo.Database.Models;
+
+namespace CarnGo
 {
     public class TestModelFactory
     {
         public static UserModel CreateUserModel()
         {
             return new UserModel("TestFirstName", "TestLastName",
-                "Test@Test.com", "TestAddress", UserType.Lessor);
+                "Test@Test.com", "TestAddress", UserType.Lessor)
+            {
+                MessageModels = new List<MessageModel>()
+                {
+                    CreateMessageModel("TestMsg",MessageType.LessorMessage)
+                }
+            };
         }
+
         public static UserModel CreateUserModel(string firstName, string lastName)
         {
             return new UserModel(firstName, lastName,
@@ -17,6 +29,13 @@
             return new UserModel("TestFirstName", "TestLastName",
                 email, "TestAddress", UserType.Lessor);
         }
+
+        public static UserModel CreateUserModel(UserType type)
+        {
+            return new UserModel("TestFirstName", "TestLastName",
+                "Test@Test.com", "TestAddress", type);
+        }
+
         public static MessageModel CreateMessageModel()
         {
             return new MessageModel()
@@ -36,6 +55,29 @@
                 Message = msg,
                 MessageRead = false,
                 MsgType = type
+            };
+        }
+
+
+        public static CarProfileModel CreateCarProfile()
+        {
+            return new CarProfileModel()
+            {
+                RegNr = "TestRegNr",
+                Age = 10,
+                Brand = "TestBrand",
+                CarDescription = "TestDesc",
+                CarEquipment = new CarEquipment()
+                {
+                    AudioPlayer = true,
+                    ChildSeat = true,
+                    Gps = true,
+                    Smoking = true
+                },
+                CarPicture = null,
+                FuelType = "TestFuel",
+                Location = "TestLocation",
+                Model = "TestModel"
             };
         }
     }

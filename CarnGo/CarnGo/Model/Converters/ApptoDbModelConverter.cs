@@ -22,7 +22,7 @@ namespace CarnGo
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthorizationString = appUser.AuthorizationString,
-                UserType = (int)appUser.UserType
+                UserType = (int)appUser.UserType,
             };
             return user;
         }
@@ -32,6 +32,7 @@ namespace CarnGo
             var carEquip = Convert(car.CarEquipment);
             var dbCarModel = new Database.Models.CarProfile()
             {
+                Owner = Convert(car.Owner),
                 Age = car.Age,
                 Brand = car.Brand ?? "",
                 CarDescription = car.CarDescription ?? "",
@@ -65,39 +66,46 @@ namespace CarnGo
             var messages = new List<Message>();
             foreach (var messageModel in appMessages)
             {
-                if (messageModel.MsgType == MessageType.LessorMessage)
-                {
-                    var msg = messageModel as MessageFromLessorModel;
-                    messages.Add(new Message()
-                    {
-                        CarProfile = Convert(msg.RentCar),
-                        CarProfileRegNr = msg.RentCar.RegNr ?? "",
-                        Confirmation = msg.StatusConfirmation,
-                        HaveBeenSeen = msg.MessageRead,
-                        LessorEmail = msg.Lessor.Email ?? "",
-                        RenterEmail = msg.Renter.Email ?? "",
-                        MsgType = (int)msg.MsgType,
-                        TheMessage = msg.Message ?? "",
-                        MessageID = msg.Id,
-                    });
-                }
-                else
-                {
-                    var msg = messageModel as MessageFromRenterModel;
-                    messages.Add(new Message()
-                    {
-                        CarProfile = Convert(msg.RentCar),
-                        CarProfileRegNr = msg.RentCar.RegNr ?? "",
-                        HaveBeenSeen = msg.MessageRead,
-                        RenterEmail = msg.Renter.Email ?? "",
-                        LessorEmail = msg.Lessor.Email ?? "",
-                        MsgType = (int)msg.MsgType,
-                        TheMessage = msg.Message ?? "",
-                        MessageID = msg.Id
-                    });
-                }
+                messages.Add(Convert(messageModel));
             }
             return messages;
+        }
+
+        public Message Convert(MessageModel appMessage)
+        {
+
+            if (appMessage.MsgType == MessageType.LessorMessage)
+            {
+                var msg = appMessage as MessageFromLessorModel;
+                return new Message()
+                {
+                    CarProfile = Convert(msg.RentCar),
+                    CarProfileRegNr = msg.RentCar.RegNr ?? "",
+                    Confirmation = msg.StatusConfirmation,
+                    HaveBeenSeen = msg.MessageRead,
+                    LessorEmail = msg.Lessor.Email ?? "",
+                    RenterEmail = msg.Renter.Email ?? "",
+                    SenderEmail = msg.Sender.Email ?? "",
+                    MsgType = (int)msg.MsgType,
+                    TheMessage = msg.Message ?? "",
+                    MessageID = msg.Id,
+                };
+            }
+            else
+            {
+                var msg = appMessage as MessageFromRenterModel;
+                return new Message()
+                {
+                    CarProfile = Convert(msg.RentCar),
+                    CarProfileRegNr = msg.RentCar.RegNr ?? "",
+                    HaveBeenSeen = msg.MessageRead,
+                    RenterEmail = msg.Renter.Email ?? "",
+                    LessorEmail = msg.Lessor.Email ?? "",
+                    MsgType = (int)msg.MsgType,
+                    TheMessage = msg.Message ?? "",
+                    MessageID = msg.Id
+                };
+            }
         }
     }
 }

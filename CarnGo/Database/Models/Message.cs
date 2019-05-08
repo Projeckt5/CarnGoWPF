@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarnGo.Database.Models
@@ -14,7 +13,7 @@ namespace CarnGo.Database.Models
         public string TheMessage { get; set; }
         public string LessorEmail { get; set; }
         public string RenterEmail { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string SenderEmail { get; set; }
         public int MsgType { get; set; }
         public CarProfile CarProfile { get; set; }
         public string CarProfileRegNr { get; set; }

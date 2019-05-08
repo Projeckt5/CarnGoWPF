@@ -9,10 +9,10 @@ namespace CarnGo.Database.Models
 {
     public class MessagesWithUsers
     {
-        [Key]
         public int MessageId { get; set; }
         [Required]
         public User User { get; set; }
+        [Required]
         public Message Message { get; set; }
         public string UserEmail { get; set; }
     }

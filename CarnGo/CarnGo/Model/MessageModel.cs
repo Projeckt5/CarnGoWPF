@@ -12,6 +12,7 @@ namespace CarnGo
         #region Properties
         private string _message;
         private bool _messageRead;
+        private UserModel _sender;
 
         public int Id { get; set; }
 
@@ -38,6 +39,18 @@ namespace CarnGo
         }
 
         public MessageType MsgType { get; set; }
+
+        public UserModel Sender
+        {
+            get => _sender;
+            set
+            {
+                if (_sender == value)
+                    return;
+                _sender = value;
+                OnPropertyChanged(nameof(Sender));
+            }
+        }
         #endregion
 
     }
