@@ -35,7 +35,7 @@ namespace CarnGo
             Container.RegisterType<IDbToAppModelConverter, DbToAppModelConverter>(new InjectionConstructor());
             Container.RegisterType<IQueueDatabaseForSendRequestViewModel, RealQueueDatabaseForSendRequestViewModel>();
             Container.RegisterType<ISendRequestViewModelHelperFunction, SendRequestViewModelHelperFunction>();
-            Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
+            Container.RegisterType<IQueryDatabase, TestDatabaseQuerier>();
             Container.AddExtension(new Diagnostic());
         }
 

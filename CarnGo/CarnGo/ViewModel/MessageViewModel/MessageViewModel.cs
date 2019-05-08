@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,18 @@ namespace CarnGo
             _application = application;
             _eventAggregator = eventAggregator;
             eventAggregator.GetEvent<ClickOnNotificationEvent>().Subscribe(ClickOnNotificationEventHandler);
+            eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(MessageUpdateEventHandler);
 
             var messages = application.CurrentUser.MessageModels;
+            var notificationItemViewModel = new List<NotificationItemViewModel>(); 
+            
             foreach (var message in messages)
             {
-                Messages.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
+                notificationItemViewModel.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
             }
+
+            notificationItemViewModel.Reverse();
+            Messages = new ObservableCollection<NotificationItemViewModel>(notificationItemViewModel);
         }
 
         private NotificationModel _currentMessage = null;
@@ -32,9 +39,10 @@ namespace CarnGo
         private readonly IApplication _application;
 
         #region Properties
-        private List<NotificationItemViewModel> _messages;
+        private ObservableCollection<NotificationItemViewModel> _messages;
 
-        public List<NotificationItemViewModel> Messages
+        //Observable collection 
+        public ObservableCollection<NotificationItemViewModel> Messages
         {
             get => _messages;
             set
@@ -55,6 +63,17 @@ namespace CarnGo
         }
         #endregion
 
+        private void MessageUpdateEventHandler(List<MessageModel> messages)
+        {
+            Messages.Clear();
+            var notificationItemViewModel = new List<NotificationItemViewModel>();
+            foreach (var message in messages)
+            {
+                notificationItemViewModel.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
+            }
+            notificationItemViewModel.Reverse();
+            Messages = new ObservableCollection<NotificationItemViewModel>(notificationItemViewModel);
+        }
 
         private void ClickOnNotificationEventHandler(NotificationModel message)
         {

@@ -26,10 +26,8 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
-        <!-- Trigger for type of Message (Renter/Lessor) -->
-
     </UserControl.Resources>
+
     <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="75">
         <Grid>
             <Grid.ColumnDefinitions>

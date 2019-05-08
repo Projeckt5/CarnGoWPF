@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using CarnGo.Annotations;
+using Microsoft.Expression.Interactivity.Core;
 using Prism.Commands;
 using Prism.Events;
 
@@ -25,7 +26,10 @@ namespace CarnGo
         public NotificationItemViewModel(IApplication application, IEventAggregator eventAggregator, MessageModel message)
         {
             _application = application;
-            _eventAggregator = eventAggregator; 
+            _eventAggregator = eventAggregator;
+            //Activate both buttons
+            ConfirmButton = true;
+            DeclineButton = true;
             //TODO: Move to factory
             switch (message.MsgType)
             {
@@ -54,34 +58,65 @@ namespace CarnGo
         #endregion
 
 
-        //TODO Make this a model?
         #region Properties
         public NotificationModel NotificationMessage { get; set; } = new NotificationModel();
+
+        private bool _confirmButton; 
+        public bool ConfirmButton
+        {
+            get { return _confirmButton; }
+            set
+            {
+                _confirmButton = value;
+                OnPropertyChanged(nameof(ConfirmButton));
+            }
+        }
+
+        private bool _declineButton; 
+        public bool DeclineButton
+        {
+            get { return _declineButton; }
+            set
+            {
+                _declineButton = value;
+                OnPropertyChanged(nameof(DeclineButton));
+            }
+        }
+
         #endregion
 
         #region Commands
         private ICommand _notificationPressedCommand;
         public ICommand NotificationPressedCommand => _notificationPressedCommand ?? (_notificationPressedCommand = new DelegateCommand(NotificationExecute));
 
-        private ICommand _messagePressedCommand;
+        private ICommand _rentalButtonPressedCommand;
 
-        public ICommand MesssagePressedCommand =>
-            _messagePressedCommand ?? (_messagePressedCommand = new DelegateCommand(MessageExecute));
+        public ICommand RentalButtonPressedCommand => _rentalButtonPressedCommand ??
+                                                      (_rentalButtonPressedCommand =
+                                                          new DelegateCommand<string>(RentalButtonExecute));
         #endregion
 
         #region Executes & CanExecutes
         private void NotificationExecute()
         {
             //Probably needs to send the specific message with it. 
-            _eventAggregator.GetEvent<ClickOnNotificationEvent>().Publish(NotificationMessage);
             if(_application.CurrentPage != ApplicationPage.MessageView)
                 _application.GoToPage(ApplicationPage.MessageView);
-
+            _eventAggregator.GetEvent<ClickOnNotificationEvent>().Publish(NotificationMessage);
         }
 
-        private void MessageExecute()
+        private void RentalButtonExecute(string arg)
         {
-            //Send event
+            if (arg.ToLower() == "confirm")
+            {
+                DeclineButton = false;
+                NotificationMessage.Confirmation = true;
+            }
+            else
+            {
+                ConfirmButton = false;
+                NotificationMessage.Confirmation = false;
+            }
         }
         #endregion
     }

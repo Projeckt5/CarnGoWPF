@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+
     <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="100">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -55,6 +56,9 @@
                             Background="Green"
                             Content="Confirm"
                             Margin="5 5 15 0"
+                            IsEnabled="{Binding Path=ConfirmButton}"
+                            Command="{Binding Path=RentalButtonPressedCommand, Mode=OneWay}"
+                            CommandParameter="Confirm"
                             MaxHeight="25"
                             Padding="10 0 10 0"
                             FontSize="6"
@@ -63,6 +67,9 @@
                     <Button Grid.Column="1"
                             Background="Red"
                             Content="Decline"
+                            IsEnabled="{Binding Path=DeclineButton}"
+                            Command="{Binding Path=RentalButtonPressedCommand, Mode=OneWay}"
+                            CommandParameter="Decline"
                             Margin ="0 5 0 0"
                             MaxHeight="25"
                             Padding="10 0 10 0"
