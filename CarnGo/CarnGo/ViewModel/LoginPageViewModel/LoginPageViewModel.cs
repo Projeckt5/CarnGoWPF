@@ -28,12 +28,21 @@ namespace CarnGo
         private ObservableCollection<string> _allErrors = new ObservableCollection<string>();
         private readonly IApplication _application;
         private bool _rememberUser;
+        private readonly IQueryDatabase _databaseAccess;
 
         #endregion
 
         #region Constructor
-        public LoginPageViewModel(IApplication application)
+        public LoginPageViewModel(
+            IValidator<string> emailValidator,
+            IValidator<SecureString> passwordValidator,
+            IQueryDatabase databaseAccess,
+            IApplication application)
         {
+            _application = application;
+            _emailValidator = emailValidator;
+            _passwordValidator = passwordValidator;
+            _databaseAccess = databaseAccess;
             _application = application;
         }
         #endregion
@@ -107,7 +116,8 @@ namespace CarnGo
         #region Public Commands
 
         public ICommand LoginCommand => new DelegateCommand(async () => await Login());
-        public ICommand RegisterUserCommand => new DelegateCommand(() => _application.GoToPage(ApplicationPage.UserSignUpPage));
+        public ICommand NavigateUserSignupCommand => new DelegateCommand(NavigateUserSignup);
+        public ICommand NavigateStartPageCommand => new DelegateCommand(NavigateStartPage);
         public ICommand LoginPageLoadedCommand => new DelegateCommand(() =>
         {
             if (Properties.Settings.Default.Username != string.Empty)
@@ -122,7 +132,7 @@ namespace CarnGo
 
 
         #region Command Helpers
-        private async Task Login()
+        public async Task Login()
         {
             if (IsLogin)
                 return;
@@ -146,6 +156,7 @@ namespace CarnGo
                 }
 
                 await _application.LogUserIn(Email, PasswordSecureString);
+                NavigateStartPage();
                 if (RememberUser)
                 {
                     RememberUserLocally(PasswordSecureString);
@@ -167,10 +178,18 @@ namespace CarnGo
             Properties.Settings.Default.Username = Email;
             Properties.Settings.Default.Save();
         }
+        private void NavigateStartPage()
+        {
+            _application.GoToPage(ApplicationPage.StartPage);
+        }
 
+        public void NavigateUserSignup()
+        {
+            _application.GoToPage(ApplicationPage.UserSignUpPage);
+        }
         #endregion
         #region Error Handling
-       
+
         private void ValidateAll()
         {
             ValidateEmail();
