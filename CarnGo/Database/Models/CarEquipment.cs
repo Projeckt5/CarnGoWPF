@@ -14,6 +14,7 @@ namespace CarnGo.Database.Models
         public bool GPS { get; set; }
         public bool Childseat { get; set; }
         public int CarProfileId { get; set; }
+        [Required]
         public CarProfile CarProfile { get; set; }
     }
     

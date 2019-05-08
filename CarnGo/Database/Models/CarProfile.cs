@@ -16,7 +16,7 @@ namespace CarnGo.Database.Models
         public string Location { get; set; }
         public int Seats { get; set; }
         public int Price { get; set; }
-        //public BitmapImage CarPicture { get; set; }
+        public string CarPicture { get; set; }
         public int RentalPrice { get; set; }
         public string FuelType { get; set; }
         public string CarDescription { get; set; }

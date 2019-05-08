@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -108,6 +109,68 @@ namespace CarnGo.Database
                 {
                     db.Database.ExecuteSqlCommand("DROP TABLE [" + tableName + "]");
                 }
+            }
+        }
+
+        public static void SeedDatabase()
+        {
+            User renter = new User()
+            {
+                Email = "At@at.at",
+                FirstName = "Bob",
+                LastName = "Chipman",
+                Password = "1234",
+                Address = "Here",
+                UserType = 1,
+                AuthorizationString = Guid.Empty,
+
+
+            };
+
+            CarEquipment carequip1 = new CarEquipment()
+            {
+                CarEquipmentID = 4,
+                Smoking = false,
+                Audioplayer = false,
+                GPS = false,
+                Childseat = true,
+                CarProfileId = 2
+            };
+
+            CarProfile car1 = new CarProfile()
+            {
+                RegNr = "12bB",
+                Model = "Big!!!",
+                Brand = "Blue!",
+                Age = 8008,
+                Location = "Here",
+                Seats = 8,
+                Price = 1,
+                RentalPrice = 200000,
+                FuelType = "bad",
+                CarDescription = "existing",
+                CarEquipment = carequip1,
+                OwnerEmail = "At@at.at",
+                UserEmail = "dotcom@dotcom.dotcom"
+            };
+
+
+
+
+            List<DayThatIsRented> daysThatIs = new List<DayThatIsRented>();
+            for (int i = 0; i < 15; i++)
+            {
+                DateTime tempDateTime = new DateTime(2019, 05, i + 4);
+                DayThatIsRented tempday = new DayThatIsRented()
+                {
+                    Date = tempDateTime,
+                };
+                //daysThatIs.Add();
+            }
+
+            using (var db = new AppDbContext())
+            {
+
             }
         }
     }
