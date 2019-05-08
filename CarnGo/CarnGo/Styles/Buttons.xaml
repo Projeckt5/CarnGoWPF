@@ -202,7 +202,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="content"
                                         Storyboard.TargetProperty="Foreground.Color"
-                                        To="{StaticResource ForegroundLight}"
+                                        To="{StaticResource BlueMain}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -213,7 +213,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="content"
                                         Storyboard.TargetProperty="Foreground.Color"
-                                        From="{StaticResource ForegroundLight}"
+                                        From="{StaticResource BlueMain}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>

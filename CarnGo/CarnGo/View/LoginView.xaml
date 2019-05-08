@@ -52,6 +52,7 @@
             </DockPanel>
             <Button local:IsBusyAttachedProperty.IsBusy="{Binding IsLogin, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource LoadableButton}"
+                    IsDefault="True"
                     Command="{Binding LoginCommand}">
                 <TextBlock Text="Login" 
                            FontSize="{StaticResource FontSizeLarge}"/>
