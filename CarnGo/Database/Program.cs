@@ -11,7 +11,8 @@ namespace CarnGo.Database
             Console.WriteLine("Your choice of commands are:" +
                               "\n\"1\" : Create Database" +
                               "\n\"2\" : Pull all data" +
-                              "\n\"3\" : Empty database");
+                              "\n\"3\" : Empty database" +
+                              "\n\"4\" : Seed database");
             do
             {
                 try
@@ -31,6 +32,10 @@ namespace CarnGo.Database
 
                         case "3":
                             Commands.EmptyDatabase();
+                            break;
+
+                        case "4":
+                            Commands.SeedDatabase();
                             break;
 
                         default:
