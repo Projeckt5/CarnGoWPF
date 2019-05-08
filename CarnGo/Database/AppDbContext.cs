@@ -305,7 +305,32 @@ namespace CarnGo.Database
 
         public void AddMessage(Message message)
         {
+
+            MessagesWithUsers newConnection = new MessagesWithUsers();
+            if (message.MsgType == 1)
+            {
+                User theuser = GetUser(message.RenterEmail);
+
+                newConnection.Message = message;
+                newConnection.MessageId = message.MessageID;
+                newConnection.User = theuser;
+                newConnection.UserEmail = theuser.Email;
+            }
+            else
+            {
+                User theuser = GetUser(message.LessorEmail);
+
+                newConnection.Message = message;
+                newConnection.MessageId = message.MessageID;
+                newConnection.User = theuser;
+                newConnection.UserEmail = theuser.Email;
+            }
+            message.MessagesWithUsers.Add(newConnection);
+
+
+            MessagesWithUsersJunction.Add(newConnection);
             Messages.Add(message);
+
             SaveChanges();
         }
 
