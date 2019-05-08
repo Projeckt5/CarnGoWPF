@@ -78,7 +78,7 @@ namespace CarnGo
             await Task.Delay(2000);
         }
 
-        public async Task<List<CarProfileModel>> GetCarProfileTask(UserModel user)
+        public async Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user)
         {
             await Task.Delay(2000);
             var User1 = new UserModel("asd", "asd", "asd@hotmail.com", "asd", UserType.Lessor);

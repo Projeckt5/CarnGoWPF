@@ -13,7 +13,7 @@ namespace CarnGo
         Task UpdateUser(UserModel user);
         Task<UserModel> GetUserTask(UserModel user);
         Task UpdateCarProfileTask(CarProfileModel carProfile);
-        Task<List<CarProfileModel>> GetCarProfileTask(UserModel user);
+        Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user);
 
     }
 }

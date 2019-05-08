@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using CarnGo.Database.Models;
 
 namespace CarnGo
 {
@@ -26,6 +29,13 @@ namespace CarnGo
             return new UserModel("TestFirstName", "TestLastName",
                 email, "TestAddress", UserType.Lessor);
         }
+
+        public static UserModel CreateUserModel(UserType type)
+        {
+            return new UserModel("TestFirstName", "TestLastName",
+                "Test@Test.com", "TestAddress", type);
+        }
+
         public static MessageModel CreateMessageModel()
         {
             return new MessageModel()
@@ -48,10 +58,27 @@ namespace CarnGo
             };
         }
 
-        public static UserModel CreateUserModel(UserType type)
+
+        public static CarProfileModel CreateCarProfile()
         {
-            return new UserModel("TestFirstName", "TestLastName",
-                "Test@Test.com", "TestAddress", type);
+            return new CarProfileModel()
+            {
+                RegNr = "TestRegNr",
+                Age = 10,
+                Brand = "TestBrand",
+                CarDescription = "TestDesc",
+                CarEquipment = new CarEquipment()
+                {
+                    AudioPlayer = true,
+                    ChildSeat = true,
+                    Gps = true,
+                    Smoking = true
+                },
+                CarPicture = null,
+                FuelType = "TestFuel",
+                Location = "TestLocation",
+                Model = "TestModel"
+            };
         }
     }
 }

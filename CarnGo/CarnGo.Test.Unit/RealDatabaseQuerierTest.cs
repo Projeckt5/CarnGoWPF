@@ -197,7 +197,7 @@ namespace CarnGo.Test.Unit
 
         #endregion
 
-        #region GetUserTask
+        #region GetUserTask (GUID)
 
         [Test]
         public async Task GetUserTask_GetUserCallsGetUserOnDbContext_EmailAndGuidCorrect()
@@ -235,6 +235,86 @@ namespace CarnGo.Test.Unit
             var userResult = await _uut.GetUserTask(testUser);
 
             Assert.That(userResult, Is.EqualTo(testUser));
+        }
+        #endregion
+
+
+        #region UpdateCarProfile
+        [Test]
+        public async Task UpdateCarProfileTask_CallsConverter_ProfileCorrect()
+        {
+            var testCarProfileModel = TestModelFactory.CreateCarProfile();
+            _fakeAppToDbModelConverter.Convert(Arg.Any<CarProfileModel>()).Returns(new CarProfile());
+
+            await _uut.UpdateCarProfileTask(testCarProfileModel);
+
+            _fakeAppToDbModelConverter.Received().Convert(Arg.Is<CarProfileModel>(m => m == testCarProfileModel));
+        }
+
+        [Test]
+        public async Task UpdateCarProfileTask_CallsDbContext_UpdateCarProfileTask_CallsConverter_ProfileCorrect()
+        {
+            var testCarProfileModel = TestModelFactory.CreateCarProfile();
+            _fakeAppToDbModelConverter.Convert(Arg.Any<CarProfileModel>()).Returns(new CarProfile()
+            {
+                RegNr = testCarProfileModel.RegNr
+            });
+
+            await _uut.UpdateCarProfileTask(testCarProfileModel);
+
+            await _fakeDbContext.Received().UpdateCarProfile(Arg.Is<CarProfile>(car => car.RegNr == testCarProfileModel.RegNr ));
+        }
+
+        #endregion
+
+        #region GetCarProfile
+
+        [Test]
+        public async Task GetCarProfilesTask_CallsDbContextForUser_CallsDbWithCorrectUserModel()
+        {
+            var testUser = TestModelFactory.CreateUserModel();
+
+            var dbCars = await _uut.GetCarProfilesTask(testUser);
+
+            await _fakeDbContext.Received().GetUser(Arg.Is<string>(s => s == testUser.Email), Arg.Any<Guid>());
+        }
+
+        [Test]
+        public async Task GetCarProfilesTask_CallsDbContextForAllCars_EmailCorrect()
+        {
+            var testUser = TestModelFactory.CreateUserModel();
+            var fakeUser = new User()
+            {
+                Email = testUser.Email
+            };
+            _fakeDbContext.GetUser(Arg.Any<string>(), Arg.Any<Guid>()).Returns(fakeUser);
+
+            await _uut.GetCarProfilesTask(testUser);
+
+            await _fakeDbContext.Received().GetAllCars(Arg.Is<User>(u => u.Email == testUser.Email));
+        }
+
+        [Test]
+        public async Task GetCarProfilesTask_ReturnsCarProfile_EmailCorrect()
+        {
+            var testUser = TestModelFactory.CreateUserModel();
+            var fakeUser = new User()
+            {
+                Email = testUser.Email
+            };
+            var fakeCarProfiles = new List<CarProfile>()
+            {
+                new CarProfile()
+                {
+                    OwnerEmail = testUser.Email,
+                }
+            };
+            _fakeDbContext.GetUser(Arg.Any<string>(), Arg.Any<Guid>()).Returns(fakeUser);
+            _fakeDbContext.GetAllCars(Arg.Any<User>()).Returns(fakeCarProfiles);
+
+            await _uut.GetCarProfilesTask(testUser);
+            
+            _fakeDbToAppModelConverter.Received().Convert(Arg.Any<List<CarProfile>>());
         }
         #endregion
     }

@@ -48,11 +48,10 @@ namespace CarnGo
             return returnUser;
         }
 
-        public async Task<List<CarProfileModel>> GetCarProfileTask(UserModel user)
+        public async Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user)
         {
-            List<CarProfileModel> carModels;
-
-            var dbCarProfile = await _dbContext.GetAllCars(_appToDbModelConverter.Convert(user));
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbCarProfile = await _dbContext.GetAllCars(dbUser);
             return _dbToAppModelConverter.Convert(dbCarProfile);
         }
 
