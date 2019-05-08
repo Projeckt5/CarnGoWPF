@@ -11,6 +11,7 @@ namespace CarnGo.Database.Models
     {
         [Key]
         public int MessageId { get; set; }
+        [Required]
         public User User { get; set; }
         public Message Message { get; set; }
         public string UserEmail { get; set; }

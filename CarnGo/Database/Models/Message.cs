@@ -16,7 +16,7 @@ namespace CarnGo.Database.Models
         public int MsgType { get; set; }
         public CarProfile CarProfile { get; set; }
         public string CarProfileRegNr { get; set; }
-        
+        [Required]
         public List<MessagesWithUsers> MessagesWithUsers { get; set; }
     }
 }
