@@ -33,9 +33,7 @@ namespace CarnGo.Test.Unit.ViewModels
             _uut = new UserSignUpViewModel(_fakeEmailValidator,_fakePasswordValidator,_fakePasswordMatchValidator, _fakeQueryDatabase, _fakeApplication);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public async Task Register_RegisterResetsFlag_IsRegisteringFalse(bool validationResult)
+        public async Task Register_RegisterResetsFlag_IsRegisteringFalse()
         {
             _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(false);
             _fakeEmailValidator.ValidationErrorMessages.Returns(new List<string>() { "test" });
@@ -116,6 +114,53 @@ namespace CarnGo.Test.Unit.ViewModels
                 Arg.Any<string>(),
                 Arg.Any<SecureString>());
         }
+
+
+        [Test]
+        public void RegisterCommand_DbThrowsAuthenticationException_UserExists()
+        {
+            _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(true);
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
+            _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
+            _fakeQueryDatabase.RegisterUserTask(Arg.Any<string>(), Arg.Any<SecureString>())
+                .Throws(new AuthenticationFailedException("User already exists"));
+
+            _uut.RegisterCommand.Execute(null);
+
+            Assert.That(_uut.AllErrors.Contains("User already exists"));
+        }
+
+
+        [Test]
+        public void RegisterCommand_DbThrowsAuthenticationException_IsRegisteringFalse()
+        {
+            _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(true);
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
+            _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
+            _fakeQueryDatabase.RegisterUserTask(Arg.Any<string>(), Arg.Any<SecureString>())
+                .Throws(new AuthenticationFailedException("User already exists"));
+
+            _uut.RegisterCommand.Execute(null);
+
+            Assert.That(_uut.IsRegistering, Is.False);
+        }
+
+
+        [Test]
+        public void RegisterCommand_RegisterCalledTwice_DbQueuedOnlyOnce()
+        {
+            _fakeEmailValidator.Validate(Arg.Any<string>()).Returns(true);
+            _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
+            _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
+
+            _uut.IsRegistering = true;
+            _uut.RegisterCommand.Execute(null);
+
+            _fakeQueryDatabase.DidNotReceive().RegisterUserTask(
+                Arg.Any<string>(),
+                Arg.Any<SecureString>());
+        }
+
 
         [Test]
         public void AllErrors_AllErrorsSet_AllErrorsOnlySetOnes()
