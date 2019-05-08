@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System.ComponentModel;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace CarnGo
@@ -25,5 +26,7 @@ namespace CarnGo
 
         Task LogUserIn(string email, SecureString password);
         void LogUserOut();
+
+        event PropertyChangedEventHandler PropertyChanged;
     }
 }

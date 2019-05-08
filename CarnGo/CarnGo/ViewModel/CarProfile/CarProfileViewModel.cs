@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using CarnGo.Database;
 using Microsoft.Win32;
 using Prism.Commands;
+using Prism.Events;
 
 namespace CarnGo
 {
@@ -14,14 +15,18 @@ namespace CarnGo
 
  
         private CarProfileModel _carProfile;
-        private bool _editing;
         private IApplication _application;
+        private readonly IQueryDatabase _queryDatabase;
+        private readonly IEventAggregator _eventAggregator;
+        private bool _editing;
         public bool _isReadOnly;
+        private bool isSaving = false;
         
         
-        public CarProfileViewModel(IApplication application, CarProfileModel carProfile)
+        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase, CarProfileModel carProfile)
         {
             _application = application;
+            _queryDatabase = queryDatabase;
             _carProfile = carProfile;
             Editing = false;
             IsReadOnly = true;
@@ -151,9 +156,25 @@ namespace CarnGo
         {
             Editing = false;
             IsReadOnly = true;
-            using (var db = new AppDbContext())
+
+            if (isSaving)
             {
-                // await db.UpdateCarProfile(_carProfile);
+                return;
+            }
+                
+            isSaving = true;
+            try
+            {
+                await _queryDatabase.UpdateCarProfileTask(_carProfile);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                isSaving = false;
             }
         }
 
@@ -165,13 +186,15 @@ namespace CarnGo
 
         private void UploadPhotoFunction()
         {
-			OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            var fileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+            };
+
             if (fileDialog.ShowDialog() == true)
             {
                 CarPicture = new BitmapImage(new Uri(fileDialog.FileName));
             }
-		    //TODO: Db upload photo
         }
     }
 }

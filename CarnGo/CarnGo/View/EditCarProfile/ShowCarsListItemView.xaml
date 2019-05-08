@@ -1,0 +1,100 @@
+﻿<local:BasePage x:TypeArguments="local:ShowCarsListItemViewModel"
+                x:Class="CarnGo.ShowCarsListItemView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:local="clr-namespace:CarnGo"
+                mc:Ignorable="d" 
+                d:DesignHeight="450" 
+                d:DesignWidth="800">
+
+    <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="500" MaxHeight="110">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding CarPicture}" Margin="10 10 10 10 " MaxWidth="100" MaxHeight="50"></Image>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox HorizontalAlignment="Center"
+                             Grid.Column="0"
+                             Width="90"
+                             Height="30"
+                             Text="{Binding CarMake, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="True"/>
+
+                        <TextBox HorizontalAlignment="Center"
+                             Grid.Column="1"
+                             Width="90"
+                             Height="30"
+                             Text="{Binding CarModel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="True"/>
+
+                    </Grid>
+                </Grid>
+            
+                <Grid Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label HorizontalAlignment="Center"
+                                 Grid.Column="0"
+                                 Width="75"
+                                 Content="Lease Start:"
+                                 FontSize="11"/>
+
+                        <Label HorizontalAlignment="Center"
+                               Grid.Column="1"
+                               Width="75"
+                               Content="Lease End:"
+                               FontSize="11"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Path=CarStartLeaseDate, StringFormat={}{0:dd MMMM}}" 
+                                   Grid.Column="0"
+                                   Width="90"/>
+
+                        <TextBlock Text="{Binding Path=CarEndLeaseDate, StringFormat={}{0:dd MMMM}}" 
+                                   Grid.Column="1"
+                                   Width="90"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Button Grid.Column="2" 
+                    Height="35"
+                    Width="75"
+                    Command="{Binding GoToCar}">
+                Edit
+            </Button>
+
+        </Grid>
+    </Border>
+</local:BasePage>

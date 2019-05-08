@@ -61,7 +61,7 @@
                     Padding="10 0 0 10"
                     Content="Or register here..."
                     Foreground="{StaticResource ForegroundMainBrush}"
-                    Command="{Binding RegisterUserCommand}"/>
+                    Command="{Binding NavigateUserSignupCommand}"/>
 
             <ListView ItemsSource="{Binding AllErrors}"
                       IsHitTestVisible="False"

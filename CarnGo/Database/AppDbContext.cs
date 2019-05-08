@@ -43,6 +43,20 @@ namespace CarnGo.Database
             return user;
         }
 
+        public async Task<CarProfile> GetCarProfile(string regNr)
+        {
+            var carProfile = await CarProfiles.FindAsync(regNr);
+            return carProfile;
+        }
+
+        public async Task<List<CarProfile>> GetAllCars(User user)
+        {
+            var carProfiles = await CarProfiles
+                .Where(c => c.User == user)
+                .ToListAsync();
+            return carProfiles;
+        }
+
 
         public async Task<User> GetUser(string email, Guid authorization)
         {
@@ -143,14 +157,40 @@ namespace CarnGo.Database
             await SaveChangesAsync();
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateUserInformation(User user)
         {
             var result = await Users.SingleOrDefaultAsync(b => b.Email == user.Email);
 
             if (result == default(User))
                 throw new AuthenticationFailedException($"No user found for the email: {user.Email}");
+
+            if (result.AuthorizationString != user.AuthorizationString)
+                throw new AuthorizationFailedException();
             Update(result);
-            result = user;
+            result.Email = user.Email;
+            result.FirstName = user.FirstName;
+            result.LastName = user.LastName;
+            result.Address = user.Address;
+            result.AuthorizationString = user.AuthorizationString;
+            result.UserType = user.UserType;
+            //TODO: SAVE THE PICTURE
+            await SaveChangesAsync();
+        }
+
+        public async Task UpdateUserPassword(User user, string password)
+        {
+
+            var result = await Users.SingleOrDefaultAsync(b => b.Email == user.Email);
+
+            if (result == default(User))
+                throw new AuthenticationFailedException($"No user found for the email: {user.Email}");
+
+            if (result.AuthorizationString != user.AuthorizationString)
+                throw new AuthorizationFailedException();
+            Update(result);
+            result.Email = user.Email;
+            result.Password = password;
+
             await SaveChangesAsync();
         }
 

@@ -13,13 +13,13 @@ namespace CarnGo
         {
             return new UserModel()
             {
-                Firstname = dbUser.FirstName,
-                Lastname = dbUser.LastName,
-                Address = dbUser.Address,
-                Email = dbUser.Email,
+                Firstname = dbUser.FirstName ?? "",
+                Lastname = dbUser.LastName ?? "",
+                Address = dbUser.Address ?? "",
+                Email = dbUser.Email ?? "",
                 AuthorizationString = dbUser.AuthorizationString,
                 MessageModels = new List<MessageModel>(),
-                UserType = UserType.Lessor
+                UserType = (UserType)dbUser.UserType
             };
         }
 
@@ -27,11 +27,11 @@ namespace CarnGo
         {
             var owner = Convert(dbCarProfile.Owner);
             return new CarProfileModel(owner,
-                dbCarProfile.Model,
-                dbCarProfile.Brand,
+                dbCarProfile.Model ?? "",
+                dbCarProfile.Brand ?? "",
                 dbCarProfile.Age,
-                dbCarProfile.RegNr,
-                dbCarProfile.Location,
+                dbCarProfile.RegNr ?? "",
+                dbCarProfile.Location ?? "",
                 dbCarProfile.Seats,
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
@@ -73,6 +73,41 @@ namespace CarnGo
             }
 
             return returnList;
+        }
+        public List<CarProfileModel> Convert(List<CarProfile> carProfiles)
+        {
+            var carModels = new List<CarProfileModel>();
+
+            foreach (var cars in carProfiles)
+            {
+                var newModel = new CarProfileModel();
+                var newOwner = new UserModel()
+                {
+                    Address = cars.User.Address ?? "",
+                    Email = cars.User.Email ?? "",
+                    Firstname = cars.User?.FirstName ?? "",
+                    Lastname = cars.User?.LastName ?? "",
+
+                };
+                newModel.DayThatIsRented = cars.DaysThatIsRented;
+                newModel.PossibleToRentDays = cars.PossibleToRentDays;
+                newModel.Brand = cars.Brand ?? "";
+                newModel.CarDescription = cars.CarDescription ?? "";
+                newModel.FuelType = cars.FuelType ?? "";
+                newModel.Location = cars.Location ?? "";
+                newModel.Model = cars.Model ?? "";
+                newModel.Price = cars.Price;
+                newModel.Age = cars.Age;
+                newModel.RentalPrice = cars.RentalPrice;
+                newModel.Seats = cars.Seats;
+
+                newModel.Owner = newOwner;
+
+                carModels.Add(newModel);
+            }
+
+
+            return carModels;
         }
     }
 }

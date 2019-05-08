@@ -15,6 +15,7 @@ namespace CarnGo.Test.Unit.ViewModels
         private SearchEvent _fakeSearchEvent;
         private NotificationMessageUpdateEvent _fakeUpdateEvent;
         private IQueryDatabase _fakeDatabaseQuery;
+        private UserUpdateEvent _fakeUserUpdateEvent;
 
         [SetUp]
         public void TestSetup()
@@ -23,33 +24,21 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeApplication = Substitute.For<IApplication>();
             _fakeSearchEvent = Substitute.For<SearchEvent>();
             _fakeDatabaseQuery = Substitute.For<IQueryDatabase>();
+            _fakeUserUpdateEvent = Substitute.For<UserUpdateEvent>();
             _fakeUpdateEvent = Substitute.For<NotificationMessageUpdateEvent>();
             _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
             _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Returns(_fakeUpdateEvent);
+            _fakeEventAggregator.GetEvent<UserUpdateEvent>().Returns(_fakeUserUpdateEvent);
             _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication, _fakeDatabaseQuery);
 
-            _fakeApplication.CurrentUser.Returns( new UserModel("Test", "Test", "Test@Test.Test", "Test", UserType.Lessor)
-            {
-                MessageModels = new List<MessageModel>()
-                {
-                    new MessageModel()
-                    {
-                        MessageRead = false,
-                        Message = "Test",
-                        MsgType = MessageType.LessorMessage
-                    }
-                }
-            });
+            _fakeApplication.CurrentUser.Returns(TestModelFactory.CreateUserModel());
 
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>()).Returns(new List<MessageModel>()
-            {
-                new MessageModel()
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>()).Returns(
+                new List<MessageModel>()
                 {
-                    MessageRead = false,
-                    Message = "Test",
-                    MsgType = MessageType.LessorMessage
-                }
-            });
+                    TestModelFactory.CreateMessageModel("Test",MessageType.LessorMessage)
+                });
+            _fakeDatabaseQuery.GetUserTask(Arg.Any<UserModel>()).Returns(TestModelFactory.CreateUserModel());
         }
 
         [Test]
@@ -86,6 +75,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_UnreadNotificationsFalse()
         {
+
             _uut.NotificationCommand.Execute(null);
 
             Assert.That(_uut.UnreadNotifications, Is.False);
@@ -94,17 +84,18 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_NotificationsUpdatedAsRead()
         {
+
             _uut.NotificationCommand.Execute(null);
 
             _fakeDatabaseQuery.Received()
-                .UpdateUserMessagesTask(Arg.Is<UserModel>(um => um == _fakeApplication.CurrentUser),
-                    _fakeApplication.CurrentUser.MessageModels);
+                .UpdateUserMessagesTask(Arg.Is<UserModel>(um => um == _uut.UserModel),
+                    Arg.Any<List<MessageModel>>());
         }
-
 
         [Test]
         public void Notification_ShowNotifications_NotificationsReceivedFromDb()
         {
+
             _uut.NotificationCommand.Execute(null);
 
             _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>());
@@ -114,6 +105,8 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_NotificationsSendToPopUp()
         {
+            _fakeDatabaseQuery.GetUserTask(Arg.Any<UserModel>()).Returns(TestModelFactory.CreateUserModel());
+
             _uut.NotificationCommand.Execute(null);
 
             _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>()
@@ -125,6 +118,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_NotificationsAreRead()
         {
+
             _uut.NotificationCommand.Execute(null);
 
             Assert.That(_uut.UserModel.MessageModels.TrueForAll(m => m.MessageRead));
@@ -135,6 +129,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotifications_NotificationsAreUpdatedAsReadInDb()
         {
+
             _uut.NotificationCommand.Execute(null);
 
             _fakeDatabaseQuery.Received().UpdateUserMessagesTask(

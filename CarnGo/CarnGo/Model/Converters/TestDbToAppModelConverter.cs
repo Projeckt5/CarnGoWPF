@@ -65,5 +65,10 @@ namespace CarnGo
 
             return returnList;
         }
+
+        public List<CarProfileModel> Convert(List<CarProfile> carProfiles)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
