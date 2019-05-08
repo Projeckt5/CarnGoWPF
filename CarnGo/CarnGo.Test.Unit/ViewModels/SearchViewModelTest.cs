@@ -20,8 +20,11 @@ namespace CarnGo.Test.Unit.ViewModels
         private SearchViewModel _uut;
         private IEventAggregator _eventAggregator;
         private IApplication _application;
+        private ISearchQueries _dbContext;
+        private ISearchViewModelHelper _helper;
         private DateTime _today;
         private SearchEvent _searchEvent;
+        private InitializeSearchResultItemsEvent _initializeSearchResultItemsEvent;
         private object _car1;
         private object _car2;
         private object _car3;
@@ -35,11 +38,15 @@ namespace CarnGo.Test.Unit.ViewModels
         {
             _eventAggregator = Substitute.For<IEventAggregator>();
             _application = Substitute.For<IApplication>();
+            _dbContext = Substitute.For<ISearchQueries>();
+            _helper = Substitute.For<ISearchViewModelHelper>();
+            _initializeSearchResultItemsEvent = Substitute.For<InitializeSearchResultItemsEvent>();
             _searchEvent = new SearchEvent();
             _eventAggregator.GetEvent<SearchEvent>().Returns(_searchEvent);
-            _uut = new SearchViewModel(_eventAggregator, _application);
+            _eventAggregator.GetEvent<InitializeSearchResultItemsEvent>().Returns(_initializeSearchResultItemsEvent);
+            _uut = new SearchViewModel(_eventAggregator, _application, _helper, _dbContext);
             _today = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-            _uut.SearchResultItems = new ObservableCollection<SearchResultItemViewModel>();
+            _uut.SearchResultItems.Clear();
 
             UserModel jensJensen = new UserModel
             {

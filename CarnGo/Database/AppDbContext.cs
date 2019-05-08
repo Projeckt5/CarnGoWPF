@@ -104,11 +104,14 @@ namespace CarnGo.Database
         
         public async Task<List<CarProfile>> GetAllCarProfiles()
         {
-            var carProfile = await CarProfiles
+            var carProfiles = await CarProfiles
                 .ToListAsync();
-            return carProfile;
+            foreach (var carProfile in carProfiles)
+            {
+                await Entry(carProfile).Reference(c => c.Owner).LoadAsync();
+            }
+            return carProfiles;
         }
-        
         
         public async Task<List<DayThatIsRented>> GetAllDayThatIsRented()
         {

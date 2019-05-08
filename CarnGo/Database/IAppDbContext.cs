@@ -20,6 +20,7 @@ namespace CarnGo.Database
         Task<User> GetUser(string email, string password);
         Task<CarProfile> GetCarProfile(string regNr);
         Task<List<CarProfile>> GetAllCars(User user);
+        Task<List<CarProfile>> GetAllCarProfiles();
         void RemoveCarEquipment(int ID);
         void RemoveCarProfile(string ID);
         void RemoveDayThatIsRented(DateTime ID);
