@@ -22,16 +22,16 @@ namespace CarnGo.Database
             }
         }
 
-        public static void PullAllData()
+        public async static Task  PullAllData()
         {
             using (var db = new AppDbContext())
             {
-                var messages = db.GetAllMessages().Result;
-                var carProfiles = db.GetAllCarProfiles().Result;
-                var carEquipment = db.GetAllCarEquipment().Result;
-                var users = db.GetAllUsers().Result;
-                var daysRented = db.GetAllDayThatIsRented().Result;
-                var possibleToRent = db.GetAllPossibleToRentDay().Result;
+                var messages = await db.GetAllMessages();
+                var carProfiles = await db.GetAllCarProfiles();
+                var carEquipment = db.GetAllCarEquipment();
+                var users = await db.GetAllUsers();
+                var daysRented = await db.GetAllDayThatIsRented();
+                var possibleToRent = await db.GetAllPossibleToRentDay();
 
 
                 if (messages != null)
@@ -58,7 +58,7 @@ namespace CarnGo.Database
                         Console.WriteLine("         Email: " + user.Email);
                         Console.WriteLine("      Password: " + user.Password);
                         Console.WriteLine("     User type: " + user.UserType);
-                        Console.WriteLine("Number of cars: " + user.Cars.Count);
+                        Console.WriteLine("Number of cars: " + user.Cars?.Count);
                     }
                 }
 
@@ -139,10 +139,11 @@ namespace CarnGo.Database
 
             List<CarProfile> ourCars = new List<CarProfile>();
             List<CarEquipment> ourEquip = new List<CarEquipment>();
-            CarEquipment tempCarEquipment = new CarEquipment();
-            CarProfile tempCarProfile = new CarProfile();
+            
             for (int i = 1; i < 12; i++)
             {
+                CarEquipment tempCarEquipment = new CarEquipment();
+                CarProfile tempCarProfile = new CarProfile();
                 bool iseven;
                 if (i/2 == 0)
                 {
@@ -168,17 +169,18 @@ namespace CarnGo.Database
                 tempCarProfile.User = renter;
                 tempCarProfile.OwnerEmail = lessor.Email;
                 tempCarProfile.UserEmail = renter.Email;
+                tempCarProfile.PossibleToRentDays = new List<PossibleToRentDay>();
+                tempCarProfile.MessagesCarOccursIn = new List<Message>();
 
-                tempCarEquipment.CarEquipmentID = 4 + i;
                 tempCarEquipment.Smoking = iseven;
                 tempCarEquipment.Audioplayer = iseven;
                 tempCarEquipment.GPS = iseven;
                 tempCarEquipment.Childseat = iseven;
-                tempCarEquipment.CarProfileId = tempCarProfile.RegNr;
-
                 tempCarEquipment.CarProfile = tempCarProfile;
                 tempCarProfile.CarEquipment = tempCarEquipment;
+
                 ourCars.Add(tempCarProfile);
+                ourEquip.Add(tempCarEquipment);
             }
 
             List<PossibleToRentDay> possibleToRentDay = new List<PossibleToRentDay>();
@@ -191,7 +193,7 @@ namespace CarnGo.Database
                 };
                 possibleToRentDay.Add(tempday);
             }
-            ourCars[0].PossibleToRentDays = possibleToRentDay;
+            ourCars.ForEach(c => c.PossibleToRentDays = possibleToRentDay);
 
 
 
@@ -207,16 +209,14 @@ namespace CarnGo.Database
                 };
                 daysThatIs.Add(tempday);
             }
-            ourCars[0].DaysThatIsRented = daysThatIs;
-            ourCars[0].StartLeaseTime = daysThatIs[0].Date;
-            ourCars[0].EndLeaseTime = daysThatIs[4].Date;
+            ourCars.ForEach(c => c.DaysThatIsRented = daysThatIs);
+            ourCars.ForEach(c => c.StartLeaseTime = daysThatIs[0].Date);
+            ourCars.ForEach(c => c.EndLeaseTime = daysThatIs[4].Date);
 
 
-            List<MessagesWithUsers> messageUserHelpingtable = new List<MessagesWithUsers>();
 
             Message ourMessage1 = new Message()
             {
-                MessageID = 0,
                 HaveBeenSeen = true,
                 Confirmation = false,
                 TheMessage = "Can I rent car fuckface?",
@@ -226,12 +226,11 @@ namespace CarnGo.Database
                 MsgType = 1,
                 CarProfile = ourCars[0],
                 CarProfileRegNr = ourCars[0].RegNr,
-                MessagesWithUsers = messageUserHelpingtable
+                MessagesWithUsers = new List<MessagesWithUsers>()
             };
              
             Message ourMessage2 = new Message()
             {
-                MessageID = 1,
                 HaveBeenSeen = true,
                 Confirmation = true,
                 TheMessage = "Yes you can motherfucker!",
@@ -239,24 +238,23 @@ namespace CarnGo.Database
                 RenterEmail = renter.Email,
                 CreatedDate = new DateTime(2019, 05, 3),
                 MsgType = 0,
-                CarProfile = ourCars[0],
-                CarProfileRegNr = ourCars[0].RegNr,
-                MessagesWithUsers = messageUserHelpingtable
+                CarProfile = ourCars[1],
+                CarProfileRegNr = ourCars[1].RegNr,
+                MessagesWithUsers = new List<MessagesWithUsers>()
             };
 
             Message ourMessage3 = new Message()
             {
-                MessageID = 0,
                 HaveBeenSeen = false,
                 Confirmation = false,
                 TheMessage = "Can I rent, yet another car? Cunt?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
-                CreatedDate = new DateTime(2019, 05, 3),
+                CreatedDate = new DateTime(2019, 05, 4),
                 MsgType = 1,
-                CarProfile = ourCars[1],
-                CarProfileRegNr = ourCars[1].RegNr,
-                MessagesWithUsers = messageUserHelpingtable
+                CarProfile = ourCars[2],
+                CarProfileRegNr = ourCars[2].RegNr,
+                MessagesWithUsers = new List<MessagesWithUsers>()
             };
 
 
@@ -266,23 +264,12 @@ namespace CarnGo.Database
                 await db.AddUser(lessor);
                 foreach (var car in ourCars)
                 {
-                    db.AddCarProfile(car);
-                }
-                 
-                foreach (var equpment in ourEquip)
-                {
-                    db.AddCarEquipment(equpment);
+                    await db.AddCarProfile(car);
                 }
 
-                foreach (var day in possibleToRentDay)
-                { 
-                    db.AddPossibleToRentDay(day);
-                }
-
-                    db.AddDayThatIsRentedList(daysThatIs);
-                db.AddMessage(ourMessage1);
-                db.AddMessage(ourMessage2);
-                db.AddMessage(ourMessage3);
+                await db.AddMessage(ourMessage1);
+                await db.AddMessage(ourMessage2);
+                await db.AddMessage(ourMessage3);
             }
         }
     }

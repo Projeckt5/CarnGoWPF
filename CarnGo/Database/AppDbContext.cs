@@ -20,15 +20,16 @@ namespace CarnGo.Database
         private DbSet<Message> Messages { get; set; }
         private DbSet<CarProfile> CarProfiles { get; set; }
         private DbSet<DayThatIsRented> DaysThatIsRented { get; set; }
-        private DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
         private DbSet<MessagesWithUsers> MessagesWithUsersJunction { get; set; }
+
+        private DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
 
         //reposetory pattern, CRUD
 
-        public void AddDayThatIsRentedList(List<DayThatIsRented> list)
+        public async Task AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
-            DaysThatIsRented.AddRange(list);
-       
+            await DaysThatIsRented.AddRangeAsync(list);
+            await SaveChangesAsync();
         }
 
         //Get
@@ -129,24 +130,25 @@ namespace CarnGo.Database
         }
 
 
-        public CarProfile GetCarProfileForSendRequestView(string regnr)
+        public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
         {
             var carprofile =new CarProfile();
-            carprofile=CarProfiles.Include(d => d.DaysThatIsRented)
+            carprofile= await CarProfiles.Include(d => d.DaysThatIsRented)
                 .Include(p => p.PossibleToRentDays)
                 .Include(u => u.Owner)
-                .Single(e => e.RegNr == regnr);
+                .SingleAsync(e => e.RegNr == regnr);
             return carprofile;
         }
 
-        public User GetUser(string email)
+        public async Task<User> GetUser(string email)
         {
-            return Users.Single(u => u.Email == email);
+            return await Users.SingleAsync(u => u.Email == email);
         }
 
-        public void AddMessageToLessor(Message message)
+        public async Task AddMessageToLessor(Message message)
         {
-            Messages.Add(message);
+            await Messages.AddAsync(message);
+            await SaveChangesAsync();
         }
 
         //Update
@@ -213,7 +215,7 @@ namespace CarnGo.Database
 
             if (result == default(CarProfile)) return;
             result = carProfile;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented)
@@ -222,7 +224,7 @@ namespace CarnGo.Database
 
             if (result == default(DayThatIsRented)) return;
             result = dayThatIsRented;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay)
@@ -231,71 +233,71 @@ namespace CarnGo.Database
 
             if (result == default(PossibleToRentDay)) return;
             result = possibleToRentDay;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         //Delete
-        public void RemoveCarEquipment(int ID)
+        public async Task RemoveCarEquipment(int ID)
         {
             var carEquipment = new CarEquipment { CarEquipmentID = ID };
 
             Attach(carEquipment);
             Remove(carEquipment);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void RemoveUser(string ID)
+        public async Task RemoveUser(string ID)
         {
             var user = new User { Email = ID };
 
             Attach(user);
             Remove(user);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void RemoveMessage(int ID)
+        public async Task RemoveMessage(int ID)
         {
             var message = new Message { MessageID = ID };
 
             Attach(message);
             Remove(message);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void RemoveCarProfile(string ID)
+        public async Task RemoveCarProfile(string ID)
         {
             var carProfile = new CarProfile { RegNr = ID };
 
             Attach(carProfile);
             Remove(carProfile);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void RemoveDayThatIsRented(DateTime ID)
+        public async Task RemoveDayThatIsRented(DateTime ID)
         {
             var dayThatIsRented = new DayThatIsRented { Date = ID };
 
             Attach(dayThatIsRented);
             Remove(dayThatIsRented);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void RemovePossibleToRentDay(DateTime ID)
+        public async Task RemovePossibleToRentDay(DateTime ID)
         {
             var possibleToRentDay = new PossibleToRentDay { Date = ID };
 
             Attach(possibleToRentDay);
             Remove(possibleToRentDay);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
 
         //Create
 
-        public void AddCarEquipment(CarEquipment carEquipment)
+        public async Task AddCarEquipment(CarEquipment carEquipment)
         {
             CarEquipment.Add(carEquipment);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task AddUser(User user)
@@ -306,13 +308,13 @@ namespace CarnGo.Database
             await SaveChangesAsync();
         }
 
-        public void AddMessage(Message message)
+        public async Task AddMessage(Message message)
         {
 
             MessagesWithUsers newConnection = new MessagesWithUsers();
             if (message.MsgType == 1)
             {
-                User theuser = GetUser(message.RenterEmail);
+                User theuser = await GetUser(message.RenterEmail);
 
                 newConnection.Message = message;
                 newConnection.MessageId = message.MessageID;
@@ -321,7 +323,7 @@ namespace CarnGo.Database
             }
             else
             {
-                User theuser = GetUser(message.LessorEmail);
+                User theuser = await GetUser(message.LessorEmail);
 
                 newConnection.Message = message;
                 newConnection.MessageId = message.MessageID;
@@ -331,28 +333,28 @@ namespace CarnGo.Database
             message.MessagesWithUsers.Add(newConnection);
 
 
-            MessagesWithUsersJunction.Add(newConnection);
-            Messages.Add(message);
+            await MessagesWithUsersJunction.AddAsync(newConnection);
+            await Messages.AddAsync(message);
 
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void AddCarProfile(CarProfile carProfile)
+        public async Task AddCarProfile(CarProfile carProfile)
         {
-            CarProfiles.Add(carProfile);
-            SaveChanges();
+            await CarProfiles.AddAsync(carProfile);
+            await SaveChangesAsync();
         }
 
-        public void AddDaysThatIsRented(DayThatIsRented dayThatIsRented)
+        public async Task AddDaysThatIsRented(DayThatIsRented dayThatIsRented)
         {
-            DaysThatIsRented.Add(dayThatIsRented);
-            SaveChanges();
+            await DaysThatIsRented.AddAsync(dayThatIsRented);
+            await SaveChangesAsync();
         }
 
-        public void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay)
+        public async Task AddPossibleToRentDay(PossibleToRentDay possibleToRentDay)
         {
-            PossibleToRentDays.Add(possibleToRentDay);
-            SaveChanges();
+            await PossibleToRentDays.AddAsync(possibleToRentDay);
+            await SaveChangesAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

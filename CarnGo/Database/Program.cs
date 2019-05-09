@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace CarnGo.Database
 {
@@ -27,7 +28,7 @@ namespace CarnGo.Database
                             break;
 
                         case "2":
-                                Commands.PullAllData();
+                            Task.Run(Commands.PullAllData);
                             break;
 
                         case "3":
@@ -35,7 +36,7 @@ namespace CarnGo.Database
                             break;
 
                         case "4":
-                            Commands.SeedDatabase();
+                            Task.Run(Commands.SeedDatabase);
                             break;
 
                         default:
@@ -58,7 +59,7 @@ namespace CarnGo.Database
                     }
 
                 }
-                
+
             } while (true);
         }
     }

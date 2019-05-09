@@ -21,21 +21,21 @@ namespace CarnGo
             context.AddDayThatIsRentedList(list);
             context.SaveChanges();
         }
-        public CarProfile GetCarProfileForSendRequestView(string regnr)
+        public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
         {
-            var carprofile = context.GetCarProfileForSendRequestView(regnr);
+            var carprofile = await context.GetCarProfileForSendRequestView(regnr);
             return carprofile;
         }
 
-        public User GetUser(string email)
+        public async Task<User> GetUser(string email)
         {
-            return context.GetUser(email);
+            return await context.GetUser(email);
         }
 
-        public void AddMessageToLessor(Message message)
+        public async Task AddMessageToLessor(Message message)
         {
-            context.AddMessageToLessor(message);
-            context.SaveChanges();
+            await context.AddMessageToLessor(message);
+            await context.SaveChangesAsync();
         }
     }
 }
