@@ -73,19 +73,17 @@ namespace CarnGo
             _helper = helper;
             _dbContext = dbcontext;
             _application = application;
-            _events.GetEvent<CarProfileDataEvent>().Subscribe(SearchCarProfileEvent);
+            _events.GetEvent<CarProfileDataEvent>().Subscribe(async (reg) => await SearchCarProfileEvent(reg));
         }
 
-        public void SearchCarProfileEvent(string regnr)
+        public async Task SearchCarProfileEvent(string regnr)
         {
-            
-            CarProfile = _dbContext.GetCarProfileForSendRequestView(regnr);
+            CarProfile = await _dbContext.GetCarProfileForSendRequestView(regnr);
+            var converter = new ApptoDbModelConverter();
+            var currentUserAsDbUser = converter.Convert(_application.CurrentUser);
+            CarProfile.User = currentUserAsDbUser;
+            CarProfile.UserEmail = currentUserAsDbUser.Email;
             Car = ModelToDatabaseConverters.CarProfileToCarProfileModelForSendRequestViewModel(CarProfile);
-
-
-
-
-
         }
 
         #endregion
@@ -154,9 +152,9 @@ namespace CarnGo
         #region Commands
         private ICommand _rentCarCommand;
 
-        public ICommand RentCarCommand => _rentCarCommand??( _rentCarCommand=new DelegateCommand(RentCarFunction));
+        public ICommand RentCarCommand => _rentCarCommand??( _rentCarCommand=new DelegateCommand(async ()=> await RentCarFunction()));
 
-        public void RentCarFunction()
+        public async Task RentCarFunction()
         {
             if (Message == "Message to lessor" || To < DateTime.Now || From < DateTime.Now || To < From)
             {
@@ -176,9 +174,9 @@ namespace CarnGo
            
             _dbContext.AddDayThatIsRentedList(list);
 
-            var renterUser=_dbContext.GetUser(_application.CurrentUser.Email);
-            var message=_helper.CreateMessageToLessor(Message,CarProfile,renterUser);           
-            _dbContext.AddMessageToLessor(message);
+            var renterUser= await _dbContext.GetUser(_application.CurrentUser.Email);
+            var message= _helper.CreateMessageToLessor(Message,CarProfile,renterUser);           
+            await _dbContext.AddMessageToLessor(message);
             _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 
