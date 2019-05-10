@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -21,16 +22,16 @@ namespace CarnGo.Database
             }
         }
 
-        public static void PullAllData()
+        public async static Task  PullAllData()
         {
             using (var db = new AppDbContext())
             {
-                var messages = db.GetAllMessages().Result;
-                var carProfiles = db.GetAllCarProfiles().Result;
-                var carEquipment = db.GetAllCarEquipment().Result;
-                var users = db.GetAllUsers().Result;
-                var daysRented = db.GetAllDayThatIsRented().Result;
-                var possibleToRent = db.GetAllPossibleToRentDay().Result;
+                var messages = await db.GetAllMessages();
+                var carProfiles = await db.GetAllCarProfiles();
+                var carEquipment = db.GetAllCarEquipment();
+                var users = await db.GetAllUsers();
+                var daysRented = await db.GetAllDayThatIsRented();
+                var possibleToRent = await db.GetAllPossibleToRentDay();
 
 
                 if (messages != null)
@@ -57,7 +58,7 @@ namespace CarnGo.Database
                         Console.WriteLine("         Email: " + user.Email);
                         Console.WriteLine("      Password: " + user.Password);
                         Console.WriteLine("     User type: " + user.UserType);
-                        Console.WriteLine("Number of cars: " + user.Cars.Count);
+                        Console.WriteLine("Number of cars: " + user.Cars?.Count);
                     }
                 }
 
@@ -112,65 +113,163 @@ namespace CarnGo.Database
             }
         }
 
-        public static void SeedDatabase()
+        public static async Task SeedDatabase()
         {
             User renter = new User()
             {
                 Email = "At@at.at",
-                FirstName = "Bob",
-                LastName = "Chipman",
+                FirstName = "Car ",
+                LastName = "Owner",
                 Password = "1234",
                 Address = "Here",
                 UserType = 1,
                 AuthorizationString = Guid.Empty,
-
-
-            };
-
-            CarEquipment carequip1 = new CarEquipment()
+            }; 
+            
+            User lessor = new User()
             {
-                CarEquipmentID = 4,
-                Smoking = false,
-                Audioplayer = false,
-                GPS = false,
-                Childseat = true,
-                CarProfileId = 2
-            };
+                Email = "Dot@Dot.dot",
+                FirstName = "Car ",
+                LastName = "Renter",
+                Password = "4321",
+                Address = "There",
+                UserType = 2,
+                AuthorizationString = Guid.Empty,
+            }; 
 
-            CarProfile car1 = new CarProfile()
+            List<CarProfile> ourCars = new List<CarProfile>();
+            List<CarEquipment> ourEquip = new List<CarEquipment>();
+            
+            for (int i = 1; i < 12; i++)
             {
-                RegNr = "12bB",
-                Model = "Big!!!",
-                Brand = "Blue!",
-                Age = 8008,
-                Location = "Here",
-                Seats = 8,
-                Price = 1,
-                RentalPrice = 200000,
-                FuelType = "bad",
-                CarDescription = "existing",
-                CarEquipment = carequip1,
-                OwnerEmail = "At@at.at",
-                UserEmail = "dotcom@dotcom.dotcom"
-            };
+                CarEquipment tempCarEquipment = new CarEquipment();
+                CarProfile tempCarProfile = new CarProfile();
+                bool iseven;
+                if (i/2 == 0)
+                {
+                    iseven = true;
+                }
+                else
+                {
+                    iseven = false;
+                }
+                 
+                tempCarProfile.RegNr = "8FJSM2" + Convert.ToString(i);
+                tempCarProfile.Model = "7";
+                tempCarProfile.Brand = "BMW";
+                tempCarProfile.Age = 5 + i;
+                tempCarProfile.Location = "Jylland";
+                tempCarProfile.Seats = i;
+                tempCarProfile.Price = (i * 1000) + 50000;
+                tempCarProfile.CarPicture = "ASDJIasfjn37687yh97jtg864h78jt/TG&/DG#&B/CASV(XASDM57f576879m8aysb87tdv7asrd6ANSYDMATSNDR543afstd78as79d8ynvbfas675FASYGDMA687";
+                tempCarProfile.RentalPrice = (i * 100) + 500;
+                tempCarProfile.FuelType = "92";
+                tempCarProfile.CarDescription = "The very best, like no one ever was";
+                tempCarProfile.Owner = lessor;
+                tempCarProfile.User = renter;
+                tempCarProfile.OwnerEmail = lessor.Email;
+                tempCarProfile.UserEmail = renter.Email;
+                tempCarProfile.PossibleToRentDays = new List<PossibleToRentDay>();
+                tempCarProfile.MessagesCarOccursIn = new List<Message>();
 
+                tempCarEquipment.Smoking = iseven;
+                tempCarEquipment.Audioplayer = iseven;
+                tempCarEquipment.GPS = iseven;
+                tempCarEquipment.Childseat = iseven;
+                tempCarEquipment.CarProfile = tempCarProfile;
+                tempCarProfile.CarEquipment = tempCarEquipment;
+
+                ourCars.Add(tempCarProfile);
+                ourEquip.Add(tempCarEquipment);
+            }
+
+            List<PossibleToRentDay> possibleToRentDay = new List<PossibleToRentDay>();
+            for (int i = 0; i < 15; i++)
+            {
+                DateTime tempDateTime = new DateTime(2019, 05, i + 4);
+                PossibleToRentDay tempday = new PossibleToRentDay()
+                {
+                    Date = tempDateTime,
+                };
+                possibleToRentDay.Add(tempday);
+            }
+            ourCars.ForEach(c => c.PossibleToRentDays = possibleToRentDay);
 
 
 
             List<DayThatIsRented> daysThatIs = new List<DayThatIsRented>();
-            for (int i = 0; i < 15; i++)
+            for (int i = 5; i < 10; i++)
             {
                 DateTime tempDateTime = new DateTime(2019, 05, i + 4);
-                DayThatIsRented tempday = new DayThatIsRented()
+                DayThatIsRented tempday = new DayThatIsRented
                 {
                     Date = tempDateTime,
+                    CarProfile = ourCars[0],
+                    User = lessor
                 };
-                //daysThatIs.Add();
+                daysThatIs.Add(tempday);
             }
+            ourCars.ForEach(c => c.DaysThatIsRented = daysThatIs);
+            ourCars.ForEach(c => c.StartLeaseTime = daysThatIs[0].Date);
+            ourCars.ForEach(c => c.EndLeaseTime = daysThatIs[4].Date);
+
+
+
+            Message ourMessage1 = new Message()
+            {
+                HaveBeenSeen = true,
+                Confirmation = false,
+                TheMessage = "Can I rent car fuckface?",
+                LessorEmail = lessor.Email,
+                RenterEmail = renter.Email,
+                CreatedDate = new DateTime(2019, 05, 2),
+                MsgType = 1,
+                CarProfile = ourCars[0],
+                CarProfileRegNr = ourCars[0].RegNr,
+                MessagesWithUsers = new List<MessagesWithUsers>()
+            };
+             
+            Message ourMessage2 = new Message()
+            {
+                HaveBeenSeen = true,
+                Confirmation = true,
+                TheMessage = "Yes you can motherfucker!",
+                LessorEmail = lessor.Email,
+                RenterEmail = renter.Email,
+                CreatedDate = new DateTime(2019, 05, 3),
+                MsgType = 0,
+                CarProfile = ourCars[1],
+                CarProfileRegNr = ourCars[1].RegNr,
+                MessagesWithUsers = new List<MessagesWithUsers>()
+            };
+
+            Message ourMessage3 = new Message()
+            {
+                HaveBeenSeen = false,
+                Confirmation = false,
+                TheMessage = "Can I rent, yet another car? Cunt?",
+                LessorEmail = lessor.Email,
+                RenterEmail = renter.Email,
+                CreatedDate = new DateTime(2019, 05, 4),
+                MsgType = 1,
+                CarProfile = ourCars[2],
+                CarProfileRegNr = ourCars[2].RegNr,
+                MessagesWithUsers = new List<MessagesWithUsers>()
+            };
+
 
             using (var db = new AppDbContext())
             {
+                await db.AddUser(renter);
+                await db.AddUser(lessor);
+                foreach (var car in ourCars)
+                {
+                    await db.AddCarProfile(car);
+                }
 
+                await db.AddMessage(ourMessage1);
+                await db.AddMessage(ourMessage2);
+                await db.AddMessage(ourMessage3);
             }
         }
     }

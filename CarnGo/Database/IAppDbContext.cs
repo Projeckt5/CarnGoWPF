@@ -8,24 +8,25 @@ namespace CarnGo.Database
 {
     public interface IAppDbContext
     {
-        void AddCarEquipment(CarEquipment carEquipment);
-        void AddCarProfile(CarProfile carProfile);
-        void AddDaysThatIsRented(DayThatIsRented dayThatIsRented);
-        void AddDayThatIsRentedList(List<DayThatIsRented> list);
-        void AddMessage(Message message);
-        void AddPossibleToRentDay(PossibleToRentDay possibleToRentDay);
+        Task AddCarEquipment(CarEquipment carEquipment);
+        Task AddCarProfile(CarProfile carProfile);
+        Task AddDaysThatIsRented(DayThatIsRented dayThatIsRented);
+        Task AddDayThatIsRentedList(List<DayThatIsRented> list);
+        Task AddMessage(Message message);
+        Task AddPossibleToRentDay(PossibleToRentDay possibleToRentDay);
         Task AddUser(User user);
         Task<List<Message>> GetMessages(User user);
         Task<User> GetUser(string email, Guid authorization);
         Task<User> GetUser(string email, string password);
         Task<CarProfile> GetCarProfile(string regNr);
         Task<List<CarProfile>> GetAllCars(User user);
-        void RemoveCarEquipment(int ID);
-        void RemoveCarProfile(string ID);
-        void RemoveDayThatIsRented(DateTime ID);
-        void RemoveMessage(int ID);
-        void RemovePossibleToRentDay(DateTime ID);
-        void RemoveUser(string ID);
+        Task<List<CarProfile>> GetAllCarProfiles();
+        Task RemoveCarEquipment(int ID);
+        Task RemoveCarProfile(string ID);
+        Task RemoveDayThatIsRented(DateTime ID);
+        Task RemoveMessage(int ID);
+        Task RemovePossibleToRentDay(DateTime ID);
+        Task RemoveUser(string ID);
         Task UpdateCarEquipment(CarEquipment carEquipment);
         Task UpdateCarProfile(CarProfile carProfile);
         Task UpdateDayThatIsRented(DayThatIsRented dayThatIsRented);

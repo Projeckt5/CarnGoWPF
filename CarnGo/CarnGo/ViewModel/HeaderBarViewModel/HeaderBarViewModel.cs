@@ -89,7 +89,7 @@ namespace CarnGo
 
         public ICommand LogoutCommand => new DelegateCommand(Logout);
 
-        public ICommand NavigateSearchPageCommand => new DelegateCommand(()=> _application.GoToPage(ApplicationPage.SearchPage));
+        public ICommand NavigateSearchPageCommand => new DelegateCommand(NavigateSearchPage);
 
         public ICommand ManageCarCommand => new DelegateCommand(()=>_application.GoToPage(ApplicationPage.RegisterCarProfilePage));
 
@@ -105,6 +105,12 @@ namespace CarnGo
         {
             _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+        }
+
+        private void NavigateSearchPage()
+        {
+            _application.GoToPage(ApplicationPage.SearchPage);
+            _eventAggregator.GetEvent<InitializeSearchResultItemsEvent>().Publish();
         }
 
         public async Task ShowNotification()

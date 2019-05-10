@@ -11,21 +11,24 @@ using Prism.Events;
 
 namespace CarnGo
 {
+    public class InitializeSearchResultItemsEvent : PubSubEvent {}
 
     public class SearchViewModel : BaseViewModel, IDataErrorInfo
     {
-        private readonly IApplication _application;
-
         #region Constructor
 
-        public SearchViewModel(IEventAggregator eventAggregator, IApplication application)
+        public SearchViewModel(IEventAggregator eventAggregator, IApplication application, ISearchViewModelHelper helper, ISearchQueries dbContext)
         {
             _application = application;
-            eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            _helper = helper;
+            _dbContext = dbContext;
+            _eventAggregator = eventAggregator;
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
             _criteria = new List<Predicate<SearchResultItemViewModel>>();
             _searchResultItems = new ObservableCollection<SearchResultItemViewModel>();
+            _eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
+            _eventAggregator.GetEvent<InitializeSearchResultItemsEvent>().Subscribe(InitializeSearchResultItems);
         }
 
         #endregion
@@ -40,6 +43,10 @@ namespace CarnGo
         private List<Predicate<SearchResultItemViewModel>> _criteria;
         private ObservableCollection<SearchResultItemViewModel> _searchResultItems;
         private ICollectionView _cv;
+        private readonly IApplication _application;
+        private IEventAggregator _eventAggregator;
+        private ISearchViewModelHelper _helper;
+        private ISearchQueries _dbContext;
 
         #endregion
 
@@ -196,6 +203,15 @@ namespace CarnGo
                 ClearSearch();
                 LocationText = location;
                 Search();
+            }
+        }
+
+        private async void InitializeSearchResultItems()
+        {
+            var carProfiles = await _dbContext.GetAllCarProfilesTask();
+            foreach (var carProfile in carProfiles)
+            {
+                SearchResultItems.Add(_helper.ConvertCarProfileToSearchResultItem(carProfile));
             }
         }
 

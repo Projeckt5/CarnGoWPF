@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security;
 using System.Threading.Tasks;
+using CarnGo.Database.Models;
 
 namespace CarnGo
 {
@@ -14,6 +15,5 @@ namespace CarnGo
         Task<UserModel> GetUserTask(UserModel user);
         Task UpdateCarProfileTask(CarProfileModel carProfile);
         Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user);
-
     }
 }

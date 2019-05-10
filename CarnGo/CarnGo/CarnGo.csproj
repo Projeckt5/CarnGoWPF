@@ -196,8 +196,12 @@
     <Compile Include="Model\Converters\TestApptoDbModelConverter.cs" />
     <Compile Include="Model\DatabaseQueries\IQueryDatabase.cs" />
     <Compile Include="Model\DatabaseQueries\IQueueDatabaseForSendRequestViewModel.cs" />
+    <Compile Include="Model\DatabaseQueries\ISearchQueries.cs" />
     <Compile Include="Model\DatabaseQueries\RealQueueDatabaseForSendRequestViewModel.cs" />
     <Compile Include="Animations\SlideTopAnimation.cs" />
+    <Compile Include="Model\DatabaseQueries\RealSearchQueries.cs" />
+    <Compile Include="ViewModel\Search\ISearchViewModelHelper.cs" />
+    <Compile Include="ViewModel\Search\SearchViewModelHelper.cs" />
     <Compile Include="ViewModel\SendRequest\ISendRequestViewModelHelperFunction.cs" />
     <Compile Include="Model\DatabaseQueries\RealDatabaseQuerier.cs" />
     <Compile Include="ViewModel\SendRequest\SendRequestViewModelHelperFunction.cs" />

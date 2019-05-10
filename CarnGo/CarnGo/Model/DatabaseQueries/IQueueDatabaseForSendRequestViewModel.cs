@@ -9,13 +9,13 @@ namespace CarnGo
 {
     public interface IQueueDatabaseForSendRequestViewModel
     {
-        User GetUser(string email);
+        Task<User> GetUser(string email);
 
-        void AddMessageToLessor(Message message);
+        Task AddMessageToLessor(Message message);
 
         void AddDayThatIsRentedList(List<DayThatIsRented> list);
 
-        CarProfile GetCarProfileForSendRequestView(string regnr);
+        Task<CarProfile> GetCarProfileForSendRequestView(string regnr);
 
     }
 }

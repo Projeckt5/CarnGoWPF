@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace CarnGo.Database
 {
@@ -11,7 +12,8 @@ namespace CarnGo.Database
             Console.WriteLine("Your choice of commands are:" +
                               "\n\"1\" : Create Database" +
                               "\n\"2\" : Pull all data" +
-                              "\n\"3\" : Empty database");
+                              "\n\"3\" : Empty database" +
+                              "\n\"4\" : Seed database");
             do
             {
                 try
@@ -26,11 +28,15 @@ namespace CarnGo.Database
                             break;
 
                         case "2":
-                                Commands.PullAllData();
+                            Task.Run(Commands.PullAllData);
                             break;
 
                         case "3":
                             Commands.EmptyDatabase();
+                            break;
+
+                        case "4":
+                            Task.Run(Commands.SeedDatabase);
                             break;
 
                         default:
@@ -53,7 +59,7 @@ namespace CarnGo.Database
                     }
 
                 }
-                
+
             } while (true);
         }
     }

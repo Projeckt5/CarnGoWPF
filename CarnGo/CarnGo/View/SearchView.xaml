@@ -12,7 +12,7 @@
             Background="{StaticResource BackgroundMainBrush}"
             BorderBrush="{StaticResource BlueMainBrush}"
             CornerRadius="20">
-        <Grid DataContext="{x:Static local:SearchDesignModel.Instance}">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="6*"/>

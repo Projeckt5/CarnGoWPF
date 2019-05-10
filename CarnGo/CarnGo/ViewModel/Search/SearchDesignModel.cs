@@ -8,11 +8,14 @@ namespace CarnGo
 {
     public class SearchDesignModel : SearchViewModel
     {
-        public static SearchDesignModel Instance => new SearchDesignModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>());
+        public static SearchDesignModel Instance => 
+            new SearchDesignModel(IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IApplication>(), 
+                IoCContainer.Resolve<ISearchViewModelHelper>(), IoCContainer.Resolve<ISearchQueries>());
 
         #region Constructor
 
-        public SearchDesignModel(IEventAggregator eventAggregator, IApplication application) : base(eventAggregator, application)
+        public SearchDesignModel(IEventAggregator eventAggregator, IApplication application, ISearchViewModelHelper helper, ISearchQueries dbContext) 
+            : base(eventAggregator, application, helper, dbContext)
         {
             UserModel jensJensen = new UserModel
             {
