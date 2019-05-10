@@ -33,13 +33,27 @@ namespace CarnGo
         public static readonly DependencyProperty CurrentPageProperty =
             DependencyProperty.Register(nameof(CurrentPage), typeof(Page), typeof(PageNavigation), new UIPropertyMetadata(OnCurrentPageChanged));
 
-        private static void OnCurrentPageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static async void OnCurrentPageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var currentPageFrame = (d as PageNavigation)?.CurrentPageFrame;
-            if (currentPageFrame == null)
+            var newPageFrame = (d as PageNavigation)?.NewPageFrame;
+            if (currentPageFrame == null || newPageFrame == null)
                 return;
-            currentPageFrame.Content = e.NewValue;
+
+            var oldContent = newPageFrame.Content;
+
+            newPageFrame.Content = null;
+
+            currentPageFrame.Content = oldContent;
+
+            if (oldContent is BasePage oldPage)
+            {
+                oldPage.ShouldAnimateIn = false;
+                await oldPage?.AnimateOut()
+                    .ContinueWith((T) => Application.Current.Dispatcher.Invoke(() => currentPageFrame.Content = null));
+            }
             
+            newPageFrame.Content = e.NewValue;
         }
     }
 

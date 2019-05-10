@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using CarnGo.Animations;
 
 namespace CarnGo
 {
@@ -7,6 +9,7 @@ namespace CarnGo
     /// </summary>
     public partial class HeaderBarControl : UserControl
     {
+
         public HeaderBarControl()
         {
             InitializeComponent();
