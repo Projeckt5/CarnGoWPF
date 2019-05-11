@@ -90,7 +90,7 @@
                             DisplayDate="{Binding Path=DateTo,
                             UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True}"/>
-                <WrapPanel Margin="5" HorizontalAlignment="Center">
+                <WrapPanel Margin="2" HorizontalAlignment="Center">
                     <!-- Search button -->
                     <Button Padding="6"
                         Height="50"
@@ -111,6 +111,24 @@
                         <TextBlock Text="{StaticResource FontAwesomeTrashIcon}" 
                                    FontFamily="{StaticResource FontAwesome}"/>
                         </Button>
+                    <!-- Former page button -->
+                    <Button Padding="6"
+                            Height="50"
+                            Foreground="{StaticResource ForegroundMainBrush}"
+                            Style="{StaticResource IconGrowButton}">
+
+                        <TextBlock Text="{StaticResource FontAwesomeAngleLeftIcon}" 
+                                   FontFamily="{StaticResource FontAwesome}"/>
+                    </Button>
+                    <!-- Next page button -->
+                    <Button Padding="6"
+                            Height="50"
+                            Foreground="{StaticResource ForegroundMainBrush}"
+                            Style="{StaticResource IconGrowButton}">
+
+                        <TextBlock Text="{StaticResource FontAwesomeAngleRightIcon}" 
+                                   FontFamily="{StaticResource FontAwesome}"/>
+                    </Button>
                     </WrapPanel>
 
             </StackPanel>

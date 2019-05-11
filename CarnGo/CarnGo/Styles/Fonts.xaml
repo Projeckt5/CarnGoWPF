@@ -55,8 +55,10 @@
     <system:String x:Key="FontAwesomeSaveOutIcon">&#xf0c7;</system:String>
     <system:String x:Key="FontAwesomeTrashIcon">&#xf2ed;</system:String>
     <system:String x:Key="FontAwesomeSideCarIcon">&#xf5e4;</system:String>
-    
-    <!--FotAwesomeIcon Converter-->
+    <system:String x:Key="FontAwesomeAngleLeftIcon">&#xf104;</system:String>
+    <system:String x:Key="FontAwesomeAngleRightIcon">&#xf105;</system:String>
+
+<!--FotAwesomeIcon Converter-->
     <local:CarDetailBoolToImageValueConverter x:Key="CarDetailConverter" 
                                 CheckIcon="{StaticResource FontAwesomeCheckIcon}" 
                                 BanIcon="{StaticResource FontAwesomeBanIcon}" />
