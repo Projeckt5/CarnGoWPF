@@ -21,6 +21,7 @@ namespace CarnGo.Database
         Task<CarProfile> GetCarProfile(string regNr);
         Task<List<CarProfile>> GetAllCars(User user);
         Task<List<CarProfile>> GetAllCarProfiles();
+        Task<List<CarProfile>> GetCarProfilesForSearchView(int pageIndex, int itemsPerPage);
         Task RemoveCarEquipment(int ID);
         Task RemoveCarProfile(string ID);
         Task RemoveDayThatIsRented(DateTime ID);

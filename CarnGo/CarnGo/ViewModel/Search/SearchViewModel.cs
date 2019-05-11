@@ -25,6 +25,8 @@ namespace CarnGo
             _eventAggregator = eventAggregator;
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
+            _pageIndex = 0;
+            _itemsPerPage = 10;
             _criteria = new List<Predicate<SearchResultItemViewModel>>();
             _searchResultItems = new ObservableCollection<SearchResultItemViewModel>();
             _eventAggregator.GetEvent<SearchEvent>().Subscribe(SearchEventHandler);
@@ -47,12 +49,13 @@ namespace CarnGo
         private IEventAggregator _eventAggregator;
         private ISearchViewModelHelper _helper;
         private ISearchQueries _dbContext;
+        private int _pageIndex;
+        private int _numberOfPages;
+        private int _itemsPerPage;
 
         #endregion
 
         #region Properties
-
-        public CarProfileModel CarProfileModel { get; set; }
 
         public ObservableCollection<SearchResultItemViewModel> SearchResultItems
         {
@@ -208,11 +211,24 @@ namespace CarnGo
 
         private async void InitializeSearchResultItems()
         {
-            var carProfiles = await _dbContext.GetAllCarProfilesTask();
+            SearchResultItems.Clear();
+            var carProfiles = await _dbContext.GetCarProfilesForSearchViewTask(_pageIndex, _itemsPerPage);
             foreach (var carProfile in carProfiles)
             {
                 SearchResultItems.Add(_helper.ConvertCarProfileToSearchResultItem(carProfile));
             }
+        }
+
+        private void NextPage()
+        {
+            _pageIndex++;
+            InitializeSearchResultItems();
+        }
+
+        private void PreviousPage()
+        {
+            _pageIndex--;
+            InitializeSearchResultItems();
         }
 
         #endregion
@@ -231,6 +247,18 @@ namespace CarnGo
             get { return _clearSearchCommand ?? (_clearSearchCommand = new DelegateCommand(ClearSearch)); }
         }
 
+        private ICommand _nextPageCommand;
+        public ICommand NextPageCommand
+        {
+            get { return _nextPageCommand ?? (_nextPageCommand = new DelegateCommand(NextPage)); }
+        }
+
+        private ICommand _previousPageCommand;
+        public ICommand PreviousPageCommand
+        {
+            get { return _previousPageCommand ?? (_previousPageCommand = new DelegateCommand(PreviousPage)); }
+        }
+        
         #endregion
 
         #region ErrorHandling

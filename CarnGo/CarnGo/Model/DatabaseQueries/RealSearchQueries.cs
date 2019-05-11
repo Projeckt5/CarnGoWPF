@@ -18,5 +18,10 @@ namespace CarnGo
         {
             return _dbContext.GetAllCarProfiles();
         }
+
+        public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage)
+        {
+            return await _dbContext.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
+        }
     }
 }

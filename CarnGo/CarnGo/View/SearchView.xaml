@@ -111,11 +111,12 @@
                         <TextBlock Text="{StaticResource FontAwesomeTrashIcon}" 
                                    FontFamily="{StaticResource FontAwesome}"/>
                         </Button>
-                    <!-- Former page button -->
+                    <!-- Previous page button -->
                     <Button Padding="6"
                             Height="50"
                             Foreground="{StaticResource ForegroundMainBrush}"
-                            Style="{StaticResource IconGrowButton}">
+                            Style="{StaticResource IconGrowButton}"
+                            Command="{Binding PreviousPageCommand}">
 
                         <TextBlock Text="{StaticResource FontAwesomeAngleLeftIcon}" 
                                    FontFamily="{StaticResource FontAwesome}"/>
@@ -124,7 +125,8 @@
                     <Button Padding="6"
                             Height="50"
                             Foreground="{StaticResource ForegroundMainBrush}"
-                            Style="{StaticResource IconGrowButton}">
+                            Style="{StaticResource IconGrowButton}"
+                            Command="{Binding NextPageCommand}">
 
                         <TextBlock Text="{StaticResource FontAwesomeAngleRightIcon}" 
                                    FontFamily="{StaticResource FontAwesome}"/>

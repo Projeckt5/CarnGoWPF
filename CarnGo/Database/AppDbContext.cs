@@ -5,6 +5,7 @@ using System.Security;
 using System.Threading.Tasks;
 using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace CarnGo.Database
 {
@@ -113,7 +114,22 @@ namespace CarnGo.Database
             }
             return carProfiles;
         }
-        
+
+
+        public async Task<List<CarProfile>> GetCarProfilesForSearchView(int pageIndex, int itemsPerPage)
+        {
+            var carProfiles = await CarProfiles
+                .Skip(pageIndex*itemsPerPage)
+                .Take(itemsPerPage)
+                .ToListAsync();
+            foreach (var carProfile in carProfiles)
+            {
+                await Entry(carProfile).Reference(c => c.Owner).LoadAsync();
+            }
+            return carProfiles;
+        }
+
+
         public async Task<List<DayThatIsRented>> GetAllDayThatIsRented()
         {
             var daysRented = await DaysThatIsRented
