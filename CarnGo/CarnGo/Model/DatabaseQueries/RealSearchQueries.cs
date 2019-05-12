@@ -14,14 +14,14 @@ namespace CarnGo
             _dbContext = dbContext;
         }
 
-        public Task<List<CarProfile>> GetAllCarProfilesTask()
-        {
-            return _dbContext.GetAllCarProfiles();
-        }
-
         public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage)
         {
             return await _dbContext.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
+        }
+
+        public async Task<int> GetCarProfilesCountTask()
+        {
+            return await _dbContext.GetCarProfilesCount();
         }
     }
 }

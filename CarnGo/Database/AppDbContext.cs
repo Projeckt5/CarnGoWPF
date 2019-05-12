@@ -130,6 +130,12 @@ namespace CarnGo.Database
         }
 
 
+        public async Task<int> GetCarProfilesCount()
+        {
+            return await CarProfiles.CountAsync();
+        }
+
+
         public async Task<List<DayThatIsRented>> GetAllDayThatIsRented()
         {
             var daysRented = await DaysThatIsRented

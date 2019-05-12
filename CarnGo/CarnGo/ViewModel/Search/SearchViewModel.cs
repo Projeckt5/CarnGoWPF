@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Mvvm;
 
 namespace CarnGo
 {
@@ -17,7 +19,8 @@ namespace CarnGo
     {
         #region Constructor
 
-        public SearchViewModel(IEventAggregator eventAggregator, IApplication application, ISearchViewModelHelper helper, ISearchQueries dbContext)
+        public SearchViewModel(IEventAggregator eventAggregator, IApplication application,
+            ISearchViewModelHelper helper, ISearchQueries dbContext)
         {
             _application = application;
             _helper = helper;
@@ -25,7 +28,7 @@ namespace CarnGo
             _eventAggregator = eventAggregator;
             DateFrom = DateTime.Today;
             DateTo = DateTime.Today;
-            _pageIndex = 0;
+            PageIndex = 0;
             _itemsPerPage = 10;
             _criteria = new List<Predicate<SearchResultItemViewModel>>();
             _searchResultItems = new ObservableCollection<SearchResultItemViewModel>();
@@ -52,6 +55,7 @@ namespace CarnGo
         private int _pageIndex;
         private int _numberOfPages;
         private int _itemsPerPage;
+        private bool _isQuerying;
 
         #endregion
 
@@ -77,6 +81,7 @@ namespace CarnGo
             {
                 if (_locationText == value)
                     return;
+
                 _locationText = value;
                 OnPropertyChanged(nameof(LocationText));
             }
@@ -89,6 +94,7 @@ namespace CarnGo
             {
                 if (_brandText == value)
                     return;
+
                 _brandText = value;
                 OnPropertyChanged(nameof(BrandText));
             }
@@ -101,6 +107,7 @@ namespace CarnGo
             {
                 if (_seatsText == value)
                     return;
+
                 _seatsText = value;
                 OnPropertyChanged(nameof(SeatsText));
             }
@@ -113,6 +120,7 @@ namespace CarnGo
             {
                 if (_dateFrom == value)
                     return;
+
                 _dateFrom = value;
                 OnPropertyChanged(nameof(DateFrom));
             }
@@ -125,8 +133,35 @@ namespace CarnGo
             {
                 if (_dateTo == value)
                     return;
+
                 _dateTo = value;
                 OnPropertyChanged(nameof(DateTo));
+            }
+        }
+
+        public int PageIndex
+        {
+            get => _pageIndex;
+            set
+            {
+                if (_pageIndex == value)
+                    return;
+
+                _pageIndex = value;
+                OnPropertyChanged(nameof(PageIndex));
+            }
+        }
+
+        public int NumberOfPages
+        {
+            get => _numberOfPages;
+            set
+            {
+                if (_numberOfPages == value)
+                    return;
+
+                _numberOfPages= value;
+                OnPropertyChanged(nameof(NumberOfPages));
             }
         }
 
@@ -139,7 +174,7 @@ namespace CarnGo
             if (!IsValid)
                 return;
 
-            _cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            _cv = (CollectionView) CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -163,14 +198,14 @@ namespace CarnGo
 
             if ((DateFrom.Date != DateTime.Today.Date && DateTo.Date != DateTime.Today.Date))
             {
-                    _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                        x => x.StartLeaseTime <= DateFrom));
+                _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                    x => x.StartLeaseTime <= DateFrom));
 
-                    _criteria.Add(new Predicate<SearchResultItemViewModel>(
-                        x => x.EndLeaseTime >= DateTo));
+                _criteria.Add(new Predicate<SearchResultItemViewModel>(
+                    x => x.EndLeaseTime >= DateTo));
             }
+
             _cv.Filter = Filtering;
-            OnPropertyChanged(nameof(_cv));
         }
 
         public bool Filtering(object item)
@@ -185,7 +220,7 @@ namespace CarnGo
 
         public void ClearSearch()
         {
-            _cv = (CollectionView)CollectionViewSource.GetDefaultView(SearchResultItems);
+            _cv = (CollectionView) CollectionViewSource.GetDefaultView(SearchResultItems);
 
             _criteria.Clear();
 
@@ -193,10 +228,9 @@ namespace CarnGo
             BrandText = string.Empty;
             SeatsText = string.Empty;
             DateFrom = DateTime.Today;
-            DateTo = DateTime.Today; 
+            DateTo = DateTime.Today;
 
             _cv.Filter = null;
-            OnPropertyChanged(nameof(_cv));
         }
 
         private void SearchEventHandler(string location)
@@ -204,6 +238,7 @@ namespace CarnGo
             if (!string.IsNullOrEmpty(location))
             {
                 ClearSearch();
+                InitializeSearchResultItems();
                 LocationText = location;
                 Search();
             }
@@ -211,23 +246,39 @@ namespace CarnGo
 
         private async void InitializeSearchResultItems()
         {
-            SearchResultItems.Clear();
-            var carProfiles = await _dbContext.GetCarProfilesForSearchViewTask(_pageIndex, _itemsPerPage);
-            foreach (var carProfile in carProfiles)
+            try
             {
-                SearchResultItems.Add(_helper.ConvertCarProfileToSearchResultItem(carProfile));
+                SearchResultItems.Clear();
+                await SetNumberOfPages();
+                var carProfiles = await _dbContext.GetCarProfilesForSearchViewTask(PageIndex, _itemsPerPage);
+                foreach (var carProfile in carProfiles)
+                {
+                    SearchResultItems.Add(_helper.ConvertCarProfileToSearchResultItem(carProfile));
+                }
             }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        private async Task SetNumberOfPages()
+        {
+            int carProfileCount = await _dbContext.GetCarProfilesCountTask();
+            NumberOfPages = carProfileCount / _itemsPerPage;
+            if ((NumberOfPages % _itemsPerPage) > 0)
+                NumberOfPages++;
         }
 
         private void NextPage()
         {
-            _pageIndex++;
+            PageIndex++;
             InitializeSearchResultItems();
         }
 
         private void PreviousPage()
         {
-            _pageIndex--;
+            PageIndex--;
             InitializeSearchResultItems();
         }
 
@@ -250,15 +301,24 @@ namespace CarnGo
         private ICommand _nextPageCommand;
         public ICommand NextPageCommand
         {
-            get { return _nextPageCommand ?? (_nextPageCommand = new DelegateCommand(NextPage)); }
+            get
+            {
+                return _nextPageCommand ?? (_nextPageCommand = new DelegateCommand(NextPage, () => (PageIndex < NumberOfPages - 1))
+                           .ObservesProperty(() => PageIndex).ObservesProperty(() => NumberOfPages));
+            }
         }
 
         private ICommand _previousPageCommand;
         public ICommand PreviousPageCommand
         {
-            get { return _previousPageCommand ?? (_previousPageCommand = new DelegateCommand(PreviousPage)); }
+            get
+            {
+                return _previousPageCommand ?? (_previousPageCommand = new DelegateCommand(PreviousPage,
+                               () => (PageIndex >= 1))
+                           .ObservesProperty(() => PageIndex));
+            }
         }
-        
+
         #endregion
 
         #region ErrorHandling
@@ -303,7 +363,7 @@ namespace CarnGo
             return error;
         }
 
-        // Checks that number of seats qualifies as a number and exceeds 0
+        //Checks that number of seats qualifies as a number and exceeds 0
         private string ValidateSeatsText()
         {
             if (!string.IsNullOrEmpty(SeatsText))
@@ -316,6 +376,7 @@ namespace CarnGo
                 if (number <= 0)
                     return "Number of seats must be larger than 0";
             }
+
             return null;
         }
 
@@ -351,10 +412,10 @@ namespace CarnGo
 
         private static readonly string[] ValidatedProperties =
         {
-            "SeatsText",
-            "DateFrom",
-            "DateTo"
-        };
+                "SeatsText",
+                "DateFrom",
+                "DateTo"
+            };
 
         #endregion
     }
