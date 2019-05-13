@@ -47,7 +47,7 @@ namespace CarnGo
             newModel.Age = model.Age;
             newModel.RentalPrice = model.RentalPrice;
             newModel.Seats = model.Seats;
-
+            newModel.RegNr = model.RegNr;
             newModel.Owner = newOwner;
 
 
