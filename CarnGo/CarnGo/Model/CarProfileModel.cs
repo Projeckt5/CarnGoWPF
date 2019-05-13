@@ -14,6 +14,7 @@ namespace CarnGo
     public class CarProfileModel : BaseViewModel
     {
         #region Constructors
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -44,6 +45,7 @@ namespace CarnGo
             StartLeaseTime = startlease;
             EndLeaseTime = endlease;
         }
+
         #endregion
 
         #region Fields

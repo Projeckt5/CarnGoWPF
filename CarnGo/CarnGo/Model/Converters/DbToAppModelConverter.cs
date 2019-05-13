@@ -12,6 +12,8 @@ namespace CarnGo
     {
         public UserModel Convert(User dbUser)
         {
+            if (dbUser == null)
+                return default;
             return new UserModel()
             {
                 Firstname = dbUser.FirstName ?? "",
@@ -26,6 +28,8 @@ namespace CarnGo
 
         public CarProfileModel Convert(CarProfile dbCarProfile)
         {
+            if (dbCarProfile == null)
+                return default;
             var owner = Convert(dbCarProfile.Owner);
             return new CarProfileModel(owner,
                 dbCarProfile.Model ?? "",
@@ -45,7 +49,11 @@ namespace CarnGo
             var returnList = new List<MessageModel>();
             foreach (var dbMessage in dbMessages)
             {
-
+                if (dbMessage == null)
+                {
+                    returnList.Add(default);
+                    continue;
+                }
                 var lessor = dbMessage.MessagesWithUsers.Select(mwu => mwu.User).Single(u => u.Email == dbMessage.LessorEmail);
                 var lessorUserModel = Convert(lessor);
                 var renter = dbMessage.MessagesWithUsers.Select(mwu => mwu.User).Single(u => u.Email == dbMessage.RenterEmail);
@@ -56,6 +64,7 @@ namespace CarnGo
                     case MessageType.LessorMessage:
                         returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,dbMessage.Confirmation)
                         {
+                            Sender = lessorUserModel.Email == dbMessage.SenderEmail ? lessorUserModel : renterUserModel,
                             StatusConfirmation = dbMessage.Confirmation,
                             Id = dbMessage.MessageID,
                             MsgType = (MessageType)dbMessage.MsgType
@@ -64,6 +73,7 @@ namespace CarnGo
                     case MessageType.RenterMessage:
                         returnList.Add(new MessageFromRenterModel(renterUserModel,lessorUserModel,car,dbMessage.TheMessage)
                         {
+                            Sender = lessorUserModel.Email == dbMessage.SenderEmail ? lessorUserModel : renterUserModel,
                             Id = dbMessage.MessageID,
                             MsgType = (MessageType)dbMessage.MsgType
                         }); ;
@@ -82,6 +92,11 @@ namespace CarnGo
 
             foreach (var car in carProfiles)
             {
+                if (car == null)
+                {
+                    carModels.Add(default);
+                    continue;
+                }
                 var newModel = Convert(car);
                 carModels.Add(newModel);
             }

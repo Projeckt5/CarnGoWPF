@@ -32,9 +32,43 @@ namespace CarnGo
         #endregion
 
         #region Properties
-        public UserModel Renter { get; set; }
-        public UserModel Lessor { get; set; }
-        public CarProfileModel RentCar { get; set; }
+
+        public UserModel Renter
+        {
+            get=> _renter;
+            set
+            {
+                if (_renter == value)
+                    return;
+                _renter = value;
+                OnPropertyChanged(nameof(Renter));
+            }
+        }
+
+        public UserModel Lessor
+        {
+            get => _lessor;
+            set
+            {
+                if(_lessor == value)
+                    return;
+                _lessor = value;
+                OnPropertyChanged(nameof(Lessor));
+            }
+        }
+
+        public CarProfileModel RentCar
+        {
+            get => _rentCar;
+            set
+            {
+                if(_rentCar == value)
+                    return;
+                _rentCar = value;
+                OnPropertyChanged(nameof(RentCar));
+            }
+
+        }
         #endregion
 
     }

@@ -34,7 +34,7 @@ namespace CarnGo
             };
         }
 
-        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
+        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user, int startIndex,int amount)
         {
             await Task.Delay(2000);
 

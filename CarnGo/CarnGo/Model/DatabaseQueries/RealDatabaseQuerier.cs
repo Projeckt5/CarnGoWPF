@@ -56,10 +56,10 @@ namespace CarnGo
         }
 
 
-        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user)
+        public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user,int startIndex, int amount)
         {
             var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
-            var dbMessages = await _dbContext.GetMessages(dbUser);
+            var dbMessages = await _dbContext.GetMessages(dbUser,startIndex,amount);
             var messages = _dbToAppModelConverter.Convert(dbMessages);
             return messages;
         }

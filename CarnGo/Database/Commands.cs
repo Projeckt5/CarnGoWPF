@@ -118,9 +118,9 @@ namespace CarnGo.Database
             User renter = new User()
             {
                 Email = "At@at.at",
-                FirstName = "Car ",
+                FirstName = "Car",
                 LastName = "Owner",
-                Password = "1234",
+                Password = "123asd",
                 Address = "Here",
                 UserType = 1,
                 AuthorizationString = Guid.Empty,
@@ -128,10 +128,10 @@ namespace CarnGo.Database
             
             User lessor = new User()
             {
-                Email = "Dot@Dot.dot",
-                FirstName = "Car ",
+                Email = "123@asd",
+                FirstName = "Car",
                 LastName = "Renter",
-                Password = "4321",
+                Password = "123asd",
                 Address = "There",
                 UserType = 2,
                 AuthorizationString = Guid.Empty,
@@ -222,6 +222,7 @@ namespace CarnGo.Database
                 TheMessage = "Can I rent car fuckface?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = lessor.Email,
                 CreatedDate = new DateTime(2019, 05, 2),
                 MsgType = 1,
                 CarProfile = ourCars[0],
@@ -236,6 +237,7 @@ namespace CarnGo.Database
                 TheMessage = "Yes you can motherfucker!",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = renter.Email,
                 CreatedDate = new DateTime(2019, 05, 3),
                 MsgType = 0,
                 CarProfile = ourCars[1],
@@ -250,6 +252,7 @@ namespace CarnGo.Database
                 TheMessage = "Can I rent, yet another car? Cunt?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = renter.Email,
                 CreatedDate = new DateTime(2019, 05, 4),
                 MsgType = 1,
                 CarProfile = ourCars[2],
