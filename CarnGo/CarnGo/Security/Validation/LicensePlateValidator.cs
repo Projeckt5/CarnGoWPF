@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarnGo.Security.Validation
 {
-    class LicensePlateValidator : IValidator<string>
+    public class LicensePlateValidator : IValidator<string>
     {
         public List<string> ValidationErrorMessages { get; }
         public bool Validate(string toValidate)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarnGo.Security.Validation
 {
-    class PriceValidator : IValidator<int>
+    public class PriceValidator : IValidator<int>
     {
         public List<string> ValidationErrorMessages { get; }
         public bool Validate(int toValidate)
