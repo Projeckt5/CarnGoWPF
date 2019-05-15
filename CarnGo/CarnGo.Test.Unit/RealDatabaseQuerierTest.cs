@@ -93,7 +93,7 @@ namespace CarnGo.Test.Unit
             };
             _fakeDbToAppModelConverter.Convert(Arg.Any<List<Message>>()).Returns(testMessageList);
 
-            await _uut.GetUserMessagesTask(testUser);
+            await _uut.GetUserMessagesTask(testUser,0,10);
 
             await _fakeDbContext.Received().GetUser(
                 Arg.Is<string>(email => email == testUser.Email),
@@ -114,9 +114,9 @@ namespace CarnGo.Test.Unit
                 Email = testUser.Email,
             });
 
-            await _uut.GetUserMessagesTask(testUser);
+            await _uut.GetUserMessagesTask(testUser,0, 10);
 
-            await _fakeDbContext.Received().GetMessages(Arg.Is<User>(u => u.Email == testUser.Email));
+            await _fakeDbContext.Received().GetMessages(Arg.Is<User>(u => u.Email == testUser.Email),Arg.Any<int>(),Arg.Any<int>());
         }
 
 
@@ -130,7 +130,7 @@ namespace CarnGo.Test.Unit
             };
             _fakeDbToAppModelConverter.Convert(Arg.Any<List<Message>>()).Returns(testMessageList);
 
-            var userMessageResult = await _uut.GetUserMessagesTask(testUser);
+            var userMessageResult = await _uut.GetUserMessagesTask(testUser,0, 10);
 
             Assert.That(userMessageResult, Is.EqualTo(testMessageList));
         }

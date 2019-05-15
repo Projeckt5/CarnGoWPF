@@ -23,6 +23,8 @@ namespace CarnGo
         private readonly IQueryDatabase _databaseQuery;
         private bool _isQueryingDatabase;
         private UserModel _currentUser;
+        private int _amountLoadedNotifications = 0;
+        private int _amountNotificationsToLoad = 10;
 
         #endregion
         #region Default Constructor
@@ -121,7 +123,11 @@ namespace CarnGo
             try
             {
                 IsQueryingDatabase = true;
-                UserModel.MessageModels = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser);
+                var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
+                    _amountLoadedNotifications,
+                    _amountNotificationsToLoad);
+                UserModel.MessageModels.AddRange(notifications) ;
+                _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
                 _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
