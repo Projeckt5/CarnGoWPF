@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 
 namespace CarnGo
@@ -14,7 +15,7 @@ namespace CarnGo
         {
             if (dbUser == null)
                 return default;
-            return new UserModel()
+            var user = new UserModel()
             {
                 Firstname = dbUser.FirstName ?? "",
                 Lastname = dbUser.LastName ?? "",
@@ -22,8 +23,11 @@ namespace CarnGo
                 Email = dbUser.Email ?? "",
                 AuthorizationString = dbUser.AuthorizationString,
                 MessageModels = new List<MessageModel>(),
-                UserType = (UserType)dbUser.UserType
+                UserType = (UserType)dbUser.UserType,
+                UserImage = Convert(dbUser.UserPhoto)
             };
+            user.UserImage = Convert(dbUser.UserPhoto) ?? new BitmapImage();
+            return user;
         }
 
         public CarProfileModel Convert(CarProfile dbCarProfile)
@@ -31,7 +35,7 @@ namespace CarnGo
             if (dbCarProfile == null)
                 return default;
             var owner = Convert(dbCarProfile.Owner);
-            return new CarProfileModel(owner,
+            var car = new CarProfileModel(owner,
                 dbCarProfile.Model ?? "",
                 dbCarProfile.Brand ?? "",
                 dbCarProfile.Age,
@@ -41,6 +45,8 @@ namespace CarnGo
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
+            car.CarPicture = Convert(dbCarProfile.CarPicture) ?? new BitmapImage();
+            return car;
         }
 
 
@@ -101,6 +107,26 @@ namespace CarnGo
                 carModels.Add(newModel);
             }
             return carModels;
+        }
+
+        public BitmapImage Convert(string serializedImage)
+        {
+            if (serializedImage == null)
+            {
+                return new BitmapImage();
+            }
+
+            var byteImage = System.Text.Encoding.ASCII.GetBytes(serializedImage);
+
+            using (var ms = new System.IO.MemoryStream(byteImage))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
         }
     }
 }

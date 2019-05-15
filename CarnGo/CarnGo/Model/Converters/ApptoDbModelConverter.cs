@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 using CarnGo.Security;
 
@@ -25,6 +27,7 @@ namespace CarnGo
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthorizationString = appUser.AuthorizationString,
                 UserType = (int)appUser.UserType,
+                UserPhoto = Convert(appUser.UserImage)
             };
             return user;
         }
@@ -48,7 +51,8 @@ namespace CarnGo
                 Location = car.Location ?? "",
                 Seats = car.Seats,
                 EndLeaseTime = car.EndLeaseTime,
-                StartLeaseTime = car.StartLeaseTime
+                StartLeaseTime = car.StartLeaseTime,
+                CarPicture = Convert(car.CarPicture)
             };
             return dbCarModel;
         }
@@ -118,6 +122,22 @@ namespace CarnGo
                     MessageID = msg.Id
                 };
             }
+        }
+
+        private string Convert(BitmapImage image)
+        {
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+            encoder.Frames.Add(BitmapFrame.Create(image));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+
+            return System.Text.Encoding.ASCII.GetString(data);
+
         }
     }
 }

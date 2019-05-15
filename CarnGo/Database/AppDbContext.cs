@@ -210,6 +210,7 @@ namespace CarnGo.Database
             result.Address = user.Address;
             result.AuthorizationString = user.AuthorizationString;
             result.UserType = user.UserType;
+            result.UserPhoto = user.UserPhoto;
             //TODO: SAVE THE PICTURE
             await SaveChangesAsync();
         }
