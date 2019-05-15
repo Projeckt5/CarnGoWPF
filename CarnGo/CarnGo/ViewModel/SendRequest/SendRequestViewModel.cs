@@ -166,17 +166,20 @@ namespace CarnGo
             bool confirm = _helper.ConfirmRentingDates(CarProfile, To, From,ref text);
             if (!confirm)
             {
-                //ErrorText = text;
+                ErrorText = text;
                 return;
             }
 
             var list = _helper.CreateDayThatIsRentedList(From,To,CarProfile);
-           
-            _dbContext.AddDayThatIsRentedList(list);
+            var renterUser = await _dbContext.GetUser(_application.CurrentUser.Email);
+            _dbContext.UpdateUser(CarProfile.User);
+            _dbContext.UpdateUser(renterUser);
 
-            var renterUser= await _dbContext.GetUser(_application.CurrentUser.Email);
-            var message= _helper.CreateMessageToLessor(Message,CarProfile,renterUser);           
-            await _dbContext.AddMessageToLessor(message);
+            await _dbContext.AddDayThatIsRentedList(list);
+                                 
+            await _dbContext.AddMessageToLessor(Message,CarProfile,renterUser);
+
+            
             _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 

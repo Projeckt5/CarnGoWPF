@@ -16,7 +16,7 @@ namespace CarnGo
         List<DayThatIsRented> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfile carProfile);
 
 
-        Message CreateMessageToLessor(string mes, CarProfile carProfile, User renter);
+       
 
     }
 }

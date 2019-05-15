@@ -16,10 +16,10 @@ namespace CarnGo
         {
             context = new AppDbContext();
         }
-        public void AddDayThatIsRentedList(List<DayThatIsRented> list)
+        public async Task AddDayThatIsRentedList(List<DayThatIsRented> list)
         {
-            context.AddDayThatIsRentedList(list);
-            context.SaveChanges();
+            await context.AddDayThatIsRentedList(list);
+            await context.SaveChangesAsync();
         }
         public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
         {
@@ -27,15 +27,46 @@ namespace CarnGo
             return carprofile;
         }
 
+        public void UpdateUser(User user)
+        {
+            context.UpdateUser(user);
+        }
+
         public async Task<User> GetUser(string email)
         {
             return await context.GetUser(email);
         }
 
-        public async Task AddMessageToLessor(Message message)
+        public async Task AddMessageToLessor(string mes, CarProfile carProfile, User renter)
         {
+            var message = new Message();
+            var messageBetweenLessor = new MessagesWithUsers();
+            var messageBetweenRenter = new MessagesWithUsers();
+            message.TheMessage = mes;
+            message.HaveBeenSeen = false;
+            //adding lessor and renter strings to database missing. Why?
+            message.Confirmation = false;
+            messageBetweenLessor.Message = message;
+            messageBetweenRenter.Message = message;
+            //messageBetweenLessor.User = carProfile.User;
+
+            //messageBetweenRenter.User = renter;
+
+            
+            message.MessagesWithUsers = new List<MessagesWithUsers> { messageBetweenRenter, messageBetweenLessor };
             await context.AddMessageToLessor(message);
+            context.Update(renter);
+            context.Update(carProfile.User);
+            renter.MessagesWithUsers.Add(messageBetweenRenter);
+            carProfile.User.MessagesWithUsers.Add(messageBetweenLessor);
             await context.SaveChangesAsync();
+        }
+
+        public void UpdateUser(User user,MessagesWithUsers message)
+        {
+            context.UpdateUser(user);
+            user.MessagesWithUsers.Add(message);
+            context.SaveChanges();
         }
     }
 }

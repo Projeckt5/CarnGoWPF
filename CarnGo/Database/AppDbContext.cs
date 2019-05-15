@@ -33,6 +33,11 @@ namespace CarnGo.Database
             await SaveChangesAsync();
         }
 
+        public void UpdateUser(User user)
+        {
+            Users.Update(user);
+       
+        }
         //Get
         public async Task<User> GetUser(string email, string password)
         {
@@ -155,16 +160,17 @@ namespace CarnGo.Database
         public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
         {
             var carprofile =new CarProfile();
-            carprofile= await CarProfiles.Include(d => d.DaysThatIsRented)
-                .Include(p => p.PossibleToRentDays)
-                .Include(u => u.Owner)
-                .SingleAsync(e => e.RegNr == regnr);
+            carprofile= await CarProfiles.SingleAsync(e => e.RegNr == regnr);
+            await Entry(carprofile).Collection(p => p.DaysThatIsRented).LoadAsync();
+            await Entry(carprofile).Collection(p => p.PossibleToRentDays).LoadAsync();
+            await Entry(carprofile).Reference(p => p.Owner).LoadAsync();
             return carprofile;
         }
 
         public async Task<User> GetUser(string email)
         {
-            return await Users.SingleAsync(u => u.Email == email);
+         
+            return await Users.FindAsync(email);
         }
 
         public async Task AddMessageToLessor(Message message)

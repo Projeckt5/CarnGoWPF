@@ -8,6 +8,7 @@ namespace CarnGo.Database
 {
     public interface IAppDbContext
     {
+        void UpdateUser(User user);
         Task AddCarEquipment(CarEquipment carEquipment);
         Task AddCarProfile(CarProfile carProfile);
         Task AddDaysThatIsRented(DayThatIsRented dayThatIsRented);
