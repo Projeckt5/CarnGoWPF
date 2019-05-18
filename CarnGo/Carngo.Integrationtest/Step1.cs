@@ -123,8 +123,33 @@ namespace CarnGo.Integrationtest
             Assert.That(_passwordMatchValidator.Validate(passwords), Is.EqualTo(result));
         }
 
+        [TestCase("Mailgotmailcom", false)]
+        [TestCase("123", false)]
+        [TestCase("", false)]
+        [TestCase("demo1234", true)]
+        public void _passwordValidator_DifferentInput_NegativeAndPosetiveInput(string input,bool result)
+        {
+            SecureString secureinput = new SecureString();
 
+            foreach (var Char in input)
+            {
+                secureinput.AppendChar(Char);
+            }
+            Assert.That(_passwordValidator.Validate(secureinput), Is.EqualTo(result));
 
+        }
+
+        [TestCase(256, true)]
+        [TestCase(2147483647, true)]
+        [TestCase(0, true)]
+        [TestCase(4, true)]
+        [TestCase(-5, false)]
+        public void _priceValidator_DifferentInput_NegativeAndPosetiveInput(int input, bool result)
+        {
+            Assert.That(_priceValidator.Validate(input), Is.EqualTo(result));
+        }
     }
+    
+    
 }
 

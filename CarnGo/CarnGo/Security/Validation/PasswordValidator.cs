@@ -7,6 +7,7 @@ namespace CarnGo.Security
     public class PasswordValidator : IValidator<SecureString>
     {
         public List<string> ValidationErrorMessages { get; } = new List<string>();
+
         public bool Validate(SecureString password)
         {
             ValidationErrorMessages.Clear();

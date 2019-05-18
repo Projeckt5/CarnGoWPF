@@ -9,6 +9,13 @@ namespace CarnGo.Security.Validation
 {
     public class LicensePlateValidator : IValidator<string>
     {
+
+        public LicensePlateValidator()
+        {
+            ValidationErrorMessages = new List<string>();
+        }
+    
+
         public List<string> ValidationErrorMessages { get; }
         public bool Validate(string toValidate)
         {
