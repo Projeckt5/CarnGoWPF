@@ -45,7 +45,7 @@ namespace CarnGo
             message.TheMessage = mes;
             message.HaveBeenSeen = false;
             //adding lessor and renter strings to database missing. Why?
-            message.Confirmation = false;
+            message.ConfirmationStatus = (int)MsgStatus.Unhandled;
             messageBetweenLessor.Message = message;
             messageBetweenRenter.Message = message;
             //messageBetweenLessor.User = carProfile.User;

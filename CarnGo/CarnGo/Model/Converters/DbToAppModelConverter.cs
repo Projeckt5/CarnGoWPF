@@ -62,10 +62,11 @@ namespace CarnGo
                 switch ((MessageType)dbMessage.MsgType)
                 {
                     case MessageType.LessorMessage:
-                        returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,dbMessage.Confirmation)
+                        returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,(MsgStatus) dbMessage.ConfirmationStatus)
                         {
                             Sender = lessorUserModel.Email == dbMessage.SenderEmail ? lessorUserModel : renterUserModel,
-                            StatusConfirmation = dbMessage.Confirmation,
+                            Receiver = lessorUserModel.Email == dbMessage.ReceiverEmail ? lessorUserModel : renterUserModel,
+                            ConfirmationStatus = (MsgStatus) dbMessage.ConfirmationStatus,
                             Id = dbMessage.MessageID,
                             MsgType = (MessageType)dbMessage.MsgType
                         });
@@ -74,8 +75,10 @@ namespace CarnGo
                         returnList.Add(new MessageFromRenterModel(renterUserModel,lessorUserModel,car,dbMessage.TheMessage)
                         {
                             Sender = lessorUserModel.Email == dbMessage.SenderEmail ? lessorUserModel : renterUserModel,
+                            Receiver = lessorUserModel.Email == dbMessage.ReceiverEmail ? lessorUserModel : renterUserModel,
                             Id = dbMessage.MessageID,
-                            MsgType = (MessageType)dbMessage.MsgType
+                            MsgType = (MessageType)dbMessage.MsgType,
+                            ConfirmationStatus = (MsgStatus)dbMessage.ConfirmationStatus
                         }); ;
                         break;
                     default:

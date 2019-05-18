@@ -20,7 +20,7 @@ namespace CarnGo
     /// <summary>
     /// Interaction logic for MessageView.xaml
     /// </summary>
-    public partial class MessageView : Page
+    public partial class MessageView : BasePage
     {
         public MessageView()
         {

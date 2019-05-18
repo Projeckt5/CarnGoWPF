@@ -27,8 +27,8 @@ namespace CarnGo
             {
                 MessageModels =  new List<MessageModel>()
                 {
-                    new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true),
-                    new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false),
+                    new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", MsgStatus.Confirmed),
+                    new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", MsgStatus.Declined),
                     new MessageFromRenterModel(User2, User1, Car, "Må jeg godt låne din flotte bil?"),
                 }
             };
@@ -66,8 +66,8 @@ namespace CarnGo
             {
                 MessageModels = new List<MessageModel>()
                 {
-                    new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", true),
-                    new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", false),
+                    new MessageFromLessorModel(User2, User1, Car, "Du kommer bare :)", MsgStatus.Confirmed),
+                    new MessageFromLessorModel(User2, User1, Car, "Det kan du godt glemme makker! Det kan du godt glemme makker! Det kan du godt glemme makker!", MsgStatus.Declined),
                     new MessageFromRenterModel(User2, User1, Car, "Må jeg godt låne din flotte bil?"),
                 }
             };
@@ -85,6 +85,11 @@ namespace CarnGo
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
             var Car = new CarProfileModel(User2, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 1);
             return new List<CarProfileModel>(){Car};
+        }
+
+        public Task AddUserMessage(MessageModel message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

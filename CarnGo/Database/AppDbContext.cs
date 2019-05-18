@@ -83,7 +83,7 @@ namespace CarnGo.Database
                 .Include(msg => msg.MessagesWithUsers)
                 .ThenInclude(mwu => mwu.User)
                 .Include(msg => msg.CarProfile)
-                .OrderBy(msg => msg.CreatedDate)
+                .OrderByDescending(msg => msg.CreatedDate)
                 .Skip(startIndex)
                 .Take(amount);
 

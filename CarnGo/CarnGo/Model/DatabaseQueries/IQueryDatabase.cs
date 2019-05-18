@@ -16,5 +16,6 @@ namespace CarnGo
         Task<UserModel> GetUserTask(UserModel user);
         Task UpdateCarProfileTask(CarProfileModel carProfile);
         Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user);
+        Task AddUserMessage(MessageModel message);
     }
 }

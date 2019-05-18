@@ -20,7 +20,7 @@ namespace CarnGo
             _application = application;
             _eventAggregator = eventAggregator;
             eventAggregator.GetEvent<ClickOnNotificationEvent>().Subscribe(ClickOnNotificationEventHandler);
-            eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(MessageUpdateEventHandler);
+            eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Subscribe(MessageUpdateEventHandler);
 
             var messages = application.CurrentUser.MessageModels;
             var notificationItemViewModel = new List<NotificationItemViewModel>(); 

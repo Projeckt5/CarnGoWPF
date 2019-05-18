@@ -126,11 +126,12 @@ namespace CarnGo
                 var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
+                notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
                 UserModel.MessageModels.AddRange(notifications) ;
                 _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
                 UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
                 OnPropertyChanged(nameof(UnreadNotifications));
-                _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Publish(UserModel.MessageModels);
+                _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
             catch (AuthorizationFailedException e)

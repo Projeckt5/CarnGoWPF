@@ -35,7 +35,7 @@ namespace CarnGo
                 RenterEmail = "TestRenter",
                 MsgType = 1,
                 HaveBeenSeen = false,
-                Confirmation = false,
+                ConfirmationStatus = (int)MsgStatus.Unhandled,
                 MessagesWithUsers = new List<MessagesWithUsers>()
                 {
                         new MessagesWithUsers()
@@ -63,6 +63,11 @@ namespace CarnGo
         }
 
         public CarProfile Convert(CarProfileModel carProfile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Message Convert(MessageModel appMessage)
         {
             throw new NotImplementedException();
         }

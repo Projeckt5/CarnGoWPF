@@ -3,6 +3,7 @@ using Prism.Commands;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Prism.Events;
@@ -13,32 +14,47 @@ namespace CarnGo
     {
         private readonly IApplication _application;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IQueryDatabase _databaseQuery;
 
         #region Constructor
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public NotificationViewModel(IApplication application, IEventAggregator eventAggregator)
+        public NotificationViewModel(IApplication application, IEventAggregator eventAggregator, IQueryDatabase databaseQuery)
         {
             _application = application;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<NotificationMessageUpdateEvent>().Subscribe(msgList =>
-            {
-
-                var notificationItemViewModels = new List<NotificationItemViewModel>();
-
-                foreach (var currentUserMessageModel in msgList)
+            _databaseQuery = databaseQuery;
+            _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Subscribe(UpdateNotifications);
+            _eventAggregator.GetEvent<NotificationConfirmationEvent>().Subscribe(async messageFromRenter =>
                 {
-                    notificationItemViewModels.Add(new NotificationItemViewModel(_application, _eventAggregator, currentUserMessageModel));
-                }
-
-                notificationItemViewModels.Reverse();
-                Messages = notificationItemViewModels;
-            });
+                    await UpdateNotificationConfirm(messageFromRenter);
+                    MessageFromLessorModel response = CreateResponseForRenter(messageFromRenter);
+                    await SendResponseToLessor(response);
+                });
         }
+
+        private async Task SendResponseToLessor(MessageFromLessorModel response)
+        {
+            await _databaseQuery.AddUserMessage(response);
+        }
+
+        private MessageFromLessorModel CreateResponseForRenter(MessageFromRenterModel messageToRespondTo)
+        {
+            return new MessageFromLessorModel(messageToRespondTo.Renter, messageToRespondTo.Lessor,
+                messageToRespondTo.RentCar, messageToRespondTo.Message, messageToRespondTo.ConfirmationStatus)
+            {
+                Sender = messageToRespondTo.Lessor,
+                Receiver = messageToRespondTo.Renter,
+                MsgType = MessageType.LessorMessage
+            };
+        }
+
         #endregion
 
         #region Properties
+
+        private List<MessageModel> _notificationModels;
         private List<NotificationItemViewModel> _messages;
         
         public List<NotificationItemViewModel> Messages
@@ -51,5 +67,26 @@ namespace CarnGo
             }
         }
         #endregion
+
+
+        private async Task UpdateNotificationConfirm(MessageFromRenterModel messageFromRenterModel)
+        {
+            int indexToReplace = _notificationModels.FindIndex(ind => ind.Equals(messageFromRenterModel));
+            _notificationModels[indexToReplace] = messageFromRenterModel;
+            await _databaseQuery.UpdateUserMessagesTask(_notificationModels);
+        }
+
+        private void UpdateNotifications(List<MessageModel> msgList)
+        {
+            var notificationItemViewModels = new List<NotificationItemViewModel>();
+            _notificationModels = msgList;
+
+            foreach (var currentUserMessageModel in msgList)
+            {
+                notificationItemViewModels.Add(new NotificationItemViewModel(_application, _eventAggregator, currentUserMessageModel));
+            }
+
+            Messages = notificationItemViewModels;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace CarnGo.Test.Unit.ViewModels
         private IApplication _fakeApplication;
         private IQueryDatabase _queryDatabase;
         private SearchEvent _fakeSearchEvent;
-        private NotificationMessageUpdateEvent _fakeUpdateEvent;
+        private NotificationMessagesUpdateEvent _fakeUpdateEvent;
 
         [SetUp]
         public void TestSetup()
@@ -26,9 +26,9 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeApplication = Substitute.For<IApplication>();
             _queryDatabase = Substitute.For<IQueryDatabase>();
             _fakeSearchEvent = Substitute.For<SearchEvent>();
-            _fakeUpdateEvent = Substitute.For<NotificationMessageUpdateEvent>();
+            _fakeUpdateEvent = Substitute.For<NotificationMessagesUpdateEvent>();
             _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
-            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Returns(_fakeUpdateEvent);
+            _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Returns(_fakeUpdateEvent);
 
             _fakeApplication.CurrentUser.Returns(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser));
 

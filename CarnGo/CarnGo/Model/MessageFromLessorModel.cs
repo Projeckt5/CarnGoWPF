@@ -9,13 +9,13 @@ namespace CarnGo
     public class MessageFromLessorModel : MessageModel
     {
         #region Constructor 
-        public MessageFromLessorModel(UserModel renter, UserModel lessor, CarProfileModel rentCar, string message, bool statusConfirmation)
+        public MessageFromLessorModel(UserModel renter, UserModel lessor, CarProfileModel rentCar, string message, MsgStatus confirmationStatus)
         {
             Renter = renter;
             Lessor = lessor;
             RentCar = rentCar;
             Message = message;
-            StatusConfirmation = statusConfirmation;
+            ConfirmationStatus = confirmationStatus;
         }
         #endregion
 
@@ -23,7 +23,6 @@ namespace CarnGo
         private UserModel _renter;
         private UserModel _lessor;
         private CarProfileModel _rentCar; 
-        private bool _statusConfirmation;
         #endregion
 
         #region Properties
@@ -57,15 +56,6 @@ namespace CarnGo
             }
         }
 
-        public bool StatusConfirmation
-        {
-            get { return _statusConfirmation; }
-            set
-            {
-                _statusConfirmation = value;
-                OnPropertyChanged(nameof(StatusConfirmation));
-            }
-        }
         #endregion
     }
 }

@@ -93,14 +93,16 @@ namespace CarnGo
                 {
                     CarProfile = Convert(msg.RentCar),
                     CarProfileRegNr = msg.RentCar.RegNr ?? "",
-                    Confirmation = msg.StatusConfirmation,
+                    ConfirmationStatus = (int) msg.ConfirmationStatus,
                     HaveBeenSeen = msg.MessageRead,
                     LessorEmail = msg.Lessor.Email ?? "",
                     RenterEmail = msg.Renter.Email ?? "",
                     SenderEmail = msg.Sender.Email ?? "",
+                    ReceiverEmail = msg.Receiver.Email??"",
                     MsgType = (int)msg.MsgType,
                     TheMessage = msg.Message ?? "",
                     MessageID = msg.Id,
+                    CreatedDate = msg.TimeStamp
                 };
             }
             else
@@ -110,12 +112,16 @@ namespace CarnGo
                 {
                     CarProfile = Convert(msg.RentCar),
                     CarProfileRegNr = msg.RentCar.RegNr ?? "",
+                    ConfirmationStatus = (int)msg.ConfirmationStatus,
                     HaveBeenSeen = msg.MessageRead,
                     RenterEmail = msg.Renter.Email ?? "",
                     LessorEmail = msg.Lessor.Email ?? "",
+                    SenderEmail = msg.Sender.Email ?? "",
+                    ReceiverEmail = msg.Receiver.Email ?? "",
                     MsgType = (int)msg.MsgType,
                     TheMessage = msg.Message ?? "",
-                    MessageID = msg.Id
+                    MessageID = msg.Id,
+                    CreatedDate = msg.TimeStamp
                 };
             }
         }

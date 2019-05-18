@@ -132,7 +132,7 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
         //    var mes = "hey";
         //    var user=new User();
         //    var message = _helper.CreateMessageToLessor(mes, _car, user);
-        //    Assert.True((message.Confirmation==false)&&(message.HaveBeenSeen==false)
+        //    Assert.True((message.ConfirmationStatus==false)&&(message.HaveBeenSeen==false)
         //                &&(message.TheMessage==mes));//mangler at asserte på noget hvis den skal testes helt igennem
         //}
 

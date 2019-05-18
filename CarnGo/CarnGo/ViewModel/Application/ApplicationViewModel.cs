@@ -11,7 +11,7 @@ using Unity;
 namespace CarnGo
 {
 
-    public class NotificationMessageUpdateEvent: PubSubEvent<List<MessageModel>>{ }
+    public class NotificationMessagesUpdateEvent: PubSubEvent<List<MessageModel>>{ }
     public class UserUpdateEvent: PubSubEvent<UserModel>{ }
     public class NewUserDataReadyEvent : PubSubEvent { }
 

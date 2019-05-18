@@ -202,6 +202,8 @@
     <Compile Include="Model\DatabaseQueries\RealQueueDatabaseForSendRequestViewModel.cs" />
     <Compile Include="Animations\SlideTopAnimation.cs" />
     <Compile Include="Model\DatabaseQueries\RealSearchQueries.cs" />
+    <Compile Include="Model\MsgStatus.cs" />
+    <Compile Include="ValueConverters\MsgStatusToBooleanConverter.cs" />
     <Compile Include="ViewModel\Search\ISearchViewModelHelper.cs" />
     <Compile Include="ViewModel\Search\SearchViewModelHelper.cs" />
     <Compile Include="ViewModel\SendRequest\ISendRequestViewModelHelperFunction.cs" />
