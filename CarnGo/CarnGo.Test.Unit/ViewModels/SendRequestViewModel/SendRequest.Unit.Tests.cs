@@ -263,7 +263,7 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
         }
 
         [Test]
-        public void RentCarFunction_CreateMessageToLessorIsCalled_WithCorrectArgument()
+        public void RentCarFunction_AddMessageToLessorIsCalled_WithCorrectArgument()
         {
             _uut.To = new DateTime(DateTime.Today.Year + 2, DateTime.Today.Month, DateTime.Today.Day);
             _uut.From = new DateTime(DateTime.Today.Year + 1, DateTime.Today.Month, DateTime.Today.Day);
@@ -276,31 +276,31 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
             _dbContext.GetUser(Arg.Any<string>()).Returns(user);
 
             _uut.RentCarCommand.Execute(null);
-            
-           
-            _helper.Received(1).CreateMessageToLessor("Unittest", _car, user);
+
+
+            _dbContext.Received(1).AddMessageToLessor(_uut.Message, _car, user);
         }
 
-        [Test]
-       public void RentCarFunction_AddMessageToLessorIsCalled_WithCorrectArguments()
-        {
-            _uut.To = new DateTime(DateTime.Today.Year + 2, DateTime.Today.Month, DateTime.Today.Day);
-            _uut.From = new DateTime(DateTime.Today.Year + 1, DateTime.Today.Month, DateTime.Today.Day);
-            _uut.Message = "Unittest";
-            _helper.ConfirmRentingDates(Arg.Is(_car), Arg.Is(_uut.To), Arg.Is(_uut.From), ref Arg.Any<string>()).Returns(true);
-            var list = new List<DayThatIsRented>();
-            _helper.CreateDayThatIsRentedList(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<CarProfile>())
-                .Returns(list);
-            var user = new User();
-            _dbContext.GetUser(Arg.Any<string>()).Returns(user);
-            var mes = new Message();
-            _helper.CreateMessageToLessor(Arg.Is("Unittest"), Arg.Is(_car), Arg.Is(user)).Returns(mes);
+       // [Test]
+       //public void RentCarFunction_AddMessageToLessorIsCalled_WithCorrectArguments()
+       // {
+       //     _uut.To = new DateTime(DateTime.Today.Year + 2, DateTime.Today.Month, DateTime.Today.Day);
+       //     _uut.From = new DateTime(DateTime.Today.Year + 1, DateTime.Today.Month, DateTime.Today.Day);
+       //     _uut.Message = "Unittest";
+       //     _helper.ConfirmRentingDates(Arg.Is(_car), Arg.Is(_uut.To), Arg.Is(_uut.From), ref Arg.Any<string>()).Returns(true);
+       //     var list = new List<DayThatIsRented>();
+       //     _helper.CreateDayThatIsRentedList(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<CarProfile>())
+       //         .Returns(list);
+       //     var user = new User();
+       //     _dbContext.GetUser(Arg.Any<string>()).Returns(user);
+       //     var mes = new Message();
+       //     _helper.CreateMessageToLessor(Arg.Is("Unittest"), Arg.Is(_car), Arg.Is(user)).Returns(mes);
 
-            _uut.RentCarCommand.Execute(null);
+       //     _uut.RentCarCommand.Execute(null);
            
             
-            _dbContext.Received(1).AddMessageToLessor(Arg.Is(mes));
-        }
+       //     _dbContext.Received(1).AddMessageToLessor(Arg.Is(mes));
+       // }
        
 
 

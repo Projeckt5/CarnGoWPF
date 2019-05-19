@@ -16,11 +16,11 @@
         <Style TargetType="TextBlock" x:Key="Confirmation" BasedOn="{StaticResource BaseTextBlockStyle}">
             <Setter Property="Foreground" Value="Red"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding NotificationMessage.Confirmation}" Value="true">
+                <DataTrigger Binding="{Binding NotificationMessage.Confirmation, Converter={local:MsgStatusToBooleanConverter}}" Value="true">
                     <Setter Property="Foreground" Value="Green"/>
                     <Setter Property="Text" Value="Confirmed"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding NotificationMessage.Confirmation}" Value="false">
+                <DataTrigger Binding="{Binding NotificationMessage.Confirmation, Converter={local:MsgStatusToBooleanConverter}}" Value="false">
                     <Setter Property="Foreground" Value="Red"/>
                     <Setter Property="Text" Value="Denied"></Setter>
                 </DataTrigger>
@@ -48,11 +48,6 @@
                        FontSize="{StaticResource FontSizeSmall}" 
                        Margin="0 0 20 0" 
                        />
-
-                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                       Style="{StaticResource BaseTextBlockStyle}" 
-                       TextDecorations="" FontSize="{StaticResource FontSizeLarge}" 
-                />
 
                 <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
                            FontFamily="{StaticResource RobotoBold}" 

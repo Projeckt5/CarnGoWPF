@@ -53,7 +53,7 @@ namespace CarnGo
                 switch ((MessageType)dbMessage.MsgType)
                 {
                     case MessageType.LessorMessage:
-                        returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,dbMessage.Confirmation));
+                        returnList.Add(new MessageFromLessorModel(renterUserModel, lessorUserModel, car,dbMessage.TheMessage,(MsgStatus)dbMessage.ConfirmationStatus));
                         break;
                     case MessageType.RenterMessage:
                         returnList.Add(new MessageFromRenterModel(renterUserModel,lessorUserModel,car,dbMessage.TheMessage));

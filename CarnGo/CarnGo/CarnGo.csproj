@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -200,6 +202,8 @@
     <Compile Include="Model\DatabaseQueries\RealQueueDatabaseForSendRequestViewModel.cs" />
     <Compile Include="Animations\SlideTopAnimation.cs" />
     <Compile Include="Model\DatabaseQueries\RealSearchQueries.cs" />
+    <Compile Include="Model\MsgStatus.cs" />
+    <Compile Include="ValueConverters\MsgStatusToBooleanConverter.cs" />
     <Compile Include="ViewModel\Search\ISearchViewModelHelper.cs" />
     <Compile Include="ViewModel\Search\SearchViewModelHelper.cs" />
     <Compile Include="ViewModel\SendRequest\ISendRequestViewModelHelperFunction.cs" />

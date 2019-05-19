@@ -33,6 +33,11 @@ namespace CarnGo.Database
             await SaveChangesAsync();
         }
 
+        public void UpdateUser(User user)
+        {
+            Users.Update(user);
+       
+        }
         //Get
         public async Task<User> GetUser(string email, string password)
         {
@@ -70,15 +75,19 @@ namespace CarnGo.Database
             return user;
         }
 
-        public async Task<List<Message>> GetMessages(User user)
+        public async Task<List<Message>> GetMessages(User user,int startIndex, int amount)
         {
-            var userWithMessage = await Users
-                .Include(u => u.MessagesWithUsers)
-                .ThenInclude(mwu=>mwu.Message)
-                .ThenInclude(m => m.CarProfile)
-                .SingleAsync(u => u == user);
+            var messages = MessagesWithUsersJunction
+                .Where(mwu => mwu.User == user)
+                .Select(mwu => mwu.Message)
+                .Include(msg => msg.MessagesWithUsers)
+                .ThenInclude(mwu => mwu.User)
+                .Include(msg => msg.CarProfile)
+                .OrderByDescending(msg => msg.CreatedDate)
+                .Skip(startIndex)
+                .Take(amount);
 
-            return userWithMessage.MessagesWithUsers.Select(mwu => mwu.Message).ToList();
+            return await messages.ToListAsync();
         }
         
         public async Task<List<Message>> GetAllMessages()
@@ -155,16 +164,17 @@ namespace CarnGo.Database
         public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
         {
             var carprofile =new CarProfile();
-            carprofile= await CarProfiles.Include(d => d.DaysThatIsRented)
-                .Include(p => p.PossibleToRentDays)
-                .Include(u => u.Owner)
-                .SingleAsync(e => e.RegNr == regnr);
+            carprofile= await CarProfiles.SingleAsync(e => e.RegNr == regnr);
+            await Entry(carprofile).Collection(p => p.DaysThatIsRented).LoadAsync();
+            await Entry(carprofile).Collection(p => p.PossibleToRentDays).LoadAsync();
+            await Entry(carprofile).Reference(p => p.Owner).LoadAsync();
             return carprofile;
         }
 
         public async Task<User> GetUser(string email)
         {
-            return await Users.SingleAsync(u => u.Email == email);
+         
+            return await Users.FindAsync(email);
         }
 
         public async Task AddMessageToLessor(Message message)
@@ -332,30 +342,30 @@ namespace CarnGo.Database
 
         public async Task AddMessage(Message message)
         {
-
-            MessagesWithUsers newConnection = new MessagesWithUsers();
-            if (message.MsgType == 1)
+            var renter = await GetUser(message.RenterEmail);
+            var lessor = await GetUser(message.LessorEmail);
+            var junction = new List<MessagesWithUsers>()
             {
-                User theuser = await GetUser(message.RenterEmail);
+                new MessagesWithUsers()
+                {
+                    
+                    Message = message,
+                    MessageId = message.MessageID,
+                    User = renter,
+                    UserEmail = renter.Email
+                },
+                new MessagesWithUsers()
+                {
 
-                newConnection.Message = message;
-                newConnection.MessageId = message.MessageID;
-                newConnection.User = theuser;
-                newConnection.UserEmail = theuser.Email;
-            }
-            else
-            {
-                User theuser = await GetUser(message.LessorEmail);
-
-                newConnection.Message = message;
-                newConnection.MessageId = message.MessageID;
-                newConnection.User = theuser;
-                newConnection.UserEmail = theuser.Email;
-            }
-            message.MessagesWithUsers.Add(newConnection);
+                    Message = message,
+                    MessageId = message.MessageID,
+                    User = lessor,
+                    UserEmail = lessor.Email
+                }
+            };
 
 
-            await MessagesWithUsersJunction.AddAsync(newConnection);
+            await MessagesWithUsersJunction.AddRangeAsync(junction);
             await Messages.AddAsync(message);
 
             await SaveChangesAsync();

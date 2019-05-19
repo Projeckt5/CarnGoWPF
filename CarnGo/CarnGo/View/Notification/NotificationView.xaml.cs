@@ -24,7 +24,7 @@ namespace CarnGo
         public NotificationView()
         {
             InitializeComponent();
-            DataContext = new NotificationViewModel(IoCContainer.Resolve<IApplication>(), IoCContainer.Resolve<IEventAggregator>());
+            DataContext = new NotificationViewModel(IoCContainer.Resolve<IApplication>(), IoCContainer.Resolve<IEventAggregator>(), IoCContainer.Resolve<IQueryDatabase>());
         }
     }
 }

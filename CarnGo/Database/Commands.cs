@@ -40,7 +40,7 @@ namespace CarnGo.Database
                     {
                         Console.WriteLine("        Lessor: " + message.LessorEmail);
                         Console.WriteLine("        Renter: " + message.RenterEmail);
-                        Console.WriteLine("  Confirmation: " + message.Confirmation);
+                        Console.WriteLine("  ConfirmationStatus: " + message.ConfirmationStatus);
                         Console.WriteLine("  Message type: " + message.MsgType);
                         Console.WriteLine("   The message: " + message.TheMessage);
                         Console.WriteLine("      Has seen: " + message.HaveBeenSeen);
@@ -118,9 +118,9 @@ namespace CarnGo.Database
             User renter = new User()
             {
                 Email = "At@at.at",
-                FirstName = "Car ",
+                FirstName = "Car",
                 LastName = "Owner",
-                Password = "1234",
+                Password = "123asd",
                 Address = "Here",
                 UserType = 1,
                 AuthorizationString = Guid.Empty,
@@ -128,10 +128,10 @@ namespace CarnGo.Database
             
             User lessor = new User()
             {
-                Email = "Dot@Dot.dot",
-                FirstName = "Car ",
+                Email = "123@asd",
+                FirstName = "Car",
                 LastName = "Renter",
-                Password = "4321",
+                Password = "123asd",
                 Address = "There",
                 UserType = 2,
                 AuthorizationString = Guid.Empty,
@@ -218,10 +218,12 @@ namespace CarnGo.Database
             Message ourMessage1 = new Message()
             {
                 HaveBeenSeen = true,
-                Confirmation = false,
+                ConfirmationStatus = 0,
                 TheMessage = "Can I rent car fuckface?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = lessor.Email,
+                ReceiverEmail = renter.Email,
                 CreatedDate = new DateTime(2019, 05, 2),
                 MsgType = 1,
                 CarProfile = ourCars[0],
@@ -232,10 +234,12 @@ namespace CarnGo.Database
             Message ourMessage2 = new Message()
             {
                 HaveBeenSeen = true,
-                Confirmation = true,
+                ConfirmationStatus = 2,
                 TheMessage = "Yes you can motherfucker!",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = renter.Email,
+                ReceiverEmail = lessor.Email,
                 CreatedDate = new DateTime(2019, 05, 3),
                 MsgType = 0,
                 CarProfile = ourCars[1],
@@ -246,10 +250,12 @@ namespace CarnGo.Database
             Message ourMessage3 = new Message()
             {
                 HaveBeenSeen = false,
-                Confirmation = false,
+                ConfirmationStatus = 1,
                 TheMessage = "Can I rent, yet another car? Cunt?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
+                SenderEmail = renter.Email,
+                ReceiverEmail = lessor.Email,
                 CreatedDate = new DateTime(2019, 05, 4),
                 MsgType = 1,
                 CarProfile = ourCars[2],

@@ -69,25 +69,7 @@ namespace CarnGo
             return list;
         }
 
-        public Message CreateMessageToLessor(string mes, CarProfile carProfile, User renter)
-        {
-            var message = new Message();
-            var messageBetweenLessor = new MessagesWithUsers();
-            var messageBetweenRenter = new MessagesWithUsers();
-            message.TheMessage = mes;
-            message.HaveBeenSeen = false;
-            //adding lessor and renter strings to database missing. Why?
-            message.Confirmation = false;
-            messageBetweenLessor.Message = message;
-            messageBetweenRenter.Message = message;
-            messageBetweenLessor.User = carProfile.User;
-
-            messageBetweenRenter.User = renter;
-
-            message.MessagesWithUsers = new List<MessagesWithUsers> { messageBetweenRenter, messageBetweenLessor };
-            return message;
-
-        }
+        
     }
 }
 

@@ -13,6 +13,8 @@ namespace CarnGo
         private string _message;
         private bool _messageRead;
         private UserModel _sender;
+        private UserModel _receiver;
+        private MsgStatus _confirmationStatus;
 
         public int Id { get; set; }
 
@@ -49,6 +51,41 @@ namespace CarnGo
                     return;
                 _sender = value;
                 OnPropertyChanged(nameof(Sender));
+            }
+        }
+        public UserModel Receiver
+        {
+            get => _receiver;
+            set
+            {
+                if (_receiver == value)
+                    return;
+                _receiver = value;
+                OnPropertyChanged(nameof(Receiver));
+            }
+        }
+
+        private DateTime _timeStamp;
+
+        public DateTime TimeStamp
+        {
+            get { return _timeStamp; }
+            set
+            {
+                if(_timeStamp == value)
+                    return;
+                _timeStamp = value;
+                OnPropertyChanged(nameof(TimeStamp));
+            }
+        }
+
+        public MsgStatus ConfirmationStatus
+        {
+            get { return _confirmationStatus; }
+            set
+            {
+                _confirmationStatus = value;
+                OnPropertyChanged(nameof(ConfirmationStatus));
             }
         }
         #endregion

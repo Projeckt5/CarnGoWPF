@@ -1,4 +1,5 @@
 ﻿using CarnGo.Database.Models;
+using Microsoft.EntityFrameworkCore;
 using Prism.Events;
 
 namespace CarnGo
@@ -21,7 +22,7 @@ namespace CarnGo
                 Firstname = carProfile.Owner.FirstName ?? "",
                 Lastname = carProfile.Owner.LastName ?? ""
             };
-
+           
             return searchResultItem;
         }
     }

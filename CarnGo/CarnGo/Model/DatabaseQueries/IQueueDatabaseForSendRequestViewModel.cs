@@ -11,11 +11,13 @@ namespace CarnGo
     {
         Task<User> GetUser(string email);
 
-        Task AddMessageToLessor(Message message);
+        Task AddMessageToLessor(string mes, CarProfile carProfile, User renter);
 
-        void AddDayThatIsRentedList(List<DayThatIsRented> list);
+        Task AddDayThatIsRentedList(List<DayThatIsRented> list);
 
         Task<CarProfile> GetCarProfileForSendRequestView(string regnr);
+        void UpdateUser(User user);
+
 
     }
 }

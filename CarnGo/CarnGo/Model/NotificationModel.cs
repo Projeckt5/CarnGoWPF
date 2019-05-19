@@ -17,7 +17,7 @@ namespace CarnGo
     
         public string Lessor { get; set; }
         public string Renter { get; set; }
-        public bool Confirmation { get; set; }
+        public MsgStatus Confirmation { get; set; }
         #endregion
     }
 }

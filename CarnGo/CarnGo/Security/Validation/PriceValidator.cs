@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace CarnGo.Security.Validation
 {
-    class PriceValidator : IValidator<int>
+    public class PriceValidator : IValidator<int>
     {
+        public PriceValidator()
+        {
+            ValidationErrorMessages = new List<string>();
+        }
+
         public List<string> ValidationErrorMessages { get; }
         public bool Validate(int toValidate)
         {

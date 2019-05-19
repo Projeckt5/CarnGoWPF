@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Microsoft.EntityFrameworkCore;
 using Prism.Commands;
 using Prism.Events;
 
@@ -169,7 +170,7 @@ namespace CarnGo
         {
 
             _application.GoToPage(ApplicationPage.SendRequestPage);
-
+            
             _eventAggregator.GetEvent<CarProfileDataEvent>().Publish(RegNr);
         }
 

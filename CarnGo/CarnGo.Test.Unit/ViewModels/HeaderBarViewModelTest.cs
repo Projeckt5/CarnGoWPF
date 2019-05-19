@@ -16,7 +16,7 @@ namespace CarnGo.Test.Unit.ViewModels
         private IEventAggregator _fakeEventAggregator;
         private IApplication _fakeApplication;
         private SearchEvent _fakeSearchEvent;
-        private NotificationMessageUpdateEvent _fakeUpdateEvent;
+        private NotificationMessagesUpdateEvent _fakeUpdateEvent;
         private IQueryDatabase _fakeDatabaseQuery;
         private UserUpdateEvent _fakeUserUpdateEvent;
 
@@ -28,15 +28,15 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeSearchEvent = Substitute.For<SearchEvent>();
             _fakeDatabaseQuery = Substitute.For<IQueryDatabase>();
             _fakeUserUpdateEvent = Substitute.For<UserUpdateEvent>();
-            _fakeUpdateEvent = Substitute.For<NotificationMessageUpdateEvent>();
+            _fakeUpdateEvent = Substitute.For<NotificationMessagesUpdateEvent>();
             _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
-            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Returns(_fakeUpdateEvent);
+            _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Returns(_fakeUpdateEvent);
             _fakeEventAggregator.GetEvent<UserUpdateEvent>().Returns(_fakeUserUpdateEvent);
             _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication, _fakeDatabaseQuery);
 
             _fakeApplication.CurrentUser.Returns(TestModelFactory.CreateUserModel());
 
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>()).Returns(
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>()).Returns(
                 new List<MessageModel>()
                 {
                     TestModelFactory.CreateMessageModel("TestMsg",MessageType.LessorMessage)
@@ -107,7 +107,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>());
+            _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>());
         }
 
 
@@ -118,7 +118,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>()
+            _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>()
                 .Received().Publish(Arg.Is<List<MessageModel>>(noti => noti == _uut.UserModel.MessageModels));
         }
 
@@ -152,7 +152,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().Received()
+            _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Received()
                 .Publish(Arg.Is<List<MessageModel>>(msgList => 
                     msgList.TrueForAll(msg => msg.Message == "TestMsg" && msg.MessageRead)));
         }
@@ -160,7 +160,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotificationsThrowsAuthorizationException_ApplicationReceivesLogout()
         {
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>()).Throws<AuthorizationFailedException>();
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>()).Throws<AuthorizationFailedException>();
 
             _uut.NotificationCommand.Execute(null);
 
@@ -185,8 +185,8 @@ namespace CarnGo.Test.Unit.ViewModels
             _uut.NotificationCommand.Execute(null);
 
             _fakeApplication.DidNotReceive().LogUserOut();
-            _fakeDatabaseQuery.DidNotReceive().GetUserMessagesTask(Arg.Any<UserModel>());
-            _fakeEventAggregator.GetEvent<NotificationMessageUpdateEvent>().DidNotReceive().Publish(Arg.Any<List<MessageModel>>());
+            _fakeDatabaseQuery.DidNotReceive().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>());
+            _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().DidNotReceive().Publish(Arg.Any<List<MessageModel>>());
         }
 
         #endregion

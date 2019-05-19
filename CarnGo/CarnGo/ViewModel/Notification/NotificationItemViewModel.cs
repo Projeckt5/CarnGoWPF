@@ -17,19 +17,23 @@ using Prism.Events;
 namespace CarnGo
 {
     public class ClickOnNotificationEvent : PubSubEvent<NotificationModel> { }
+    public class NotificationConfirmationEvent : PubSubEvent<MessageFromRenterModel> { }
     public class NotificationItemViewModel : BaseViewModel
     {
         private readonly IApplication _application;
-        private readonly IEventAggregator _eventAggregator; 
-        
+        private readonly IEventAggregator _eventAggregator;
+        private readonly MessageModel _message;
+
         #region Constructors
-        public NotificationItemViewModel(IApplication application, IEventAggregator eventAggregator, MessageModel message)
+        public NotificationItemViewModel(IApplication application, 
+            IEventAggregator eventAggregator,
+            MessageModel message)
         {
             _application = application;
             _eventAggregator = eventAggregator;
-            //Activate both buttons
-            ConfirmButton = true;
-            DeclineButton = true;
+            _message = message;
+            ConfirmButton = message.ConfirmationStatus == MsgStatus.Confirmed || message.ConfirmationStatus == MsgStatus.Unhandled;
+            DeclineButton = message.ConfirmationStatus == MsgStatus.Declined || message.ConfirmationStatus == MsgStatus.Unhandled;
             //TODO: Move to factory
             switch (message.MsgType)
             {
@@ -40,6 +44,8 @@ namespace CarnGo
                     NotificationMessage.Message = renterMessage.Message;
                     NotificationMessage.CarPicture = renterMessage.RentCar.CarPicture;
                     NotificationMessage.Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
+                    NotificationMessage.Confirmation = renterMessage.ConfirmationStatus;
+                    NotificationMessage.TimeStamp = renterMessage.TimeStamp;
                 }
                     break;
                 case MessageType.LessorMessage:
@@ -49,9 +55,10 @@ namespace CarnGo
                     NotificationMessage.Message = lessorMessage.Message;
                     NotificationMessage.CarPicture = lessorMessage.RentCar.CarPicture;
                     NotificationMessage.Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
-                    NotificationMessage.Confirmation = lessorMessage.StatusConfirmation;
+                    NotificationMessage.Confirmation = lessorMessage.ConfirmationStatus;
+                    NotificationMessage.TimeStamp = lessorMessage.TimeStamp;
 
-                }
+                    }
                     break;
             }
         }
@@ -107,19 +114,21 @@ namespace CarnGo
 
         private void RentalButtonExecute(string arg)
         {
-            if (arg.ToLower() == "confirm")
-            {
-                DeclineButton = false;
-                NotificationMessage.Confirmation = true;
-            }
-            else
-            {
-                ConfirmButton = false;
-                NotificationMessage.Confirmation = false;
-            }
+            //Since we are here the message must be a renter message
+            var renterMessage = _message as MessageFromRenterModel;
+            bool isConfirmed = arg.ToLower() == "confirm";
+            ConfirmRental(renterMessage, isConfirmed);
         }
-        #endregion
-    }
 
-   
+        #endregion
+
+        private void ConfirmRental(MessageFromRenterModel renterMessage, bool rentalConfirmed)
+        {
+            DeclineButton ^= rentalConfirmed;
+            ConfirmButton = rentalConfirmed;
+            NotificationMessage.Confirmation = rentalConfirmed ? MsgStatus.Confirmed : MsgStatus.Declined;
+            renterMessage.ConfirmationStatus = rentalConfirmed ? MsgStatus.Confirmed : MsgStatus.Declined;
+            _eventAggregator.GetEvent<NotificationConfirmationEvent>().Publish(renterMessage);
+        }
+    }
 }
