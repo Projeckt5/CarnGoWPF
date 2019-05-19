@@ -12,7 +12,7 @@ namespace CarnGo
             searchResultItem.Brand = carProfile.Brand ?? "";
             searchResultItem.Model = carProfile.Model ?? "";
             searchResultItem.Location = carProfile.Location ?? "";
-            searchResultItem.Price = carProfile.Price;
+            searchResultItem.Price = carProfile.RentalPrice;
             searchResultItem.Seats = carProfile.Seats;
             searchResultItem.StartLeaseTime = carProfile.StartLeaseTime;
             searchResultItem.EndLeaseTime = carProfile.EndLeaseTime;

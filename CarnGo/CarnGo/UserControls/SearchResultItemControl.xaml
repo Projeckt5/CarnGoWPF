@@ -134,7 +134,6 @@
                        TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}">
                 <Run Text="{Binding Owner.Firstname}"/>
-                <Run Text=" "/>
                 <Run Text="{Binding Owner.Lastname}"/>
             </TextBlock>
         </Grid>
