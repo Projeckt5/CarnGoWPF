@@ -25,7 +25,7 @@ namespace CarnGo.Accepttests
             _fakePasswordMatchValidator = Substitute.For<IValidator<List<SecureString>>>();
             _fakeQueryDatabase = Substitute.For<IQueryDatabase>();
             _fakeApplication = Substitute.For<IApplication>();
-            _uut = new UserSignUpViewModel(_fakeEmailValidator, _fakePasswordValidator, 
+            _uut = new UserSignUpViewModel(_fakeEmailValidator, _fakePasswordValidator,
                 _fakePasswordMatchValidator, _fakeQueryDatabase, _fakeApplication);
         }
         
@@ -51,8 +51,8 @@ namespace CarnGo.Accepttests
                 Arg.Is<SecureString>(pwd => pwd == _uut.PasswordSecureString));
         }
         
-        [Then(@"ledes bruger til Login page")]
-        public void SaLedesBrugerTilLoginPage()
+        [Then(@"bruger ledes til Login page")]
+        public void SaBrugerLedesTilLoginPage()
         {
             _fakeApplication.Received().GoToPage(ApplicationPage.LoginPage);
         }

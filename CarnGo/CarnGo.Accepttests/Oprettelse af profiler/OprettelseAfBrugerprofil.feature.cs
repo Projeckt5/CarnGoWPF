@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace CarnGo.Accepttests
+namespace CarnGo.Accepttests.OprettelseAfProfiler
 {
     using TechTalk.SpecFlow;
     
@@ -89,7 +89,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 13
  testRunner.Then("bliver oplysningerne gemt i databasen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Så ");
 #line 14
-   testRunner.And("ledes bruger til Login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Og ");
+   testRunner.And("bruger ledes til Login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Og ");
 #line hidden
             this.ScenarioCleanup();
         }

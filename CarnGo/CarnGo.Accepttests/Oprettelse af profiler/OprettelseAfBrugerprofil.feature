@@ -1,4 +1,5 @@
-﻿Egenskab: Oprettelse af brugerprofil
+﻿#language: da
+Egenskab: Oprettelse af brugerprofil
 	Som Lejer / Udlejer
 	Når jeg ikke har en profil endnu
 	Ønsker jeg at kunne registrere mig som bruger
@@ -10,5 +11,5 @@ Scenarie: Registrer bruger
 	Når bruger indtaster sin email og password
 	  Og bruger trykker på knappen Register
 	Så bliver oplysningerne gemt i databasen
-	  Og ledes bruger til Login page
+	  Og bruger ledes til Login page
 
