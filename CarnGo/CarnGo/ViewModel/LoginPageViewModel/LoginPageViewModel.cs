@@ -170,6 +170,8 @@ namespace CarnGo
             {
                 IsLogin = false;
             }
+
+            _application.IsLoggedIn = true;
         }
 
         private void RememberUserLocally(SecureString passwordSecureString)
