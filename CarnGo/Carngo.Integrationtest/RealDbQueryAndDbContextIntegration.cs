@@ -23,6 +23,7 @@ namespace CarnGo.Integrationtest
             _dbContextToIntegrate = new AppDbContext(options);
             _appToDbModelConverter = new ApptoDbModelConverter();
             _dbToAppModelConverter = new DbToAppModelConverter();
+            _dbQuerier = new RealDatabaseQuerier(_dbContextToIntegrate,_dbToAppModelConverter,_appToDbModelConverter);
         }
 
         [TestCase("Hello@Hello","123456")]

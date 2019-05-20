@@ -99,8 +99,8 @@ namespace CarnGo.Integrationtest
         [TestCase("", "", true)]
         [TestCase("Mail@gotmail.com", "Mail@gotmail.com", true)]
         [TestCase("Mailgotmail.com", "Mailgotmail.com", true)]
-        [TestCase("123", "213", false)]
-        [TestCase("Aarhus", "aarhus", false)]
+        [TestCase("123", "213", true)]
+        [TestCase("Aarhus", "aarhus", true)]
         public void _passwordMatchValidator_DifferentInput_NegativeAndPosetiveInput(string input, string otherInput, bool result)
         {
             SecureString secureinput = new SecureString();
@@ -141,7 +141,7 @@ namespace CarnGo.Integrationtest
 
         [TestCase(256, true)]
         [TestCase(2147483647, true)]
-        [TestCase(0, true)]
+        [TestCase(0, false)]
         [TestCase(4, true)]
         [TestCase(-5, false)]
         public void _priceValidator_DifferentInput_NegativeAndPosetiveInput(int input, bool result)
