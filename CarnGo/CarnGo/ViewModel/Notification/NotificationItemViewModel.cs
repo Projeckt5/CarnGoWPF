@@ -46,6 +46,7 @@ namespace CarnGo
                     NotificationMessage.Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
                     NotificationMessage.Confirmation = renterMessage.ConfirmationStatus;
                     NotificationMessage.TimeStamp = renterMessage.TimeStamp;
+                    NotificationMessage.IsRead = renterMessage.MessageRead;
                 }
                     break;
                 case MessageType.LessorMessage:
@@ -57,8 +58,8 @@ namespace CarnGo
                     NotificationMessage.Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
                     NotificationMessage.Confirmation = lessorMessage.ConfirmationStatus;
                     NotificationMessage.TimeStamp = lessorMessage.TimeStamp;
-
-                    }
+                    NotificationMessage.IsRead = lessorMessage.MessageRead;
+                }
                     break;
             }
         }

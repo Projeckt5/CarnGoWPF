@@ -251,6 +251,7 @@ namespace CarnGo
                 SearchResultItems.Clear();
                 await SetNumberOfPages();
                 var carProfiles = await _dbContext.GetCarProfilesForSearchViewTask(PageIndex, _itemsPerPage);
+                carProfiles.RemoveAll(cp => cp.OwnerEmail == _application.CurrentUser.Email);
                 foreach (var carProfile in carProfiles)
                 {
                     SearchResultItems.Add(_helper.ConvertCarProfileToSearchResultItem(carProfile));

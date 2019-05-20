@@ -42,7 +42,7 @@ namespace CarnGo
         private MessageFromLessorModel CreateResponseForRenter(MessageFromRenterModel messageToRespondTo)
         {
             return new MessageFromLessorModel(messageToRespondTo.Renter, messageToRespondTo.Lessor,
-                messageToRespondTo.RentCar, messageToRespondTo.Message, messageToRespondTo.ConfirmationStatus)
+                messageToRespondTo.RentCar, $"I {messageToRespondTo.ConfirmationStatus.ToString()} your request", messageToRespondTo.ConfirmationStatus)
             {
                 Sender = messageToRespondTo.Lessor,
                 Receiver = messageToRespondTo.Renter,

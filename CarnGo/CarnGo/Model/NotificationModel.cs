@@ -14,7 +14,7 @@ namespace CarnGo
         public string Message { get; set; }
         public BitmapImage CarPicture { get; set; }
         public DateTime TimeStamp { get; set; }
-    
+        public bool IsRead { get; set; }
         public string Lessor { get; set; }
         public string Renter { get; set; }
         public MsgStatus Confirmation { get; set; }

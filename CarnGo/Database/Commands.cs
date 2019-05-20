@@ -115,25 +115,25 @@ namespace CarnGo.Database
 
         public static async Task SeedDatabase()
         {
-            User renter = new User()
+            User lessor = new User()
             {
-                Email = "At@at.at",
-                FirstName = "Car",
+                Email = "car@owner",
+                FirstName = "Owner",
                 LastName = "Owner",
                 Password = "123asd",
                 Address = "Here",
-                UserType = 1,
+                UserType = 2,
                 AuthorizationString = Guid.Empty,
             }; 
             
-            User lessor = new User()
+            User renter = new User()
             {
-                Email = "123@asd",
-                FirstName = "Car",
+                Email = "car@renter",
+                FirstName = "Renter",
                 LastName = "Renter",
                 Password = "123asd",
                 Address = "There",
-                UserType = 2,
+                UserType = 1,
                 AuthorizationString = Guid.Empty,
             }; 
 
@@ -156,7 +156,7 @@ namespace CarnGo.Database
                  
                 tempCarProfile.RegNr = "8FJSM2" + Convert.ToString(i);
                 tempCarProfile.Model = "7";
-                tempCarProfile.Brand = "BMW";
+                tempCarProfile.Brand = $"BMW{i}";
                 tempCarProfile.Age = 5 + i;
                 tempCarProfile.Location = "Jylland";
                 tempCarProfile.Seats = i;
@@ -164,7 +164,7 @@ namespace CarnGo.Database
                 tempCarProfile.CarPicture = "ASDJIasfjn37687yh97jtg864h78jt/TG&/DG#&B/CASV(XASDM57f576879m8aysb87tdv7asrd6ANSYDMATSNDR543afstd78as79d8ynvbfas675FASYGDMA687";
                 tempCarProfile.RentalPrice = (i * 100) + 500;
                 tempCarProfile.FuelType = "92";
-                tempCarProfile.CarDescription = "The very best, like no one ever was";
+                tempCarProfile.CarDescription = $"#{i}: The very best, like no one ever was";
                 tempCarProfile.Owner = lessor;
                 tempCarProfile.User = renter;
                 tempCarProfile.OwnerEmail = lessor.Email;
@@ -183,35 +183,38 @@ namespace CarnGo.Database
                 ourEquip.Add(tempCarEquipment);
             }
 
-            List<PossibleToRentDay> possibleToRentDay = new List<PossibleToRentDay>();
-            for (int i = 0; i < 15; i++)
+            
+            ourCars.ForEach(c =>
             {
-                DateTime tempDateTime = new DateTime(2019, 05, i + 4);
-                PossibleToRentDay tempday = new PossibleToRentDay()
+                List<PossibleToRentDay> possibleToRentDay = new List<PossibleToRentDay>();
+                for (int i = 0; i < ourCars.Count; i++)
                 {
-                    Date = tempDateTime,
-                };
-                possibleToRentDay.Add(tempday);
-            }
-            ourCars.ForEach(c => c.PossibleToRentDays = possibleToRentDay);
+                    DateTime tempDateTime = DateTime.Now + TimeSpan.FromDays(i);
+                    PossibleToRentDay tempday = new PossibleToRentDay()
+                    {
+                        Date = tempDateTime,
+                        CarProfile = c
+                    };
+                    possibleToRentDay.Add(tempday);
+                }
 
-
-
-            List<DayThatIsRented> daysThatIs = new List<DayThatIsRented>();
-            for (int i = 5; i < 10; i++)
-            {
-                DateTime tempDateTime = new DateTime(2019, 05, i + 4);
-                DayThatIsRented tempday = new DayThatIsRented
+                List<DayThatIsRented> daysThatIs = new List<DayThatIsRented>();
+                for (int i = 5; i < 10; i++)
                 {
-                    Date = tempDateTime,
-                    CarProfile = ourCars[0],
-                    User = lessor
-                };
-                daysThatIs.Add(tempday);
-            }
-            ourCars.ForEach(c => c.DaysThatIsRented = daysThatIs);
-            ourCars.ForEach(c => c.StartLeaseTime = daysThatIs[0].Date);
-            ourCars.ForEach(c => c.EndLeaseTime = daysThatIs[4].Date);
+                    DateTime tempDateTime = DateTime.Now + TimeSpan.FromDays(i + 4);
+                    DayThatIsRented tempday = new DayThatIsRented
+                    {
+                        Date = tempDateTime,
+                        CarProfile = c,
+                        User = lessor
+                    };
+                    daysThatIs.Add(tempday);
+                }
+                c.PossibleToRentDays = possibleToRentDay;
+                c.DaysThatIsRented = daysThatIs;
+                c.StartLeaseTime = daysThatIs[0].Date;
+                c.EndLeaseTime = daysThatIs[4].Date;
+            });
 
 
 
@@ -222,8 +225,8 @@ namespace CarnGo.Database
                 TheMessage = "Can I rent car fuckface?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
-                SenderEmail = lessor.Email,
-                ReceiverEmail = renter.Email,
+                SenderEmail = renter.Email,
+                ReceiverEmail = lessor.Email,
                 CreatedDate = new DateTime(2019, 05, 2),
                 MsgType = 1,
                 CarProfile = ourCars[0],
@@ -238,8 +241,8 @@ namespace CarnGo.Database
                 TheMessage = "Yes you can motherfucker!",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
-                SenderEmail = renter.Email,
-                ReceiverEmail = lessor.Email,
+                SenderEmail = lessor.Email,
+                ReceiverEmail = renter.Email,
                 CreatedDate = new DateTime(2019, 05, 3),
                 MsgType = 0,
                 CarProfile = ourCars[1],

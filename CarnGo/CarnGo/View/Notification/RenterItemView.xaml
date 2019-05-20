@@ -7,8 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="IsRead">
+            <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NotificationMessage.IsRead}" Value="true">
+                    <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding NotificationMessage.IsRead}" Value="false">
+                    <Setter Property="Background" Value="{StaticResource BlueMainBrush}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
 
-    <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="100">
+    <Border Style="{StaticResource IsRead}" Width="300" MaxHeight="100">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
