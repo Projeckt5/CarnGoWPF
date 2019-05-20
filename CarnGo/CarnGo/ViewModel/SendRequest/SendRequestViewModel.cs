@@ -172,8 +172,7 @@ namespace CarnGo
 
             var list = _helper.CreateDayThatIsRentedList(From,To,CarProfile);
             var renterUser = await _dbContext.GetUser(_application.CurrentUser.Email);
-            _dbContext.UpdateUser(CarProfile.User);
-            _dbContext.UpdateUser(renterUser);
+            await _dbContext.UpdateUser(renterUser);
 
             await _dbContext.AddDayThatIsRentedList(list);
                                  

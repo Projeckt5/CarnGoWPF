@@ -16,7 +16,7 @@ namespace CarnGo
         Task AddDayThatIsRentedList(List<DayThatIsRented> list);
 
         Task<CarProfile> GetCarProfileForSendRequestView(string regnr);
-        void UpdateUser(User user);
+        Task UpdateUser(User user);
 
 
     }

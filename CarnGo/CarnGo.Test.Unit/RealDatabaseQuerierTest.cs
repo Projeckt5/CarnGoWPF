@@ -116,7 +116,7 @@ namespace CarnGo.Test.Unit
 
             await _uut.GetUserMessagesTask(testUser,0, 10);
 
-            await _fakeDbContext.Received().GetMessages(Arg.Is<User>(u => u.Email == testUser.Email),Arg.Any<int>(),Arg.Any<int>());
+            await _fakeDbContext.Received().GetMessages(Arg.Is<User>(u => u.Email == testUser.Email),Arg.Any<List<Message>>(),Arg.Any<int>());
         }
 
 

@@ -24,11 +24,24 @@
                     <Setter Property="Foreground" Value="Red"/>
                     <Setter Property="Text" Value="Denied"></Setter>
                 </DataTrigger>
+                
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Border" x:Key="IsRead">
+            <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NotificationMessage.IsRead}" Value="true">
+                    <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding NotificationMessage.IsRead}" Value="false">
+                    <Setter Property="Background" Value="{StaticResource BlueMainBrush}"/>
+                </DataTrigger>
+
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
-    <Border BorderThickness="1" Background="{StaticResource BackgroundLightBrush}" Width="300" MaxHeight="75">
+    <Border BorderThickness="1" Style="{StaticResource IsRead}" Width="300" MaxHeight="75">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"></ColumnDefinition>

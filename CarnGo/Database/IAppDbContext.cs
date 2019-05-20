@@ -8,7 +8,7 @@ namespace CarnGo.Database
 {
     public interface IAppDbContext
     {
-        void UpdateUser(User user);
+        Task UpdateUser(User user);
         Task AddCarEquipment(CarEquipment carEquipment);
         Task AddCarProfile(CarProfile carProfile);
         Task AddDaysThatIsRented(DayThatIsRented dayThatIsRented);
@@ -16,7 +16,7 @@ namespace CarnGo.Database
         Task AddMessage(Message message);
         Task AddPossibleToRentDay(PossibleToRentDay possibleToRentDay);
         Task AddUser(User user);
-        Task<List<Message>> GetMessages(User user, int startIndex, int amount);
+        Task<List<Message>> GetMessages(User user, List<Message> messageAlreadyRead, int amount);
         Task<User> GetUser(string email, Guid authorization);
         Task<User> GetUser(string email, string password);
         Task<CarProfile> GetCarProfile(string regNr);

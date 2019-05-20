@@ -11,19 +11,31 @@ namespace CarnGo.Database
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
+        public AppDbContext()
+        {
+            
+        }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options):
+            base(options)
+        {
+            
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30");
-
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=tcp:carngo.database.windows.net,1433;Initial Catalog=CarnGo;Persist Security Info=False;User ID=carngo;Password=Aarhus123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
         }
-        private DbSet<CarEquipment> CarEquipment { get; set; }
-        private DbSet<User> Users { get; set; }
-        private DbSet<Message> Messages { get; set; }
-        private DbSet<CarProfile> CarProfiles { get; set; }
-        private DbSet<DayThatIsRented> DaysThatIsRented { get; set; }
-        private DbSet<MessagesWithUsers> MessagesWithUsersJunction { get; set; }
-
-        private DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
+        public DbSet<CarEquipment> CarEquipment { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<CarProfile> CarProfiles { get; set; }
+        public DbSet<DayThatIsRented> DaysThatIsRented { get; set; }
+        public DbSet<MessagesWithUsers> MessagesWithUsersJunction { get; set; }
+        public DbSet<PossibleToRentDay> PossibleToRentDays { get; set; }
 
         //reposetory pattern, CRUD
 
@@ -31,12 +43,6 @@ namespace CarnGo.Database
         {
             await DaysThatIsRented.AddRangeAsync(list);
             await SaveChangesAsync();
-        }
-
-        public void UpdateUser(User user)
-        {
-            Users.Update(user);
-       
         }
         //Get
         public async Task<User> GetUser(string email, string password)
@@ -75,16 +81,16 @@ namespace CarnGo.Database
             return user;
         }
 
-        public async Task<List<Message>> GetMessages(User user,int startIndex, int amount)
+        public async Task<List<Message>> GetMessages(User user,List<Message> messageAlreadyRead, int amount)
         {
             var messages = MessagesWithUsersJunction
                 .Where(mwu => mwu.User == user)
                 .Select(mwu => mwu.Message)
+                .Where(msg => !messageAlreadyRead.Contains(msg))
                 .Include(msg => msg.MessagesWithUsers)
                 .ThenInclude(mwu => mwu.User)
                 .Include(msg => msg.CarProfile)
                 .OrderByDescending(msg => msg.CreatedDate)
-                .Skip(startIndex)
                 .Take(amount);
 
             return await messages.ToListAsync();
@@ -237,7 +243,17 @@ namespace CarnGo.Database
 
             if (result == default(Message)) return;
             Update(result);
-            result = message;
+            result.CarProfile = message.CarProfile ?? result.CarProfile;
+            result.ConfirmationStatus = message.ConfirmationStatus;
+            result.CreatedDate = message.CreatedDate;
+            result.LessorEmail = message.LessorEmail;
+            result.MsgType = message.MsgType;
+            result.ReceiverEmail = message.ReceiverEmail;
+            result.RenterEmail = message.RenterEmail;
+            result.SenderEmail = message.SenderEmail;
+            result.HaveBeenSeen = message.HaveBeenSeen;
+            result.MessagesWithUsers = message.MessagesWithUsers ?? result.MessagesWithUsers;
+            result.TheMessage = message.TheMessage;
             await SaveChangesAsync();
         }
 
@@ -266,6 +282,17 @@ namespace CarnGo.Database
             if (result == default(PossibleToRentDay)) return;
             result = possibleToRentDay;
             await SaveChangesAsync();
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            var result = await Users.SingleOrDefaultAsync(u => u.Email == user.Email);
+
+            if (result == default(User)) return;
+            Users.Update(result);
+            result = user;
+            await SaveChangesAsync();
+
         }
 
         //Delete

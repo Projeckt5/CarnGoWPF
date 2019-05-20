@@ -27,9 +27,9 @@ namespace CarnGo
             return carprofile;
         }
 
-        public void UpdateUser(User user)
+        public async Task UpdateUser(User user)
         {
-            context.UpdateUser(user);
+            await context.UpdateUser(user);
         }
 
         public async Task<User> GetUser(string email)
@@ -40,33 +40,25 @@ namespace CarnGo
         public async Task AddMessageToLessor(string mes, CarProfile carProfile, User renter)
         {
             var message = new Message();
-            var messageBetweenLessor = new MessagesWithUsers();
-            var messageBetweenRenter = new MessagesWithUsers();
             message.TheMessage = mes;
             message.HaveBeenSeen = false;
-            //adding lessor and renter strings to database missing. Why?
             message.ConfirmationStatus = (int)MsgStatus.Unhandled;
-            messageBetweenLessor.Message = message;
-            messageBetweenRenter.Message = message;
-            //messageBetweenLessor.User = carProfile.User;
+            message.CarProfile = carProfile;
+            message.CarProfileRegNr = carProfile.RegNr;
+            message.ReceiverEmail = carProfile.OwnerEmail;
+            message.LessorEmail = carProfile.OwnerEmail;
+            message.RenterEmail = renter.Email;
+            message.SenderEmail = renter.Email;
+            message.MsgType = (int) MessageType.LessorMessage;
 
-            //messageBetweenRenter.User = renter;
-
-            
-            message.MessagesWithUsers = new List<MessagesWithUsers> { messageBetweenRenter, messageBetweenLessor };
-            await context.AddMessageToLessor(message);
-            context.Update(renter);
-            context.Update(carProfile.User);
-            renter.MessagesWithUsers.Add(messageBetweenRenter);
-            carProfile.User.MessagesWithUsers.Add(messageBetweenLessor);
-            await context.SaveChangesAsync();
+            await context.AddMessage(message);
         }
 
-        public void UpdateUser(User user,MessagesWithUsers message)
+        public async Task UpdateUser(User user,MessagesWithUsers message)
         {
-            context.UpdateUser(user);
+            await context.UpdateUser(user);
             user.MessagesWithUsers.Add(message);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
