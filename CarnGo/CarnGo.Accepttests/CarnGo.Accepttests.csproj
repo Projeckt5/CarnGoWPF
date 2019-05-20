@@ -88,20 +88,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Oprettelse af profiler\OprettelseAfBilprofil.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OprettelseAfBilprofil.feature</DependentUpon>
-    </Compile>
     <Compile Include="Oprettelse af profiler\OprettelseAfBrugerprofilSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Oprettelse af profiler\OprettelseAfBilprofil.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OprettelseAfBilprofil.feature.cs</LastGenOutput>
-    </None>
     <None Include="Oprettelse af profiler\OprettelseAfBrugerprofil.feature" />
     <None Include="packages.config" />
   </ItemGroup>
