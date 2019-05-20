@@ -161,6 +161,8 @@ namespace CarnGo
                 {
                     RememberUserLocally(PasswordSecureString);
                 }
+
+                
             }
             catch (AuthenticationFailedException e)
             {
@@ -169,9 +171,10 @@ namespace CarnGo
             finally
             {
                 IsLogin = false;
+               
             }
 
-            _application.IsLoggedIn = true;
+           
         }
 
         private void RememberUserLocally(SecureString passwordSecureString)
