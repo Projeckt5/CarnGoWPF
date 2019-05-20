@@ -21,6 +21,7 @@ namespace CarnGo
         private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
         
+        
         private UserModel _currentUser = new UserModel();
 
         public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
@@ -30,6 +31,7 @@ namespace CarnGo
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<NewUserDataReadyEvent>()
                 .Subscribe(async () => CurrentUser = await _queryDatabase.GetUserTask(CurrentUser));
+
         }
 
         /// <summary>
@@ -93,7 +95,12 @@ namespace CarnGo
         {
             CurrentUser = new UserModel();
             GoToPage(ApplicationPage.LoginPage);
+            IsLoggedIn = false;
         }
+
+        public bool IsLoggedIn { get; set; } = false;
+
+
     }
 }
 

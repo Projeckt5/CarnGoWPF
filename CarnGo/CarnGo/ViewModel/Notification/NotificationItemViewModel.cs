@@ -124,6 +124,9 @@ namespace CarnGo
 
         private void ConfirmRental(MessageFromRenterModel renterMessage, bool rentalConfirmed)
         {
+            if(renterMessage.ConfirmationStatus != MsgStatus.Unhandled)
+                return;
+
             DeclineButton ^= rentalConfirmed;
             ConfirmButton = rentalConfirmed;
             NotificationMessage.Confirmation = rentalConfirmed ? MsgStatus.Confirmed : MsgStatus.Declined;

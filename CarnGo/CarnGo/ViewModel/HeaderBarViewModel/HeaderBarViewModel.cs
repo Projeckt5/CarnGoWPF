@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.VisualStyles;
@@ -25,6 +26,8 @@ namespace CarnGo
         private UserModel _currentUser;
         private int _amountLoadedNotifications = 0;
         private int _amountNotificationsToLoad = 10;
+        private Timer timer;
+        private static readonly Object _lock = new Object();
 
         #endregion
         #region Default Constructor
@@ -35,6 +38,8 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _currentUser = new UserModel();
             _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
+            timer = new Timer(new TimerCallback(NotificationQueryThread), "Notification Query Thread", 2000, 2000);
+           
         }
         #endregion
         #region Public Properties
@@ -60,7 +65,7 @@ namespace CarnGo
 
         public string SearchKeyWord { get; set; }
 
-        public int NumUnreadNotifications => UserModel.MessageModels.Count(msg => msg.MessageRead == false);
+        public int NumUnreadNotifications =>UserModel.MessageModels.Count(msg => msg.MessageRead == false);
 
         public bool UnreadNotifications => NumUnreadNotifications > 0;
 
@@ -101,6 +106,8 @@ namespace CarnGo
         private void Logout()
         {
             _application.LogUserOut();
+            
+
         }
 
         private void Search()
@@ -144,7 +151,48 @@ namespace CarnGo
             }
         }
 
+        private async void NotificationQueryThread(Object o)
+        {
+            if (_application.IsLoggedIn)
+            {
+                
+                if (IsQueryingDatabase)
+                    return;
 
+                try
+                {
+                    var notifications=new List<MessageModel>();
+
+                    notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
+                    _amountLoadedNotifications,
+                    _amountNotificationsToLoad);
+
+
+                    if (notifications.Count != 0)
+                    {
+                        notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
+                        UserModel.MessageModels.AddRange(notifications);
+                        _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
+                        // UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
+
+                        OnPropertyChanged(nameof(UnreadNotifications));
+                    }
+
+                }
+                catch (AuthorizationFailedException e)
+                {
+                    Logout();
+                }
+                
+
+
+            }
+        }
         #endregion
+
+        ~HeaderBarViewModel()
+        {
+            timer.Dispose();
+        }
     }
 }
