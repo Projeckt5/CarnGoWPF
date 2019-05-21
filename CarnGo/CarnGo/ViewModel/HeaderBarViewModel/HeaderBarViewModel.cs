@@ -175,7 +175,7 @@ namespace CarnGo
 
                 try
                 {
-                   i++; //test af push besked
+                   /*i++; //test af push besked
                     if (i == 10)
                     {
                         var db = new AppDbContext();
@@ -187,7 +187,7 @@ namespace CarnGo
                             TheMessage = "Tristan man må ikke bande"
                         };
                         await db.AddMessage(message);
-                    }
+                    }*/
 
                     var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
