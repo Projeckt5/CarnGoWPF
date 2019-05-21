@@ -192,44 +192,6 @@ namespace CarnGo.Database
                 optionsBuilder.UseSqlServer("Server=tcp:carngo.database.windows.net,1433;Initial Catalog=CarnGo;Persist Security Info=False;User ID=carngo;Password=Aarhus123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PossibleToRentDay>()
-                .HasOne(p => p.CarProfile)
-                .WithMany(b => b.PossibleToRentDays);
-
-            modelBuilder.Entity<DayThatIsRented>()
-                .HasOne(p => p.CarProfile)
-                .WithMany(b => b.DaysThatIsRented);
-
-            modelBuilder.Entity<CarProfile>()
-                .HasOne(p => p.CarEquipment)
-                .WithOne(b => b.CarProfile)
-                .HasForeignKey<CarEquipment>();
-
-            modelBuilder.Entity<CarProfile>()
-                .HasOne(p => p.Owner)
-                .WithMany(b => b.Cars)
-                .HasForeignKey(p=>p.OwnerEmail);
-
-            modelBuilder.Entity<MessagesWithUsers>().HasKey(k => new {k.MessageId, k.UserEmail});
-
-            modelBuilder.Entity<User>()
-                .HasMany(p => p.MessagesWithUsers)
-                .WithOne(b => b.User)
-                .HasForeignKey(p => p.UserEmail);
-
-            modelBuilder.Entity<Message>()
-                .HasMany(p => p.MessagesWithUsers)
-                .WithOne(b => b.Message)
-                .HasForeignKey(p => p.MessageId);
-
-            modelBuilder.Entity<Message>()
-                .HasOne(p => p.CarProfile)
-                .WithMany(b => b.MessagesCarOccursIn)
-                .HasForeignKey(p => p.CarProfileRegNr);
-        }
     }
 
 }

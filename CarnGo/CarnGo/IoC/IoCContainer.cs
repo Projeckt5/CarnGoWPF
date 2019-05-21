@@ -33,10 +33,10 @@ namespace CarnGo
                 .UseInMemoryDatabase(databaseName: "debug_database")
                 .Options;
 
-                Container.RegisterType<IAppDbContext, DebugAppDbContext>(new InjectionConstructor(options));
+                Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerThreadLifetimeManager(), new InjectionConstructor(options));
 #else
                 
-                Container.RegisterType<IAppDbContext, AppDbContext>();
+                Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager());
 #endif
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
