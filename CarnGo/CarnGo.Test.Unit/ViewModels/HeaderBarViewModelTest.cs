@@ -5,6 +5,7 @@ using Prism.Events;
 using System.Collections.Generic;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+using CarnGo.Model.ThreadTimer;
 using NSubstitute.ExceptionExtensions;
 
 namespace CarnGo.Test.Unit.ViewModels
@@ -15,10 +16,11 @@ namespace CarnGo.Test.Unit.ViewModels
         private HeaderBarViewModel _uut;
         private IEventAggregator _fakeEventAggregator;
         private IApplication _fakeApplication;
+        private IQueryDatabase _fakeDatabaseQuery;
         private SearchEvent _fakeSearchEvent;
         private NotificationMessagesUpdateEvent _fakeUpdateEvent;
-        private IQueryDatabase _fakeDatabaseQuery;
         private UserUpdateEvent _fakeUserUpdateEvent;
+        private DatabasePollingLoop _fakeDatabasePollingLoopEvent;
 
         [SetUp]
         public void TestSetup()
@@ -29,9 +31,11 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakeDatabaseQuery = Substitute.For<IQueryDatabase>();
             _fakeUserUpdateEvent = Substitute.For<UserUpdateEvent>();
             _fakeUpdateEvent = Substitute.For<NotificationMessagesUpdateEvent>();
+            _fakeDatabasePollingLoopEvent = Substitute.For<DatabasePollingLoop>();
             _fakeEventAggregator.GetEvent<SearchEvent>().Returns(_fakeSearchEvent);
             _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Returns(_fakeUpdateEvent);
             _fakeEventAggregator.GetEvent<UserUpdateEvent>().Returns(_fakeUserUpdateEvent);
+            _fakeEventAggregator.GetEvent<DatabasePollingLoop>().Returns(_fakeDatabasePollingLoopEvent);
             _uut = new HeaderBarViewModel(_fakeEventAggregator,_fakeApplication, _fakeDatabaseQuery);
 
             _fakeApplication.CurrentUser.Returns(TestModelFactory.CreateUserModel());
