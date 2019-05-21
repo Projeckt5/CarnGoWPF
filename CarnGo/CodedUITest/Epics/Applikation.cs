@@ -9,46 +9,37 @@ using CarnGo.Database;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
+using System.Threading;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 
 namespace CodedUITest
 {
-    /// <summary>
-    /// Summary description for RegisterUser
-    /// </summary>
     [CodedUITest]
-    public class RegisterUser
+    public class Applikation
     {
         public TestContext TestContext { get; set; }
         public UIMap UIMap => map ?? (map = new UIMap());
         private UIMap map;
         private string _path;
         private ApplicationUnderTest _uut;
-        private IAppDbContext _dbContext;
 
-        public RegisterUser()
+        public Applikation()
         {
             _path = "../../../CarnGo/bin/Debug/CarnGo.exe";
             Assert.IsTrue(File.Exists(_path));
-
-            _dbContext = new AppDbContext();
         }
 
         [TestMethod]
-        public void CodedUITestMethod1()
+        public void US9_LoginPaaApplikation()
         {
-            this.UIMap.NavigateToRegisterUser();
-            this.UIMap.ClickEmailBox();
-            Keyboard.SendKeys("tester@tester.com");
-            this.UIMap.ClickPasswordBox();
-            Keyboard.SendKeys("tester1");
-            this.UIMap.ClickRepeatPasswordBox();
-            Keyboard.SendKeys("tester1");
-            this.UIMap.CheckAgreeToAllTerms();
-            this.UIMap.ClickRegister();
-            _dbContext.RemoveUser("tester@tester.com");
-            this.UIMap.AssertPageContainsLoginText();
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@owner");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+            this.UIMap.AssertHeaderBarAppears();
         }
 
         //Use TestInitialize to run code before running each test 

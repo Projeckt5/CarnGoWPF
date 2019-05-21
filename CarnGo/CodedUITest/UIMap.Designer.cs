@@ -588,6 +588,32 @@ namespace CodedUITest
             Mouse.Click(uIItemButton1, new Point(54, 57));
         }
         
+        /// <summary>
+        /// AssertNameEqualsWelcome - Use 'AssertNameEqualsWelcomeExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertNameEqualsWelcome()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Verify that the 'Name' property of 'CurrentPageFrame' pane equals 'Welcome'
+            Assert.AreEqual(this.AssertNameEqualsWelcomeExpectedValues.UICurrentPageFramePaneName, uICurrentPageFramePane.Name);
+        }
+        
+        /// <summary>
+        /// AssertHeaderBarAppears - Use 'AssertHeaderBarAppearsExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertHeaderBarAppears()
+        {
+            #region Variable Declarations
+            WpfCustom uIRootCustom = this.UIMainWindowWindow.UIRootCustom;
+            #endregion
+
+            // Verify that the 'ClassName' property of 'root' custom control equals 'Uia.HeaderBarControl'
+            Assert.AreEqual(this.AssertHeaderBarAppearsExpectedValues.UIRootCustomClassName, uIRootCustom.ClassName);
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -769,6 +795,30 @@ namespace CodedUITest
             }
         }
         
+        public virtual AssertNameEqualsWelcomeExpectedValues AssertNameEqualsWelcomeExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertNameEqualsWelcomeExpectedValues == null))
+                {
+                    this.mAssertNameEqualsWelcomeExpectedValues = new AssertNameEqualsWelcomeExpectedValues();
+                }
+                return this.mAssertNameEqualsWelcomeExpectedValues;
+            }
+        }
+        
+        public virtual AssertHeaderBarAppearsExpectedValues AssertHeaderBarAppearsExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertHeaderBarAppearsExpectedValues == null))
+                {
+                    this.mAssertHeaderBarAppearsExpectedValues = new AssertHeaderBarAppearsExpectedValues();
+                }
+                return this.mAssertHeaderBarAppearsExpectedValues;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -836,6 +886,10 @@ namespace CodedUITest
         private EnterNewPersonalInformationParams mEnterNewPersonalInformationParams;
         
         private AssertLastNameEqualstesterExpectedValues mAssertLastNameEqualstesterExpectedValues;
+        
+        private AssertNameEqualsWelcomeExpectedValues mAssertNameEqualsWelcomeExpectedValues;
+        
+        private AssertHeaderBarAppearsExpectedValues mAssertHeaderBarAppearsExpectedValues;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1172,6 +1226,36 @@ namespace CodedUITest
         /// Verify that the 'Text' property of text box numbered 2 next to 'Personal information:' label equals 'tester'
         /// </summary>
         public string UIItemEdit1Text = "tester";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'AssertNameEqualsWelcome'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class AssertNameEqualsWelcomeExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Name' property of 'CurrentPageFrame' pane equals 'Welcome'
+        /// </summary>
+        public string UICurrentPageFramePaneName = "Welcome";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'AssertHeaderBarAppears'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class AssertHeaderBarAppearsExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'ClassName' property of 'root' custom control equals 'Uia.HeaderBarControl'
+        /// </summary>
+        public string UIRootCustomClassName = "Uia.HeaderBarControl";
         #endregion
     }
     

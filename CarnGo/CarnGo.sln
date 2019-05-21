@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Database", "Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carngo.Integrationtest", "Carngo.Integrationtest\Carngo.Integrationtest.csproj", "{195CB2B1-1A73-48A4-9201-3C136D230769}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedUITest", "CodedUITest\CodedUITest.csproj", "{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Accepttest", "CodedUITest\CarnGo.Accepttest.csproj", "{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
