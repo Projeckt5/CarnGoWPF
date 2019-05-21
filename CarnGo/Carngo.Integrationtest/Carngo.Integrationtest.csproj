@@ -132,7 +132,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReaDbQueryDbToAppConverterIntegration.cs" />
     <Compile Include="RealDbQueryAndDbContextIntegration.cs" />
+    <Compile Include="RealDbQueryAppToDbConverterIntegration.cs" />
     <Compile Include="Step1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
