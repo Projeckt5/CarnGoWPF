@@ -561,14 +561,14 @@ namespace CodedUITest
         {
             #region Variable Declarations
             WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
-            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem14Text.UIItemButton;
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem2Text.UIItemButton;
             #endregion
 
             // Click 'CurrentPageFrame' pane
-            Mouse.Click(uICurrentPageFramePane, new Point(1433, 587));
+            Mouse.Click(uICurrentPageFramePane, new Point(731, 454));
 
-            // Click first button next to '14' label
-            Mouse.Click(uIItemButton, new Point(46, 30));
+            // Click first button next to '2' label
+            Mouse.Click(uIItemButton, new Point(57, 42));
         }
         
         /// <summary>
@@ -1566,6 +1566,18 @@ namespace CodedUITest
                 return this.mUIItemButton;
             }
         }
+        
+        public UIItem2Text UIItem2Text
+        {
+            get
+            {
+                if ((this.mUIItem2Text == null))
+                {
+                    this.mUIItem2Text = new UIItem2Text(this);
+                }
+                return this.mUIItem2Text;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1580,6 +1592,8 @@ namespace CodedUITest
         private UIItem26Text mUIItem26Text;
         
         private WpfButton mUIItemButton;
+        
+        private UIItem2Text mUIItem2Text;
         #endregion
     }
     
@@ -1738,6 +1752,42 @@ namespace CodedUITest
         {
             #region Search Criteria
             this.SearchProperties[WpfText.PropertyNames.Name] = "26";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem2Text : WpfText
+    {
+        
+        public UIItem2Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "2";
             this.WindowTitles.Add("MainWindow");
             #endregion
         }

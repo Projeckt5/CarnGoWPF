@@ -44,15 +44,12 @@ namespace CodedUITest
             this.UIMap.ClickLoginPasswordBox();
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
-            this.UIMap.ClickOwnerButton();
             Thread.Sleep(1000);
+            this.UIMap.ClickOwnerButton();
             this.UIMap.ClickUserInformation();
             Keyboard.SendKeys("hej");
             this.UIMap.ClickUserInformationSecondRow();
             Keyboard.SendKeys("tester");
-            Thread.Sleep(1000);
-            this.UIMap.ClickUserSaveButton();
-            Thread.Sleep(1000);
             this.UIMap.ClickUserSaveAndSignOut();
             Thread.Sleep(1000);
             this.UIMap.ClickLoginEmailBox();
