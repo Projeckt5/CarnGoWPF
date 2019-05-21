@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using CarnGo.Database;
+using CarnGo.Database.Models;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
@@ -27,7 +28,7 @@ namespace CarnGo
         private int _amountLoadedNotifications = 0;
         private int _amountNotificationsToLoad = 10;
         private Timer timer;
-        private static readonly Object _lock = new Object();
+        
 
         #endregion
         #region Default Constructor
@@ -60,12 +61,12 @@ namespace CarnGo
             }
         }
 
-        public string FirstName => UserModel.Firstname.Length > 20 ? UserModel?.Firstname.Substring(0,15) + "..." : UserModel.Firstname;
+        public string FirstName => UserModel?.Firstname.Length > 20 ? UserModel?.Firstname.Substring(0,15) + "..." : UserModel?.Firstname;
         public bool ManageCarsVisible => UserModel?.UserType == UserType.Lessor;
 
         public string SearchKeyWord { get; set; }
 
-        public int NumUnreadNotifications =>UserModel.MessageModels.Count(msg => msg.MessageRead == false);
+        public int NumUnreadNotifications => UserModel?.MessageModels.Count(msg => msg.MessageRead == false) ?? 0;
 
         public bool UnreadNotifications => NumUnreadNotifications > 0;
 
@@ -151,19 +152,34 @@ namespace CarnGo
             }
         }
 
+        public int i { get; set; } = 0;
+            
+      
         private async void NotificationQueryThread(Object o)
         {
-            if (_application.IsLoggedIn)
+            if (_application.CurrentUser!=null)
             {
-                
+              
                 if (IsQueryingDatabase)
                     return;
 
                 try
                 {
-                    var notifications=new List<MessageModel>();
+                   /*i++; //test af push besked
+                    if (i == 10)
+                    {
+                        var db = new AppDbContext();
+                        var message = new Message()
+                        {
+                            CarProfileRegNr = "0420305a-2a44-44b6-8f59-88aa8da96103", ConfirmationStatus = 2, CreatedDate = DateTime.Now,
+                            HaveBeenSeen = false,
+                            LessorEmail = "car@owner", CarProfile = null, MsgType = 1, ReceiverEmail = "car@owner",RenterEmail = "car@renter",
+                            TheMessage = "Tristan man må ikke bande"
+                        };
+                        await db.AddMessage(message);
+                    }*/
 
-                    notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
+                    var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
 
@@ -173,9 +189,10 @@ namespace CarnGo
                         notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
                         UserModel.MessageModels.AddRange(notifications);
                         _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
-                        // UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
+                        
 
                         OnPropertyChanged(nameof(UnreadNotifications));
+                        OnPropertyChanged(nameof(NumUnreadNotifications));
                     }
 
                 }

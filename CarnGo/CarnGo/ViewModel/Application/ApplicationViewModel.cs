@@ -20,9 +20,9 @@ namespace CarnGo
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
-        
-        
-        private UserModel _currentUser = new UserModel();
+
+
+        private UserModel _currentUser = null;
 
         public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
@@ -93,7 +93,7 @@ namespace CarnGo
 
         public void LogUserOut()
         {
-            CurrentUser = new UserModel();
+            CurrentUser = null;
             GoToPage(ApplicationPage.LoginPage);
             IsLoggedIn = false;
         }
