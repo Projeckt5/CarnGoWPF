@@ -13,11 +13,13 @@ using CarnGo.Security;
 using Prism.Commands;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+using Prism.Events;
 
 namespace CarnGo
 {
     public class LoginPageViewModel : BaseViewModelWithValidation
     {
+        
 
         #region Private Field
         private readonly IValidator<string> _emailValidator = new EmailValidator();
@@ -44,6 +46,7 @@ namespace CarnGo
             _passwordValidator = passwordValidator;
             _databaseAccess = databaseAccess;
             _application = application;
+           
         }
         #endregion
 
