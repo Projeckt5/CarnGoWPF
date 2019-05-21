@@ -1,119 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Security;
 using System.Threading.Tasks;
 using CarnGo.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Internal;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace CarnGo.Database
 {
-    class Commands
+    public class DebugAppDbContext : AppDbContext
     {
-        public static void CreateDatabase()
+        public DebugAppDbContext(DbContextOptions<AppDbContext> options):
+            base(options)
         {
-            using (var db = new AppDbContext())
+            if (!Users.Any())
             {
-                db.Database.EnsureCreated();
+                SeedDatabase().Wait();
             }
         }
 
-        public static async Task  PullAllData()
-        {
-            using (var db = new AppDbContext())
-            {
-                var messages = await db.GetAllMessages();
-                var carProfiles = await db.GetAllCarProfiles();
-                var carEquipment = db.GetAllCarEquipment();
-                var users = await db.GetAllUsers();
-                var daysRented = await db.GetAllDayThatIsRented();
-                var possibleToRent = await db.GetAllPossibleToRentDay();
-
-
-                if (messages != null)
-                {
-                    foreach (var message in messages)
-                    {
-                        Console.WriteLine("        Lessor: " + message.LessorEmail);
-                        Console.WriteLine("        Renter: " + message.RenterEmail);
-                        Console.WriteLine("  ConfirmationStatus: " + message.ConfirmationStatus);
-                        Console.WriteLine("  Message type: " + message.MsgType);
-                        Console.WriteLine("   The message: " + message.TheMessage);
-                        Console.WriteLine("      Has seen: " + message.HaveBeenSeen);
-                        Console.WriteLine("    Message ID: " + message.MessageID);
-                    }
-                }
-
-
-                if (users != null)
-                {
-                    foreach (var user in users)
-                    {
-                        Console.WriteLine("          Name: " + user.FirstName + " " + user.LastName);
-                        Console.WriteLine("       Address: " + user.Address);
-                        Console.WriteLine("         Email: " + user.Email);
-                        Console.WriteLine("      Password: " + user.Password);
-                        Console.WriteLine("     User type: " + user.UserType);
-                        Console.WriteLine("Number of cars: " + user.Cars?.Count);
-                    }
-                }
-
-
-                if (carProfiles != null)
-                {
-                    foreach (var car in carProfiles)
-                    {
-                        Console.WriteLine("         Brand: " + car.Brand);
-                        Console.WriteLine("         Model: " + car.Model);
-                        Console.WriteLine("           Age: " + car.Age);
-                        Console.WriteLine("   Description: " + car.CarDescription);
-                        Console.WriteLine("         Owner: " + car.Owner.FirstName + " " + car.Owner.LastName);
-                    }
-                }
-
-
-                if (possibleToRent != null)
-                {
-                    foreach (var possible in possibleToRent)
-                    {
-                        Console.WriteLine("           Car: " + possible.CarProfile.Brand);
-                        Console.WriteLine("          Date: " + possible.Date);
-                    }
-                }
-
-
-                if (daysRented != null)
-                {
-                    foreach (var rented in daysRented)
-                    {
-                        Console.WriteLine("           Car: " + rented.CarProfile.Model);
-                        Console.WriteLine("        Renter: " + rented.User.FirstName + " " + rented.User.LastName);
-                        Console.WriteLine("          Date: " + rented.Date);
-                    }
-                }
-
-                
-            }
-        }
-
-        public static void EmptyDatabase()
-        {
-            using (var db = new AppDbContext())
-            {
-                var listOfTables = new List<string> { "CarEquipment", "DaysThatIsRented", "MessagesWithUsersJunction", "Messages", "PossibleToRentDays", "CarProfiles", "Users" };
-
-                foreach (var tableName in listOfTables)
-                {
-                    db.Database.ExecuteSqlCommand("DROP TABLE [" + tableName + "]");
-                }
-            }
-        }
-
-        public static async Task SeedDatabase()
+        private async Task SeedDatabase()
         {
             User lessor = new User()
             {
@@ -124,8 +31,8 @@ namespace CarnGo.Database
                 Address = "Here",
                 UserType = 2,
                 AuthorizationString = Guid.Empty,
-            }; 
-            
+            };
+
             User renter = new User()
             {
                 Email = "car@renter",
@@ -135,17 +42,17 @@ namespace CarnGo.Database
                 Address = "There",
                 UserType = 1,
                 AuthorizationString = Guid.Empty,
-            }; 
+            };
 
             List<CarProfile> ourCars = new List<CarProfile>();
             List<CarEquipment> ourEquip = new List<CarEquipment>();
-            
+
             for (int i = 1; i < 12; i++)
             {
                 CarEquipment tempCarEquipment = new CarEquipment();
                 CarProfile tempCarProfile = new CarProfile();
                 bool iseven;
-                if (i/2 == 0)
+                if (i / 2 == 0)
                 {
                     iseven = true;
                 }
@@ -153,7 +60,7 @@ namespace CarnGo.Database
                 {
                     iseven = false;
                 }
-                 
+
                 tempCarProfile.RegNr = "8FJSM2" + Convert.ToString(i);
                 tempCarProfile.Model = "7";
                 tempCarProfile.Brand = $"BMW{i}";
@@ -183,7 +90,7 @@ namespace CarnGo.Database
                 ourEquip.Add(tempCarEquipment);
             }
 
-            
+
             ourCars.ForEach(c =>
             {
                 List<PossibleToRentDay> possibleToRentDay = new List<PossibleToRentDay>();
@@ -233,7 +140,7 @@ namespace CarnGo.Database
                 CarProfileRegNr = ourCars[0].RegNr,
                 MessagesWithUsers = new List<MessagesWithUsers>()
             };
-             
+
             Message ourMessage2 = new Message()
             {
                 HaveBeenSeen = true,
@@ -266,20 +173,26 @@ namespace CarnGo.Database
                 MessagesWithUsers = new List<MessagesWithUsers>()
             };
 
-
-            using (var db = new AppDbContext())
-            {
-                await db.AddUser(renter);
-                await db.AddUser(lessor);
+                await AddUser(renter);
+                await AddUser(lessor);
                 foreach (var car in ourCars)
                 {
-                    await db.AddCarProfile(car);
+                    await AddCarProfile(car);
                 }
 
-                await db.AddMessage(ourMessage1);
-                await db.AddMessage(ourMessage2);
-                await db.AddMessage(ourMessage3);
+                await AddMessage(ourMessage1);
+                await AddMessage(ourMessage2);
+                await AddMessage(ourMessage3);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=tcp:carngo.database.windows.net,1433;Initial Catalog=CarnGo;Persist Security Info=False;User ID=carngo;Password=Aarhus123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
     }
+
 }
+    

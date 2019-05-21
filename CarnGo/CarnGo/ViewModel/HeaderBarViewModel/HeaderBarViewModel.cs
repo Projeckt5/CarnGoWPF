@@ -9,12 +9,14 @@ using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+using CarnGo.Model.ThreadTimer;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 
 namespace CarnGo
 {
+    public class CurrentUserSetNull : PubSubEvent { }
     public class SearchEvent : PubSubEvent<string> { }
     public class HeaderBarViewModel : BaseViewModel
     {
@@ -27,7 +29,7 @@ namespace CarnGo
         private UserModel _currentUser;
         private int _amountLoadedNotifications = 0;
         private int _amountNotificationsToLoad = 10;
-        private Timer timer;
+        
         
 
         #endregion
@@ -39,8 +41,9 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _currentUser = new UserModel();
             _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
-            timer = new Timer(new TimerCallback(NotificationQueryThread), "Notification Query Thread", 2000, 2000);
-           
+            _eventAggregator.GetEvent<DatabasePollingLoop>().Subscribe(NotificationQueryThread);
+
+
         }
         #endregion
         #region Public Properties
@@ -134,11 +137,8 @@ namespace CarnGo
                 var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
-                notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
-                UserModel.MessageModels.AddRange(notifications) ;
-                _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
-                UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
-                OnPropertyChanged(nameof(UnreadNotifications));
+                notifications.ForEach(msg => msg.MessageRead = true);
+                UpdateNotifications(notifications);
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
@@ -152,12 +152,22 @@ namespace CarnGo
             }
         }
 
+        private void UpdateNotifications(List<MessageModel> notifications)
+        {
+            notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
+            notifications.AddRange(UserModel.MessageModels);
+            UserModel.MessageModels = notifications;
+            _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
+            OnPropertyChanged(nameof(UnreadNotifications));
+            OnPropertyChanged(nameof(NumUnreadNotifications));
+        }
+
         public int i { get; set; } = 0;
             
       
-        private async void NotificationQueryThread(Object o)
+        private async void NotificationQueryThread()
         {
-            if (_application.CurrentUser!=null)
+            if (_application.IsLoggedIn && _application.CurrentUser!=null)
             {
               
                 if (IsQueryingDatabase)
@@ -183,33 +193,24 @@ namespace CarnGo
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
 
-
-                    if (notifications.Count != 0)
-                    {
-                        notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
-                        UserModel.MessageModels.AddRange(notifications);
-                        _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
-                        
-
-                        OnPropertyChanged(nameof(UnreadNotifications));
-                        OnPropertyChanged(nameof(NumUnreadNotifications));
-                    }
-
+                    UpdateNotifications(notifications);
                 }
                 catch (AuthorizationFailedException e)
                 {
                     Logout();
+                    _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
                 }
                 
 
 
             }
+            else
+            {                
+                _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
+            }
         }
         #endregion
 
-        ~HeaderBarViewModel()
-        {
-            timer.Dispose();
-        }
+        
     }
 }

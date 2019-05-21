@@ -149,6 +149,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugAppDbContext.cs" />
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="IAppDbContext.cs" />

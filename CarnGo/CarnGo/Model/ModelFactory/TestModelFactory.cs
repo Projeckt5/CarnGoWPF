@@ -49,13 +49,26 @@ namespace CarnGo
 
         public static MessageModel CreateMessageModel(string msg, MessageType type)
         {
-            return new MessageModel()
+            var lessor = CreateUserModel("lessor@lessor");
+            var renter = CreateUserModel("renter@renter");
+            var carProfile = CreateCarProfile();
+            switch (type)
             {
-                Id = 1,
-                Message = msg,
-                MessageRead = false,
-                MsgType = type
-            };
+                case MessageType.LessorMessage:
+                    return new MessageFromLessorModel(renter, lessor, carProfile, msg, MsgStatus.Unhandled)
+                    {
+                        Sender = lessor,
+                        Receiver = renter,
+                    };
+                case MessageType.RenterMessage:
+                    return new MessageFromRenterModel(renter, lessor, carProfile, msg)
+                    {
+                        Sender = renter,
+                        Receiver = lessor
+                    };
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
 
 

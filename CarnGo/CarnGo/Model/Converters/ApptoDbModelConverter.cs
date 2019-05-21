@@ -89,40 +89,42 @@ namespace CarnGo
             if (appMessage.MsgType == MessageType.LessorMessage)
             {
                 var msg = appMessage as MessageFromLessorModel;
-                return new Message()
+                var returnMsg = new Message()
                 {
-                    CarProfile = Convert(msg.RentCar),
-                    CarProfileRegNr = msg.RentCar.RegNr ?? "",
-                    ConfirmationStatus = (int) msg.ConfirmationStatus,
-                    HaveBeenSeen = msg.MessageRead,
-                    LessorEmail = msg.Lessor.Email ?? "",
-                    RenterEmail = msg.Renter.Email ?? "",
-                    SenderEmail = msg.Sender.Email ?? "",
-                    ReceiverEmail = msg.Receiver.Email??"",
-                    MsgType = (int)msg.MsgType,
-                    TheMessage = msg.Message ?? "",
-                    MessageID = msg.Id,
-                    CreatedDate = msg.TimeStamp
+                    CarProfile = Convert(msg?.RentCar),
+                    CarProfileRegNr = msg?.RentCar?.RegNr ?? "",
+                    ConfirmationStatus = (int) (msg?.ConfirmationStatus ?? 0),
+                    HaveBeenSeen = msg?.MessageRead ?? false,
+                    LessorEmail = msg?.Lessor.Email ?? "",
+                    RenterEmail = msg?.Renter.Email ?? "",
+                    SenderEmail = msg?.Sender.Email ?? "",
+                    ReceiverEmail = msg?.Receiver.Email??"",
+                    MsgType = (int)(msg?.MsgType ?? 0),
+                    TheMessage = msg?.Message ?? "",
+                    MessageID = msg?.Id ?? -1,
+                    CreatedDate = msg?.TimeStamp ?? DateTime.Now
                 };
+                return returnMsg;
             }
             else
             {
                 var msg = appMessage as MessageFromRenterModel;
-                return new Message()
+                var returnMsg = new Message()
                 {
-                    CarProfile = Convert(msg.RentCar),
-                    CarProfileRegNr = msg.RentCar.RegNr ?? "",
-                    ConfirmationStatus = (int)msg.ConfirmationStatus,
-                    HaveBeenSeen = msg.MessageRead,
-                    RenterEmail = msg.Renter.Email ?? "",
-                    LessorEmail = msg.Lessor.Email ?? "",
-                    SenderEmail = msg.Sender.Email ?? "",
-                    ReceiverEmail = msg.Receiver.Email ?? "",
-                    MsgType = (int)msg.MsgType,
-                    TheMessage = msg.Message ?? "",
-                    MessageID = msg.Id,
-                    CreatedDate = msg.TimeStamp
+                    CarProfile = Convert(msg?.RentCar),
+                    CarProfileRegNr = msg?.RentCar?.RegNr ?? "",
+                    ConfirmationStatus = (int)(msg?.ConfirmationStatus ?? 0),
+                    HaveBeenSeen = msg?.MessageRead ?? false,
+                    RenterEmail = msg?.Renter.Email ?? "",
+                    LessorEmail = msg?.Lessor.Email ?? "",
+                    SenderEmail = msg?.Sender.Email ?? "",
+                    ReceiverEmail = msg?.Receiver.Email ?? "",
+                    MsgType = (int)(msg?.MsgType ?? 0),
+                    TheMessage = msg?.Message ?? "",
+                    MessageID = msg?.Id ?? -1,
+                    CreatedDate = msg?.TimeStamp ?? DateTime.Now
                 };
+                return returnMsg;
             }
         }
     }
