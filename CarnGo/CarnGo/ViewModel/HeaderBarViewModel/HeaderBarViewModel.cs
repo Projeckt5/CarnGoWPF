@@ -137,11 +137,8 @@ namespace CarnGo
                 var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
-                notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
-                UserModel.MessageModels.AddRange(notifications) ;
-                _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
-                UserModel.MessageModels.ForEach(msg => msg.MessageRead = true);
-                OnPropertyChanged(nameof(UnreadNotifications));
+                notifications.ForEach(msg => msg.MessageRead = true);
+                UpdateNotifications(notifications);
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
@@ -153,6 +150,16 @@ namespace CarnGo
             {
                 IsQueryingDatabase = false;
             }
+        }
+
+        private void UpdateNotifications(List<MessageModel> notifications)
+        {
+            notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
+            notifications.AddRange(UserModel.MessageModels);
+            UserModel.MessageModels = notifications;
+            _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
+            OnPropertyChanged(nameof(UnreadNotifications));
+            OnPropertyChanged(nameof(NumUnreadNotifications));
         }
 
         public int i { get; set; } = 0;
@@ -186,18 +193,7 @@ namespace CarnGo
                     _amountLoadedNotifications,
                     _amountNotificationsToLoad);
 
-
-                    if (notifications.Count != 0)
-                    {
-                        notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
-                        UserModel.MessageModels.AddRange(notifications);
-                        _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
-                        
-
-                        OnPropertyChanged(nameof(UnreadNotifications));
-                        OnPropertyChanged(nameof(NumUnreadNotifications));
-                    }
-
+                    UpdateNotifications(notifications);
                 }
                 catch (AuthorizationFailedException e)
                 {

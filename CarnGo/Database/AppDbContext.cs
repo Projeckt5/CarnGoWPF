@@ -318,7 +318,7 @@ namespace CarnGo.Database
         public async Task RemoveUser(string ID)
         {
             var user = new User { Email = ID };
-
+            
             Attach(user);
             Remove(user);
             await SaveChangesAsync();
