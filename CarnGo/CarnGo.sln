@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Database", "Database
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carngo.Integrationtest", "Carngo.Integrationtest\Carngo.Integrationtest.csproj", "{195CB2B1-1A73-48A4-9201-3C136D230769}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo.Accepttests", "CarnGo.Accepttests\CarnGo.Accepttests.csproj", "{9126A631-4A21-4A8A-ABF3-0DEEE1AF5AC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedUITest", "CodedUITest\CodedUITest.csproj", "{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9126A631-4A21-4A8A-ABF3-0DEEE1AF5AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9126A631-4A21-4A8A-ABF3-0DEEE1AF5AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9126A631-4A21-4A8A-ABF3-0DEEE1AF5AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9126A631-4A21-4A8A-ABF3-0DEEE1AF5AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
