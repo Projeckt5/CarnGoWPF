@@ -36,5 +36,7 @@ namespace CarnGo.Database
         Task UpdateMessage(Message message);
         Task UpdatePossibleToRentDay(PossibleToRentDay possibleToRentDay);
         Task UpdateUserInformation(User user);
+        Task<List<DayThatIsRented>> GetDaysThatIsRentedTask(string user, CarProfile carProfile);
+        Task DeleteDaysThatIsRentedTask(List<DayThatIsRented> list)
     }
 }
