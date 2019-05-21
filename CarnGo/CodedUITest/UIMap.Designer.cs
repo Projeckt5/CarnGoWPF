@@ -282,6 +282,312 @@ namespace CodedUITest
             Mouse.Click(uICurrentPageFramePane, new Point(450, 353));
         }
         
+        /// <summary>
+        /// RecordedMethod2 - Use 'RecordedMethod2Params' to pass parameters into this method.
+        /// </summary>
+        public void RecordedMethod2()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIEmailEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIEmailEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(484, 255));
+
+            // Type 'c' in 'Email' text box
+            uIEmailEdit.Text = this.RecordedMethod2Params.UIEmailEditText;
+        }
+        
+        /// <summary>
+        /// EnterExistingUserEmail - Use 'EnterExistingUserEmailParams' to pass parameters into this method.
+        /// </summary>
+        public void EnterExistingUserEmail()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIEmailEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIEmailEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(484, 260));
+
+            // Type 'car' in 'Email' text box
+            uIEmailEdit.Text = this.EnterExistingUserEmailParams.UIEmailEditText;
+
+            // Type 'Alt, Control + 2' in 'Email' text box
+            Keyboard.SendKeys(uIEmailEdit, this.EnterExistingUserEmailParams.UIEmailEditSendKeys, (ModifierKeys.Alt | ModifierKeys.Control));
+
+            // Type 'car@owner' in 'Email' text box
+            uIEmailEdit.Text = this.EnterExistingUserEmailParams.UIEmailEditText1;
+        }
+        
+        /// <summary>
+        /// EnterExistingEmail - Use 'EnterExistingEmailParams' to pass parameters into this method.
+        /// </summary>
+        public void EnterExistingEmail()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIEmailEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIEmailEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(515, 252));
+
+            // Type 'car' in 'Email' text box
+            uIEmailEdit.Text = this.EnterExistingEmailParams.UIEmailEditText;
+
+            // Type 'Alt, Control + 2' in 'Email' text box
+            Keyboard.SendKeys(uIEmailEdit, this.EnterExistingEmailParams.UIEmailEditSendKeys, (ModifierKeys.Alt | ModifierKeys.Control));
+
+            // Type 'car@owner' in 'Email' text box
+            uIEmailEdit.Text = this.EnterExistingEmailParams.UIEmailEditText1;
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(776, 428));
+        }
+        
+        /// <summary>
+        /// ClickLoginEmailBox
+        /// </summary>
+        public void ClickLoginEmailBox()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(520, 265));
+        }
+        
+        /// <summary>
+        /// ClickLoginPasswordBox
+        /// </summary>
+        public void ClickLoginPasswordBox()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(461, 325));
+        }
+        
+        /// <summary>
+        /// ClickLoginButton
+        /// </summary>
+        public void ClickLoginButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(469, 416));
+        }
+        
+        /// <summary>
+        /// ClickOwnerButton
+        /// </summary>
+        public void ClickOwnerButton()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIRootCustom1.UIItemButton;
+            #endregion
+
+            // Click button numbered 2 next to 'root' custom control
+            Mouse.Click(uIItemButton, new Point(47, 37));
+        }
+        
+        /// <summary>
+        /// ClickPersonalInformation - Use 'ClickPersonalInformationParams' to pass parameters into this method.
+        /// </summary>
+        public void ClickPersonalInformation()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(743, 205));
+
+            // Type '{Left}' in first text box next to 'Personal information:' label
+            Keyboard.SendKeys(uIItemEdit, this.ClickPersonalInformationParams.UIItemEditSendKeys, ModifierKeys.None);
+        }
+        
+        /// <summary>
+        /// DeletePersonalInformationRow - Use 'DeletePersonalInformationRowParams' to pass parameters into this method.
+        /// </summary>
+        public void DeletePersonalInformationRow()
+        {
+            #region Variable Declarations
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            #endregion
+
+            // Type '' in first text box next to 'Personal information:' label
+            uIItemEdit.Text = this.DeletePersonalInformationRowParams.UIItemEditText;
+        }
+        
+        /// <summary>
+        /// EditPersonalInformation - Use 'EditPersonalInformationParams' to pass parameters into this method.
+        /// </summary>
+        public void EditPersonalInformation()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            #endregion
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(727, 205));
+
+            // Type 'Jens' in first text box next to 'Personal information:' label
+            uIItemEdit.Text = this.EditPersonalInformationParams.UIItemEditText;
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(917, 305));
+        }
+        
+        /// <summary>
+        /// EnterNewPersonalInformation - Use 'EnterNewPersonalInformationParams' to pass parameters into this method.
+        /// </summary>
+        public void EnterNewPersonalInformation()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            WpfEdit uIItemEdit1 = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit1;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(720, 210));
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(739, 203));
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(739, 203));
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(739, 203));
+
+            // Type 'hej' in first text box next to 'Personal information:' label
+            uIItemEdit.Text = this.EnterNewPersonalInformationParams.UIItemEditText;
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(738, 263));
+
+            // Type 'tester' in text box numbered 2 next to 'Personal information:' label
+            uIItemEdit1.Text = this.EnterNewPersonalInformationParams.UIItemEdit1Text;
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(726, 442));
+        }
+        
+        /// <summary>
+        /// ClickUserInformation
+        /// </summary>
+        public void ClickUserInformation()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(709, 209));
+        }
+        
+        /// <summary>
+        /// ClickUserInformationSecondRow
+        /// </summary>
+        public void ClickUserInformationSecondRow()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(730, 262));
+        }
+        
+        /// <summary>
+        /// ClickUserSaveButton
+        /// </summary>
+        public void ClickUserSaveButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Double-Click 'CurrentPageFrame' pane
+            Mouse.DoubleClick(uICurrentPageFramePane, new Point(775, 386));
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(726, 457));
+        }
+        
+        /// <summary>
+        /// ClickSignOut
+        /// </summary>
+        public void ClickSignOut()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem26Text.UIItemButton;
+            #endregion
+
+            // Click first button next to '26' label
+            Mouse.Click(uIItemButton, new Point(44, 35));
+        }
+        
+        /// <summary>
+        /// AssertLastNameEqualstester - Use 'AssertLastNameEqualstesterExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertLastNameEqualstester()
+        {
+            #region Variable Declarations
+            WpfEdit uIItemEdit1 = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit1;
+            #endregion
+
+            // Verify that the 'Text' property of text box numbered 2 next to 'Personal information:' label equals 'tester'
+            Assert.AreEqual(this.AssertLastNameEqualstesterExpectedValues.UIItemEdit1Text, uIItemEdit1.Text);
+        }
+        
+        /// <summary>
+        /// ClickUserSaveAndSignOut
+        /// </summary>
+        public void ClickUserSaveAndSignOut()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem14Text.UIItemButton;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(1433, 587));
+
+            // Click first button next to '14' label
+            Mouse.Click(uIItemButton, new Point(46, 30));
+        }
+        
+        /// <summary>
+        /// ClickHomeAndUserButtons
+        /// </summary>
+        public void ClickHomeAndUserButtons()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItemButton;
+            WpfButton uIItemButton1 = this.UIMainWindowWindow.UIRootCustom.UIRootCustom1.UIItemButton;
+            #endregion
+
+            // Click '' button
+            Mouse.Click(uIItemButton, new Point(20, 39));
+
+            // Click button numbered 2 next to 'root' custom control
+            Mouse.Click(uIItemButton1, new Point(54, 57));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -367,6 +673,102 @@ namespace CodedUITest
             }
         }
         
+        public virtual RecordedMethod2Params RecordedMethod2Params
+        {
+            get
+            {
+                if ((this.mRecordedMethod2Params == null))
+                {
+                    this.mRecordedMethod2Params = new RecordedMethod2Params();
+                }
+                return this.mRecordedMethod2Params;
+            }
+        }
+        
+        public virtual EnterExistingUserEmailParams EnterExistingUserEmailParams
+        {
+            get
+            {
+                if ((this.mEnterExistingUserEmailParams == null))
+                {
+                    this.mEnterExistingUserEmailParams = new EnterExistingUserEmailParams();
+                }
+                return this.mEnterExistingUserEmailParams;
+            }
+        }
+        
+        public virtual EnterExistingEmailParams EnterExistingEmailParams
+        {
+            get
+            {
+                if ((this.mEnterExistingEmailParams == null))
+                {
+                    this.mEnterExistingEmailParams = new EnterExistingEmailParams();
+                }
+                return this.mEnterExistingEmailParams;
+            }
+        }
+        
+        public virtual ClickPersonalInformationParams ClickPersonalInformationParams
+        {
+            get
+            {
+                if ((this.mClickPersonalInformationParams == null))
+                {
+                    this.mClickPersonalInformationParams = new ClickPersonalInformationParams();
+                }
+                return this.mClickPersonalInformationParams;
+            }
+        }
+        
+        public virtual DeletePersonalInformationRowParams DeletePersonalInformationRowParams
+        {
+            get
+            {
+                if ((this.mDeletePersonalInformationRowParams == null))
+                {
+                    this.mDeletePersonalInformationRowParams = new DeletePersonalInformationRowParams();
+                }
+                return this.mDeletePersonalInformationRowParams;
+            }
+        }
+        
+        public virtual EditPersonalInformationParams EditPersonalInformationParams
+        {
+            get
+            {
+                if ((this.mEditPersonalInformationParams == null))
+                {
+                    this.mEditPersonalInformationParams = new EditPersonalInformationParams();
+                }
+                return this.mEditPersonalInformationParams;
+            }
+        }
+        
+        public virtual EnterNewPersonalInformationParams EnterNewPersonalInformationParams
+        {
+            get
+            {
+                if ((this.mEnterNewPersonalInformationParams == null))
+                {
+                    this.mEnterNewPersonalInformationParams = new EnterNewPersonalInformationParams();
+                }
+                return this.mEnterNewPersonalInformationParams;
+            }
+        }
+        
+        public virtual AssertLastNameEqualstesterExpectedValues AssertLastNameEqualstesterExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertLastNameEqualstesterExpectedValues == null))
+                {
+                    this.mAssertLastNameEqualstesterExpectedValues = new AssertLastNameEqualstesterExpectedValues();
+                }
+                return this.mAssertLastNameEqualstesterExpectedValues;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -390,6 +792,18 @@ namespace CodedUITest
                 return this.mUIMainWindowWindow;
             }
         }
+        
+        public UIMainWindowWindow1 UIMainWindowWindow1
+        {
+            get
+            {
+                if ((this.mUIMainWindowWindow1 == null))
+                {
+                    this.mUIMainWindowWindow1 = new UIMainWindowWindow1();
+                }
+                return this.mUIMainWindowWindow1;
+            }
+        }
         #endregion
         
         #region Fields
@@ -407,9 +821,27 @@ namespace CodedUITest
         
         private RegisterTestUserEmailParams mRegisterTestUserEmailParams;
         
+        private RecordedMethod2Params mRecordedMethod2Params;
+        
+        private EnterExistingUserEmailParams mEnterExistingUserEmailParams;
+        
+        private EnterExistingEmailParams mEnterExistingEmailParams;
+        
+        private ClickPersonalInformationParams mClickPersonalInformationParams;
+        
+        private DeletePersonalInformationRowParams mDeletePersonalInformationRowParams;
+        
+        private EditPersonalInformationParams mEditPersonalInformationParams;
+        
+        private EnterNewPersonalInformationParams mEnterNewPersonalInformationParams;
+        
+        private AssertLastNameEqualstesterExpectedValues mAssertLastNameEqualstesterExpectedValues;
+        
         private UIWpfWindow mUIWpfWindow;
         
         private UIMainWindowWindow mUIMainWindowWindow;
+        
+        private UIMainWindowWindow1 mUIMainWindowWindow1;
         #endregion
     }
     
@@ -598,6 +1030,151 @@ namespace CodedUITest
         #endregion
     }
     
+    /// <summary>
+    /// Parameters to be passed into 'RecordedMethod2'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class RecordedMethod2Params
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'c' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditText = "c";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'EnterExistingUserEmail'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class EnterExistingUserEmailParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'car' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditText = "car";
+        
+        /// <summary>
+        /// Type 'Alt, Control + 2' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditSendKeys = "2";
+        
+        /// <summary>
+        /// Type 'car@owner' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditText1 = "car@owner";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'EnterExistingEmail'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class EnterExistingEmailParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'car' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditText = "car";
+        
+        /// <summary>
+        /// Type 'Alt, Control + 2' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditSendKeys = "2";
+        
+        /// <summary>
+        /// Type 'car@owner' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditText1 = "car@owner";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'ClickPersonalInformation'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class ClickPersonalInformationParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type '{Left}' in first text box next to 'Personal information:' label
+        /// </summary>
+        public string UIItemEditSendKeys = "{Left}";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'DeletePersonalInformationRow'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class DeletePersonalInformationRowParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type '' in first text box next to 'Personal information:' label
+        /// </summary>
+        public string UIItemEditText = "";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'EditPersonalInformation'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class EditPersonalInformationParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'Jens' in first text box next to 'Personal information:' label
+        /// </summary>
+        public string UIItemEditText = "Jens";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'EnterNewPersonalInformation'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class EnterNewPersonalInformationParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'hej' in first text box next to 'Personal information:' label
+        /// </summary>
+        public string UIItemEditText = "hej";
+        
+        /// <summary>
+        /// Type 'tester' in text box numbered 2 next to 'Personal information:' label
+        /// </summary>
+        public string UIItemEdit1Text = "tester";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'AssertLastNameEqualstester'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class AssertLastNameEqualstesterExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Text' property of text box numbered 2 next to 'Personal information:' label equals 'tester'
+        /// </summary>
+        public string UIItemEdit1Text = "tester";
+        #endregion
+    }
+    
     [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
     public class UIWpfWindow : WpfWindow
     {
@@ -635,10 +1212,24 @@ namespace CodedUITest
                 return this.mUIItemCustom;
             }
         }
+        
+        public UIRootCustom UIRootCustom
+        {
+            get
+            {
+                if ((this.mUIRootCustom == null))
+                {
+                    this.mUIRootCustom = new UIRootCustom(this);
+                }
+                return this.mUIRootCustom;
+            }
+        }
         #endregion
         
         #region Fields
         private UIItemCustom mUIItemCustom;
+        
+        private UIRootCustom mUIRootCustom;
         #endregion
     }
     
@@ -751,6 +1342,34 @@ namespace CodedUITest
                 return this.mUIPasswordConfirmEdit;
             }
         }
+        
+        public WpfEdit UIEmailEdit
+        {
+            get
+            {
+                if ((this.mUIEmailEdit == null))
+                {
+                    this.mUIEmailEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIEmailEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "Email";
+                    this.mUIEmailEdit.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIEmailEdit;
+            }
+        }
+        
+        public UIPersonalinformationText UIPersonalinformationText
+        {
+            get
+            {
+                if ((this.mUIPersonalinformationText == null))
+                {
+                    this.mUIPersonalinformationText = new UIPersonalinformationText(this);
+                }
+                return this.mUIPersonalinformationText;
+            }
+        }
         #endregion
         
         #region Fields
@@ -759,6 +1378,10 @@ namespace CodedUITest
         private WpfEdit mUIPasswordEdit;
         
         private WpfEdit mUIPasswordConfirmEdit;
+        
+        private WpfEdit mUIEmailEdit;
+        
+        private UIPersonalinformationText mUIPersonalinformationText;
         #endregion
     }
     
@@ -795,6 +1418,420 @@ namespace CodedUITest
         
         #region Fields
         private WpfEdit mUIItemEdit;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIPersonalinformationText : WpfText
+    {
+        
+        public UIPersonalinformationText(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "Personal information:";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfEdit UIItemEdit
+        {
+            get
+            {
+                if ((this.mUIItemEdit == null))
+                {
+                    this.mUIItemEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIItemEdit.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemEdit.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemEdit;
+            }
+        }
+        
+        public WpfEdit UIItemEdit1
+        {
+            get
+            {
+                if ((this.mUIItemEdit1 == null))
+                {
+                    this.mUIItemEdit1 = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIItemEdit1.SearchProperties[WpfEdit.PropertyNames.Instance] = "2";
+                    this.mUIItemEdit1.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemEdit1.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemEdit1;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfEdit mUIItemEdit;
+        
+        private WpfEdit mUIItemEdit1;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIRootCustom : WpfCustom
+    {
+        
+        public UIRootCustom(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.HeaderBarControl";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "root";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public UIRootCustom1 UIRootCustom1
+        {
+            get
+            {
+                if ((this.mUIRootCustom1 == null))
+                {
+                    this.mUIRootCustom1 = new UIRootCustom1(this);
+                }
+                return this.mUIRootCustom1;
+            }
+        }
+        
+        public UIItem14Text UIItem14Text
+        {
+            get
+            {
+                if ((this.mUIItem14Text == null))
+                {
+                    this.mUIItem14Text = new UIItem14Text(this);
+                }
+                return this.mUIItem14Text;
+            }
+        }
+        
+        public UIItem22Text UIItem22Text
+        {
+            get
+            {
+                if ((this.mUIItem22Text == null))
+                {
+                    this.mUIItem22Text = new UIItem22Text(this);
+                }
+                return this.mUIItem22Text;
+            }
+        }
+        
+        public UIItem23Text UIItem23Text
+        {
+            get
+            {
+                if ((this.mUIItem23Text == null))
+                {
+                    this.mUIItem23Text = new UIItem23Text(this);
+                }
+                return this.mUIItem23Text;
+            }
+        }
+        
+        public UIItem26Text UIItem26Text
+        {
+            get
+            {
+                if ((this.mUIItem26Text == null))
+                {
+                    this.mUIItem26Text = new UIItem26Text(this);
+                }
+                return this.mUIItem26Text;
+            }
+        }
+        
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchProperties[WpfButton.PropertyNames.Name] = "";
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIRootCustom1 mUIRootCustom1;
+        
+        private UIItem14Text mUIItem14Text;
+        
+        private UIItem22Text mUIItem22Text;
+        
+        private UIItem23Text mUIItem23Text;
+        
+        private UIItem26Text mUIItem26Text;
+        
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIRootCustom1 : WpfCustom
+    {
+        
+        public UIRootCustom1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.SearchBarControl";
+            this.SearchProperties[WpfControl.PropertyNames.AutomationId] = "root";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchProperties[WpfButton.PropertyNames.Instance] = "2";
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem14Text : WpfText
+    {
+        
+        public UIItem14Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "14";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem22Text : WpfText
+    {
+        
+        public UIItem22Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "22";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem23Text : WpfText
+    {
+        
+        public UIItem23Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "23";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem26Text : WpfText
+    {
+        
+        public UIItem26Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "26";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIMainWindowWindow1 : WpfWindow
+    {
+        
+        public UIMainWindowWindow1()
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfWindow.PropertyNames.Name] = "MainWindow";
+            this.SearchProperties.Add(new PropertyExpression(WpfWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.FilterProperties[WpfWindow.PropertyNames.OrderOfInvocation] = "2";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemCustom1 UIItemCustom
+        {
+            get
+            {
+                if ((this.mUIItemCustom == null))
+                {
+                    this.mUIItemCustom = new UIItemCustom1(this);
+                }
+                return this.mUIItemCustom;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemCustom1 mUIItemCustom;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItemCustom1 : WpfCustom
+    {
+        
+        public UIItemCustom1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.PageNavigation";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfPane UICurrentPageFramePane
+        {
+            get
+            {
+                if ((this.mUICurrentPageFramePane == null))
+                {
+                    this.mUICurrentPageFramePane = new WpfPane(this);
+                    #region Search Criteria
+                    this.mUICurrentPageFramePane.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
+                    this.mUICurrentPageFramePane.SearchProperties[WpfPane.PropertyNames.AutomationId] = "CurrentPageFrame";
+                    this.mUICurrentPageFramePane.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUICurrentPageFramePane;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfPane mUICurrentPageFramePane;
         #endregion
     }
 }
