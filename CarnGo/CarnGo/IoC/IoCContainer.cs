@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security;
 using CarnGo.Database;
+using CarnGo.Model.ThreadTimer;
 using CarnGo.Security;
 using Microsoft.EntityFrameworkCore;
 using Prism.Events;
@@ -38,7 +39,9 @@ namespace CarnGo
             Container.RegisterType<ISearchViewModelHelper, SearchViewModelHelper>();
             Container.RegisterType<ISearchQueries, RealSearchQueries>();
             Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
+            Container.RegisterType<ThreadTimer>();
             Container.AddExtension(new Diagnostic());
+           
         }
 
         public static T Resolve<T>()

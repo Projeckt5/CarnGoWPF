@@ -9,12 +9,14 @@ using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using CarnGo.Database;
 using CarnGo.Database.Models;
+using CarnGo.Model.ThreadTimer;
 using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Events;
 
 namespace CarnGo
 {
+    public class CurrentUserSetNull : PubSubEvent { }
     public class SearchEvent : PubSubEvent<string> { }
     public class HeaderBarViewModel : BaseViewModel
     {
@@ -27,7 +29,7 @@ namespace CarnGo
         private UserModel _currentUser;
         private int _amountLoadedNotifications = 0;
         private int _amountNotificationsToLoad = 10;
-        private Timer timer;
+        
         
 
         #endregion
@@ -39,8 +41,9 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _currentUser = new UserModel();
             _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
-            timer = new Timer(new TimerCallback(NotificationQueryThread), "Notification Query Thread", 2000, 2000);
-           
+            _eventAggregator.GetEvent<DatabasePollingLoop>().Subscribe(NotificationQueryThread);
+
+
         }
         #endregion
         #region Public Properties
@@ -155,9 +158,9 @@ namespace CarnGo
         public int i { get; set; } = 0;
             
       
-        private async void NotificationQueryThread(Object o)
+        private async void NotificationQueryThread()
         {
-            if (_application.CurrentUser!=null)
+            if (_application.IsLoggedIn && _application.CurrentUser!=null)
             {
               
                 if (IsQueryingDatabase)
@@ -165,7 +168,7 @@ namespace CarnGo
 
                 try
                 {
-                   /*i++; //test af push besked
+                   i++; //test af push besked
                     if (i == 10)
                     {
                         var db = new AppDbContext();
@@ -177,7 +180,7 @@ namespace CarnGo
                             TheMessage = "Tristan man må ikke bande"
                         };
                         await db.AddMessage(message);
-                    }*/
+                    }
 
                     var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountLoadedNotifications,
@@ -199,17 +202,19 @@ namespace CarnGo
                 catch (AuthorizationFailedException e)
                 {
                     Logout();
+                    _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
                 }
                 
 
 
             }
+            else
+            {                
+                _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
+            }
         }
         #endregion
 
-        ~HeaderBarViewModel()
-        {
-            timer.Dispose();
-        }
+        
     }
 }

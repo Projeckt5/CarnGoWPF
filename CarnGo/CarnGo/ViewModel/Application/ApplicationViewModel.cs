@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security;
+using System.Threading;
 using System.Threading.Tasks;
+using CarnGo.Database;
 using CarnGo.Database.Models;
+using CarnGo.Model.ThreadTimer;
 using CarnGo.Security;
 using Prism.Events;
 using Unity;
 
 namespace CarnGo
 {
-
+    public class StartThreadTimer : PubSubEvent<bool> { }
     public class NotificationMessagesUpdateEvent: PubSubEvent<List<MessageModel>>{ }
     public class UserUpdateEvent: PubSubEvent<UserModel>{ }
     public class NewUserDataReadyEvent : PubSubEvent { }
@@ -20,17 +23,21 @@ namespace CarnGo
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
-
+        private ThreadTimer _timer;
+        
 
         private UserModel _currentUser = null;
 
-        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
+        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator,ThreadTimer timer)
         {
             _applicationPage = ApplicationPage.LoginPage;
             _queryDatabase = queryDatabase;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<NewUserDataReadyEvent>()
                 .Subscribe(async () => CurrentUser = await _queryDatabase.GetUserTask(CurrentUser));
+            _eventAggregator.GetEvent<CurrentUserSetNull>().Subscribe(CurrentUserToNull);
+            _timer = timer;
+
 
         }
 
@@ -83,9 +90,12 @@ namespace CarnGo
             {
                 CurrentUser = await _queryDatabase.GetUserTask(email, password);
                 GoToPage(ApplicationPage.StartPage);
+                IsLoggedIn = true;
+                _eventAggregator.GetEvent<StartThreadTimer>().Publish(true);
             }
             catch (AuthenticationFailedException e)
             {
+                
                 Console.WriteLine(e);
                 throw;
             }
@@ -93,13 +103,25 @@ namespace CarnGo
 
         public void LogUserOut()
         {
-            CurrentUser = null;
-            GoToPage(ApplicationPage.LoginPage);
+           
             IsLoggedIn = false;
+            GoToPage(ApplicationPage.LoginPage);
+            _eventAggregator.GetEvent<StartThreadTimer>().Publish(false);
+
+
+        }
+
+        private void CurrentUserToNull()
+        {
+            CurrentUser = null;
         }
 
         public bool IsLoggedIn { get; set; } = false;
 
+      
+
+        
+    
 
     }
 }
