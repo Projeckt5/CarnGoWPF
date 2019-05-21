@@ -10,6 +10,10 @@ namespace CarnGo
 {
     public class TestDatabaseQuerier: IQueryDatabase
     {
+        public async Task EraseDaysThatIsRented(MessageModel message)
+        {
+            await Task.Delay(2000);
+        }
         public async Task RegisterUserTask(string email, SecureString password)
         {
             await Task.Delay(2000);

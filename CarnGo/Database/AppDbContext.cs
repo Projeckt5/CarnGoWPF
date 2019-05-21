@@ -158,7 +158,17 @@ namespace CarnGo.Database
             return daysRented;
         }
 
-        
+        public async Task<List<DayThatIsRented>> GetDaysThatIsRentedTask(string user, CarProfile carProfile)
+        {
+            return await DaysThatIsRented.Where(c => (c.CarProfile == carProfile && c.User.Email == user)).ToListAsync();
+        }
+
+        public async Task DeleteDaysThatIsRentedTask(List<DayThatIsRented> list)
+        {
+            DaysThatIsRented.RemoveRange(list);
+            await SaveChangesAsync();
+        }
+
         public async Task<List<PossibleToRentDay>> GetAllPossibleToRentDay()
         {
             var possibleToRentDays = await PossibleToRentDays

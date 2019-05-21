@@ -37,7 +37,8 @@ namespace CarnGo.Model.ThreadTimer
 
         ~ThreadTimer()
         {
-            _timer.Dispose();
+            if(_timer!=null)
+                _timer.Dispose();
         }
     }
 }
