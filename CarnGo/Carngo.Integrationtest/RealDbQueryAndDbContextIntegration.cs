@@ -186,7 +186,7 @@ namespace CarnGo.Integrationtest
             };
 
             await _dbQuerier.AddUserMessage(testMessage);
-            var userMessagesResult = await _dbQuerier.GetUserMessagesTask(renterUser,0,10);
+            var userMessagesResult = await _dbQuerier.GetUserMessagesTask(renterUser,10);
 
             Assert.That(userMessagesResult.Any(model => model.Message == "TestMessage"));
         }
@@ -210,10 +210,10 @@ namespace CarnGo.Integrationtest
             };
 
             await _dbQuerier.AddUserMessage(testMessage);
-            var userMessages = await _dbQuerier.GetUserMessagesTask(renterUser, 0, 10);
+            var userMessages = await _dbQuerier.GetUserMessagesTask(renterUser, 10);
             userMessages[0].Message = "UpdatedMessage";
             await _dbQuerier.UpdateUserMessagesTask(userMessages);
-            var userMessagesResult = await _dbQuerier.GetUserMessagesTask(renterUser, 0, 10);
+            var userMessagesResult = await _dbQuerier.GetUserMessagesTask(renterUser, 10);
 
             Assert.That(userMessagesResult.Any(model => model.Message == "UpdatedMessage"));
         }
