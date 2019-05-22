@@ -860,6 +860,23 @@ namespace CodedUITest
             Mouse.Click(uICurrentPageFramePane, new Point(709, 453));
         }
         
+        /// <summary>
+        /// ClickTopNotification - Use 'ClickTopNotificationParams' to pass parameters into this method.
+        /// </summary>
+        public void ClickTopNotification()
+        {
+            #region Variable Declarations
+            WpfToggleButton uIItemToggleButton = this.UIMainWindowWindow.UIRootCustom.UIItemToggleButton;
+            WpfButton uIConfirmButton = this.UIMainWindowWindow.UIItemCustom2.UIItemCustom1.UIConfirmButton;
+            #endregion
+
+            // Set to 'Pressed' state '' toggle button
+            uIItemToggleButton.Pressed = this.ClickTopNotificationParams.UIItemToggleButtonPressed;
+
+            // Click 'Confirm' button
+            Mouse.Click(uIConfirmButton, new Point(45, 13));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -1089,6 +1106,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual ClickTopNotificationParams ClickTopNotificationParams
+        {
+            get
+            {
+                if ((this.mClickTopNotificationParams == null))
+                {
+                    this.mClickTopNotificationParams = new ClickTopNotificationParams();
+                }
+                return this.mClickTopNotificationParams;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1176,6 +1205,8 @@ namespace CodedUITest
         private SetSendRequestFromDateParams mSetSendRequestFromDateParams;
         
         private SetSendRequestToDateParams mSetSendRequestToDateParams;
+        
+        private ClickTopNotificationParams mClickTopNotificationParams;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1577,6 +1608,21 @@ namespace CodedUITest
         #endregion
     }
     
+    /// <summary>
+    /// Parameters to be passed into 'ClickTopNotification'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class ClickTopNotificationParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Set to 'Pressed' state '' toggle button
+        /// </summary>
+        public bool UIItemToggleButtonPressed = true;
+        #endregion
+    }
+    
     [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
     public class UIWpfWindow : WpfWindow
     {
@@ -1638,6 +1684,18 @@ namespace CodedUITest
                 return this.mUINewPageFramePane;
             }
         }
+        
+        public UIItemCustom2 UIItemCustom2
+        {
+            get
+            {
+                if ((this.mUIItemCustom2 == null))
+                {
+                    this.mUIItemCustom2 = new UIItemCustom2(this);
+                }
+                return this.mUIItemCustom2;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1646,6 +1704,8 @@ namespace CodedUITest
         private UIRootCustom mUIRootCustom;
         
         private UINewPageFramePane1 mUINewPageFramePane;
+        
+        private UIItemCustom2 mUIItemCustom2;
         #endregion
     }
     
@@ -2024,6 +2084,22 @@ namespace CodedUITest
                 return this.mUIItem0Text;
             }
         }
+        
+        public WpfToggleButton UIItemToggleButton
+        {
+            get
+            {
+                if ((this.mUIItemToggleButton == null))
+                {
+                    this.mUIItemToggleButton = new WpfToggleButton(this);
+                    #region Search Criteria
+                    this.mUIItemToggleButton.SearchProperties[WpfToggleButton.PropertyNames.AutomationId] = "NotificationButton";
+                    this.mUIItemToggleButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemToggleButton;
+            }
+        }
         #endregion
         
         #region Fields
@@ -2042,6 +2118,8 @@ namespace CodedUITest
         private UIItem2Text mUIItem2Text;
         
         private UIItem0Text mUIItem0Text;
+        
+        private WpfToggleButton mUIItemToggleButton;
         #endregion
     }
     
@@ -2406,6 +2484,74 @@ namespace CodedUITest
     }
     
     [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItemCustom2 : WpfCustom
+    {
+        
+        public UIItemCustom2(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.NotificationView";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemCustom1 UIItemCustom1
+        {
+            get
+            {
+                if ((this.mUIItemCustom1 == null))
+                {
+                    this.mUIItemCustom1 = new UIItemCustom1(this);
+                }
+                return this.mUIItemCustom1;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemCustom1 mUIItemCustom1;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItemCustom1 : WpfCustom
+    {
+        
+        public UIItemCustom1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.RenterItemView";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIConfirmButton
+        {
+            get
+            {
+                if ((this.mUIConfirmButton == null))
+                {
+                    this.mUIConfirmButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIConfirmButton.SearchProperties[WpfButton.PropertyNames.Name] = "Confirm";
+                    this.mUIConfirmButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIConfirmButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIConfirmButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
     public class UIMainWindowWindow1 : WpfWindow
     {
         
@@ -2420,13 +2566,13 @@ namespace CodedUITest
         }
         
         #region Properties
-        public UIItemCustom1 UIItemCustom
+        public UIItemCustom3 UIItemCustom
         {
             get
             {
                 if ((this.mUIItemCustom == null))
                 {
-                    this.mUIItemCustom = new UIItemCustom1(this);
+                    this.mUIItemCustom = new UIItemCustom3(this);
                 }
                 return this.mUIItemCustom;
             }
@@ -2434,15 +2580,15 @@ namespace CodedUITest
         #endregion
         
         #region Fields
-        private UIItemCustom1 mUIItemCustom;
+        private UIItemCustom3 mUIItemCustom;
         #endregion
     }
     
     [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
-    public class UIItemCustom1 : WpfCustom
+    public class UIItemCustom3 : WpfCustom
     {
         
-        public UIItemCustom1(UITestControl searchLimitContainer) : 
+        public UIItemCustom3(UITestControl searchLimitContainer) : 
                 base(searchLimitContainer)
         {
             #region Search Criteria

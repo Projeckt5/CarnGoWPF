@@ -43,6 +43,7 @@ namespace CodedUITest
 
             //Assert
             this.UIMap.AssertHeaderBarAppears();
+
         }
 
         //Use TestInitialize to run code before running each test 

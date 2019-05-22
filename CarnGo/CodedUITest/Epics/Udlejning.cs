@@ -58,6 +58,7 @@ namespace CodedUITest
             this.UIMap.ClickSendRequestRentCarButton();
             Thread.Sleep(1000);
             this.UIMap.ClickSignOutButton();
+            Thread.Sleep(3000);
 
             // Act
             this.UIMap.ClickLoginEmailBox();
@@ -66,6 +67,7 @@ namespace CodedUITest
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
+            this.UIMap.ClickTopNotification();
 
         }
 
