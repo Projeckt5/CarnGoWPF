@@ -41,8 +41,11 @@ namespace CarnGo
 
         private MessageFromLessorModel CreateResponseForRenter(MessageFromRenterModel messageToRespondTo)
         {
+            var contactInfo = messageToRespondTo.ConfirmationStatus == MsgStatus.Confirmed
+                ? $"Please contact me on my email: {messageToRespondTo.Lessor.Email}" : "";
+            var msg = $"I {messageToRespondTo.ConfirmationStatus.ToString()} your request." + contactInfo;
             return new MessageFromLessorModel(messageToRespondTo.Renter, messageToRespondTo.Lessor,
-                messageToRespondTo.RentCar, $"I {messageToRespondTo.ConfirmationStatus.ToString()} your request", messageToRespondTo.ConfirmationStatus)
+                messageToRespondTo.RentCar, msg , messageToRespondTo.ConfirmationStatus)
             {
                 Sender = messageToRespondTo.Lessor,
                 Receiver = messageToRespondTo.Renter,

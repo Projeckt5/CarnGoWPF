@@ -40,7 +40,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _fakeApplication.CurrentUser.Returns(TestModelFactory.CreateUserModel());
 
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>()).Returns(
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>()).Returns(
                 new List<MessageModel>()
                 {
                     TestModelFactory.CreateMessageModel("TestMsg",MessageType.LessorMessage)
@@ -111,7 +111,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>());
+            _fakeDatabaseQuery.Received().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>());
         }
 
 
@@ -164,7 +164,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotificationsThrowsAuthorizationException_ApplicationReceivesLogout()
         {
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>()).Throws<AuthorizationFailedException>();
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>()).Throws<AuthorizationFailedException>();
 
             _uut.NotificationCommand.Execute(null);
 
@@ -189,7 +189,7 @@ namespace CarnGo.Test.Unit.ViewModels
             _uut.NotificationCommand.Execute(null);
 
             _fakeApplication.DidNotReceive().LogUserOut();
-            _fakeDatabaseQuery.DidNotReceive().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>(), Arg.Any<int>());
+            _fakeDatabaseQuery.DidNotReceive().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>());
             _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().DidNotReceive().Publish(Arg.Any<List<MessageModel>>());
         }
 
