@@ -920,16 +920,20 @@ namespace CodedUITest
         }
         
         /// <summary>
-        /// ClickEmailBoxTest
+        /// ClickEmailBoxTest - Use 'ClickEmailBoxTestParams' to pass parameters into this method.
         /// </summary>
         public void ClickEmailBoxTest()
         {
             #region Variable Declarations
             WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIEmailEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIEmailEdit;
             #endregion
 
             // Click 'CurrentPageFrame' pane
-            Mouse.Click(uICurrentPageFramePane, new Point(952, 430));
+            Mouse.Click(uICurrentPageFramePane, new Point(965, 430));
+
+            // Type 'Control + a' in 'Email' text box
+            Keyboard.SendKeys(uIEmailEdit, this.ClickEmailBoxTestParams.UIEmailEditSendKeys, ModifierKeys.Control);
         }
         
         #region Properties
@@ -1185,6 +1189,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual ClickEmailBoxTestParams ClickEmailBoxTestParams
+        {
+            get
+            {
+                if ((this.mClickEmailBoxTestParams == null))
+                {
+                    this.mClickEmailBoxTestParams = new ClickEmailBoxTestParams();
+                }
+                return this.mClickEmailBoxTestParams;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1288,6 +1304,8 @@ namespace CodedUITest
         private ClickTopNotificationParams mClickTopNotificationParams;
         
         private OpenToFullScreenParams mOpenToFullScreenParams;
+        
+        private ClickEmailBoxTestParams mClickEmailBoxTestParams;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1718,6 +1736,21 @@ namespace CodedUITest
         /// Press keyboard shortcut keys 'Windows + {Up}'
         /// </summary>
         public string SendKeys = "{Up}";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'ClickEmailBoxTest'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class ClickEmailBoxTestParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'Control + a' in 'Email' text box
+        /// </summary>
+        public string UIEmailEditSendKeys = "a";
         #endregion
     }
     
