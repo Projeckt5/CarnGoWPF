@@ -34,6 +34,17 @@ namespace CodedUITest
         }
 
         [TestMethod]
+        public void TestDPI()
+        {
+            //Arrange 
+            this.UIMap.OpenToFullScreen();
+            this.UIMap.ClickOnPasswordBox();
+            
+
+
+        }
+
+        [TestMethod]
         public void US1_OprettelseAfBrugerProfil()
         {
             // Arrange

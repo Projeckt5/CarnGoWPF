@@ -877,6 +877,35 @@ namespace CodedUITest
             Mouse.Click(uIConfirmButton, new Point(45, 13));
         }
         
+        /// <summary>
+        /// ClickOnPasswordBox
+        /// </summary>
+        public void ClickOnPasswordBox()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(917, 470));
+        }
+        
+        /// <summary>
+        /// OpenToFullScreen - Use 'OpenToFullScreenParams' to pass parameters into this method.
+        /// </summary>
+        public void OpenToFullScreen()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(569, 321));
+
+            // Press keyboard shortcut keys 'Windows + {Up}'
+            Keyboard.SendKeys(this.OpenToFullScreenParams.SendKeys, ModifierKeys.Windows);
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -1118,6 +1147,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual OpenToFullScreenParams OpenToFullScreenParams
+        {
+            get
+            {
+                if ((this.mOpenToFullScreenParams == null))
+                {
+                    this.mOpenToFullScreenParams = new OpenToFullScreenParams();
+                }
+                return this.mOpenToFullScreenParams;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1165,6 +1206,18 @@ namespace CodedUITest
                 return this.mUICarnGoMicrosoftVisuaWindow;
             }
         }
+        
+        public UIMainWindowWindow2 UIMainWindowWindow2
+        {
+            get
+            {
+                if ((this.mUIMainWindowWindow2 == null))
+                {
+                    this.mUIMainWindowWindow2 = new UIMainWindowWindow2();
+                }
+                return this.mUIMainWindowWindow2;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1208,6 +1261,8 @@ namespace CodedUITest
         
         private ClickTopNotificationParams mClickTopNotificationParams;
         
+        private OpenToFullScreenParams mOpenToFullScreenParams;
+        
         private UIWpfWindow mUIWpfWindow;
         
         private UIMainWindowWindow mUIMainWindowWindow;
@@ -1215,6 +1270,8 @@ namespace CodedUITest
         private UIMainWindowWindow1 mUIMainWindowWindow1;
         
         private UICarnGoMicrosoftVisuaWindow mUICarnGoMicrosoftVisuaWindow;
+        
+        private UIMainWindowWindow2 mUIMainWindowWindow2;
         #endregion
     }
     
@@ -1620,6 +1677,21 @@ namespace CodedUITest
         /// Set to 'Pressed' state '' toggle button
         /// </summary>
         public bool UIItemToggleButtonPressed = true;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'OpenToFullScreen'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class OpenToFullScreenParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Press keyboard shortcut keys 'Windows + {Up}'
+        /// </summary>
+        public string SendKeys = "{Up}";
         #endregion
     }
     
@@ -2785,5 +2857,19 @@ namespace CodedUITest
         #region Fields
         private WinTable mUIPropertyGridViewTable;
         #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIMainWindowWindow2 : WinWindow
+    {
+        
+        public UIMainWindowWindow2()
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "MainWindow";
+            this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
     }
 }
