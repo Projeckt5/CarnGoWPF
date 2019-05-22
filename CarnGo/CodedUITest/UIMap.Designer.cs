@@ -906,6 +906,19 @@ namespace CodedUITest
             Keyboard.SendKeys(this.OpenToFullScreenParams.SendKeys, ModifierKeys.Windows);
         }
         
+        /// <summary>
+        /// PressLogin
+        /// </summary>
+        public void PressLogin()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(923, 550));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {

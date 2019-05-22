@@ -39,7 +39,8 @@ namespace CodedUITest
             //Arrange 
             this.UIMap.OpenToFullScreen();
             this.UIMap.ClickOnPasswordBox();
-            
+            Keyboard.SendKeys("123asd");
+            this.UIMap.PressLogin();
 
 
         }
