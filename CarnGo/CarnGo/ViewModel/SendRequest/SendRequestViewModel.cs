@@ -109,7 +109,7 @@ namespace CarnGo
         public CarProfileModel Car
         {
             get => _car;
-            private set
+            set
             {
                 _car = value;
                 OnPropertyChanged(nameof(Car));
