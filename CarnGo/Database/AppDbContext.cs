@@ -83,17 +83,18 @@ namespace CarnGo.Database
 
         public async Task<List<Message>> GetMessages(User user,List<Message> messageAlreadyRead, int amount)
         {
-            var messages = MessagesWithUsersJunction
-                .Where(mwu => mwu.User == user)
+            var messages = await MessagesWithUsersJunction
+                .Where(mwu => mwu.UserEmail == user.Email)
                 .Select(mwu => mwu.Message)
                 .Where(msg => !messageAlreadyRead.Contains(msg))
+                .OrderByDescending(msg => msg.CreatedDate)
                 .Include(msg => msg.MessagesWithUsers)
                 .ThenInclude(mwu => mwu.User)
                 .Include(msg => msg.CarProfile)
-                .OrderByDescending(msg => msg.CreatedDate)
-                .Take(amount);
+                .Take(amount)
+                .ToListAsync();
 
-            return await messages.ToListAsync();
+            return messages;
         }
         
         public async Task<List<Message>> GetAllMessages()

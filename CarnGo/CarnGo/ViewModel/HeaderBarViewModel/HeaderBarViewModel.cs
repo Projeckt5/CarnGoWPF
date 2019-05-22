@@ -27,7 +27,6 @@ namespace CarnGo
         private readonly IQueryDatabase _databaseQuery;
         private bool _isQueryingDatabase;
         private UserModel _currentUser;
-        private int _amountLoadedNotifications = 0;
         private int _amountNotificationsToLoad = 10;
         
         
@@ -41,7 +40,7 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _currentUser = new UserModel();
             _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
-            _eventAggregator.GetEvent<DatabasePollingLoop>().Subscribe(NotificationQueryThread);
+            //_eventAggregator.GetEvent<DatabasePollingLoop>().Subscribe(async () => await NotificationQueryThread());
 
 
         }
@@ -110,8 +109,6 @@ namespace CarnGo
         private void Logout()
         {
             _application.LogUserOut();
-            
-
         }
 
         private void Search()
@@ -135,8 +132,7 @@ namespace CarnGo
             {
                 IsQueryingDatabase = true;
                 var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
-                    _amountLoadedNotifications,
-                    _amountNotificationsToLoad);
+                    _amountNotificationsToLoad + UserModel.MessageModels.Count);
                 notifications.ForEach(msg => msg.MessageRead = true);
                 UpdateNotifications(notifications);
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
@@ -155,9 +151,7 @@ namespace CarnGo
         private void UpdateNotifications(List<MessageModel> notifications)
         {
             notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
-            notifications.AddRange(UserModel.MessageModels);
-            UserModel.MessageModels = notifications;
-            _amountLoadedNotifications += UserModel.MessageModels.Count - _amountLoadedNotifications;
+            UserModel.MessageModels.AddRange(notifications);
             OnPropertyChanged(nameof(UnreadNotifications));
             OnPropertyChanged(nameof(NumUnreadNotifications));
         }
@@ -165,7 +159,7 @@ namespace CarnGo
         public int i { get; set; } = 0;
             
       
-        private async void NotificationQueryThread()
+        private async Task NotificationQueryThread()
         {
             if (_application.IsLoggedIn && _application.CurrentUser!=null)
             {
@@ -175,22 +169,21 @@ namespace CarnGo
 
                 try
                 {
-                   /*i++; //test af push besked
-                    if (i == 10)
+                   i++; //test af push besked
+                    if (i == 5)
                     {
                         var db = new AppDbContext();
                         var message = new Message()
                         {
-                            CarProfileRegNr = "0420305a-2a44-44b6-8f59-88aa8da96103", ConfirmationStatus = 2, CreatedDate = DateTime.Now,
+                            CarProfileRegNr = "0420305a-2a44-44b6-8f59-88aa8da96103", ConfirmationStatus = 0, CreatedDate = DateTime.Now,
                             HaveBeenSeen = false,
                             LessorEmail = "car@owner", CarProfile = null, MsgType = 1, ReceiverEmail = "car@owner",RenterEmail = "car@renter",
                             TheMessage = "Tristan man må ikke bande"
                         };
                         await db.AddMessage(message);
-                    }*/
+                    }
 
                     var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
-                    _amountLoadedNotifications,
                     _amountNotificationsToLoad);
 
                     UpdateNotifications(notifications);
