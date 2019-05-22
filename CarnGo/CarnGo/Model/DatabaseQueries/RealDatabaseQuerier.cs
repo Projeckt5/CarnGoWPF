@@ -92,5 +92,12 @@ namespace CarnGo
             var dbUser = _appToDbModelConverter.Convert(user);
             await _dbContext.UpdateUserInformation(dbUser);
         }
+
+        public async Task EraseDaysThatIsRented(MessageModel message)
+        {
+            var mes=new ApptoDbModelConverter().Convert(message);
+            var daysThatIsRented = await _dbContext.GetDaysThatIsRentedTask(mes.SenderEmail, mes.CarProfile);
+            await _dbContext.DeleteDaysThatIsRentedTask(daysThatIsRented);
+        }
     }
 }

@@ -27,7 +27,9 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Subscribe(UpdateNotifications);
             _eventAggregator.GetEvent<NotificationConfirmationEvent>().Subscribe(async messageFromRenter =>
-                {
+            {
+                    //if (messageFromRenter.ConfirmationStatus == MsgStatus.Declined)
+                       // await _databaseQuery.EraseDaysThatIsRented(messageFromRenter);
                     await UpdateNotificationConfirm(messageFromRenter);
                     MessageFromLessorModel response = CreateResponseForRenter(messageFromRenter);
                     await SendResponseToLessor(response);
