@@ -267,7 +267,7 @@ namespace CarnGo.Test.Unit
 
         #endregion
 
-        #region GetCarProfile
+        #region GetCarProfileTask
 
         [Test]
         public async Task GetCarProfilesTask_CallsDbContextForUser_CallsDbWithCorrectUserModel()

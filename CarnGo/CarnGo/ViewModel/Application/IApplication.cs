@@ -26,7 +26,5 @@ namespace CarnGo
 
         Task LogUserIn(string email, SecureString password);
         void LogUserOut();
-        bool IsLoggedIn { get; set; }
-        event PropertyChangedEventHandler PropertyChanged;
     }
 }

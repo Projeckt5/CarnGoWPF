@@ -29,8 +29,6 @@ namespace CarnGo
             {
                 notificationItemViewModel.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
             }
-
-            notificationItemViewModel.Reverse();
             Messages = new ObservableCollection<NotificationItemViewModel>(notificationItemViewModel);
         }
 
@@ -71,7 +69,6 @@ namespace CarnGo
             {
                 notificationItemViewModel.Add(new NotificationItemViewModel(_application, _eventAggregator, message));
             }
-            notificationItemViewModel.Reverse();
             Messages = new ObservableCollection<NotificationItemViewModel>(notificationItemViewModel);
         }
 

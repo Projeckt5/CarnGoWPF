@@ -26,8 +26,8 @@ namespace CarnGo.Test.Unit
         {
             _fakeUserModel = new UserModel
             {
-                Firstname = "Marcus",
-                Lastname = "Jensen",
+                FirstName = "Marcus",
+                LastName = "Jensen",
                 Email = "benben23@gmail.com",
                 Address = null,
 
@@ -52,7 +52,7 @@ namespace CarnGo.Test.Unit
         [Test]
         public void EmailValidate_Structure_Fail()
         {
-            bool EmailValidationFalse = _uut.Validate(_fakeUserModel.Firstname);
+            bool EmailValidationFalse = _uut.Validate(_fakeUserModel.FirstName);
 
             Assert.That((EmailValidationFalse), Is.EqualTo(false));
 

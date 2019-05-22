@@ -10,12 +10,13 @@ namespace CarnGo
 {
     public class SendRequestViewModelHelperFunction : ISendRequestViewModelHelperFunction
     {
-        public bool ConfirmRentingDates(CarProfile car, DateTime to, DateTime from, ref string errorMessage)
+        private ApptoDbModelConverter _apptoDbModelConverter = new ApptoDbModelConverter();
+        public bool ConfirmRentingDates(CarProfileModel car, DateTime to, DateTime from, ref string errorMessage)
         {
             for (var rentingDate = from; rentingDate <= to; rentingDate = rentingDate.AddDays(1))
             {
                 bool rent = false;
-                foreach (var date in car.DaysThatIsRented)
+                foreach (var date in car.DayThatIsRented)
                 {
 
                     if (date.Date.Date == rentingDate.Date)
@@ -43,12 +44,12 @@ namespace CarnGo
         }
 
 
-        public List<DayThatIsRented> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfile carProfile)
+        public List<DayThatIsRentedModel> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfileModel carProfile, UserModel renter)
         {
-            var list = new List<DayThatIsRented>();
+            var list = new List<DayThatIsRentedModel>();
             for (var rentingDate = from; rentingDate.Date <= to.Date; rentingDate = rentingDate.AddDays(1))
             {
-                list.Add(new DayThatIsRented() { CarProfile = carProfile, Date = rentingDate, User = carProfile.User });
+                list.Add(new DayThatIsRentedModel() { CarProfileModel = carProfile, Date = rentingDate, Renter = renter });
             }
 
             return list;

@@ -14,6 +14,22 @@ namespace CarnGo
         {
             await Task.Delay(2000);
         }
+
+        public Task AddMessageToLessor(string mes, CarProfileModel carProfile, UserModel renter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<DayThatIsRentedModel>> GetDaysThatIsRentedTask(CarProfileModel carProfile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<PossibleToRentDayModel>> GetPossibleToRentDayTask(CarProfileModel carProfile)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task RegisterUserTask(string email, SecureString password)
         {
             await Task.Delay(2000);
@@ -89,6 +105,11 @@ namespace CarnGo
             var User2 = new UserModel("Marcus", "Gasberg", "xXxGitMazterxXx@hotmail.com", "Gellerup", UserType.OrdinaryUser);
             var Car = new CarProfileModel(User2, "X-360", "BMW", 1989, "1234567", "Aarhus", 2, DateTime.Today, DateTime.Today, 1);
             return new List<CarProfileModel>(){Car};
+        }
+
+        public Task<CarProfileModel> GetCarProfileTask(string regnr)
+        {
+            throw new NotImplementedException();
         }
 
         public Task AddUserMessage(MessageModel message)

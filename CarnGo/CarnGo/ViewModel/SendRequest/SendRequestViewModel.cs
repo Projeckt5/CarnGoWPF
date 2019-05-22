@@ -25,10 +25,9 @@ namespace CarnGo
     public class SendRequestViewModel:BaseViewModel,IDataErrorInfo
     {
         public IApplication _application;
-        public IQueueDatabaseForSendRequestViewModel _dbContext;
+        public IQueryDatabase _dbQuerier;
         public ISendRequestViewModelHelperFunction _helper;
         public IEventAggregator _events;
-        
 
         #region fields
 
@@ -67,30 +66,24 @@ namespace CarnGo
 
         #region constructor
 
-        public SendRequestViewModel(IEventAggregator events, IApplication application,IQueueDatabaseForSendRequestViewModel dbcontext,ISendRequestViewModelHelperFunction helper)
+        public SendRequestViewModel(IEventAggregator events, IApplication application,IQueryDatabase dbQuerier,ISendRequestViewModelHelperFunction helper)
         {
             _events = events;
             _helper = helper;
-            _dbContext = dbcontext;
+            _dbQuerier = dbQuerier;
             _application = application;
             _events.GetEvent<CarProfileDataEvent>().Subscribe(async (reg) => await SearchCarProfileEvent(reg));
         }
 
         public async Task SearchCarProfileEvent(string regnr)
         {
-            CarProfile = await _dbContext.GetCarProfileForSendRequestView(regnr);
-            var converter = new ApptoDbModelConverter();
-            var currentUserAsDbUser = converter.Convert(_application.CurrentUser);
-            CarProfile.User = currentUserAsDbUser;
-            CarProfile.UserEmail = currentUserAsDbUser.Email;
-            Car = ModelToDatabaseConverters.CarProfileToCarProfileModelForSendRequestViewModel(CarProfile);
+            Car = await _dbQuerier.GetCarProfileTask(regnr);
         }
 
         #endregion
 
         #region Properties
 
-        public CarProfile CarProfile { get; set; }
         public string ErrorText
         {
             get => _errorText;
@@ -163,22 +156,20 @@ namespace CarnGo
             }
 
             string text="";
-            bool confirm = _helper.ConfirmRentingDates(CarProfile, To, From,ref text);
+            bool confirm = _helper.ConfirmRentingDates(Car, To, From,ref text);
             if (!confirm)
             {
                 ErrorText = text;
                 return;
             }
 
-            var list = _helper.CreateDayThatIsRentedList(From,To,CarProfile);
-            var renterUser = await _dbContext.GetUser(_application.CurrentUser.Email);
-            await _dbContext.UpdateUser(renterUser);
-
-            await _dbContext.AddDayThatIsRentedList(list);
+            var list = _helper.CreateDayThatIsRentedList(From,To,Car, _application.CurrentUser);
+            Car.DayThatIsRented.AddRange(list);
+            await _dbQuerier.UpdateCarProfileTask(Car);
                                  
-            await _dbContext.AddMessageToLessor(Message,CarProfile,renterUser);
+            await _dbQuerier.AddMessageToLessor(Message,Car,_application.CurrentUser);
 
-            
+            //TODO: ADD A PAGE OR POP UP TO SHOW USER THEY HAVE SEND A REQUEST FOR RENT
             _application.GoToPage(ApplicationPage.SearchPage);//Der gås tilbage til SearchPage
         }
 

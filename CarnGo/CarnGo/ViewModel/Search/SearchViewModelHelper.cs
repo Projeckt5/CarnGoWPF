@@ -19,8 +19,8 @@ namespace CarnGo
             searchResultItem.EndLeaseTime = carProfile.EndLeaseTime;
             searchResultItem.Owner = new UserModel()
             {
-                Firstname = carProfile.Owner.FirstName ?? "",
-                Lastname = carProfile.Owner.LastName ?? ""
+                FirstName = carProfile.Owner.FirstName ?? "",
+                LastName = carProfile.Owner.LastName ?? ""
             };
            
             return searchResultItem;

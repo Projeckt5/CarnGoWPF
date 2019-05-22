@@ -13,8 +13,8 @@ namespace CarnGo
         {
             return new UserModel()
             {
-                Firstname = "TestFirstName",
-                Lastname = "TestLastName",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
                 Address = "TestAddress",
                 Email = "Test@Test.com",
                 AuthorizationString = dbUser.AuthorizationString,
@@ -67,6 +67,16 @@ namespace CarnGo
         }
 
         public List<CarProfileModel> Convert(List<CarProfile> carProfiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PossibleToRentDayModel> Convert(List<PossibleToRentDay> possibleToRentDays)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<DayThatIsRentedModel> Convert(List<DayThatIsRented> dayThatIsRented)
         {
             throw new NotImplementedException();
         }

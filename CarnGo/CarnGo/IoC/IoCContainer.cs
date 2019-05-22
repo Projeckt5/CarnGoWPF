@@ -31,6 +31,7 @@ namespace CarnGo
 #if DEBUG
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(databaseName: "debug_database")
+                .EnableSensitiveDataLogging()
                 .Options;
 
                 Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerThreadLifetimeManager(), new InjectionConstructor(options));
@@ -43,7 +44,6 @@ namespace CarnGo
             Container.RegisterType<IValidator<List<SecureString>>, PasswordMatchValidator>(new InjectionConstructor());
             Container.RegisterType<IAppToDbModelConverter, ApptoDbModelConverter>(new InjectionConstructor());
             Container.RegisterType<IDbToAppModelConverter, DbToAppModelConverter>(new InjectionConstructor());
-            Container.RegisterType<IQueueDatabaseForSendRequestViewModel, RealQueueDatabaseForSendRequestViewModel>();
             Container.RegisterType<ISendRequestViewModelHelperFunction, SendRequestViewModelHelperFunction>();
             Container.RegisterType<ISearchViewModelHelper, SearchViewModelHelper>();
             Container.RegisterType<ISearchQueries, RealSearchQueries>();

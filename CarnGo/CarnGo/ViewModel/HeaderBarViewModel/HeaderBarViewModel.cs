@@ -40,9 +40,6 @@ namespace CarnGo
             _databaseQuery = databaseQuery;
             _currentUser = new UserModel();
             _eventAggregator.GetEvent<UserUpdateEvent>().Subscribe(user => UserModel = user);
-            //_eventAggregator.GetEvent<DatabasePollingLoop>().Subscribe(async () => await NotificationQueryThread());
-
-
         }
         #endregion
         #region Public Properties
@@ -63,7 +60,7 @@ namespace CarnGo
             }
         }
 
-        public string FirstName => UserModel?.Firstname.Length > 20 ? UserModel?.Firstname.Substring(0,15) + "..." : UserModel?.Firstname;
+        public string FirstName => UserModel?.FirstName.Length > 20 ? UserModel?.FirstName.Substring(0,15) + "..." : UserModel?.FirstName;
         public bool ManageCarsVisible => UserModel?.UserType == UserType.Lessor;
 
         public string SearchKeyWord { get; set; }
@@ -156,52 +153,6 @@ namespace CarnGo
             OnPropertyChanged(nameof(NumUnreadNotifications));
         }
 
-        public int i { get; set; } = 0;
-            
-      
-        private async Task NotificationQueryThread()
-        {
-            if (_application.IsLoggedIn && _application.CurrentUser!=null)
-            {
-              
-                if (IsQueryingDatabase)
-                    return;
-
-                try
-                {
-                   i++; //test af push besked
-                    if (i == 5)
-                    {
-                        var db = new AppDbContext();
-                        var message = new Message()
-                        {
-                            CarProfileRegNr = "0420305a-2a44-44b6-8f59-88aa8da96103", ConfirmationStatus = 0, CreatedDate = DateTime.Now,
-                            HaveBeenSeen = false,
-                            LessorEmail = "car@owner", CarProfile = null, MsgType = 1, ReceiverEmail = "car@owner",RenterEmail = "car@renter",
-                            TheMessage = "Tristan man må ikke bande"
-                        };
-                        await db.AddMessage(message);
-                    }
-
-                    var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
-                    _amountNotificationsToLoad);
-
-                    UpdateNotifications(notifications);
-                }
-                catch (AuthorizationFailedException e)
-                {
-                    Logout();
-                    _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
-                }
-                
-
-
-            }
-            else
-            {                
-                _eventAggregator.GetEvent<CurrentUserSetNull>().Publish();
-            }
-        }
         #endregion
 
         

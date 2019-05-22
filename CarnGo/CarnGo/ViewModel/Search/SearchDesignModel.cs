@@ -19,8 +19,8 @@ namespace CarnGo
         {
             UserModel jensJensen = new UserModel
             {
-                Firstname = "Jens",
-                Lastname = "Jensen",
+                FirstName = "Jens",
+                LastName = "Jensen",
                 Address = "Finlandsgade 1",
                 Email = "hmm@gmail.com",
                 UserType = UserType.Lessor

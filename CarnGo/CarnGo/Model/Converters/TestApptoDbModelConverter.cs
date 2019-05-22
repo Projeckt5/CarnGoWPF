@@ -71,5 +71,15 @@ namespace CarnGo
         {
             throw new NotImplementedException();
         }
+
+        public List<PossibleToRentDay> Convert(List<PossibleToRentDayModel> carPossibleToRentDays)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<DayThatIsRented> Convert(List<DayThatIsRentedModel> carDayThatIsRented)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

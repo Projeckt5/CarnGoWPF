@@ -43,7 +43,7 @@ namespace CarnGo
                     NotificationMessage.MsgType = renterMessage.MsgType;
                     NotificationMessage.Message = renterMessage.Message;
                     NotificationMessage.CarPicture = renterMessage.RentCar.CarPicture;
-                    NotificationMessage.Renter = $"{renterMessage.Renter.Firstname} {renterMessage.Renter.Lastname}";
+                    NotificationMessage.Renter = $"{renterMessage.Renter.FirstName} {renterMessage.Renter.LastName}";
                     NotificationMessage.Confirmation = renterMessage.ConfirmationStatus;
                     NotificationMessage.TimeStamp = renterMessage.TimeStamp;
                     NotificationMessage.IsRead = renterMessage.MessageRead;
@@ -55,7 +55,7 @@ namespace CarnGo
                     NotificationMessage.MsgType = lessorMessage.MsgType;
                     NotificationMessage.Message = lessorMessage.Message;
                     NotificationMessage.CarPicture = lessorMessage.RentCar.CarPicture;
-                    NotificationMessage.Lessor = $"{lessorMessage.Lessor.Firstname} {lessorMessage.Lessor.Lastname}";
+                    NotificationMessage.Lessor = $"{lessorMessage.Lessor.FirstName} {lessorMessage.Lessor.LastName}";
                     NotificationMessage.Confirmation = lessorMessage.ConfirmationStatus;
                     NotificationMessage.TimeStamp = lessorMessage.TimeStamp;
                     NotificationMessage.IsRead = lessorMessage.MessageRead;
