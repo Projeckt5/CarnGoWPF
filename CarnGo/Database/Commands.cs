@@ -57,7 +57,7 @@ namespace CarnGo.Database
                         Console.WriteLine("       Address: " + user.Address);
                         Console.WriteLine("         Email: " + user.Email);
                         Console.WriteLine("      Password: " + user.Password);
-                        Console.WriteLine("     User type: " + user.UserType);
+                        Console.WriteLine("     Renter type: " + user.UserType);
                         Console.WriteLine("Number of cars: " + user.Cars?.Count);
                     }
                 }
@@ -91,7 +91,7 @@ namespace CarnGo.Database
                     foreach (var rented in daysRented)
                     {
                         Console.WriteLine("           Car: " + rented.CarProfile.Model);
-                        Console.WriteLine("        Renter: " + rented.User.FirstName + " " + rented.User.LastName);
+                        Console.WriteLine("        Renter: " + rented.Renter.FirstName + " " + rented.Renter.LastName);
                         Console.WriteLine("          Date: " + rented.Date);
                     }
                 }
@@ -206,7 +206,7 @@ namespace CarnGo.Database
                     {
                         Date = tempDateTime,
                         CarProfile = c,
-                        User = lessor
+                        Renter = lessor
                     };
                     daysThatIs.Add(tempday);
                 }

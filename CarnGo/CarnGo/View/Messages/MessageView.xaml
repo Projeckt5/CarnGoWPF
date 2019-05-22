@@ -88,7 +88,7 @@
                             VerticalAlignment="Center"
                             >
                         <TextBlock
-                        Text="User"
+                        Text="Renter"
                         Style="{StaticResource BaseTextBlockStyle}"
                         Margin="0 0 10 0"
                         />
@@ -107,7 +107,7 @@
                             />
 
                         <TextBlock
-                            Text="05-05-2019"
+                            Text="{Binding CurrentMessage.TimeStamp}"
                             Style="{StaticResource BaseTextBlockStyle}"
                             />
                     </StackPanel>

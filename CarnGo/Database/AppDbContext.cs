@@ -26,7 +26,7 @@ namespace CarnGo.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:carngo.database.windows.net,1433;Initial Catalog=CarnGo;Persist Security Info=False;User ID=carngo;Password=Aarhus123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:carngo.database.windows.net,1433;Initial Catalog=CarnGo;Persist Security Info=False;Renter ID=carngo;Password=Aarhus123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
         public DbSet<CarEquipment> CarEquipment { get; set; }
@@ -161,7 +161,7 @@ namespace CarnGo.Database
 
         public async Task<List<DayThatIsRented>> GetDaysThatIsRentedTask(string user, CarProfile carProfile)
         {
-            return await DaysThatIsRented.Where(c => (c.CarProfile == carProfile && c.User.Email == user)).ToListAsync();
+            return await DaysThatIsRented.Where(c => (c.CarProfile == carProfile && c.Renter.Email == user)).ToListAsync();
         }
 
         public async Task DeleteDaysThatIsRentedTask(List<DayThatIsRented> list)
@@ -177,8 +177,25 @@ namespace CarnGo.Database
             return possibleToRentDays;
         }
 
+        public async Task<List<DayThatIsRented>> GetCarProfileRentedDaysTask(string regnr)
+        {
+            var rentedDays =  await CarProfiles
+                .Where(cp => cp.RegNr == regnr)
+                .Select(cp => cp.DaysThatIsRented)
+                .SingleOrDefaultAsync();
+            return rentedDays;
+        }
 
-        public async Task<CarProfile> GetCarProfileForSendRequestView(string regnr)
+        public async Task<List<PossibleToRentDay>> GetCarProfilePossibleToRentDayTask(string regnr)
+        {
+            var possibleToRentDays = await CarProfiles
+                .Where(cp => cp.RegNr == regnr)
+                .Select(cp => cp.PossibleToRentDays)
+                .SingleOrDefaultAsync();
+            return possibleToRentDays;
+        }
+
+        public async Task<CarProfile> GetCarProfileWithDays(string regnr)
         {
             var carprofile =new CarProfile();
             carprofile= await CarProfiles.SingleAsync(e => e.RegNr == regnr);

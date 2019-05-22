@@ -16,7 +16,12 @@ namespace CarnGo
         Task<UserModel> GetUserTask(UserModel user);
         Task UpdateCarProfileTask(CarProfileModel carProfile);
         Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user);
+        Task<CarProfileModel> GetCarProfileTask(string regnr);
         Task AddUserMessage(MessageModel message);
         Task EraseDaysThatIsRented(MessageModel message);
+        Task AddMessageToLessor(string mes, CarProfileModel carProfile, UserModel renter);
+
+        Task<List<DayThatIsRentedModel>> GetDaysThatIsRentedTask(CarProfileModel carProfile);
+        Task<List<PossibleToRentDayModel>> GetPossibleToRentDayTask(CarProfileModel carProfile);
     }
 }

@@ -23,22 +23,17 @@ namespace CarnGo
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
-        private ThreadTimer _timer;
         
 
         private UserModel _currentUser = null;
 
-        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator,ThreadTimer timer)
+        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
             _applicationPage = ApplicationPage.LoginPage;
             _queryDatabase = queryDatabase;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<NewUserDataReadyEvent>()
                 .Subscribe(async () => CurrentUser = await _queryDatabase.GetUserTask(CurrentUser));
-            _eventAggregator.GetEvent<CurrentUserSetNull>().Subscribe(CurrentUserToNull);
-            _timer = timer;
-
-
         }
 
         /// <summary>
@@ -90,8 +85,6 @@ namespace CarnGo
             {
                 CurrentUser = await _queryDatabase.GetUserTask(email, password);
                 GoToPage(ApplicationPage.StartPage);
-                IsLoggedIn = true;
-                _eventAggregator.GetEvent<StartThreadTimer>().Publish(true);
             }
             catch (AuthenticationFailedException e)
             {
@@ -103,26 +96,8 @@ namespace CarnGo
 
         public void LogUserOut()
         {
-           
-            IsLoggedIn = false;
             GoToPage(ApplicationPage.LoginPage);
-            _eventAggregator.GetEvent<StartThreadTimer>().Publish(false);
-
-
         }
-
-        private void CurrentUserToNull()
-        {
-            CurrentUser = null;
-        }
-
-        public bool IsLoggedIn { get; set; } = false;
-
-      
-
-        
-    
-
     }
 }
 

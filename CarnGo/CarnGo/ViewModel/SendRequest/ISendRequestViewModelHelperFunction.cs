@@ -9,14 +9,7 @@ namespace CarnGo
 {
     public interface ISendRequestViewModelHelperFunction
     {
-        bool ConfirmRentingDates(CarProfile car, DateTime to, DateTime from, ref string errorMessage);
-
-
-
-        List<DayThatIsRented> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfile carProfile);
-
-
-       
-
+        bool ConfirmRentingDates(CarProfileModel car, DateTime to, DateTime from, ref string errorMessage);
+        List<DayThatIsRentedModel> CreateDayThatIsRentedList(DateTime from, DateTime to, CarProfileModel carProfile, UserModel renter);
     }
 }

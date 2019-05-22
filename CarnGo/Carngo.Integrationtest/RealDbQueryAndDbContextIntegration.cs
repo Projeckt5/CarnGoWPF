@@ -98,14 +98,14 @@ namespace CarnGo.Integrationtest
             var email = $"{first}@{last}";
             await _dbQuerier.RegisterUserTask(email, pwd);
             var user = await _dbQuerier.GetUserTask(email, pwd);
-            user.Firstname = first;
-            user.Lastname = last;
+            user.FirstName = first;
+            user.LastName = last;
 
             await _dbQuerier.UpdateUser(user);
             var userResult = await _dbQuerier.GetUserTask(user);
 
-            Assert.That(userResult.Firstname, Is.EqualTo(first));
-            Assert.That(userResult.Lastname, Is.EqualTo(last));
+            Assert.That(userResult.FirstName, Is.EqualTo(first));
+            Assert.That(userResult.LastName, Is.EqualTo(last));
         }
 
         [Test]

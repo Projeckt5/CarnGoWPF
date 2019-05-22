@@ -19,8 +19,8 @@ namespace CarnGo
         public UserModel()
         {
             _messageModels = new List<MessageModel>();
-            Firstname = "";
-            Lastname = "";
+            FirstName = "";
+            LastName = "";
             Email = "";
             Address = "";
             UserType = UserType.NonUser;
@@ -29,16 +29,16 @@ namespace CarnGo
         /// <summary>
         /// Explicit Constructor 
         /// </summary>
-        /// <param name="firstname"></param>
-        /// <param name="lastname"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="email"></param>
         /// <param name="address"></param>
         /// <param name="userType"></param>
-        public UserModel(string firstname, string lastname, string email,
+        public UserModel(string firstName, string lastName, string email,
             string address, UserType userType)
         {
-            Firstname = firstname;
-            Lastname = lastname;
+            FirstName = firstName;
+            LastName = lastName;
             Email = email;
             Address = address;
             UserType = userType; 
@@ -47,8 +47,8 @@ namespace CarnGo
         #endregion
 
         #region Fields
-        private string _firstname;
-        private string _lastname;
+        private string _firstName;
+        private string _lastName;
         private string _email;
         private string _address;
         private UserType _usertype;
@@ -61,30 +61,30 @@ namespace CarnGo
         #region Properties
 
         /// <summary>
-        /// Firstname of the current user
+        /// FirstName of the current user
         /// </summary>
-        public string Firstname
+        public string FirstName
         {
-            get { return _firstname; }
+            get { return _firstName; }
             set
             {
-                _firstname = value;
-                OnPropertyChanged(nameof(Firstname));
+                _firstName = value;
+                OnPropertyChanged(nameof(FirstName));
             }
         }
 
         public Guid AuthorizationString { get; set; }
 
         /// <summary>
-        /// Lastname of the current user
+        /// LastName of the current user
         /// </summary>
-        public string Lastname
+        public string LastName
         {
-            get { return _lastname; }
+            get { return _lastName; }
             set
             {
-                _lastname = value;
-                OnPropertyChanged(nameof(Lastname));
+                _lastName = value;
+                OnPropertyChanged(nameof(LastName));
             }
         }
 

@@ -18,9 +18,9 @@ namespace CarnGo
             var user = new User
             {
                 Email = appUser.Email ?? "",
-                FirstName = appUser.Firstname ?? "",
+                FirstName = appUser.FirstName ?? "",
                 Address = appUser.Address ?? "",
-                LastName = appUser.Lastname ?? "",
+                LastName = appUser.LastName ?? "",
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthorizationString = appUser.AuthorizationString,
@@ -41,7 +41,6 @@ namespace CarnGo
                 Brand = car.Brand ?? "",
                 CarDescription = car.CarDescription ?? "",
                 CarEquipment = carEquip,
-                DaysThatIsRented = car.DayThatIsRented,
                 Price = car.Price,
                 RentalPrice = car.RentalPrice,
                 FuelType = car.FuelType ?? "",
@@ -53,7 +52,56 @@ namespace CarnGo
             return dbCarModel;
         }
 
-        private Database.Models.CarEquipment Convert(CarEquipment carEquipment)
+        public List<PossibleToRentDay> Convert(List<PossibleToRentDayModel> carPossibleToRentDays)
+        {
+            var possibleToRentDays = new List<PossibleToRentDay>();
+            foreach (var day in carPossibleToRentDays)
+            {
+                if (day == null)
+                {
+                    possibleToRentDays.Add(default);
+                    continue;
+                }
+                possibleToRentDays.Add(Convert(day));
+            }
+            return possibleToRentDays;
+        }
+
+        public PossibleToRentDay Convert(PossibleToRentDayModel carPossibleToRentDays)
+        {
+            return new PossibleToRentDay()
+            {
+                Id = carPossibleToRentDays.Id,
+                Date = carPossibleToRentDays.Date
+            };
+        }
+
+        public List<DayThatIsRented> Convert(List<DayThatIsRentedModel> carDayThatIsRented)
+        {
+            var daysThatIsRented = new List<DayThatIsRented>();
+            foreach (var day in carDayThatIsRented)
+            {
+                if (day == null)
+                {
+                    daysThatIsRented.Add(default);
+                    continue;
+                }
+                daysThatIsRented.Add(Convert(day));
+            }
+            return daysThatIsRented;
+        }
+
+        public DayThatIsRented Convert(DayThatIsRentedModel carDayThatIsRented)
+        {
+            return new DayThatIsRented()
+            {
+                Renter = Convert(carDayThatIsRented.Renter),
+                Date = carDayThatIsRented.Date,
+                Id = carDayThatIsRented.Id
+            };
+        }
+
+        public Database.Models.CarEquipment Convert(CarEquipment carEquipment)
         {
             if (carEquipment == null)
                 return default;

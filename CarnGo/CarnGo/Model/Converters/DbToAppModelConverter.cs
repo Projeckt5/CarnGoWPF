@@ -16,8 +16,8 @@ namespace CarnGo
                 return default;
             return new UserModel()
             {
-                Firstname = dbUser.FirstName ?? "",
-                Lastname = dbUser.LastName ?? "",
+                FirstName = dbUser.FirstName ?? "",
+                LastName = dbUser.LastName ?? "",
                 Address = dbUser.Address ?? "",
                 Email = dbUser.Email ?? "",
                 AuthorizationString = dbUser.AuthorizationString,
@@ -41,6 +41,30 @@ namespace CarnGo
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
+        }
+
+        public List<PossibleToRentDayModel> Convert(List<PossibleToRentDay> possibleToRentDays)
+        {
+            var possibleToRenDayModels = new List<PossibleToRentDayModel>();
+            foreach (var day in possibleToRentDays)
+            {
+                if(day == null)
+                {
+                    possibleToRenDayModels.Add(default);
+                    continue;
+                }
+                possibleToRenDayModels.Add(Convert(day));
+            }
+            return possibleToRenDayModels;
+        }
+
+        public PossibleToRentDayModel Convert(PossibleToRentDay possibleToRentDays)
+        {
+            return new PossibleToRentDayModel()
+            {
+                Id = possibleToRentDays.Id,
+                Date = possibleToRentDays.Date
+            };
         }
 
 
@@ -68,7 +92,8 @@ namespace CarnGo
                             Receiver = lessorUserModel.Email == dbMessage.ReceiverEmail ? lessorUserModel : renterUserModel,
                             ConfirmationStatus = (MsgStatus) dbMessage.ConfirmationStatus,
                             Id = dbMessage.MessageID,
-                            MsgType = (MessageType)dbMessage.MsgType
+                            MsgType = (MessageType)dbMessage.MsgType,
+                            TimeStamp = dbMessage.CreatedDate,
                         });
                         break;
                     case MessageType.RenterMessage:
@@ -78,8 +103,9 @@ namespace CarnGo
                             Receiver = lessorUserModel.Email == dbMessage.ReceiverEmail ? lessorUserModel : renterUserModel,
                             Id = dbMessage.MessageID,
                             MsgType = (MessageType)dbMessage.MsgType,
-                            ConfirmationStatus = (MsgStatus)dbMessage.ConfirmationStatus
-                        }); ;
+                            ConfirmationStatus = (MsgStatus)dbMessage.ConfirmationStatus,
+                            TimeStamp = dbMessage.CreatedDate
+                        });
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -104,6 +130,34 @@ namespace CarnGo
                 carModels.Add(newModel);
             }
             return carModels;
+        }
+
+        public List<DayThatIsRentedModel> Convert(List<DayThatIsRented> dayThatIsRented)
+        {
+            var dayThatIsRentedModels = new List<DayThatIsRentedModel>();
+            foreach(var day in dayThatIsRented)
+            {
+                if (day == null)
+                {
+                    dayThatIsRentedModels.Add(default);
+                    continue;
+                }
+
+                var addModel = Convert(day);
+                dayThatIsRentedModels.Add(addModel);
+            }
+
+            return dayThatIsRentedModels;
+        }
+
+        private DayThatIsRentedModel Convert(DayThatIsRented dayThatIsRented)
+        {
+            return new DayThatIsRentedModel()
+            {
+                Date = dayThatIsRented.Date,
+                Renter = Convert(dayThatIsRented.Renter),
+                Id = dayThatIsRented.Id
+            };
         }
     }
 }

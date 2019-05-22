@@ -32,8 +32,8 @@ namespace CarnGo
             _application = application;
             _queryDatabase = queryDatabase;
             _eventAggregator = eventAggregator;
-            FirstName = UserModel.Firstname;
-            LastName = UserModel.Lastname;
+            FirstName = UserModel.FirstName;
+            LastName = UserModel.LastName;
             Email = UserModel.Email;
             Address = UserModel.Address;
             UserType = UserModel.UserType;
@@ -103,8 +103,8 @@ namespace CarnGo
             IsSaving = true;
             try
             {
-                UserModel.Firstname = FirstName;
-                UserModel.Lastname = LastName;
+                UserModel.FirstName = FirstName;
+                UserModel.LastName = LastName;
                 UserModel.Email = Email;
                 UserModel.Address = Address;
                 UserModel.UserImage = UserImage;

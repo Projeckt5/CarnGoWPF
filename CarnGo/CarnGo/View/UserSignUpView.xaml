@@ -6,7 +6,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:local="clr-namespace:CarnGo"
       Background="{StaticResource BlueLightBrush}"
       mc:Ignorable="d" d:DesignWidth="934.683"
-      Title="UserSignUpView">
+      Title="RenterSignUpView">
     <Border Background="{StaticResource BackgroundMainBrush}"
             Margin="50"
             Padding="20 30"

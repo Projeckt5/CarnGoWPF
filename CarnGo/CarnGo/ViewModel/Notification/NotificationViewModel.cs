@@ -51,7 +51,8 @@ namespace CarnGo
             {
                 Sender = messageToRespondTo.Lessor,
                 Receiver = messageToRespondTo.Renter,
-                MsgType = MessageType.LessorMessage
+                MsgType = MessageType.LessorMessage,
+                TimeStamp = DateTime.Now,
             };
         }
 
@@ -59,16 +60,16 @@ namespace CarnGo
 
         #region Properties
 
-        private List<MessageModel> _notificationModels;
-        private List<NotificationItemViewModel> _messages;
+        private List<MessageModel> _messagesForNotifications;
+        private List<NotificationItemViewModel> _notificationsItemVMs;
         
-        public List<NotificationItemViewModel> Messages
+        public List<NotificationItemViewModel> NotificationItemVMs
         {
-            get => _messages;
+            get => _notificationsItemVMs;
             set
             {
-                _messages = value;
-                OnPropertyChanged(nameof(Messages));
+                _notificationsItemVMs = value;
+                OnPropertyChanged(nameof(NotificationItemVMs));
             }
         }
         #endregion
@@ -76,22 +77,23 @@ namespace CarnGo
 
         private async Task UpdateNotificationConfirm(MessageFromRenterModel messageFromRenterModel)
         {
-            int indexToReplace = _notificationModels.FindIndex(ind => ind.Equals(messageFromRenterModel));
-            _notificationModels[indexToReplace] = messageFromRenterModel;
-            await _databaseQuery.UpdateUserMessagesTask(_notificationModels);
+            int indexToReplace = _messagesForNotifications.FindIndex(ind => ind.Equals(messageFromRenterModel));
+            _messagesForNotifications[indexToReplace] = messageFromRenterModel;
+            await _databaseQuery.UpdateUserMessagesTask(_messagesForNotifications);
+            _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(_messagesForNotifications);
         }
 
         private void UpdateNotifications(List<MessageModel> msgList)
         {
             var notificationItemViewModels = new List<NotificationItemViewModel>();
-            _notificationModels = msgList;
+            _messagesForNotifications = msgList;
 
             foreach (var currentUserMessageModel in msgList)
             {
                 notificationItemViewModels.Add(new NotificationItemViewModel(_application, _eventAggregator, currentUserMessageModel));
             }
 
-            Messages = notificationItemViewModels;
+            NotificationItemVMs = notificationItemViewModels;
         }
     }
 }

@@ -123,11 +123,11 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
             _fakeQueryDatabase.RegisterUserTask(Arg.Any<string>(), Arg.Any<SecureString>())
-                .Throws(new AuthenticationFailedException("User already exists"));
+                .Throws(new AuthenticationFailedException("Renter already exists"));
 
             _uut.RegisterCommand.Execute(null);
 
-            Assert.That(_uut.AllErrors.Contains("User already exists"));
+            Assert.That(_uut.AllErrors.Contains("Renter already exists"));
         }
 
 
@@ -138,7 +138,7 @@ namespace CarnGo.Test.Unit.ViewModels
             _fakePasswordValidator.Validate(Arg.Any<SecureString>()).Returns(true);
             _fakePasswordMatchValidator.Validate(Arg.Any<List<SecureString>>()).Returns(true);
             _fakeQueryDatabase.RegisterUserTask(Arg.Any<string>(), Arg.Any<SecureString>())
-                .Throws(new AuthenticationFailedException("User already exists"));
+                .Throws(new AuthenticationFailedException("Renter already exists"));
 
             _uut.RegisterCommand.Execute(null);
 

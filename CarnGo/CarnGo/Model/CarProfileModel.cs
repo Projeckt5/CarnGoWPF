@@ -44,6 +44,8 @@ namespace CarnGo
             Price = price;
             StartLeaseTime = startlease;
             EndLeaseTime = endlease;
+            DayThatIsRented = new List<DayThatIsRentedModel>();
+            PossibleToRentDays = new List<PossibleToRentDayModel>();
         }
 
         #endregion
@@ -68,16 +70,36 @@ namespace CarnGo
         private int _rentalPrice;
         private string _fuelType;
         private string _carDescription;
-
-       
+        private List<DayThatIsRentedModel> _dayThatIsRented;
+        private List<PossibleToRentDayModel> _possibleToRentDays;
 
         #endregion
 
         //TODO Try/Catch block for Database exceptions
         #region Properties
 
-        public List<DayThatIsRented> DayThatIsRented { get; set; }
-        public List<PossibleToRentDay> PossibleToRentDays { get; set; }
+        public List<DayThatIsRentedModel> DayThatIsRented
+        {
+            get => _dayThatIsRented;
+            set
+            {
+                if (_dayThatIsRented == value)
+                    return;
+                _dayThatIsRented = value;
+                OnPropertyChanged(nameof(DayThatIsRented));
+            }
+        }
+        public List<PossibleToRentDayModel> PossibleToRentDays
+        {
+            get => _possibleToRentDays;
+            set
+            {
+                if (_possibleToRentDays == value)
+                    return;
+                _possibleToRentDays = value;
+                OnPropertyChanged(nameof(PossibleToRentDays));
+            }
+        }
         
 
         public CarEquipment CarEquipment

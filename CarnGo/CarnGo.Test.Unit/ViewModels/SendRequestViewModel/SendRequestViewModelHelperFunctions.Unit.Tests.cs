@@ -12,10 +12,10 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
     public class SendRequestViewModelHelperFunctions
     {
         private ISendRequestViewModelHelperFunction _helper;
-        private CarProfile _car;
+        private CarProfileModel _car;
         private DateTime _startDate;
-        private List<PossibleToRentDay> _possibleDates;
-        private List<DayThatIsRented> _alreadyRentedDates;
+        private List<PossibleToRentDayModel> _possibleDates;
+        private List<DayThatIsRentedModel> _alreadyRentedDates;
         public SendRequestViewModelHelperFunctions()
         {
             
@@ -24,22 +24,22 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
         [SetUp]
         public void Setup()
         {
-            var user = new User();
-            _possibleDates = new List<PossibleToRentDay>();
-            _alreadyRentedDates = new List<DayThatIsRented>();
+            var user = new UserModel();
+            _possibleDates = new List<PossibleToRentDayModel>();
+            _alreadyRentedDates = new List<DayThatIsRentedModel>();
             for (var date = _startDate; date <= _startDate.AddMonths(1); date = date.AddDays(1))
             {
-                _possibleDates.Add(new PossibleToRentDay() { CarProfile = _car, Date = date });
+                _possibleDates.Add(new PossibleToRentDayModel() { CarProfile = _car, Date = date });
                 if (date <= _startDate.AddDays(6))
-                    _alreadyRentedDates.Add(new DayThatIsRented() { User = user, CarProfile = _car, Date = date });
+                    _alreadyRentedDates.Add(new DayThatIsRentedModel() { Renter = user, CarProfileModel = _car, Date = date });
             }
             _helper =new SendRequestViewModelHelperFunction();
-            _car = new CarProfile();
+            _car = new CarProfileModel();
             
             _startDate = new DateTime(2019, 1, 1);
             
-            _car.DaysThatIsRented = new List<DayThatIsRented>(_alreadyRentedDates);
-            _car.PossibleToRentDays = new List<PossibleToRentDay>(_possibleDates);
+            _car.DayThatIsRented = new List<DayThatIsRentedModel>(_alreadyRentedDates);
+            _car.PossibleToRentDays = new List<PossibleToRentDayModel>(_possibleDates);
             
         }
 
@@ -112,17 +112,18 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
         [Test]
         public void CreateDayThatIsRentedList_FromStartDateToAWeekAfter_CorrectList()
         {
-            var checkList=new List<DayThatIsRented>();
+            var checkList=new List<DayThatIsRentedModel>();
+            var user = new UserModel();
             for (var date = _startDate; date <= _startDate.AddDays(6); date = date.AddDays(1))
             {
-                checkList.Add(new DayThatIsRented() { CarProfile = _car, Date = date });
+                checkList.Add(new DayThatIsRentedModel() { CarProfileModel = _car, Date = date });
              
             }
             DateTime from = _startDate;
             DateTime to = from.AddDays(6);
-            var list = _helper.CreateDayThatIsRentedList(from, to, _car);
+            var list = _helper.CreateDayThatIsRentedList(from, to, _car,user);
             Assert.True(((list[0].Date==checkList[0].Date)&&(list[6].Date==checkList[6].Date)&&
-                        (list[0].CarProfile == checkList[0].CarProfile) && (list[6].CarProfile == checkList[6].CarProfile)
+                        (list[0].CarProfileModel == checkList[0].CarProfileModel) && (list[6].CarProfileModel == checkList[6].CarProfileModel)
                         &&(list.Count==checkList.Count)));
         }
 
@@ -130,7 +131,7 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
         //public void CreateMessageToLessor_MessageIsHey()
         //{
         //    var mes = "hey";
-        //    var user=new User();
+        //    var user=new Renter();
         //    var message = _helper.CreateMessageToLessor(mes, _car, user);
         //    Assert.True((message.ConfirmationStatus==false)&&(message.HaveBeenSeen==false)
         //                &&(message.TheMessage==mes));//mangler at asserte på noget hvis den skal testes helt igennem

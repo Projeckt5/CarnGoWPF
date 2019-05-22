@@ -99,5 +99,40 @@ namespace CarnGo
             var daysThatIsRented = await _dbContext.GetDaysThatIsRentedTask(mes.SenderEmail, mes.CarProfile);
             await _dbContext.DeleteDaysThatIsRentedTask(daysThatIsRented);
         }
+
+        public async Task AddMessageToLessor(string mes, CarProfileModel carProfile, UserModel renter)
+        {
+            var message = new MessageFromRenterModel(renter,carProfile.Owner,carProfile,mes)
+            {
+                Sender = renter,
+                Receiver = carProfile.Owner
+            };
+            var dbMessage = _appToDbModelConverter.Convert(message);
+
+            await _dbContext.AddMessage(dbMessage);
+        }
+
+        public async Task<List<DayThatIsRentedModel>> GetDaysThatIsRentedTask(CarProfileModel carProfile)
+        {
+            var dbRentedDays = await _dbContext.GetCarProfileRentedDaysTask(carProfile.RegNr);
+            var rentedDays = _dbToAppModelConverter.Convert(dbRentedDays);
+            return rentedDays;
+        }
+
+        public async Task<List<PossibleToRentDayModel>> GetPossibleToRentDayTask(CarProfileModel carProfile)
+        {
+            var dbPossibleToRentDays = await _dbContext.GetCarProfilePossibleToRentDayTask(carProfile.RegNr);
+            var possibleToRentDay = _dbToAppModelConverter.Convert(dbPossibleToRentDays);
+            return possibleToRentDay;
+        }
+
+        public async Task<CarProfileModel> GetCarProfileTask(string regnr)
+        {
+            var carProfile = await _dbContext.GetCarProfile(regnr);
+            var carProfileModel = _dbToAppModelConverter.Convert(carProfile);
+            carProfileModel.DayThatIsRented = await GetDaysThatIsRentedTask(carProfileModel);
+            carProfileModel.PossibleToRentDays = await GetPossibleToRentDayTask(carProfileModel);
+            return carProfileModel;
+        }
     }
 }
