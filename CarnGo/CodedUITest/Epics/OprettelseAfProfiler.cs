@@ -38,11 +38,12 @@ namespace CodedUITest
         {
             //Arrange 
             this.UIMap.OpenToFullScreen();
+            this.UIMap.ClickEmailBoxTest();
+            Keyboard.SendKeys("car@renter");
             this.UIMap.ClickOnPasswordBox();
             Keyboard.SendKeys("123asd");
             this.UIMap.PressLogin();
-
-
+            Thread.Sleep(2000);
         }
 
         [TestMethod]

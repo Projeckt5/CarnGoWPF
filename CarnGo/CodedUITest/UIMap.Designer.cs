@@ -919,6 +919,19 @@ namespace CodedUITest
             Mouse.Click(uICurrentPageFramePane, new Point(923, 550));
         }
         
+        /// <summary>
+        /// ClickEmailBoxTest
+        /// </summary>
+        public void ClickEmailBoxTest()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(952, 406));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
