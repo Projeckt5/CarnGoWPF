@@ -32,7 +32,6 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _fakeApplication.CurrentUser.Returns(new UserModel("Edward", "Brunton", "edward.brunton@me.com", "Bernhard Jensens Boulevard 95, 10.3", UserType.OrdinaryUser));
 
-            _uut = new CarProfileViewModel(_fakeApplication,_queryDatabase);
         }
 
         [Test]

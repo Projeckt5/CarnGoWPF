@@ -54,7 +54,8 @@ namespace CarnGo
                 Location = car.Location ?? "",
                 Seats = car.Seats,
                 EndLeaseTime = car.EndLeaseTime,
-                StartLeaseTime = car.StartLeaseTime
+                StartLeaseTime = car.StartLeaseTime,
+                Model = car.Model ?? ""
             };
             return dbCarModel;
         }

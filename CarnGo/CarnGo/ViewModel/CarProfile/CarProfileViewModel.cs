@@ -25,20 +25,14 @@ namespace CarnGo
         private bool isNew = false;
         
         
-        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase)
+        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             _queryDatabase = queryDatabase;
             _application = application;
             _eventAggregator.GetEvent<GetCarEvent>().Subscribe(GetCarModel);
         }
 
-        public CarProfileViewModel(IApplication application)
-        {
-            _application = application;
-            _carProfile = new CarProfileModel();
-            Editing = true;
-            IsReadOnly = false;
-        }
 
 
 
@@ -56,10 +50,10 @@ namespace CarnGo
             set => _carProfile.Model = value;
         }
 
-        public int CarSeats
+        public string CarSeats
         {
-            get => _carProfile.Seats;
-            set => _carProfile.Seats = value;
+            get => _carProfile.Seats.ToString();
+            set => _carProfile.Seats = int.Parse(value);
         }
         public string CarFuelType
         {
@@ -67,10 +61,10 @@ namespace CarnGo
             set => _carProfile.FuelType = value;
         }
 
-        public int CarRentalPrice
+        public string CarRentalPrice
         {
-            get => _carProfile.RentalPrice;
-            set => _carProfile.RentalPrice = value;
+            get => _carProfile.RentalPrice.ToString();
+            set => _carProfile.RentalPrice = int.Parse(value);
         }
 
         public int CarAge
@@ -168,9 +162,6 @@ namespace CarnGo
                 if (isNew)
                 {
                     _carProfile.Owner = _application.CurrentUser;
-                    _application.CurrentUser.UserType = UserType.Lessor;
-
-                    await _queryDatabase.UpdateUser(_application.CurrentUser);
                     await _queryDatabase.RegisterCarProfileTask(_carProfile);
                    
                 }
@@ -229,6 +220,18 @@ namespace CarnGo
                 Editing = true;
                 IsReadOnly = false;
             }
+
+            OnPropertyChanged(nameof(CarRegNr));
+            OnPropertyChanged(nameof(CarAge));
+            OnPropertyChanged(nameof(CarDescription));
+            OnPropertyChanged(nameof(CarEndLeaseDate));
+            OnPropertyChanged(nameof(CarRegNr));
+            OnPropertyChanged(nameof(CarFuelType));
+            OnPropertyChanged(nameof(CarMake));
+            OnPropertyChanged(nameof(CarModel));
+            OnPropertyChanged(nameof(CarSeats));
+            OnPropertyChanged(nameof(CarStartLeaseDate));
+            OnPropertyChanged(nameof(CarRentalPrice));
         }
     }
 }

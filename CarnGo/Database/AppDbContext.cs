@@ -271,9 +271,23 @@ namespace CarnGo.Database
         public async Task UpdateCarProfile(CarProfile carProfile)
         {
             var result = await CarProfiles.SingleOrDefaultAsync(b => b.RegNr == carProfile.RegNr);
-
             if (result == default(CarProfile)) return;
-            result = carProfile;
+            Update(result);
+            result.CarPicture = carProfile.CarPicture ?? result.CarPicture;
+            result.Owner = carProfile.Owner ?? result.Owner;
+            result.Age = carProfile.Age;
+            result.Brand = carProfile.Brand ?? result.Brand;
+            result.CarDescription = carProfile.CarDescription ?? result.CarDescription;
+            result.CarEquipment = carProfile.CarEquipment ?? result.CarEquipment;
+            result.DaysThatIsRented = carProfile.DaysThatIsRented ?? result.DaysThatIsRented;
+            result.StartLeaseTime = carProfile.StartLeaseTime;
+            result.EndLeaseTime = carProfile.EndLeaseTime;
+            result.FuelType = carProfile.FuelType ?? result.FuelType;
+            result.Model = carProfile.Model ?? result.Model;
+            result.OwnerEmail = carProfile.Owner.Email ?? result.OwnerEmail;
+            result.RentalPrice = carProfile.RentalPrice;
+            result.RegNr = carProfile.RegNr ?? result.RegNr;
+            result.Seats = carProfile.Seats;
             await SaveChangesAsync();
         }
 
