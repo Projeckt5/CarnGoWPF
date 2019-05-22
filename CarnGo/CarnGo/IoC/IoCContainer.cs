@@ -48,7 +48,6 @@ namespace CarnGo
             Container.RegisterType<ISearchViewModelHelper, SearchViewModelHelper>();
             Container.RegisterType<ISearchQueries, RealSearchQueries>();
             Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
-            Container.RegisterType<ThreadTimer>();
             Container.AddExtension(new Diagnostic());
            
         }
