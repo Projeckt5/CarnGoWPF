@@ -34,20 +34,6 @@ namespace CodedUITest
         }
 
         [TestMethod]
-        public void TestDPI()
-        {
-            //Arrange 
-            this.UIMap.OpenToFullScreen();
-            this.UIMap.ClickEmailBoxTest();
-            Thread.Sleep(1000);
-            Keyboard.SendKeys("car@renter");
-            this.UIMap.ClickOnPasswordBox();
-            Keyboard.SendKeys("123asd");
-            this.UIMap.PressLogin();
-            Thread.Sleep(2000);
-        }
-
-        [TestMethod]
         public void US1_OprettelseAfBrugerProfil()
         {
             // Arrange

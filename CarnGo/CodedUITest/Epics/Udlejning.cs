@@ -69,6 +69,8 @@ namespace CodedUITest
             Thread.Sleep(1000);
             this.UIMap.ClickTopNotification();
 
+            Thread.Sleep(1000);
+
         }
 
         [TestMethod]
