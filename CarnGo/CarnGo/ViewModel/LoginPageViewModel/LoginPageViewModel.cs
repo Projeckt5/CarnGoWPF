@@ -164,8 +164,6 @@ namespace CarnGo
                 {
                     RememberUserLocally(PasswordSecureString);
                 }
-
-                
             }
             catch (AuthenticationFailedException e)
             {

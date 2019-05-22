@@ -33,35 +33,11 @@ namespace CarnGo
 
         private string _errorText = "";
        
-        private CarProfileModel _carProfileModel;
-        private DateTime _to = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-        private DateTime _from= new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
+        private DateTime _to;
+        private DateTime _from;
         private string _message = "Message to lessor";
 
-        private CarProfileModel _car =
-            new CarProfileModel
-            {
-                CarEquipment = new CarEquipment
-                {
-                    AudioPlayer = true,
-                    ChildSeat = false,
-                    Gps = true,
-                    Smoking = false
-                },
-                Model = "Mustang",
-                Brand = "Ford",
-                Age = 2010,
-                CarDescription = "Bilen har kun været brugt 5 gange i løbet af de 10 år jeg har eget den, så den er så god som ny.",
-                CarPicture = new BitmapImage(new Uri("../../Images/Bilfoto.jpg", UriKind.Relative)),
-                RegNr = "1107959",
-                RentalPrice = 5000,
-                FuelType = "Premium91",
-                Seats = 5,
-                Price = 200000,
-                Location = "Århus",
-                StartLeaseTime = new DateTime(2019, 4, 25),
-                EndLeaseTime = new DateTime(2019, 5, 25)
-            };
+        private CarProfileModel _car; 
         #endregion
 
         #region constructor
@@ -73,6 +49,8 @@ namespace CarnGo
             _dbQuerier = dbQuerier;
             _application = application;
             _events.GetEvent<CarProfileDataEvent>().Subscribe(async (reg) => await SearchCarProfileEvent(reg));
+            To = DateTime.Now;
+            From = DateTime.Now;
         }
 
         public async Task SearchCarProfileEvent(string regnr)
@@ -111,7 +89,6 @@ namespace CarnGo
             get { return _to; }
             set
             {
-                
                 _to = value;
                 OnPropertyChanged(nameof(To));
                 
@@ -149,7 +126,7 @@ namespace CarnGo
 
         public async Task RentCarFunction()
         {
-            if (Message == "Message to lessor" || To < DateTime.Now || From < DateTime.Now || To < From)
+            if (Message == "Message to lessor" || To < DateTime.Now.Date || From < DateTime.Now.Date || To < From)
             {
                 ErrorText = "*Information was not entered correctly";
                 return;

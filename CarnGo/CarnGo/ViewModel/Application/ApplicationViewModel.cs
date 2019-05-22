@@ -96,6 +96,7 @@ namespace CarnGo
 
         public void LogUserOut()
         {
+            CurrentUser = null;
             GoToPage(ApplicationPage.LoginPage);
         }
     }

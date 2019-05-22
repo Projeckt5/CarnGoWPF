@@ -235,13 +235,10 @@ namespace CarnGo
 
         private void SearchEventHandler(string location)
         {
-            if (!string.IsNullOrEmpty(location))
-            {
-                ClearSearch();
-                InitializeSearchResultItems();
-                LocationText = location;
-                Search();
-            }
+            ClearSearch();
+            InitializeSearchResultItems();
+            LocationText = location;
+            Search();
         }
 
         private async void InitializeSearchResultItems()

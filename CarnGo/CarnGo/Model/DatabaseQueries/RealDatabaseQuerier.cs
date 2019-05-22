@@ -105,7 +105,8 @@ namespace CarnGo
             var message = new MessageFromRenterModel(renter,carProfile.Owner,carProfile,mes)
             {
                 Sender = renter,
-                Receiver = carProfile.Owner
+                Receiver = carProfile.Owner,
+                TimeStamp = DateTime.Now
             };
             var dbMessage = _appToDbModelConverter.Convert(message);
 
