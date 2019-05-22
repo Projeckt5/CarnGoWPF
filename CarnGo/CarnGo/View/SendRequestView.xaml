@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:prism="http://prismlibrary.com/">
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <Page.Resources>
         <DataTemplate DataType="{x:Type local:CarEquipment}">
@@ -101,9 +102,6 @@
                     <Label HorizontalAlignment="Center" >Car description:</Label>
                     <TextBlock TextWrapping="Wrap" Text="{Binding Car.CarDescription}"></TextBlock>
                     <ContentControl Content="{Binding Path=Car.CarEquipment}"></ContentControl>
-                    
-                    
-
                 </StackPanel>
 
                 
@@ -111,57 +109,61 @@
 
             </Grid>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-            <Border Margin="0, 50, 50, 0"
+                <Border Margin="0, 50, 50, 0"
                     BorderBrush="{StaticResource BlueMainBrush}" 
                     >
-                <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <Label HorizontalAlignment="Left"
-                       Grid.Row="0" Grid.Column="0"
-                       Content="From"
-                    />
+                    <Label HorizontalAlignment="Left"
+                           Grid.Row="0" Grid.Column="0"
+                           Content="From"
+                        />
 
-                <Label HorizontalAlignment="Left"
-                       Grid.Row="0" Grid.Column="1"
-                       Content="To"
-                       Margin="15,0,0,0"
-                       />
+                    <Label HorizontalAlignment="Left"
+                           Grid.Row="0" Grid.Column="1"
+                           Content="To"
+                           Margin="15,0,0,0"
+                           />
 
 
-                <DatePicker DisplayDate="{Binding From,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                            SelectedDate="{Binding From}"
-                            ToolTip="{Binding ErrorCollection[From]}"
-                            HorizontalAlignment="Left" 
-                            Grid.Row="1" Grid.Column="0"
-                            />
+                    <DatePicker DisplayDate="{Binding From, Mode=OneWay, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDate="{Binding From, 
+                                                    Mode=TwoWay}"
+                                ToolTip="{Binding ErrorCollection[From]}"
+                                HorizontalAlignment="Left" 
+                                Grid.Row="1" Grid.Column="0"
+                                />
 
-                        <DatePicker DisplayDate="{Binding To,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                            SelectedDate="{Binding To,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                            ToolTip="{Binding ErrorCollection[To]}"
-                            HorizontalAlignment="Left" 
-                            Margin="15, 0, 0, 0"
-                            Grid.Row="1" Grid.Column="1"
-                            />
+                        <DatePicker DisplayDate="{Binding To, Mode=OneWay,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedDate="{Binding To, 
+                                                    Mode=TwoWay}"
+                        ToolTip="{Binding ErrorCollection[To]}"
+                        HorizontalAlignment="Left" 
+                        Margin="15, 0, 0, 0"
+                        Grid.Row="1" Grid.Column="1"
+                        />
 
-            </Grid>
+                </Grid>
             </Border>
 
                 <TextBox Grid.Row="1" 
@@ -187,14 +189,30 @@
                 </TextBox>
                 
 
-                <!-- Must only be enabled if dates have been set-->
-            <Button Command="{Binding RentCarCommand}"  Grid.Row="2" 
-                    HorizontalAlignment="Left"
-                    Content="RENT CAR"
-                    />
-             <TextBlock Grid.Row="3" Foreground="Red" Text="{Binding ErrorText}"></TextBlock>
+                    <!-- Must only be enabled if dates have been set-->
+                <Button Command="{Binding RentCarCommand}"  Grid.Row="2" 
+                        HorizontalAlignment="Left"
+                        Content="RENT CAR"
+                        />
+                <TextBlock Grid.Row="3" Foreground="Red" Text="{Binding ErrorText}"></TextBlock>
+                <TextBlock Grid.Row="4" Text="Days the car is available for rents:"></TextBlock>
+                 <ItemsControl Grid.Row="5"
+                           ItemsSource="{Binding Car.PossibleToRentDays}">
+                     <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="5 0 0 0">
+                                <BulletDecorator>
+                                    <BulletDecorator.Bullet>
+                                        <Ellipse Height="5" Width="5" Fill="Black"/>
+                                    </BulletDecorator.Bullet>
+                                    <TextBlock Padding="5 0 0 0" Text="{Binding Date, Converter={local:DateTimeToStringValueConverter}}"></TextBlock>
+                                </BulletDecorator>
+                            </Border>
+                        </DataTemplate>
+                     </ItemsControl.ItemTemplate>
+                 </ItemsControl>
             </Grid>    
-    </Grid>
+        </Grid>
     </Border>
 
 </local:BasePage>

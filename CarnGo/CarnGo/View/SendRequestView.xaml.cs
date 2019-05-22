@@ -24,7 +24,5 @@ namespace CarnGo.View
         {
             InitializeComponent();
         }
-
-     
     }
 }

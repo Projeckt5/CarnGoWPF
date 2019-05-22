@@ -133,8 +133,8 @@
                        Grid.Column="6"
                        TextTrimming="CharacterEllipsis"
                        Foreground="{StaticResource ForegroundMainBrush}">
-                <Run Text="{Binding Owner.Firstname}"/>
-                <Run Text="{Binding Owner.Lastname}"/>
+                <Run Text="{Binding Owner.FirstName}"/>
+                <Run Text="{Binding Owner.LastName}"/>
             </TextBlock>
         </Grid>
     </Grid>

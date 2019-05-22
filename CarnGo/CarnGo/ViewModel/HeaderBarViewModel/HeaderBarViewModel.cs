@@ -16,7 +16,6 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    public class CurrentUserSetNull : PubSubEvent { }
     public class SearchEvent : PubSubEvent<string> { }
     public class HeaderBarViewModel : BaseViewModel
     {
@@ -149,6 +148,7 @@ namespace CarnGo
         {
             notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
             UserModel.MessageModels.AddRange(notifications);
+            UserModel.MessageModels = UserModel.MessageModels.OrderByDescending(m => m.TimeStamp).ToList();
             OnPropertyChanged(nameof(UnreadNotifications));
             OnPropertyChanged(nameof(NumUnreadNotifications));
         }
