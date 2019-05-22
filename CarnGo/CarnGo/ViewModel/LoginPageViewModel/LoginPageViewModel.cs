@@ -46,7 +46,6 @@ namespace CarnGo
             _passwordValidator = passwordValidator;
             _databaseAccess = databaseAccess;
             _application = application;
-           
         }
         #endregion
 
