@@ -105,8 +105,8 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
             _event.GetEvent<CarProfileDataEvent>().Returns(_dataEvent);
             //EventAggregator events=new EventAggregator();
             _uut = new CarnGo.SendRequestViewModel(_event, _application,_dbContext,_helper);
+            _uut.Car = _uutCarModel;
             _dbContext.GetCarProfileTask(Arg.Any<string>()).Returns(_car);
-            // events.GetEvent<CarProfileDataEvent>().Publish("1107959");
             _application.CurrentUser.Returns(_uutCarModel.Owner);
         }
 
@@ -224,11 +224,11 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
             _uut.To = new DateTime(DateTime.Today.Year + 2, DateTime.Today.Month, DateTime.Today.Day);
             _uut.From = new DateTime(DateTime.Today.Year + 1, DateTime.Today.Month, DateTime.Today.Day);
             _uut.Message = "Unittest";
-            _helper.ConfirmRentingDates(Arg.Is(_car), Arg.Is(_uut.To), Arg.Is(_uut.From), ref Arg.Any<string>()).Returns(true);
-            
+            _helper.ConfirmRentingDates(Arg.Any<CarProfileModel>(), Arg.Any<DateTime>(), Arg.Any<DateTime>(), ref Arg.Any<string>()).Returns(true);
+
             _uut.RentCarCommand.Execute(null);
-            _helper.Received(1).CreateDayThatIsRentedList(Arg.Is(_uut.From), Arg.Is(_uut.To), Arg.Is(_car), Arg.Any<UserModel>());
-            
+
+            _helper.Received(1).CreateDayThatIsRentedList(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<CarProfileModel>(), Arg.Any<UserModel>());
         }
 
         [Test]
@@ -237,7 +237,7 @@ namespace CarnGo.Test.Unit.ViewModels.SendRequestViewModel
             _uut.To = new DateTime(DateTime.Today.Year + 2, DateTime.Today.Month, DateTime.Today.Day);
             _uut.From = new DateTime(DateTime.Today.Year + 1, DateTime.Today.Month, DateTime.Today.Day);
             _uut.Message = "Unittest";
-            _helper.ConfirmRentingDates(Arg.Is(_car), Arg.Is(_uut.To), Arg.Is(_uut.From), ref Arg.Any<string>()).Returns(true);
+            _helper.ConfirmRentingDates(Arg.Any<CarProfileModel>(), Arg.Any<DateTime>(), Arg.Any<DateTime>(), ref Arg.Any<string>()).Returns(true);
             var list = new List<DayThatIsRentedModel>();
             _helper.CreateDayThatIsRentedList(Arg.Any<DateTime>(), Arg.Any<DateTime>(), Arg.Any<CarProfileModel>(),Arg.Any<UserModel>())
                 .Returns(list);
