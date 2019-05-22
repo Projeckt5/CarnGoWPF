@@ -929,7 +929,7 @@ namespace CodedUITest
             #endregion
 
             // Click 'CurrentPageFrame' pane
-            Mouse.Click(uICurrentPageFramePane, new Point(974, 405));
+            Mouse.Click(uICurrentPageFramePane, new Point(952, 430));
         }
         
         #region Properties
