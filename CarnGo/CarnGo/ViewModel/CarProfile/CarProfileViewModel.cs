@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -12,24 +13,23 @@ namespace CarnGo
 {
     public class CarProfileViewModel : BaseViewModel
     {
-
+        public class GetCarEvent : PubSubEvent {}
  
         private CarProfileModel _carProfile;
         private IApplication _application;
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
-        private bool _editing;
-        public bool _isReadOnly;
+        private bool _editing = false;
+        public bool _isReadOnly = true;
         private bool isSaving = false;
+        private bool isNew = false;
         
         
-        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase, CarProfileModel carProfile)
+        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase)
         {
-            _application = application;
             _queryDatabase = queryDatabase;
-            _carProfile = carProfile;
-            Editing = false;
-            IsReadOnly = true;
+            _application = application;
+            _eventAggregator.GetEvent<GetCarEvent>().Subscribe(GetCarModel);
         }
 
         public CarProfileViewModel(IApplication application)
@@ -165,7 +165,19 @@ namespace CarnGo
             isSaving = true;
             try
             {
-                await _queryDatabase.UpdateCarProfileTask(_carProfile);
+                if (isNew)
+                {
+                    _carProfile.Owner = _application.CurrentUser;
+                    _application.CurrentUser.UserType = UserType.Lessor;
+
+                    await _queryDatabase.UpdateUser(_application.CurrentUser);
+                    await _queryDatabase.RegisterCarProfileTask(_carProfile);
+                   
+                }
+                else
+                {
+                    await _queryDatabase.UpdateCarProfileTask(_carProfile);
+                }
             }
             catch (Exception e)
             {
@@ -175,6 +187,7 @@ namespace CarnGo
             finally
             {
                 isSaving = false;
+                isNew = false;
             }
         }
 
@@ -194,6 +207,18 @@ namespace CarnGo
             if (fileDialog.ShowDialog() == true)
             {
                 CarPicture = new BitmapImage(new Uri(fileDialog.FileName));
+            }
+        }
+
+        private async void GetCarModel()
+        {
+            var profiles = await _queryDatabase.GetCarProfilesTask(_application.CurrentUser);
+            _carProfile = profiles == null ? new CarProfileModel() : profiles.First();
+            if (_carProfile.RegNr == null)
+            {
+                isNew = true;
+                Editing = true;
+                IsReadOnly = false;
             }
         }
     }

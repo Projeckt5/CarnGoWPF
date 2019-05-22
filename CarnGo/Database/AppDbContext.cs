@@ -411,6 +411,8 @@ namespace CarnGo.Database
 
         public async Task AddCarProfile(CarProfile carProfile)
         {
+            if (Users.Find(carProfile.RegNr) != null)
+                throw new AuthenticationFailedException("The car already exists");
             await CarProfiles.AddAsync(carProfile);
             await SaveChangesAsync();
         }

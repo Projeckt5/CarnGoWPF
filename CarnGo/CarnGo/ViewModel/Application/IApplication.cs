@@ -18,6 +18,7 @@ namespace CarnGo
         /// </summary>
         UserModel CurrentUser { get; }
 
+
         /// <summary>
         /// Navigate to the specified page
         /// </summary>

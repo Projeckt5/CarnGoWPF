@@ -34,6 +34,12 @@ namespace CarnGo
             if (car == null)
                 return default;
             var carEquip = Convert(car.CarEquipment);
+
+            if (car.DayThatIsRented == null)
+            {
+                car.DayThatIsRented = dayThatIsRentedDefault(car);
+            }
+
             var dbCarModel = new Database.Models.CarProfile()
             {
                 Owner = Convert(car.Owner),
@@ -53,10 +59,27 @@ namespace CarnGo
             return dbCarModel;
         }
 
+        private List<DayThatIsRented> dayThatIsRentedDefault(CarProfileModel carProfile)
+        {
+            var lst = new List<DayThatIsRented>();
+            var day = new DayThatIsRented {CarProfile = new CarProfile(), User = Convert(carProfile.Owner)};
+            lst.Add(day);
+            return lst;
+        }
+
+
         private Database.Models.CarEquipment Convert(CarEquipment carEquipment)
         {
             if (carEquipment == null)
-                return default;
+            {
+                return new Database.Models.CarEquipment()
+                {
+                    Audioplayer = false,
+                    Childseat = false,
+                    Smoking = false,
+                    GPS = false,
+                };
+            }
             var dbCarEquipment = new Database.Models.CarEquipment()
             {
                 Audioplayer = carEquipment.AudioPlayer,
