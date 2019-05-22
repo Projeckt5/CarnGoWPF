@@ -212,8 +212,17 @@ namespace CarnGo
 
         private async void GetCarModel()
         {
-            var profiles = await _queryDatabase.GetCarProfilesTask(_application.CurrentUser);
-            _carProfile = profiles == null ? new CarProfileModel() : profiles.First();
+            try
+            {
+                var profiles = await _queryDatabase.GetCarProfilesTask(_application.CurrentUser);
+                _carProfile = profiles == null ? new CarProfileModel() : profiles.First();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
             if (_carProfile.RegNr == null)
             {
                 isNew = true;

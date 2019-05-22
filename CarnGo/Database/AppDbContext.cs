@@ -65,7 +65,7 @@ namespace CarnGo.Database
         public async Task<List<CarProfile>> GetAllCars(User user)
         {
             var carProfiles = await CarProfiles
-                .Where(c => c.User == user)
+                .Where(c => c.Owner == user)
                 .ToListAsync();
             return carProfiles;
         }
