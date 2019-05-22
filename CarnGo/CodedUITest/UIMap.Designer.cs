@@ -936,6 +936,45 @@ namespace CodedUITest
             Keyboard.SendKeys(uIEmailEdit, this.ClickEmailBoxTestParams.UIEmailEditSendKeys, ModifierKeys.Control);
         }
         
+        /// <summary>
+        /// PressNotificationButton - Use 'PressNotificationButtonParams' to pass parameters into this method.
+        /// </summary>
+        public void PressNotificationButton()
+        {
+            #region Variable Declarations
+            WpfToggleButton uIItemToggleButton = this.UIMainWindowWindow.UIRootCustom.UIItemToggleButton;
+            #endregion
+
+            // Set to 'Pressed' state '' toggle button
+            uIItemToggleButton.Pressed = this.PressNotificationButtonParams.UIItemToggleButtonPressed;
+        }
+        
+        /// <summary>
+        /// PressTopNotification
+        /// </summary>
+        public void PressTopNotification()
+        {
+            #region Variable Declarations
+            WpfButton uIConfirmButton = this.UIMainWindowWindow.UIItemCustom2.UIItemCustom1.UIConfirmButton;
+            #endregion
+
+            // Click 'Confirm' button
+            Mouse.Click(uIConfirmButton, new Point(62, 8));
+        }
+        
+        /// <summary>
+        /// PressConfirmOnTopNotification
+        /// </summary>
+        public void PressConfirmOnTopNotification()
+        {
+            #region Variable Declarations
+            WpfButton uIConfirmButton = this.UIMainWindowWindow.UIItemCustom2.UIItemCustom1.UIConfirmButton;
+            #endregion
+
+            // Click 'Confirm' button
+            Mouse.Click(uIConfirmButton, new Point(51, 11));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -1201,6 +1240,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual PressNotificationButtonParams PressNotificationButtonParams
+        {
+            get
+            {
+                if ((this.mPressNotificationButtonParams == null))
+                {
+                    this.mPressNotificationButtonParams = new PressNotificationButtonParams();
+                }
+                return this.mPressNotificationButtonParams;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1306,6 +1357,8 @@ namespace CodedUITest
         private OpenToFullScreenParams mOpenToFullScreenParams;
         
         private ClickEmailBoxTestParams mClickEmailBoxTestParams;
+        
+        private PressNotificationButtonParams mPressNotificationButtonParams;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1751,6 +1804,21 @@ namespace CodedUITest
         /// Type 'Control + a' in 'Email' text box
         /// </summary>
         public string UIEmailEditSendKeys = "a";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'PressNotificationButton'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class PressNotificationButtonParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Set to 'Pressed' state '' toggle button
+        /// </summary>
+        public bool UIItemToggleButtonPressed = true;
         #endregion
     }
     

@@ -54,7 +54,7 @@ namespace CodedUITest
             Keyboard.SendKeys(toDate);
             Thread.Sleep(1000);
             this.UIMap.ClickSendRequestMessage();
-            Keyboard.SendKeys("Let me rent plz");
+            Keyboard.SendKeys("I would love to rent your car!");
             this.UIMap.ClickSendRequestRentCarButton();
             Thread.Sleep(1000);
             this.UIMap.ClickSignOutButton();
@@ -76,7 +76,52 @@ namespace CodedUITest
         {
 
         }
-        
+
+        [TestMethod]
+        public void US8_UdlejerHarGodkendtAnmodningenForLejeAfBilen()
+        {
+            // Arrange
+            //Send request
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@renter");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickFindCarButton();
+            Thread.Sleep(2000);
+            this.UIMap.ClickSearchRentCar2();
+            this.UIMap.SetSendRequestFromDate();
+            Keyboard.SendKeys(fromDate);
+            this.UIMap.SetSendRequestToDate();
+            Keyboard.SendKeys(toDate);
+            Thread.Sleep(1000);
+            this.UIMap.ClickSendRequestMessage();
+            Keyboard.SendKeys("I would love to rent your car!");
+            this.UIMap.ClickSendRequestRentCarButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickSignOutButton();
+            Thread.Sleep(3000);
+
+            //Owner accepts the request 
+            // Act
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@owner");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+            this.UIMap.PressNotificationButton();
+            Thread.Sleep(1000);
+            this.UIMap.PressConfirmOnTopNotification();
+            Thread.Sleep(1000);
+
+            //Act 
+
+        }
+
+
+
         //Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
