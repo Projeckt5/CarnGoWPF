@@ -39,6 +39,7 @@ namespace CodedUITest
             //Arrange 
             this.UIMap.OpenToFullScreen();
             this.UIMap.ClickEmailBoxTest();
+            Thread.Sleep(1000);
             Keyboard.SendKeys("car@renter");
             this.UIMap.ClickOnPasswordBox();
             Keyboard.SendKeys("123asd");
