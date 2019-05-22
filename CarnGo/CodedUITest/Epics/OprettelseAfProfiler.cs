@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using CarnGo.Database;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,7 +36,10 @@ namespace CodedUITest
         [TestMethod]
         public void US1_OprettelseAfBrugerProfil()
         {
+            // Arrange
             this.UIMap.NavigateToRegisterUser();
+
+            // Act
             this.UIMap.ClickEmailBox();
             Keyboard.SendKeys("tester@tester.com");
             this.UIMap.ClickPasswordBox();
@@ -45,7 +49,47 @@ namespace CodedUITest
             this.UIMap.CheckAgreeToAllTerms();
             this.UIMap.ClickRegister();
             _dbContext.RemoveUser("tester@tester.com");
+
+            // Assert
             this.UIMap.AssertPageContainsLoginText();
+        }
+
+        [TestMethod]
+        public void US3_OprettelseAfBilProfil()
+        {
+            // Arrange
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@owner");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+
+            // Act
+            this.UIMap.ClickMyCarsButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickYourCarsEditButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickYourCarsCarMake();
+            Keyboard.SendKeys("Audi");
+            this.UIMap.ClickYourCarsCarModel();
+            Keyboard.SendKeys("A6");
+            this.UIMap.ClickYourCarsRegNr();
+            Keyboard.SendKeys("CG56101");
+            Thread.Sleep(1000);
+            this.UIMap.ClickYourCarsSaveButton();
+            this.UIMap.ClickSignOutButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@owner");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickMyCarsButton();
+
+            // Assert
+            Thread.Sleep(2000);
         }
 
         //Use TestInitialize to run code before running each test 

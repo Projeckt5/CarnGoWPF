@@ -36,6 +36,7 @@ namespace CodedUITest
         [TestMethod]
         public void US2_RedigeringAfBrugerProfil()
         {
+            // Arrange
             this.UIMap.ClickLoginEmailBox();
             Keyboard.SendKeys("car@owner");
             this.UIMap.ClickLoginPasswordBox();
@@ -43,6 +44,8 @@ namespace CodedUITest
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
             this.UIMap.ClickOwnerButton();
+
+            // Act
             this.UIMap.ClickUserInformation();
             Keyboard.SendKeys("hej");
             this.UIMap.ClickUserInformationSecondRow();
@@ -56,6 +59,8 @@ namespace CodedUITest
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
             this.UIMap.ClickOwnerButton();
+
+            // Assert
             this.UIMap.AssertLastNameEqualstester();
         }
 

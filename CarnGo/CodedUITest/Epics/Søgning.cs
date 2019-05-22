@@ -10,13 +10,14 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using System.Threading;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
 
 namespace CodedUITest
 {
     [CodedUITest]
-    public class Applikation
+    public class Søgning
     {
         public TestContext TestContext { get; set; }
         public UIMap UIMap => map ?? (map = new UIMap());
@@ -24,25 +25,34 @@ namespace CodedUITest
         private string _path;
         private ApplicationUnderTest _uut;
 
-        public Applikation()
+        public Søgning()
         {
             _path = "../../../CarnGo/bin/Debug/CarnGo.exe";
             Assert.IsTrue(File.Exists(_path));
         }
 
         [TestMethod]
-        public void US9_LoginPåApplikation()
+        public void US6_SøgningEfterBilerTilLeje()
         {
-            // Act
+            // Assert
             this.UIMap.ClickLoginEmailBox();
-            Keyboard.SendKeys("car@owner");
+            Keyboard.SendKeys("car@renter");
             this.UIMap.ClickLoginPasswordBox();
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
 
-            //Assert
-            this.UIMap.AssertHeaderBarAppears();
+            // Act
+            this.UIMap.ClickFindCarButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickSearchCarBrandBox();
+            Keyboard.SendKeys("BMW3");
+            this.UIMap.ClickSearchSeatsBox();
+            Keyboard.SendKeys("3");
+
+            // Assert
+            this.UIMap.ClickSearchSearchButton();
+            Thread.Sleep(2000);
         }
 
         //Use TestInitialize to run code before running each test 

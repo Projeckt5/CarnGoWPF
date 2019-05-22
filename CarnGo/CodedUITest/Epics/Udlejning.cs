@@ -16,7 +16,7 @@ using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 namespace CodedUITest
 {
     [CodedUITest]
-    public class Applikation
+    public class Udlejning
     {
         public TestContext TestContext { get; set; }
         public UIMap UIMap => map ?? (map = new UIMap());
@@ -24,18 +24,18 @@ namespace CodedUITest
         private string _path;
         private ApplicationUnderTest _uut;
 
-        public Applikation()
+        public Udlejning()
         {
             _path = "../../../CarnGo/bin/Debug/CarnGo.exe";
             Assert.IsTrue(File.Exists(_path));
         }
 
         [TestMethod]
-        public void US9_LoginPåApplikation()
+        public void US7_AnmodningAfBiludleje()
         {
-            // Act
+            // Arrange
             this.UIMap.ClickLoginEmailBox();
-            Keyboard.SendKeys("car@owner");
+            Keyboard.SendKeys("car@renter");
             this.UIMap.ClickLoginPasswordBox();
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();

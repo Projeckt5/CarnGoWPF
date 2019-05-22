@@ -18,6 +18,7 @@ namespace CodedUITest
     using System.Windows.Input;
     using Microsoft.VisualStudio.TestTools.UITest.Extension;
     using Microsoft.VisualStudio.TestTools.UITesting;
+    using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
     using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
@@ -614,6 +615,162 @@ namespace CodedUITest
             Assert.AreEqual(this.AssertHeaderBarAppearsExpectedValues.UIRootCustomClassName, uIRootCustom.ClassName);
         }
         
+        /// <summary>
+        /// ClickMyCarsButton
+        /// </summary>
+        public void ClickMyCarsButton()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton1 = this.UIMainWindowWindow.UIRootCustom.UIRootCustom1.UIItemButton1;
+            #endregion
+
+            // Click button numbered 3 next to 'root' custom control
+            Mouse.Click(uIItemButton1, new Point(56, 36));
+        }
+        
+        /// <summary>
+        /// ClickYourCarsEditButton
+        /// </summary>
+        public void ClickYourCarsEditButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(710, 462));
+        }
+        
+        /// <summary>
+        /// ClickYourCarsCarMake
+        /// </summary>
+        public void ClickYourCarsCarMake()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(624, 156));
+        }
+        
+        /// <summary>
+        /// ClickYourCarsCarModel
+        /// </summary>
+        public void ClickYourCarsCarModel()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(795, 152));
+        }
+        
+        /// <summary>
+        /// ClickYourCarsSaveButton
+        /// </summary>
+        public void ClickYourCarsSaveButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(721, 474));
+        }
+        
+        /// <summary>
+        /// ClickSignOutButton
+        /// </summary>
+        public void ClickSignOutButton()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem2Text.UIItemButton;
+            #endregion
+
+            // Click first button next to '2' label
+            Mouse.Click(uIItemButton, new Point(36, 34));
+        }
+        
+        /// <summary>
+        /// ClickFindCarButton
+        /// </summary>
+        public void ClickFindCarButton()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton2 = this.UIMainWindowWindow.UIRootCustom.UIRootCustom1.UIItemButton2;
+            #endregion
+
+            // Click first button next to 'root' custom control
+            Mouse.Click(uIItemButton2, new Point(58, 35));
+        }
+        
+        /// <summary>
+        /// ClickSearchCarBrandBox
+        /// </summary>
+        public void ClickSearchCarBrandBox()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(162, 230));
+        }
+        
+        /// <summary>
+        /// ClickSearchSeatsBox
+        /// </summary>
+        public void ClickSearchSeatsBox()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(168, 322));
+        }
+        
+        /// <summary>
+        /// ClickSearchSearchButton
+        /// </summary>
+        public void ClickSearchSearchButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(54, 525));
+        }
+        
+        /// <summary>
+        /// ClickSearchResultCar
+        /// </summary>
+        public void ClickSearchResultCar()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow1.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(903, 319));
+        }
+        
+        /// <summary>
+        /// ClickYourCarsRegNr
+        /// </summary>
+        public void ClickYourCarsRegNr()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(802, 211));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -854,6 +1011,18 @@ namespace CodedUITest
                 return this.mUIMainWindowWindow1;
             }
         }
+        
+        public UICarnGoMicrosoftVisuaWindow UICarnGoMicrosoftVisuaWindow
+        {
+            get
+            {
+                if ((this.mUICarnGoMicrosoftVisuaWindow == null))
+                {
+                    this.mUICarnGoMicrosoftVisuaWindow = new UICarnGoMicrosoftVisuaWindow();
+                }
+                return this.mUICarnGoMicrosoftVisuaWindow;
+            }
+        }
         #endregion
         
         #region Fields
@@ -896,6 +1065,8 @@ namespace CodedUITest
         private UIMainWindowWindow mUIMainWindowWindow;
         
         private UIMainWindowWindow1 mUIMainWindowWindow1;
+        
+        private UICarnGoMicrosoftVisuaWindow mUICarnGoMicrosoftVisuaWindow;
         #endregion
     }
     
@@ -1712,10 +1883,47 @@ namespace CodedUITest
                 return this.mUIItemButton;
             }
         }
+        
+        public WpfButton UIItemButton1
+        {
+            get
+            {
+                if ((this.mUIItemButton1 == null))
+                {
+                    this.mUIItemButton1 = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton1.SearchProperties[WpfButton.PropertyNames.Instance] = "3";
+                    this.mUIItemButton1.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton1.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton1;
+            }
+        }
+        
+        public WpfButton UIItemButton2
+        {
+            get
+            {
+                if ((this.mUIItemButton2 == null))
+                {
+                    this.mUIItemButton2 = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton2.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton2.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton2;
+            }
+        }
         #endregion
         
         #region Fields
         private WpfButton mUIItemButton;
+        
+        private WpfButton mUIItemButton1;
+        
+        private WpfButton mUIItemButton2;
         #endregion
     }
     
@@ -1966,6 +2174,172 @@ namespace CodedUITest
         
         #region Fields
         private WpfPane mUICurrentPageFramePane;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UICarnGoMicrosoftVisuaWindow : WinWindow
+    {
+        
+        public UICarnGoMicrosoftVisuaWindow()
+        {
+            #region Search Criteria
+            this.SearchProperties[WinWindow.PropertyNames.Name] = "CarnGo - Microsoft Visual Studio ";
+            this.SearchProperties.Add(new PropertyExpression(WinWindow.PropertyNames.ClassName, "HwndWrapper", PropertyExpressionOperator.Contains));
+            this.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+            #endregion
+        }
+        
+        #region Properties
+        public UIPropertiesPane UIPropertiesPane
+        {
+            get
+            {
+                if ((this.mUIPropertiesPane == null))
+                {
+                    this.mUIPropertiesPane = new UIPropertiesPane(this);
+                }
+                return this.mUIPropertiesPane;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIPropertiesPane mUIPropertiesPane;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIPropertiesPane : WpfPane
+    {
+        
+        public UIPropertiesPane(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.ViewPresenter";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}";
+            this.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+            #endregion
+        }
+        
+        #region Properties
+        public UIPropertiesTitleBar UIPropertiesTitleBar
+        {
+            get
+            {
+                if ((this.mUIPropertiesTitleBar == null))
+                {
+                    this.mUIPropertiesTitleBar = new UIPropertiesTitleBar(this);
+                }
+                return this.mUIPropertiesTitleBar;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIPropertiesTitleBar mUIPropertiesTitleBar;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIPropertiesTitleBar : WpfTitleBar
+    {
+        
+        public UIPropertiesTitleBar(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfTitleBar.PropertyNames.AutomationId] = "TitleBar";
+            this.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+            #endregion
+        }
+        
+        #region Properties
+        public UIItemPane UIItemPane
+        {
+            get
+            {
+                if ((this.mUIItemPane == null))
+                {
+                    this.mUIItemPane = new UIItemPane(this);
+                }
+                return this.mUIItemPane;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIItemPane mUIItemPane;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItemPane : WpfPane
+    {
+        
+        public UIItemPane(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.HwndHost";
+            this.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+            this.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+            #endregion
+        }
+        
+        #region Properties
+        public UIPropertyGridClient UIPropertyGridClient
+        {
+            get
+            {
+                if ((this.mUIPropertyGridClient == null))
+                {
+                    this.mUIPropertyGridClient = new UIPropertyGridClient(this);
+                }
+                return this.mUIPropertyGridClient;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UIPropertyGridClient mUIPropertyGridClient;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIPropertyGridClient : WinClient
+    {
+        
+        public UIPropertyGridClient(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WinControl.PropertyNames.Name] = "PropertyGrid";
+            this.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+            #endregion
+        }
+        
+        #region Properties
+        public WinTable UIPropertyGridViewTable
+        {
+            get
+            {
+                if ((this.mUIPropertyGridViewTable == null))
+                {
+                    this.mUIPropertyGridViewTable = new WinTable(this);
+                    #region Search Criteria
+                    this.mUIPropertyGridViewTable.SearchProperties[WinTable.PropertyNames.Name] = "Properties Window";
+                    this.mUIPropertyGridViewTable.WindowTitles.Add("CarnGo - Microsoft Visual Studio ");
+                    #endregion
+                }
+                return this.mUIPropertyGridViewTable;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WinTable mUIPropertyGridViewTable;
         #endregion
     }
 }
