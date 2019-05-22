@@ -686,11 +686,11 @@ namespace CodedUITest
         public void ClickSignOutButton()
         {
             #region Variable Declarations
-            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem2Text.UIItemButton;
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIItem0Text.UIItemButton;
             #endregion
 
-            // Click first button next to '2' label
-            Mouse.Click(uIItemButton, new Point(36, 34));
+            // Click first button next to '0' label
+            Mouse.Click(uIItemButton, new Point(46, 32));
         }
         
         /// <summary>
@@ -769,6 +769,95 @@ namespace CodedUITest
 
             // Click 'CurrentPageFrame' pane
             Mouse.Click(uICurrentPageFramePane, new Point(802, 211));
+        }
+        
+        /// <summary>
+        /// ClickSearchRentCar2
+        /// </summary>
+        public void ClickSearchRentCar2()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(850, 197));
+        }
+        
+        /// <summary>
+        /// SetSendRequestFromDate - Use 'SetSendRequestFromDateParams' to pass parameters into this method.
+        /// </summary>
+        public void SetSendRequestFromDate()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIPART_TextBoxEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPART_TextBoxEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(590, 111));
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(553, 111));
+
+            // Type 'Control + a' in 'PART_TextBox' text box
+            Keyboard.SendKeys(uIPART_TextBoxEdit, this.SetSendRequestFromDateParams.UIPART_TextBoxEditSendKeys, ModifierKeys.Control);
+        }
+        
+        /// <summary>
+        /// SetSendRequestToDate - Use 'SetSendRequestToDateParams' to pass parameters into this method.
+        /// </summary>
+        public void SetSendRequestToDate()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            WpfEdit uIPART_TextBoxEdit = this.UIMainWindowWindow.UINewPageFramePane.UITheDateenteredhastobDatePicker.UIPART_TextBoxEdit;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(750, 110));
+
+            // Type 'Control + a' in 'PART_TextBox' text box
+            Keyboard.SendKeys(uIPART_TextBoxEdit, this.SetSendRequestToDateParams.UIPART_TextBoxEditSendKeys, ModifierKeys.Control);
+        }
+        
+        /// <summary>
+        /// ClickSendRequestMessage
+        /// </summary>
+        public void ClickSendRequestMessage()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(552, 161));
+        }
+        
+        /// <summary>
+        /// ClickSendRequestRentCarButton
+        /// </summary>
+        public void ClickSendRequestRentCarButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(549, 223));
+        }
+        
+        /// <summary>
+        /// ClickEditUserSaveButton
+        /// </summary>
+        public void ClickEditUserSaveButton()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(709, 453));
         }
         
         #region Properties
@@ -976,6 +1065,30 @@ namespace CodedUITest
             }
         }
         
+        public virtual SetSendRequestFromDateParams SetSendRequestFromDateParams
+        {
+            get
+            {
+                if ((this.mSetSendRequestFromDateParams == null))
+                {
+                    this.mSetSendRequestFromDateParams = new SetSendRequestFromDateParams();
+                }
+                return this.mSetSendRequestFromDateParams;
+            }
+        }
+        
+        public virtual SetSendRequestToDateParams SetSendRequestToDateParams
+        {
+            get
+            {
+                if ((this.mSetSendRequestToDateParams == null))
+                {
+                    this.mSetSendRequestToDateParams = new SetSendRequestToDateParams();
+                }
+                return this.mSetSendRequestToDateParams;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1059,6 +1172,10 @@ namespace CodedUITest
         private AssertNameEqualsWelcomeExpectedValues mAssertNameEqualsWelcomeExpectedValues;
         
         private AssertHeaderBarAppearsExpectedValues mAssertHeaderBarAppearsExpectedValues;
+        
+        private SetSendRequestFromDateParams mSetSendRequestFromDateParams;
+        
+        private SetSendRequestToDateParams mSetSendRequestToDateParams;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1430,6 +1547,36 @@ namespace CodedUITest
         #endregion
     }
     
+    /// <summary>
+    /// Parameters to be passed into 'SetSendRequestFromDate'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class SetSendRequestFromDateParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'Control + a' in 'PART_TextBox' text box
+        /// </summary>
+        public string UIPART_TextBoxEditSendKeys = "a";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'SetSendRequestToDate'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class SetSendRequestToDateParams
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Type 'Control + a' in 'PART_TextBox' text box
+        /// </summary>
+        public string UIPART_TextBoxEditSendKeys = "a";
+        #endregion
+    }
+    
     [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
     public class UIWpfWindow : WpfWindow
     {
@@ -1479,12 +1626,26 @@ namespace CodedUITest
                 return this.mUIRootCustom;
             }
         }
+        
+        public UINewPageFramePane1 UINewPageFramePane
+        {
+            get
+            {
+                if ((this.mUINewPageFramePane == null))
+                {
+                    this.mUINewPageFramePane = new UINewPageFramePane1(this);
+                }
+                return this.mUINewPageFramePane;
+            }
+        }
         #endregion
         
         #region Fields
         private UIItemCustom mUIItemCustom;
         
         private UIRootCustom mUIRootCustom;
+        
+        private UINewPageFramePane1 mUINewPageFramePane;
         #endregion
     }
     
@@ -1625,6 +1786,22 @@ namespace CodedUITest
                 return this.mUIPersonalinformationText;
             }
         }
+        
+        public WpfEdit UIPART_TextBoxEdit
+        {
+            get
+            {
+                if ((this.mUIPART_TextBoxEdit == null))
+                {
+                    this.mUIPART_TextBoxEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIPART_TextBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mUIPART_TextBoxEdit.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIPART_TextBoxEdit;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1637,6 +1814,8 @@ namespace CodedUITest
         private WpfEdit mUIEmailEdit;
         
         private UIPersonalinformationText mUIPersonalinformationText;
+        
+        private WpfEdit mUIPART_TextBoxEdit;
         #endregion
     }
     
@@ -1833,6 +2012,18 @@ namespace CodedUITest
                 return this.mUIItem2Text;
             }
         }
+        
+        public UIItem0Text UIItem0Text
+        {
+            get
+            {
+                if ((this.mUIItem0Text == null))
+                {
+                    this.mUIItem0Text = new UIItem0Text(this);
+                }
+                return this.mUIItem0Text;
+            }
+        }
         #endregion
         
         #region Fields
@@ -1849,6 +2040,8 @@ namespace CodedUITest
         private WpfButton mUIItemButton;
         
         private UIItem2Text mUIItem2Text;
+        
+        private UIItem0Text mUIItem0Text;
         #endregion
     }
     
@@ -2104,6 +2297,111 @@ namespace CodedUITest
         
         #region Fields
         private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItem0Text : WpfText
+    {
+        
+        public UIItem0Text(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfText.PropertyNames.Name] = "0";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new WpfButton(this);
+                    #region Search Criteria
+                    this.mUIItemButton.SearchConfigurations.Add(SearchConfiguration.NextSibling);
+                    this.mUIItemButton.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemButton;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UINewPageFramePane1 : WpfPane
+    {
+        
+        public UINewPageFramePane1(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfPane.PropertyNames.ClassName] = "Uia.Frame";
+            this.SearchProperties[WpfPane.PropertyNames.AutomationId] = "NewPageFrame";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public UITheDateenteredhastobDatePicker UITheDateenteredhastobDatePicker
+        {
+            get
+            {
+                if ((this.mUITheDateenteredhastobDatePicker == null))
+                {
+                    this.mUITheDateenteredhastobDatePicker = new UITheDateenteredhastobDatePicker(this);
+                }
+                return this.mUITheDateenteredhastobDatePicker;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private UITheDateenteredhastobDatePicker mUITheDateenteredhastobDatePicker;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UITheDateenteredhastobDatePicker : WpfDatePicker
+    {
+        
+        public UITheDateenteredhastobDatePicker(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.SearchProperties[WpfDatePicker.PropertyNames.HelpText] = "The Date entered has to be after the current date or after";
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfEdit UIPART_TextBoxEdit
+        {
+            get
+            {
+                if ((this.mUIPART_TextBoxEdit == null))
+                {
+                    this.mUIPART_TextBoxEdit = new WpfEdit(this);
+                    #region Search Criteria
+                    this.mUIPART_TextBoxEdit.SearchProperties[WpfEdit.PropertyNames.AutomationId] = "PART_TextBox";
+                    this.mUIPART_TextBoxEdit.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIPART_TextBoxEdit;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfEdit mUIPART_TextBoxEdit;
         #endregion
     }
     

@@ -23,15 +23,20 @@ namespace CodedUITest
         private UIMap map;
         private string _path;
         private ApplicationUnderTest _uut;
+        private string fromDate;
+        private string toDate;
 
         public Udlejning()
         {
             _path = "../../../CarnGo/bin/Debug/CarnGo.exe";
             Assert.IsTrue(File.Exists(_path));
+
+            fromDate = DateTime.Today.Date.AddDays(1).ToString("dd/MM/yyyy");
+            toDate = DateTime.Today.Date.AddDays(2).ToString("dd/MM/yyyy");
         }
 
         [TestMethod]
-        public void US7_AnmodningAfBiludleje()
+        public void US7_AnmodningAfBiludleje_GodkendelseAfLejeAfBil()
         {
             // Arrange
             this.UIMap.ClickLoginEmailBox();
@@ -40,11 +45,36 @@ namespace CodedUITest
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
+            this.UIMap.ClickFindCarButton();
+            Thread.Sleep(2000);
+            this.UIMap.ClickSearchRentCar2();
+            this.UIMap.SetSendRequestFromDate();
+            Keyboard.SendKeys(fromDate);
+            this.UIMap.SetSendRequestToDate();
+            Keyboard.SendKeys(toDate);
+            Thread.Sleep(1000);
+            this.UIMap.ClickSendRequestMessage();
+            Keyboard.SendKeys("Let me rent plz");
+            this.UIMap.ClickSendRequestRentCarButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickSignOutButton();
 
-            //Assert
-            this.UIMap.AssertHeaderBarAppears();
+            // Act
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@owner");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+
         }
 
+        [TestMethod]
+        public void US7_AnmodningAfBiludleje_AnmodningAfvisesAfUdlejer()
+        {
+
+        }
+        
         //Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()

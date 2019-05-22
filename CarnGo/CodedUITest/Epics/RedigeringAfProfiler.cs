@@ -50,7 +50,9 @@ namespace CodedUITest
             Keyboard.SendKeys("hej");
             this.UIMap.ClickUserInformationSecondRow();
             Keyboard.SendKeys("tester");
-            this.UIMap.ClickUserSaveAndSignOut();
+            this.UIMap.ClickEditUserSaveButton();
+            Thread.Sleep(1000);
+            this.UIMap.ClickSignOutButton();
             Thread.Sleep(1000);
             this.UIMap.ClickLoginEmailBox();
             Keyboard.SendKeys("car@owner");
