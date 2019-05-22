@@ -121,9 +121,10 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditUser.cs" />
+    <Compile Include="Epics\Applikation.cs" />
+    <Compile Include="Epics\RedigeringAfProfiler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterUser.cs" />
+    <Compile Include="Epics\OprettelseAfProfiler.cs" />
     <Compile Include="UIMap.cs">
       <DependentUpon>UIMap.uitest</DependentUpon>
     </Compile>
