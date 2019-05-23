@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using System.Threading;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
+using Message = CarnGo.Database.Models.Message;
 
 
 namespace CodedUITest
@@ -25,6 +26,7 @@ namespace CodedUITest
         private ApplicationUnderTest _uut;
         private string fromDate;
         private string toDate;
+        private IAppDbContext dbContext; 
 
         public Udlejning()
         {
@@ -33,6 +35,8 @@ namespace CodedUITest
 
             fromDate = DateTime.Today.Date.AddDays(1).ToString("dd/MM/yyyy");
             toDate = DateTime.Today.Date.AddDays(2).ToString("dd/MM/yyyy");
+
+            dbContext = new AppDbContext();
         }
 
         [TestMethod]
@@ -68,12 +72,13 @@ namespace CodedUITest
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
             this.UIMap.ClickTopNotification();
-
         }
 
         [TestMethod]
         public void US7_AnmodningAfBiludleje_AnmodningAfvisesAfUdlejer()
         {
+
+            
 
         }
 
@@ -115,12 +120,29 @@ namespace CodedUITest
             Thread.Sleep(1000);
             this.UIMap.PressConfirmOnTopNotification();
             Thread.Sleep(1000);
+            this.UIMap.ClickSignOutButton();
 
             //Act 
+            this.UIMap.ClickLoginEmailBox();
+            Keyboard.SendKeys("car@renter");
+            this.UIMap.ClickLoginPasswordBox();
+            Keyboard.SendKeys("123asd");
+            this.UIMap.ClickLoginButton();
+            Thread.Sleep(1000);
+            this.UIMap.PressNotificationButton();
+            Thread.Sleep(1000);
+            this.UIMap.PressTopNotification();
+            this.UIMap.ClickMessageView();
+            Thread.Sleep(3000);
 
+            //Assert
         }
 
+        [TestMethod]
+        public void US8_UdlejerAFviserAnmodningen()
+        {
 
+        }
 
         //Use TestInitialize to run code before running each test 
         [TestInitialize()]

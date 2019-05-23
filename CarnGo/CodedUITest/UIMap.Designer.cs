@@ -955,11 +955,11 @@ namespace CodedUITest
         public void PressTopNotification()
         {
             #region Variable Declarations
-            WpfButton uIConfirmButton = this.UIMainWindowWindow.UIItemCustom2.UIItemCustom1.UIConfirmButton;
+            WpfCustom uIItemCustom = this.UIMainWindowWindow.UIItemCustom2.UIItemButton.UIItemCustom;
             #endregion
 
-            // Click 'Confirm' button
-            Mouse.Click(uIConfirmButton, new Point(62, 8));
+            // Click custom control
+            Mouse.Click(uIItemCustom, new Point(251, 36));
         }
         
         /// <summary>
@@ -973,6 +973,32 @@ namespace CodedUITest
 
             // Click 'Confirm' button
             Mouse.Click(uIConfirmButton, new Point(51, 11));
+        }
+        
+        /// <summary>
+        /// ClickMessageView
+        /// </summary>
+        public void ClickMessageView()
+        {
+            #region Variable Declarations
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(752, 292));
+        }
+        
+        /// <summary>
+        /// RenterAssertion - Use 'RenterAssertionExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void RenterAssertion()
+        {
+            #region Variable Declarations
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            #endregion
+
+            // Verify that the 'Text' property of first text box next to 'Personal information:' label equals 'Renter'
+            Assert.AreEqual(this.RenterAssertionExpectedValues.UIItemEditText, uIItemEdit.Text);
         }
         
         #region Properties
@@ -1252,6 +1278,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual RenterAssertionExpectedValues RenterAssertionExpectedValues
+        {
+            get
+            {
+                if ((this.mRenterAssertionExpectedValues == null))
+                {
+                    this.mRenterAssertionExpectedValues = new RenterAssertionExpectedValues();
+                }
+                return this.mRenterAssertionExpectedValues;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1359,6 +1397,8 @@ namespace CodedUITest
         private ClickEmailBoxTestParams mClickEmailBoxTestParams;
         
         private PressNotificationButtonParams mPressNotificationButtonParams;
+        
+        private RenterAssertionExpectedValues mRenterAssertionExpectedValues;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1819,6 +1859,21 @@ namespace CodedUITest
         /// Set to 'Pressed' state '' toggle button
         /// </summary>
         public bool UIItemToggleButtonPressed = true;
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'RenterAssertion'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class RenterAssertionExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Text' property of first text box next to 'Personal information:' label equals 'Renter'
+        /// </summary>
+        public string UIItemEditText = "Renter";
         #endregion
     }
     
@@ -2707,10 +2762,24 @@ namespace CodedUITest
                 return this.mUIItemCustom1;
             }
         }
+        
+        public UIItemButton UIItemButton
+        {
+            get
+            {
+                if ((this.mUIItemButton == null))
+                {
+                    this.mUIItemButton = new UIItemButton(this);
+                }
+                return this.mUIItemButton;
+            }
+        }
         #endregion
         
         #region Fields
         private UIItemCustom1 mUIItemCustom1;
+        
+        private UIItemButton mUIItemButton;
         #endregion
     }
     
@@ -2747,6 +2816,41 @@ namespace CodedUITest
         
         #region Fields
         private WpfButton mUIConfirmButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class UIItemButton : WpfButton
+    {
+        
+        public UIItemButton(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Search Criteria
+            this.WindowTitles.Add("MainWindow");
+            #endregion
+        }
+        
+        #region Properties
+        public WpfCustom UIItemCustom
+        {
+            get
+            {
+                if ((this.mUIItemCustom == null))
+                {
+                    this.mUIItemCustom = new WpfCustom(this);
+                    #region Search Criteria
+                    this.mUIItemCustom.SearchProperties[WpfControl.PropertyNames.ClassName] = "Uia.LessorItemView";
+                    this.mUIItemCustom.WindowTitles.Add("MainWindow");
+                    #endregion
+                }
+                return this.mUIItemCustom;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WpfCustom mUIItemCustom;
         #endregion
     }
     
