@@ -202,7 +202,7 @@ namespace CarnGo
             finally
             {
                 isNew = true;
-                UpdateUi();
+                _application.GoToPage(ApplicationPage.StartPage);
             }
         }
 
