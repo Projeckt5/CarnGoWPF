@@ -37,11 +37,6 @@ namespace CarnGo
                 return default;
             var carEquip = Convert(car.CarEquipment);
 
-            if (car.DayThatIsRented == null)
-            {
-                car.DayThatIsRented = dayThatIsRentedDefault(car);
-            }
-
             var dbCarModel = new Database.Models.CarProfile()
             {
                 CarPicture = Convert(car.CarPicture),
