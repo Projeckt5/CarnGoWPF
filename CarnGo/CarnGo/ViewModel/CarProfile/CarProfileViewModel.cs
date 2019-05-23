@@ -138,6 +138,8 @@ namespace CarnGo
 
         public ICommand SaveCommand => new DelegateCommand(async () => await SaveFunction());
 
+        public ICommand DeleteCommand => new DelegateCommand(async () => await DeleteFunction());
+
         public ICommand UploadPhotoCommand => _uploadPhotoCommand ?? (_uploadPhotoCommand = new DelegateCommand(UploadPhotoFunction));
 
         public ICommand EditCarProfileCommand => _editCarProfile ?? (_editCarProfile = new DelegateCommand(EditCarProfileFunction));
@@ -182,6 +184,28 @@ namespace CarnGo
             }
         }
 
+        public async Task DeleteFunction()
+        {
+            Editing = false;
+            IsReadOnly = true;
+
+            try
+            {
+                await _queryDatabase.DeleteCarProfileTask(_carProfile);
+                _carProfile = new CarProfileModel();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                isNew = true;
+                UpdateUi();
+            }
+        }
+
         public void EditCarProfileFunction()
         {
             Editing = true;
@@ -222,6 +246,12 @@ namespace CarnGo
                 IsReadOnly = false;
             }
 
+            UpdateUi();
+        }
+
+
+        private void UpdateUi()
+        {
             OnPropertyChanged(nameof(CarRegNr));
             OnPropertyChanged(nameof(CarAge));
             OnPropertyChanged(nameof(CarDescription));
@@ -236,4 +266,6 @@ namespace CarnGo
             OnPropertyChanged(nameof(CarPicture));
         }
     }
+
+    
 }

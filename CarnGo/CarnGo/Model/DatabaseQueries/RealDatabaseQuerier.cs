@@ -142,5 +142,10 @@ namespace CarnGo
             carProfileModel.PossibleToRentDays = await GetPossibleToRentDayTask(carProfileModel);
             return carProfileModel;
         }
+
+        public async Task DeleteCarProfileTask(CarProfileModel CarProfile)
+        {
+            await _dbContext.RemoveCarProfile(CarProfile.RegNr);
+        }
     }
 }

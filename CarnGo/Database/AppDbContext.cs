@@ -364,10 +364,9 @@ namespace CarnGo.Database
 
         public async Task RemoveCarProfile(string ID)
         {
-            var carProfile = new CarProfile { RegNr = ID };
-
-            Attach(carProfile);
-            Remove(carProfile);
+            var carProfile = CarProfiles.Find(ID);
+            Entry(carProfile).State = EntityState.Detached;
+            CarProfiles.Remove(carProfile);
             await SaveChangesAsync();
         }
 

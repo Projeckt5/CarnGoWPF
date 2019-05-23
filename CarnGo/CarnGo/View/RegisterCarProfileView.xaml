@@ -251,22 +251,38 @@
                          IsReadOnly="{Binding IsReadOnly}"
                 />
 
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Must only be enabled if dates have been set-->
-                <Button Grid.Row="2" 
-                        HorizontalContentAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Content="Save" 
-                        Margin="65,0,65,0"
-                        Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
-                        Command="{Binding SaveCommand}"
+                    <Button Grid.Column="0" 
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Save" 
+                            Margin="0,0,0,0"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                            Command="{Binding SaveCommand}"
                     />
+
+                    <Button Grid.Column="1" 
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Delete" 
+                            Margin="0,0,0,0"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+                            Command="{Binding DeleteCommand}"
+                    />
+
+                </Grid>
+                <!-- Must only be enabled if dates have been set-->
 
                 <Button Grid.Row="2"
                         HorizontalContentAlignment="Center"
                         HorizontalAlignment="Center"
                         Content="Edit"
-                        Margin="65,0,65,0"
+                        Margin="0,0,0,0"
                         Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}" Height="38" VerticalAlignment="Top"
                         Command="{Binding EditCarProfileCommand}"
                         />

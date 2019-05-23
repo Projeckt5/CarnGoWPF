@@ -30,6 +30,11 @@ namespace CarnGo
             throw new NotImplementedException();
         }
 
+        public async Task DeleteCarProfileTask(CarProfileModel CarProfile)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task RegisterUserTask(string email, SecureString password)
         {
             await Task.Delay(2000);
