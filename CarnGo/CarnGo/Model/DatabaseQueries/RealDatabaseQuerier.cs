@@ -34,6 +34,13 @@ namespace CarnGo
             await _dbContext.AddUser(user);
         }
 
+        public async Task RegisterCarProfileTask(CarProfileModel CarProfile)
+        {
+            var carModel = _appToDbModelConverter.Convert(CarProfile);
+            await _dbContext.AddCarProfile(carModel);
+        }
+
+
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
             var user = await _dbContext.GetUser(email, password.ConvertToString());

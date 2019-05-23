@@ -35,6 +35,11 @@ namespace CarnGo
             await Task.Delay(2000);
         }
 
+        public async Task RegisterCarProfileTask(CarProfileModel CarProfile)
+        {
+            await Task.Delay(2000);
+        }
+
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
             await Task.Delay(2000);

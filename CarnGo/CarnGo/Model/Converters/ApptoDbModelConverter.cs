@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 using CarnGo.Security;
 
@@ -34,8 +36,15 @@ namespace CarnGo
             if (car == null)
                 return default;
             var carEquip = Convert(car.CarEquipment);
+
+            if (car.DayThatIsRented == null)
+            {
+                car.DayThatIsRented = dayThatIsRentedDefault(car);
+            }
+
             var dbCarModel = new Database.Models.CarProfile()
             {
+                CarPicture = Convert(car.CarPicture),
                 Owner = Convert(car.Owner),
                 Age = car.Age,
                 Brand = car.Brand ?? "",
@@ -47,7 +56,10 @@ namespace CarnGo
                 Location = car.Location ?? "",
                 Seats = car.Seats,
                 EndLeaseTime = car.EndLeaseTime,
-                StartLeaseTime = car.StartLeaseTime
+                StartLeaseTime = car.StartLeaseTime,
+                Model = car.Model ?? "",
+                RegNr = car.RegNr,
+                OwnerEmail = car.Owner.Email
             };
             return dbCarModel;
         }
@@ -104,7 +116,15 @@ namespace CarnGo
         public Database.Models.CarEquipment Convert(CarEquipment carEquipment)
         {
             if (carEquipment == null)
-                return default;
+            {
+                return new Database.Models.CarEquipment()
+                {
+                    Audioplayer = false,
+                    Childseat = false,
+                    Smoking = false,
+                    GPS = false,
+                };
+            }
             var dbCarEquipment = new Database.Models.CarEquipment()
             {
                 Audioplayer = carEquipment.AudioPlayer,
@@ -174,6 +194,19 @@ namespace CarnGo
                 };
                 return returnMsg;
             }
+        }
+
+        public byte[] Convert(BitmapImage image)
+        {
+            byte[] converted;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                converted = ms.ToArray();
+            }
+            return converted;
         }
     }
 }

@@ -117,8 +117,6 @@ namespace CarnGo
         private void EditCar()
         {
             _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
-
-            //_eventAggregator.GetEvent<CarProfileDataEvent>().Publish(CarRegNr);
         }
         
 

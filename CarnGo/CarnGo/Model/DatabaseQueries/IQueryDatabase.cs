@@ -9,6 +9,7 @@ namespace CarnGo
     public interface IQueryDatabase
     {
         Task RegisterUserTask(string email, SecureString password);
+        Task RegisterCarProfileTask(CarProfileModel CarProfile);
         Task<UserModel> GetUserTask(string email, SecureString password);
         Task<List<MessageModel>> GetUserMessagesTask(UserModel user, int amount);
         Task UpdateUserMessagesTask(List<MessageModel> messages);

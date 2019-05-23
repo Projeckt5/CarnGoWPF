@@ -65,7 +65,7 @@ namespace CarnGo.Database
         public async Task<List<CarProfile>> GetAllCars(User user)
         {
             var carProfiles = await CarProfiles
-                .Where(c => c.User == user)
+                .Where(c => c.Owner == user)
                 .ToListAsync();
             return carProfiles;
         }
@@ -288,9 +288,20 @@ namespace CarnGo.Database
         public async Task UpdateCarProfile(CarProfile carProfile)
         {
             var result = await CarProfiles.SingleOrDefaultAsync(b => b.RegNr == carProfile.RegNr);
-
             if (result == default(CarProfile)) return;
-            result = carProfile;
+            Update(result);
+            result.CarPicture = carProfile.CarPicture ?? result.CarPicture;
+            result.Age = carProfile.Age;
+            result.Brand = carProfile.Brand ?? result.Brand;
+            result.CarDescription = carProfile.CarDescription ?? result.CarDescription;
+            //result.CarEquipment = carProfile.CarEquipment ?? result.CarEquipment;
+            result.StartLeaseTime = carProfile.StartLeaseTime;
+            result.EndLeaseTime = carProfile.EndLeaseTime;
+            result.FuelType = carProfile.FuelType ?? result.FuelType;
+            result.Model = carProfile.Model ?? result.Model;
+            result.RentalPrice = carProfile.RentalPrice;
+            result.RegNr = carProfile.RegNr ?? result.RegNr;
+            result.Seats = carProfile.Seats;
             await SaveChangesAsync();
         }
 
@@ -428,6 +439,8 @@ namespace CarnGo.Database
 
         public async Task AddCarProfile(CarProfile carProfile)
         {
+            if (Users.Find(carProfile.RegNr) != null)
+                throw new AuthenticationFailedException("The car already exists");
             await CarProfiles.AddAsync(carProfile);
             await SaveChangesAsync();
         }

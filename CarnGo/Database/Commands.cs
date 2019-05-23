@@ -161,7 +161,6 @@ namespace CarnGo.Database
                 tempCarProfile.Location = "Jylland";
                 tempCarProfile.Seats = i;
                 tempCarProfile.Price = (i * 1000) + 50000;
-                tempCarProfile.CarPicture = "ASDJIasfjn37687yh97jtg864h78jt/TG&/DG#&B/CASV(XASDM57f576879m8aysb87tdv7asrd6ANSYDMATSNDR543afstd78as79d8ynvbfas675FASYGDMA687";
                 tempCarProfile.RentalPrice = (i * 100) + 500;
                 tempCarProfile.FuelType = "92";
                 tempCarProfile.CarDescription = $"#{i}: The very best, like no one ever was";

@@ -97,7 +97,7 @@ namespace CarnGo
 
         public ICommand NavigateSearchPageCommand => new DelegateCommand(NavigateSearchPage);
 
-        public ICommand ManageCarCommand => new DelegateCommand(()=>_application.GoToPage(ApplicationPage.RegisterCarProfilePage));
+        public ICommand ManageCarCommand => new DelegateCommand(()=>NavigateToCarProfile());
 
         #endregion
         #region Command Helpers
@@ -111,6 +111,12 @@ namespace CarnGo
         {
             _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+        }
+
+        private void NavigateToCarProfile()
+        {
+            _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
+            _eventAggregator.GetEvent<CarProfileViewModel.GetCarEvent>().Publish();
         }
 
         private void NavigateSearchPage()
