@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 
 namespace CarnGo
@@ -31,7 +33,7 @@ namespace CarnGo
             if (dbCarProfile == null)
                 return default;
             var owner = Convert(dbCarProfile.Owner);
-            return new CarProfileModel(owner,
+            var car = new CarProfileModel(owner,
                 dbCarProfile.Model ?? "",
                 dbCarProfile.Brand ?? "",
                 dbCarProfile.Age,
@@ -41,6 +43,8 @@ namespace CarnGo
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
+            car.CarPicture = Convert(dbCarProfile.CarPicture);
+            return car;
         }
 
 
@@ -104,6 +108,26 @@ namespace CarnGo
                 carModels.Add(newModel);
             }
             return carModels;
+        }
+
+        public BitmapImage Convert(byte[] image)
+        {
+            if (image == null)
+            {
+                return default;
+            }
+
+            var bm = new BitmapImage();
+            using (var stream = new MemoryStream(image))
+            {
+                bm.BeginInit();
+                bm.StreamSource = stream;
+                bm.CacheOption = BitmapCacheOption.OnLoad;
+                bm.EndInit();
+                bm.Freeze();
+            }
+
+            return bm;
         }
     }
 }

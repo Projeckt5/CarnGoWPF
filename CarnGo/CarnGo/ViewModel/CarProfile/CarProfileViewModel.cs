@@ -192,7 +192,8 @@ namespace CarnGo
         {
             var fileDialog = new OpenFileDialog
             {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Filter = "jpg images | *.jpg"
             };
 
             if (fileDialog.ShowDialog() == true)
@@ -232,6 +233,7 @@ namespace CarnGo
             OnPropertyChanged(nameof(CarSeats));
             OnPropertyChanged(nameof(CarStartLeaseDate));
             OnPropertyChanged(nameof(CarRentalPrice));
+            OnPropertyChanged(nameof(CarPicture));
         }
     }
 }

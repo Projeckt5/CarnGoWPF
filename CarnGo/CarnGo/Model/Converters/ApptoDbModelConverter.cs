@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 using CarnGo.Security;
 
@@ -42,12 +44,12 @@ namespace CarnGo
 
             var dbCarModel = new Database.Models.CarProfile()
             {
+                CarPicture = Convert(car.CarPicture),
                 Owner = Convert(car.Owner),
                 Age = car.Age,
                 Brand = car.Brand ?? "",
                 CarDescription = car.CarDescription ?? "",
                 CarEquipment = carEquip,
-                DaysThatIsRented = car.DayThatIsRented,
                 Price = car.Price,
                 RentalPrice = car.RentalPrice,
                 FuelType = car.FuelType ?? "",
@@ -55,7 +57,9 @@ namespace CarnGo
                 Seats = car.Seats,
                 EndLeaseTime = car.EndLeaseTime,
                 StartLeaseTime = car.StartLeaseTime,
-                Model = car.Model ?? ""
+                Model = car.Model ?? "",
+                RegNr = car.RegNr,
+                OwnerEmail = car.Owner.Email
             };
             return dbCarModel;
         }
@@ -150,6 +154,19 @@ namespace CarnGo
                 };
                 return returnMsg;
             }
+        }
+
+        public byte[] Convert(BitmapImage image)
+        {
+            byte[] converted;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(image));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                converted = ms.ToArray();
+            }
+            return converted;
         }
     }
 }
