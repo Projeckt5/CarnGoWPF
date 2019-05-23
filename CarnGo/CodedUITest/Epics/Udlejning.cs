@@ -72,6 +72,9 @@ namespace CodedUITest
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
             this.UIMap.ClickTopNotification();
+
+            Thread.Sleep(1000);
+
         }
 
         [TestMethod]

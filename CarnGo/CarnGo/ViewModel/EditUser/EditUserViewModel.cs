@@ -45,8 +45,8 @@ namespace CarnGo
         public UserModel UserModel => _application.CurrentUser;
 
         public string RegisterUnregisterMessage => UserType == UserType.Lessor
-            ? "Unregister as renter here..."
-            : "Register as renter here...";
+            ? "Unregister as lessor here..."
+            : "Register as lessor here...";
 
         public UserType UserType
         {
