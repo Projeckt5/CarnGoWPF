@@ -14,7 +14,7 @@ namespace CarnGo.Database.Models
         public string Password { get; set; }
         public string Address { get; set; }
         public int UserType { get; set; }
-        public Guid AuthorizationString { get; set; }
+        public Guid AuthenticationString { get; set; }
 
         public List<CarProfile> Cars { get; set; }
         public List<MessagesWithUsers> MessagesWithUsers { get; set; }

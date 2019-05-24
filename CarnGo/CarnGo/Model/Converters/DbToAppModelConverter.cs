@@ -22,7 +22,7 @@ namespace CarnGo
                 LastName = dbUser.LastName ?? "",
                 Address = dbUser.Address ?? "",
                 Email = dbUser.Email ?? "",
-                AuthorizationString = dbUser.AuthorizationString,
+                AuthenticationString = dbUser.AuthenticationString,
                 MessageModels = new List<MessageModel>(),
                 UserType = (UserType)dbUser.UserType
             };

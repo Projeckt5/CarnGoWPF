@@ -155,7 +155,6 @@
     <Compile Include="IAppDbContext.cs" />
     <Compile Include="Models\CarEquipment.cs" />
     <Compile Include="Models\CarProfile.cs" />
-    <Compile Include="Models\Exceptions\AuthorizationFailedException.cs" />
     <Compile Include="Models\Exceptions\AuthenticationFailedException.cs" />
     <Compile Include="Models\MessagesWithUsers.cs" />
     <Compile Include="Models\User.cs" />

@@ -17,7 +17,7 @@ namespace CarnGo
                 LastName = "TestLastName",
                 Address = "TestAddress",
                 Email = "Test@Test.com",
-                AuthorizationString = dbUser.AuthorizationString,
+                AuthenticationString = dbUser.AuthenticationString,
                 MessageModels = new List<MessageModel>(),
                 UserType = UserType.Lessor
             };

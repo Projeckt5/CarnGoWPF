@@ -203,12 +203,12 @@ namespace CarnGo.Test.Unit
         public async Task GetUserTask_GetUserCallsGetUserOnDbContext_EmailAndGuidCorrect()
         {
             var testUser = TestModelFactory.CreateUserModel();
-            testUser.AuthorizationString = Guid.NewGuid();
+            testUser.AuthenticationString = Guid.NewGuid();
 
             await _uut.GetUserTask(testUser);
 
             await _fakeDbContext.Received().GetUser(Arg.Is<string>(s => s == testUser.Email), 
-                Arg.Is<Guid>(guid => guid == testUser.AuthorizationString));
+                Arg.Is<Guid>(guid => guid == testUser.AuthenticationString));
         }
 
         [Test]
@@ -229,7 +229,7 @@ namespace CarnGo.Test.Unit
         public async Task GetUserTask_GetUserReturnsUserModel_UserCorrect()
         {
             var testUser = TestModelFactory.CreateUserModel();
-            testUser.AuthorizationString = Guid.NewGuid();
+            testUser.AuthenticationString = Guid.NewGuid();
             _fakeDbToAppModelConverter.Convert(Arg.Any<User>()).Returns(testUser);
 
             var userResult = await _uut.GetUserTask(testUser);

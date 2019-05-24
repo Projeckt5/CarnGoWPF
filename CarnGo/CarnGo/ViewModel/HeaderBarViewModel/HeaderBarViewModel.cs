@@ -140,7 +140,7 @@ namespace CarnGo
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
-            catch (AuthorizationFailedException e)
+            catch (AuthenticationFailedException e)
             {
                 Logout();
             }

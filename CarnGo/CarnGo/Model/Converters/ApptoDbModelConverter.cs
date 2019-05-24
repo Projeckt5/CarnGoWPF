@@ -25,7 +25,7 @@ namespace CarnGo
                 LastName = appUser.LastName ?? "",
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
-                AuthorizationString = appUser.AuthorizationString,
+                AuthenticationString = appUser.AuthenticationString,
                 UserType = (int)appUser.UserType,
             };
             return user;
@@ -54,7 +54,7 @@ namespace CarnGo
                 StartLeaseTime = car.StartLeaseTime,
                 Model = car.Model ?? "",
                 RegNr = car.RegNr,
-                OwnerEmail = car.Owner.Email
+                OwnerEmail = car.Owner?.Email ?? ""
             };
             return dbCarModel;
         }
@@ -193,6 +193,8 @@ namespace CarnGo
 
         public byte[] Convert(BitmapImage image)
         {
+            if (image == null)
+                return default;
             byte[] converted;
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(image));
