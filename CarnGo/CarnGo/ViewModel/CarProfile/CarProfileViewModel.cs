@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace CarnGo
         public class GetCarEvent : PubSubEvent {}
  
         private CarProfileModel _carProfile;
+        private ObservableCollection<CarProfileModel> _carProfileList;
         private IApplication _application;
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
@@ -31,6 +34,7 @@ namespace CarnGo
             _queryDatabase = queryDatabase;
             _application = application;
             _eventAggregator.GetEvent<GetCarEvent>().Subscribe(GetCarModel);
+            _carProfileList = new ObservableCollection<CarProfileModel>();
         }
 
 
@@ -38,6 +42,22 @@ namespace CarnGo
 
 
         #region Public Properties
+
+        public ObservableCollection<CarProfileModel> CarProfileList
+        {
+            get => _carProfileList;
+            set => _carProfileList = value;
+        }
+
+        public CarProfileModel CarProfile
+        {
+            get => _carProfile;
+            set
+            {
+                _carProfile = value;
+                UpdateUi();
+            }
+        }
 
         public string CarMake
         {
@@ -192,7 +212,10 @@ namespace CarnGo
             try
             {
                 await _queryDatabase.DeleteCarProfileTask(_carProfile);
-                _carProfile = new CarProfileModel();
+
+                CarProfileList.Remove(_carProfile);
+
+               
             }
             catch (Exception e)
             {
@@ -201,8 +224,16 @@ namespace CarnGo
             }
             finally
             {
-                isNew = true;
-                _application.GoToPage(ApplicationPage.StartPage);
+                
+                if (CarProfileList.Count != 0)
+                {
+                    _carProfile = CarProfileList.First();
+                    UpdateUi();
+                }
+                else
+                {
+                    _application.GoToPage(ApplicationPage.StartPage);
+                }
             }
         }
 
@@ -230,8 +261,8 @@ namespace CarnGo
         {
             try
             {
-                var profiles = await _queryDatabase.GetCarProfilesTask(_application.CurrentUser);
-                _carProfile = profiles == null ? new CarProfileModel() : profiles.First();
+                CarProfileList = new ObservableCollection<CarProfileModel>(await _queryDatabase.GetCarProfilesTask(_application.CurrentUser));
+                _carProfile = CarProfileList == null ? new CarProfileModel() : CarProfileList.First();
             }
             catch (Exception e)
             {
