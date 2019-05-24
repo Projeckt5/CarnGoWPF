@@ -12,7 +12,7 @@ namespace CarnGo.Test.Unit.ViewModels
     [TestFixture]
     public class CarProfileViewModelTest
     {
-        private CarProfileViewModel _uut;
+        private CarLeaseViewModel _uut;
         private IEventAggregator _fakeEventAggregator;
         private IApplication _fakeApplication;
         private IQueryDatabase _queryDatabase;

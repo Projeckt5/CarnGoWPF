@@ -157,7 +157,8 @@ namespace CarnGo
                     return;
                 }
 
-                await _application.LogUserIn(Email, PasswordSecureString);
+                var userToLogin = await _databaseAccess.GetUserTask(Email, PasswordSecureString);
+                _application.CurrentUser = userToLogin;
                 NavigateStartPage();
                 if (RememberUser)
                 {
