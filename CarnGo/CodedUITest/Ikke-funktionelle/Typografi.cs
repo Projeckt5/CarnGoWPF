@@ -6,11 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 
-
 namespace CodedUITest
 {
     [CodedUITest]
-    public class Applikation
+    public class Typografi
     {
         public TestContext TestContext { get; set; }
         public UIMap UIMap => map ?? (map = new UIMap());
@@ -18,29 +17,31 @@ namespace CodedUITest
         private string _path;
         private ApplicationUnderTest _uut;
 
-        public Applikation()
+        public Typografi()
         {
             _path = "../../../CarnGo/bin/Debug/CarnGo.exe";
             Assert.IsTrue(File.Exists(_path));
         }
 
         [TestMethod]
-        public void US9_LoginPåApplikation()
+        public void Robotic_Typografi()
         {
             // Act
             this.UIMap.ClickLoginEmailBox();
-            Keyboard.SendKeys("car@owner");
+            Keyboard.SendKeys("car@renter");
             this.UIMap.ClickLoginPasswordBox();
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
-
+            this.UIMap.ClickOwnerButton();
+            this.UIMap.ClickUserInformation();
+            Thread.Sleep(1000);
+            this.UIMap.ClickOnuserInfo();
+            
             //Assert
-            this.UIMap.AssertHeaderBarAppears();
-
+            this.UIMap.AssertOnRoboticFont();
         }
 
-        //Use TestInitialize to run code before running each test 
         [TestInitialize()]
         public void MyTestInitialize()
         {
