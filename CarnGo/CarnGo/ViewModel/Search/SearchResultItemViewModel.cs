@@ -33,12 +33,25 @@ namespace CarnGo
         protected DateTime _startLeaseTime;
         protected DateTime _endLeaseTime;
         protected UserModel _owner;
+        protected BitmapImage _image;
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
 
         #endregion
 
         #region Properties
+
+        public BitmapImage CarImage
+        {
+            get => _image;
+            set
+            {
+                if (_image == value)
+                    return;
+                _image = value;
+                OnPropertyChanged(nameof(CarImage));
+            }
+        }
 
         public string Model
         {

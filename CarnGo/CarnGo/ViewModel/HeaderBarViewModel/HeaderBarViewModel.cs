@@ -116,7 +116,7 @@ namespace CarnGo
 
         private void NavigateToCarProfile()
         {
-            _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
+            _application.GoToPage(ApplicationPage.CarLeasePage);
             _eventAggregator.GetEvent<CarLeaseViewModel.GetCarEvent>().Publish();
         }
 
