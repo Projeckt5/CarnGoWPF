@@ -167,9 +167,7 @@ namespace CarnGo
         public BitmapImage Convert(byte[] image)
         {
             if (image == null)
-            {
                 return default;
-            }
 
             var bm = new BitmapImage();
             using (var stream = new MemoryStream(image))

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 
 namespace CarnGo
@@ -11,5 +12,6 @@ namespace CarnGo
         List<CarProfileModel> Convert(List<CarProfile> carProfiles);
         List<PossibleToRentDayModel> Convert(List<PossibleToRentDay> possibleToRentDays);
         List<DayThatIsRentedModel> Convert(List<DayThatIsRented> dayThatIsRented);
+        BitmapImage Convert(byte[] image);
     }
 }

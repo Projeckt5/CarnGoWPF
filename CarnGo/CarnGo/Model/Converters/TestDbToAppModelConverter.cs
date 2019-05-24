@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using CarnGo.Database.Models;
 
 namespace CarnGo
@@ -77,6 +78,11 @@ namespace CarnGo
         }
 
         public List<DayThatIsRentedModel> Convert(List<DayThatIsRented> dayThatIsRented)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BitmapImage Convert(byte[] image)
         {
             throw new NotImplementedException();
         }
