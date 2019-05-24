@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -10,35 +11,28 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    public class CarProfileViewModel : BaseViewModel
+    public class CarLeaseViewModel : BaseViewModel
     {
-
+        public class GetCarEvent : PubSubEvent {}
  
-        private CarProfileModel _carProfile;
+        private CarProfileModel _carProfile=new CarProfileModel();
         private IApplication _application;
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
-        private bool _editing;
-        public bool _isReadOnly;
+        private bool _editing = false;
+        public bool _isReadOnly = true;
         private bool isSaving = false;
+        private bool isNew = false;
         
         
-        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase, CarProfileModel carProfile)
+        public CarLeaseViewModel(IApplication application, IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
-            _application = application;
+            _eventAggregator = eventAggregator;
             _queryDatabase = queryDatabase;
-            _carProfile = carProfile;
-            Editing = false;
-            IsReadOnly = true;
+            _application = application;
+            _eventAggregator.GetEvent<GetCarEvent>().Subscribe(GetCarModel);
         }
 
-        public CarProfileViewModel(IApplication application)
-        {
-            _application = application;
-            _carProfile = new CarProfileModel();
-            Editing = true;
-            IsReadOnly = false;
-        }
 
 
 
@@ -56,10 +50,10 @@ namespace CarnGo
             set => _carProfile.Model = value;
         }
 
-        public int CarSeats
+        public string CarSeats
         {
-            get => _carProfile.Seats;
-            set => _carProfile.Seats = value;
+            get => _carProfile.Seats.ToString();
+            set => _carProfile.Seats = int.Parse(value);
         }
         public string CarFuelType
         {
@@ -67,10 +61,10 @@ namespace CarnGo
             set => _carProfile.FuelType = value;
         }
 
-        public int CarRentalPrice
+        public string CarRentalPrice
         {
-            get => _carProfile.RentalPrice;
-            set => _carProfile.RentalPrice = value;
+            get => _carProfile.RentalPrice.ToString();
+            set => _carProfile.RentalPrice = int.Parse(value);
         }
 
         public int CarAge
@@ -144,6 +138,8 @@ namespace CarnGo
 
         public ICommand SaveCommand => new DelegateCommand(async () => await SaveFunction());
 
+        public ICommand DeleteCommand => new DelegateCommand(async () => await DeleteFunction());
+
         public ICommand UploadPhotoCommand => _uploadPhotoCommand ?? (_uploadPhotoCommand = new DelegateCommand(UploadPhotoFunction));
 
         public ICommand EditCarProfileCommand => _editCarProfile ?? (_editCarProfile = new DelegateCommand(EditCarProfileFunction));
@@ -165,7 +161,16 @@ namespace CarnGo
             isSaving = true;
             try
             {
-                await _queryDatabase.UpdateCarProfileTask(_carProfile);
+                if (isNew)
+                {
+                    _carProfile.Owner = _application.CurrentUser;
+                    await _queryDatabase.RegisterCarProfileTask(_carProfile);
+                   
+                }
+                else
+                {
+                    await _queryDatabase.UpdateCarProfileTask(_carProfile);
+                }
             }
             catch (Exception e)
             {
@@ -175,6 +180,29 @@ namespace CarnGo
             finally
             {
                 isSaving = false;
+                isNew = false;
+            }
+        }
+
+        public async Task DeleteFunction()
+        {
+            Editing = false;
+            IsReadOnly = true;
+
+            try
+            {
+                await _queryDatabase.DeleteCarProfileTask(_carProfile);
+                _carProfile = new CarProfileModel();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                isNew = true;
+                _application.GoToPage(ApplicationPage.StartPage);
             }
         }
 
@@ -188,7 +216,8 @@ namespace CarnGo
         {
             var fileDialog = new OpenFileDialog
             {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Filter = "jpg images | *.jpg"
             };
 
             if (fileDialog.ShowDialog() == true)
@@ -196,5 +225,47 @@ namespace CarnGo
                 CarPicture = new BitmapImage(new Uri(fileDialog.FileName));
             }
         }
+
+        private async void GetCarModel()
+        {
+            try
+            {
+                var profiles = await _queryDatabase.GetCarProfilesTask(_application.CurrentUser);
+                _carProfile = profiles == null ? new CarProfileModel() : profiles.First();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            if (_carProfile.RegNr == null)
+            {
+                isNew = true;
+                Editing = true;
+                IsReadOnly = false;
+            }
+
+            UpdateUi();
+        }
+
+
+        private void UpdateUi()
+        {
+            OnPropertyChanged(nameof(CarRegNr));
+            OnPropertyChanged(nameof(CarAge));
+            OnPropertyChanged(nameof(CarDescription));
+            OnPropertyChanged(nameof(CarEndLeaseDate));
+            OnPropertyChanged(nameof(CarRegNr));
+            OnPropertyChanged(nameof(CarFuelType));
+            OnPropertyChanged(nameof(CarMake));
+            OnPropertyChanged(nameof(CarModel));
+            OnPropertyChanged(nameof(CarSeats));
+            OnPropertyChanged(nameof(CarStartLeaseDate));
+            OnPropertyChanged(nameof(CarRentalPrice));
+            OnPropertyChanged(nameof(CarPicture));
+        }
     }
+
+    
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace CarnGo
                 LastName = dbUser.LastName ?? "",
                 Address = dbUser.Address ?? "",
                 Email = dbUser.Email ?? "",
-                AuthorizationString = dbUser.AuthorizationString,
+                AuthenticationString = dbUser.AuthenticationString,
                 MessageModels = new List<MessageModel>(),
                 UserType = (UserType)dbUser.UserType
             };
@@ -32,7 +33,7 @@ namespace CarnGo
             if (dbCarProfile == null)
                 return default;
             var owner = Convert(dbCarProfile.Owner);
-            return new CarProfileModel(owner,
+            var car = new CarProfileModel(owner,
                 dbCarProfile.Model ?? "",
                 dbCarProfile.Brand ?? "",
                 dbCarProfile.Age,
@@ -42,6 +43,8 @@ namespace CarnGo
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
+            car.CarPicture = Convert(dbCarProfile.CarPicture);
+            return car;
         }
 
         public List<PossibleToRentDayModel> Convert(List<PossibleToRentDay> possibleToRentDays)
@@ -159,6 +162,24 @@ namespace CarnGo
                 Renter = Convert(dayThatIsRented.Renter),
                 Id = dayThatIsRented.Id
             };
+        }
+
+        public BitmapImage Convert(byte[] image)
+        {
+            if (image == null)
+                return default;
+
+            var bm = new BitmapImage();
+            using (var stream = new MemoryStream(image))
+            {
+                bm.BeginInit();
+                bm.StreamSource = stream;
+                bm.CacheOption = BitmapCacheOption.OnLoad;
+                bm.EndInit();
+                bm.Freeze();
+            }
+
+            return bm;
         }
     }
 }

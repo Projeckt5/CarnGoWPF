@@ -164,7 +164,7 @@ namespace CarnGo.Test.Unit.ViewModels
         [Test]
         public void Notification_ShowNotificationsThrowsAuthorizationException_ApplicationReceivesLogout()
         {
-            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>()).Throws<AuthorizationFailedException>();
+            _fakeDatabaseQuery.GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>()).Throws<AuthenticationFailedException>();
 
             _uut.NotificationCommand.Execute(null);
 

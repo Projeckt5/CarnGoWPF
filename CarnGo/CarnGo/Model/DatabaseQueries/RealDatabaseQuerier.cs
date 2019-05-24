@@ -34,6 +34,13 @@ namespace CarnGo
             await _dbContext.AddUser(user);
         }
 
+        public async Task RegisterCarProfileTask(CarProfileModel CarProfile)
+        {
+            var carModel = _appToDbModelConverter.Convert(CarProfile);
+            await _dbContext.AddCarProfile(carModel);
+        }
+
+
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
             var user = await _dbContext.GetUser(email, password.ConvertToString());
@@ -43,14 +50,14 @@ namespace CarnGo
 
         public async Task<UserModel> GetUserTask(UserModel user)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var returnUser = _dbToAppModelConverter.Convert(dbUser);
             return returnUser;
         }
 
         public async Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var dbCarProfile = await _dbContext.GetAllCars(dbUser);
             return _dbToAppModelConverter.Convert(dbCarProfile);
         }
@@ -64,7 +71,7 @@ namespace CarnGo
 
         public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user, int amount)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var messagesRead = _appToDbModelConverter.Convert(user.MessageModels);
             var dbMessages = await _dbContext.GetMessages(dbUser,messagesRead,amount);
             var messages = _dbToAppModelConverter.Convert(dbMessages);
@@ -134,6 +141,11 @@ namespace CarnGo
             carProfileModel.DayThatIsRented = await GetDaysThatIsRentedTask(carProfileModel);
             carProfileModel.PossibleToRentDays = await GetPossibleToRentDayTask(carProfileModel);
             return carProfileModel;
+        }
+
+        public async Task DeleteCarProfileTask(CarProfileModel CarProfile)
+        {
+            await _dbContext.RemoveCarProfile(CarProfile.RegNr);
         }
     }
 }

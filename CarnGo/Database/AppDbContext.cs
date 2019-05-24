@@ -51,7 +51,7 @@ namespace CarnGo.Database
             if (user == null || user.Password != password)
                 throw new AuthenticationFailedException();
             Update(user);
-            user.AuthorizationString = Guid.NewGuid();
+            user.AuthenticationString = Guid.NewGuid();
             await SaveChangesAsync();
             return user;
         }
@@ -65,19 +65,19 @@ namespace CarnGo.Database
         public async Task<List<CarProfile>> GetAllCars(User user)
         {
             var carProfiles = await CarProfiles
-                .Where(c => c.User == user)
+                .Where(c => c.Owner == user)
                 .ToListAsync();
             return carProfiles;
         }
 
 
-        public async Task<User> GetUser(string email, Guid authorization)
+        public async Task<User> GetUser(string email, Guid authentication)
         {
             var user = await Users.FindAsync(email);
             if (user == null)
                 throw new AuthenticationFailedException($"No user found for the email: {email}");
-            if (user.AuthorizationString != authorization)
-                throw new AuthorizationFailedException();
+            if (user.AuthenticationString != authentication)
+                throw new AuthenticationFailedException("The authentication for the user is not up to date");
             return user;
         }
 
@@ -235,14 +235,14 @@ namespace CarnGo.Database
             if (result == default(User))
                 throw new AuthenticationFailedException($"No user found for the email: {user.Email}");
 
-            if (result.AuthorizationString != user.AuthorizationString)
-                throw new AuthorizationFailedException();
+            if (result.AuthenticationString != user.AuthenticationString)
+                throw new AuthenticationFailedException("The authentication for the user is not up to date");
             Update(result);
             result.Email = user.Email;
             result.FirstName = user.FirstName;
             result.LastName = user.LastName;
             result.Address = user.Address;
-            result.AuthorizationString = user.AuthorizationString;
+            result.AuthenticationString = user.AuthenticationString;
             result.UserType = user.UserType;
             //TODO: SAVE THE PICTURE
             await SaveChangesAsync();
@@ -256,8 +256,8 @@ namespace CarnGo.Database
             if (result == default(User))
                 throw new AuthenticationFailedException($"No user found for the email: {user.Email}");
 
-            if (result.AuthorizationString != user.AuthorizationString)
-                throw new AuthorizationFailedException();
+            if (result.AuthenticationString != user.AuthenticationString)
+                throw new AuthenticationFailedException("The authentication for the user is not up to date");
             Update(result);
             result.Email = user.Email;
             result.Password = password;
@@ -271,7 +271,8 @@ namespace CarnGo.Database
 
             if (result == default(Message)) return;
             Update(result);
-            result.CarProfile = message.CarProfile ?? result.CarProfile;
+            if (result.CarProfile.RegNr == message.CarProfile.RegNr)
+                await UpdateCarProfile(message.CarProfile);
             result.ConfirmationStatus = message.ConfirmationStatus;
             result.CreatedDate = message.CreatedDate;
             result.LessorEmail = message.LessorEmail;
@@ -288,9 +289,20 @@ namespace CarnGo.Database
         public async Task UpdateCarProfile(CarProfile carProfile)
         {
             var result = await CarProfiles.SingleOrDefaultAsync(b => b.RegNr == carProfile.RegNr);
-
             if (result == default(CarProfile)) return;
-            result = carProfile;
+            Update(result);
+            result.CarPicture = carProfile.CarPicture ?? result.CarPicture;
+            result.Age = carProfile.Age;
+            result.Brand = carProfile.Brand ?? result.Brand;
+            result.CarDescription = carProfile.CarDescription ?? result.CarDescription;
+            //result.CarEquipment = carProfile.CarEquipment ?? result.CarEquipment;
+            result.StartLeaseTime = carProfile.StartLeaseTime;
+            result.EndLeaseTime = carProfile.EndLeaseTime;
+            result.FuelType = carProfile.FuelType ?? result.FuelType;
+            result.Model = carProfile.Model ?? result.Model;
+            result.RentalPrice = carProfile.RentalPrice;
+            result.RegNr = carProfile.RegNr ?? result.RegNr;
+            result.Seats = carProfile.Seats;
             await SaveChangesAsync();
         }
 
@@ -353,10 +365,9 @@ namespace CarnGo.Database
 
         public async Task RemoveCarProfile(string ID)
         {
-            var carProfile = new CarProfile { RegNr = ID };
-
-            Attach(carProfile);
-            Remove(carProfile);
+            var carProfile = CarProfiles.Find(ID);
+            Entry(carProfile).State = EntityState.Detached;
+            CarProfiles.Remove(carProfile);
             await SaveChangesAsync();
         }
 
@@ -428,6 +439,8 @@ namespace CarnGo.Database
 
         public async Task AddCarProfile(CarProfile carProfile)
         {
+            if (Users.Find(carProfile.RegNr) != null)
+                throw new AuthenticationFailedException("The car already exists");
             await CarProfiles.AddAsync(carProfile);
             await SaveChangesAsync();
         }

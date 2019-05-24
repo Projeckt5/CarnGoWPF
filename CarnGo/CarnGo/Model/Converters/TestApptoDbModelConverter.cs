@@ -21,7 +21,7 @@ namespace CarnGo
                 LastName = "TestLastName",
                 Address = "TestAddress",
                 Email = "Test@Test.com",
-                AuthorizationString = Guid.NewGuid(),
+                AuthenticationString = Guid.NewGuid(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 Cars = new List<CarProfile>(),
                 Password = "P4ssw0rd",
@@ -53,7 +53,7 @@ namespace CarnGo
 
         public User Convert(UserModel appUser)
         {
-            _user.AuthorizationString = appUser.AuthorizationString;
+            _user.AuthenticationString = appUser.AuthenticationString;
             return _user;
         }
 

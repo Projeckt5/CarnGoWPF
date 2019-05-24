@@ -39,6 +39,16 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Jenkins|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Jenkins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
@@ -155,7 +165,6 @@
     <Compile Include="IAppDbContext.cs" />
     <Compile Include="Models\CarEquipment.cs" />
     <Compile Include="Models\CarProfile.cs" />
-    <Compile Include="Models\Exceptions\AuthorizationFailedException.cs" />
     <Compile Include="Models\Exceptions\AuthenticationFailedException.cs" />
     <Compile Include="Models\MessagesWithUsers.cs" />
     <Compile Include="Models\User.cs" />

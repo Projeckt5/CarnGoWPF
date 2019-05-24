@@ -107,7 +107,7 @@ namespace CarnGo
 
         #region Public Commands
 
-        public ICommand GoToCar => new DelegateCommand(() => _application.GoToPage(ApplicationPage.RegisterCarProfilePage));
+        public ICommand GoToCar => new DelegateCommand(() => _application.GoToPage(ApplicationPage.CarLeasePage));
 
 
         #endregion
@@ -116,9 +116,7 @@ namespace CarnGo
 
         private void EditCar()
         {
-            _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
-
-            //_eventAggregator.GetEvent<CarProfileDataEvent>().Publish(CarRegNr);
+            _application.GoToPage(ApplicationPage.CarLeasePage);
         }
         
 

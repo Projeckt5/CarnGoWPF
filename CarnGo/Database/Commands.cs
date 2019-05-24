@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -123,7 +124,7 @@ namespace CarnGo.Database
                 Password = "123asd",
                 Address = "Here",
                 UserType = 2,
-                AuthorizationString = Guid.Empty,
+                AuthenticationString = Guid.Empty,
             }; 
             
             User renter = new User()
@@ -134,7 +135,7 @@ namespace CarnGo.Database
                 Password = "123asd",
                 Address = "There",
                 UserType = 1,
-                AuthorizationString = Guid.Empty,
+                AuthenticationString = Guid.Empty,
             }; 
 
             List<CarProfile> ourCars = new List<CarProfile>();
@@ -161,7 +162,6 @@ namespace CarnGo.Database
                 tempCarProfile.Location = "Jylland";
                 tempCarProfile.Seats = i;
                 tempCarProfile.Price = (i * 1000) + 50000;
-                tempCarProfile.CarPicture = "ASDJIasfjn37687yh97jtg864h78jt/TG&/DG#&B/CASV(XASDM57f576879m8aysb87tdv7asrd6ANSYDMATSNDR543afstd78as79d8ynvbfas675FASYGDMA687";
                 tempCarProfile.RentalPrice = (i * 100) + 500;
                 tempCarProfile.FuelType = "92";
                 tempCarProfile.CarDescription = $"#{i}: The very best, like no one ever was";

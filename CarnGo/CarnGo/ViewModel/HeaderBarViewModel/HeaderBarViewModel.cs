@@ -97,7 +97,7 @@ namespace CarnGo
 
         public ICommand NavigateSearchPageCommand => new DelegateCommand(NavigateSearchPage);
 
-        public ICommand ManageCarCommand => new DelegateCommand(()=>_application.GoToPage(ApplicationPage.RegisterCarProfilePage));
+        public ICommand ManageCarCommand => new DelegateCommand(()=>NavigateToCarProfile());
 
         #endregion
         #region Command Helpers
@@ -111,6 +111,12 @@ namespace CarnGo
         {
             _application.GoToPage(ApplicationPage.SearchPage);
             _eventAggregator.GetEvent<SearchEvent>().Publish(SearchKeyWord);
+        }
+
+        private void NavigateToCarProfile()
+        {
+            _application.GoToPage(ApplicationPage.CarLeasePage);
+            _eventAggregator.GetEvent<CarLeaseViewModel.GetCarEvent>().Publish();
         }
 
         private void NavigateSearchPage()
@@ -134,7 +140,7 @@ namespace CarnGo
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
-            catch (AuthorizationFailedException e)
+            catch (AuthenticationFailedException e)
             {
                 Logout();
             }
