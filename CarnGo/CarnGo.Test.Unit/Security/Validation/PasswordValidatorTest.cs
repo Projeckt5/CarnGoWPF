@@ -22,72 +22,67 @@ namespace CarnGo.Test.Unit
         public void Setup()
         {
           _uut = new PasswordValidator();
-
-          
         }
 
 
-        [Test]
-        public void PasswordValidate_WithNumbers_Success()
+        [TestCase("Ben123")]
+        [TestCase("Ben1234")]
+        public void PasswordValidate_WithNumbers_Success(string password)
         {
-           
-            var passsordWithNumbers = "Benbenben123";
-            var ValidationWithNumbers = _uut.Validate(passsordWithNumbers.ConvertToSecureString());
+            var passsordWithNumbers = password.ConvertToSecureString();
+
+            var result = _uut.Validate(passsordWithNumbers);
                 
 
-            Assert.That(ValidationWithNumbers, Is.EqualTo(true));
+            Assert.That(result, Is.EqualTo(true));
         }
 
 
-        [Test]
-        public void PasswordValidate_WithoutNumbers_Fail()
+        [TestCase("Benbenb")]
+        [TestCase("Benben")]
+        [TestCase("Benbe")]
+        public void PasswordValidate_WithoutNumbers_Fail(string password)
         {
             
-            var passsordWithoutNumbers = "Benbenben";
+            var passsordWithoutNumbers = password.ConvertToSecureString();
 
-            var ValidationWithNumbers = _uut.Validate(passsordWithoutNumbers.ConvertToSecureString());
-
-
+            var result = _uut.Validate(passsordWithoutNumbers);
 
 
-            Assert.That(ValidationWithNumbers, Is.EqualTo(false));
+            Assert.That(result, Is.EqualTo(false));
         }
 
-        [Test]
-        public void PasswordValidate_OnlyNumbers_Fail()
+        [TestCase("1234567")]
+        [TestCase("123456")]
+        [TestCase("12345")]
+        public void PasswordValidate_OnlyNumbers_Fail(string password)
         {
             
-            var passsordWithOnlyNumbers = "12345678";
+            var passsordWithOnlyNumbers = password.ConvertToSecureString();
 
-            var ValidationOnlyNumbers = _uut.Validate(passsordWithOnlyNumbers.ConvertToSecureString());
+            var result = _uut.Validate(passsordWithOnlyNumbers);
 
-
-
-            Assert.That(ValidationOnlyNumbers, Is.EqualTo(false));
+            Assert.That(result, Is.EqualTo(false));
         }
 
         [Test]
         public void PasswordValidate_EmptyField_fail()
         {
             
-            var passwordEmpty = "";
+            var passwordEmpty = "".ConvertToSecureString();
 
-            var ValidationEmpty = _uut.Validate(passwordEmpty.ConvertToSecureString());
+            var result = _uut.Validate(passwordEmpty);
 
-
-
-            Assert.That(ValidationEmpty, Is.EqualTo(false));
+            Assert.That(result, Is.EqualTo(false));
         }
 
         [Test]
         public void PasswordValidate_Length_Success()
         {
            
-            var passwordTrueLength = "123BenBen";
+            var passwordTrueLength = "123BenBen".ConvertToSecureString();
 
-            var ValidationTrueLength = _uut.Validate(passwordTrueLength.ConvertToSecureString());
-
-
+            var ValidationTrueLength = _uut.Validate(passwordTrueLength);
 
             Assert.That(ValidationTrueLength, Is.EqualTo(true));
         }
@@ -95,27 +90,23 @@ namespace CarnGo.Test.Unit
         [Test]
         public void PasswordValidate_Length_Fail()
         {
-            
-            var passwordFalseLength = "12Ben";
+            var passwordFalseLength = "12Ben".ConvertToSecureString();
 
-            var ValidationFalseLength = _uut.Validate(passwordFalseLength.ConvertToSecureString());
+            var result = _uut.Validate(passwordFalseLength);
 
-
-
-            Assert.That(ValidationFalseLength, Is.EqualTo(false));
+            Assert.That(result, Is.EqualTo(false));
         }
 
         [Test]
         public void PasswordValidate_NordicChars_Success()
         {
           
-            var passwordSuccessNordicChars = "12Beøæå";
+            var passwordSuccessNordicChars = "12Beøæå".ConvertToSecureString();
 
-            var ValidationWithNordicChars = _uut.Validate(passwordSuccessNordicChars.ConvertToSecureString());
+            var result = _uut.Validate(passwordSuccessNordicChars);
 
 
-
-            Assert.That(ValidationWithNordicChars, Is.EqualTo(true));
+            Assert.That(result, Is.EqualTo(true));
         }
     }
 }
