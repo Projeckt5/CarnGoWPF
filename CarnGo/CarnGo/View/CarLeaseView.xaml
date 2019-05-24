@@ -104,7 +104,8 @@
                           SelectedItem="{Binding SelectedCarProfile}"  
                           Width="230"
                           Margin="0,50,0,0"
-                          IsSynchronizedWithCurrentItem="True">
+                          IsSynchronizedWithCurrentItem="True"
+                          Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
