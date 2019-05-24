@@ -11,11 +11,11 @@ using Prism.Events;
 
 namespace CarnGo
 {
-    public class CarProfileViewModel : BaseViewModel
+    public class CarLeaseViewModel : BaseViewModel
     {
         public class GetCarEvent : PubSubEvent {}
  
-        private CarProfileModel _carProfile;
+        private CarProfileModel _carProfile=new CarProfileModel();
         private IApplication _application;
         private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
@@ -25,7 +25,7 @@ namespace CarnGo
         private bool isNew = false;
         
         
-        public CarProfileViewModel(IApplication application, IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
+        public CarLeaseViewModel(IApplication application, IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _queryDatabase = queryDatabase;
