@@ -1001,6 +1001,36 @@ namespace CodedUITest
             Assert.AreEqual(this.RenterAssertionExpectedValues.UIItemEditText, uIItemEdit.Text);
         }
         
+        /// <summary>
+        /// AssertOnRoboticFont - Use 'AssertOnRoboticFontExpectedValues' to pass parameters into this method.
+        /// </summary>
+        public void AssertOnRoboticFont()
+        {
+            #region Variable Declarations
+            WpfEdit uIItemEdit = this.UIMainWindowWindow.UIItemCustom.UINewPageFramePane.UIPersonalinformationText.UIItemEdit;
+            #endregion
+
+            // Verify that the 'Font' property of first text box next to 'Personal information:' label equals 'pack://application;,,,/Fonts/Roboto/#Roboto Regular'
+            Assert.AreEqual(this.AssertOnRoboticFontExpectedValues.UIItemEditFont, uIItemEdit.Font, "The font was not correct ");
+        }
+        
+        /// <summary>
+        /// ClickOnuserInfo
+        /// </summary>
+        public void ClickOnuserInfo()
+        {
+            #region Variable Declarations
+            WpfButton uIItemButton = this.UIMainWindowWindow.UIRootCustom.UIRootCustom1.UIItemButton;
+            WpfPane uICurrentPageFramePane = this.UIMainWindowWindow.UIItemCustom.UICurrentPageFramePane;
+            #endregion
+
+            // Click button numbered 2 next to 'root' custom control
+            Mouse.Click(uIItemButton, new Point(35, 38));
+
+            // Click 'CurrentPageFrame' pane
+            Mouse.Click(uICurrentPageFramePane, new Point(1428, 395));
+        }
+        
         #region Properties
         public virtual RecordedMethod1Params RecordedMethod1Params
         {
@@ -1290,6 +1320,18 @@ namespace CodedUITest
             }
         }
         
+        public virtual AssertOnRoboticFontExpectedValues AssertOnRoboticFontExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertOnRoboticFontExpectedValues == null))
+                {
+                    this.mAssertOnRoboticFontExpectedValues = new AssertOnRoboticFontExpectedValues();
+                }
+                return this.mAssertOnRoboticFontExpectedValues;
+            }
+        }
+        
         public UIWpfWindow UIWpfWindow
         {
             get
@@ -1399,6 +1441,8 @@ namespace CodedUITest
         private PressNotificationButtonParams mPressNotificationButtonParams;
         
         private RenterAssertionExpectedValues mRenterAssertionExpectedValues;
+        
+        private AssertOnRoboticFontExpectedValues mAssertOnRoboticFontExpectedValues;
         
         private UIWpfWindow mUIWpfWindow;
         
@@ -1874,6 +1918,21 @@ namespace CodedUITest
         /// Verify that the 'Text' property of first text box next to 'Personal information:' label equals 'Renter'
         /// </summary>
         public string UIItemEditText = "Renter";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Parameters to be passed into 'AssertOnRoboticFont'
+    /// </summary>
+    [GeneratedCode("Coded UITest Builder", "15.0.26208.0")]
+    public class AssertOnRoboticFontExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Verify that the 'Font' property of first text box next to 'Personal information:' label equals 'pack://application;,,,/Fonts/Roboto/#Roboto Regular'
+        /// </summary>
+        public string UIItemEditFont = "pack://application;,,,/Fonts/Roboto/#Roboto Regular";
         #endregion
     }
     
