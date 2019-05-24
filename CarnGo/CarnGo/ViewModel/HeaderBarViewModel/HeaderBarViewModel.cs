@@ -115,8 +115,8 @@ namespace CarnGo
 
         private void NavigateToCarProfile()
         {
-            _application.GoToPage(ApplicationPage.RegisterCarProfilePage);
-            _eventAggregator.GetEvent<CarProfileViewModel.GetCarEvent>().Publish();
+            _application.GoToPage(ApplicationPage.CarLeasePage);
+            _eventAggregator.GetEvent<CarLeaseViewModel.GetCarEvent>().Publish();
         }
 
         private void NavigateSearchPage()
@@ -140,7 +140,7 @@ namespace CarnGo
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
                 await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
             }
-            catch (AuthorizationFailedException e)
+            catch (AuthenticationFailedException e)
             {
                 Logout();
             }

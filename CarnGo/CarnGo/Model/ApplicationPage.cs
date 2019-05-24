@@ -4,7 +4,7 @@
     {
         LoginPage,
         EditUserPage,
-        RegisterCarProfilePage,
+        CarLeasePage,
         MessageView,
         SearchPage,
         UserSignUpPage,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -123,7 +124,7 @@ namespace CarnGo.Database
                 Password = "123asd",
                 Address = "Here",
                 UserType = 2,
-                AuthorizationString = Guid.Empty,
+                AuthenticationString = Guid.Empty,
             }; 
             
             User renter = new User()
@@ -134,7 +135,7 @@ namespace CarnGo.Database
                 Password = "123asd",
                 Address = "There",
                 UserType = 1,
-                AuthorizationString = Guid.Empty,
+                AuthenticationString = Guid.Empty,
             }; 
 
             List<CarProfile> ourCars = new List<CarProfile>();

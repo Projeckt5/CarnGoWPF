@@ -17,7 +17,7 @@ namespace CarnGo.Database
         Task AddPossibleToRentDay(PossibleToRentDay possibleToRentDay);
         Task AddUser(User user);
         Task<List<Message>> GetMessages(User user, List<Message> messageAlreadyRead, int amount);
-        Task<User> GetUser(string email, Guid authorization);
+        Task<User> GetUser(string email, Guid authentication);
         Task<User> GetUser(string email, string password);
         Task<CarProfile> GetCarProfile(string regNr);
         Task<List<CarProfile>> GetAllCars(User user);

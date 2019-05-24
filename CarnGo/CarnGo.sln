@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarnGo", "CarnGo\CarnGo.csproj", "{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}"
 EndProject
@@ -16,27 +16,37 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Jenkins|Any CPU = Jenkins|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Jenkins|Any CPU.ActiveCfg = Release|Any CPU
+		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Jenkins|Any CPU.Build.0 = Release|Any CPU
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9C7E9D8-5E6A-4A89-B1CF-2C4AF0EEF5DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A68D027-AA4E-49C8-B64A-F4489DDCC104}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E319C964-AA15-47C1-A914-D44696E5A665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E319C964-AA15-47C1-A914-D44696E5A665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{E319C964-AA15-47C1-A914-D44696E5A665}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
 		{E319C964-AA15-47C1-A914-D44696E5A665}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E319C964-AA15-47C1-A914-D44696E5A665}.Release|Any CPU.Build.0 = Release|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{195CB2B1-1A73-48A4-9201-3C136D230769}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
+		{195CB2B1-1A73-48A4-9201-3C136D230769}.Jenkins|Any CPU.Build.0 = Jenkins|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{195CB2B1-1A73-48A4-9201-3C136D230769}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Jenkins|Any CPU.ActiveCfg = Jenkins|Any CPU
 		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10AFF9D5-D16F-4E95-9C30-91CF71CE3F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

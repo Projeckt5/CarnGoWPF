@@ -50,14 +50,14 @@ namespace CarnGo
 
         public async Task<UserModel> GetUserTask(UserModel user)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var returnUser = _dbToAppModelConverter.Convert(dbUser);
             return returnUser;
         }
 
         public async Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var dbCarProfile = await _dbContext.GetAllCars(dbUser);
             return _dbToAppModelConverter.Convert(dbCarProfile);
         }
@@ -71,7 +71,7 @@ namespace CarnGo
 
         public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user, int amount)
         {
-            var dbUser = await _dbContext.GetUser(user.Email, user.AuthorizationString);
+            var dbUser = await _dbContext.GetUser(user.Email, user.AuthenticationString);
             var messagesRead = _appToDbModelConverter.Convert(user.MessageModels);
             var dbMessages = await _dbContext.GetMessages(dbUser,messagesRead,amount);
             var messages = _dbToAppModelConverter.Convert(dbMessages);

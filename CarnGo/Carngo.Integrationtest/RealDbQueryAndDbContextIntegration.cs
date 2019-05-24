@@ -84,9 +84,9 @@ namespace CarnGo.Integrationtest
             var pwd = password.ConvertToSecureString();
             await _dbQuerier.RegisterUserTask(email, pwd);
             var user = await _dbQuerier.GetUserTask(email, pwd);
-            user.AuthorizationString = Guid.NewGuid();
+            user.AuthenticationString = Guid.NewGuid();
 
-            Assert.ThrowsAsync<AuthorizationFailedException>(async ()=>await _dbQuerier.GetUserTask(user));
+            Assert.ThrowsAsync<AuthenticationFailedException>(async ()=>await _dbQuerier.GetUserTask(user));
         }
 
         [TestCase("Hello", "World")]

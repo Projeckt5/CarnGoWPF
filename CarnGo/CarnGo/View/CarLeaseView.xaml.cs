@@ -3,9 +3,9 @@
     /// <summary>
     /// Interaction logic for RegisterCarProfile.xaml
     /// </summary>
-    public partial class RegisterCarProfile : BasePage<CarProfileViewModel>
+    public partial class CarLeaseView : BasePage<CarLeaseViewModel>
     {
-        public RegisterCarProfile()
+        public CarLeaseView()
         {
             InitializeComponent();
         }
