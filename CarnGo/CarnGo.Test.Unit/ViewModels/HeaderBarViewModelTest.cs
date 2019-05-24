@@ -79,7 +79,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.LogoutCommand.Execute(null);
 
-            _fakeApplication.Received().CurrentUser = null;
+            _fakeApplication.Received().LogUserOut();
         } 
         #endregion
 
@@ -168,7 +168,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeApplication.Received().CurrentUser = null;
+            _fakeApplication.Received().LogUserOut();
         }
 
 
@@ -188,7 +188,7 @@ namespace CarnGo.Test.Unit.ViewModels
 
             _uut.NotificationCommand.Execute(null);
 
-            _fakeApplication.DidNotReceive().CurrentUser = null;
+            _fakeApplication.DidNotReceive().LogUserOut();
             _fakeDatabaseQuery.DidNotReceive().GetUserMessagesTask(Arg.Any<UserModel>(), Arg.Any<int>());
             _fakeEventAggregator.GetEvent<NotificationMessagesUpdateEvent>().DidNotReceive().Publish(Arg.Any<List<MessageModel>>());
         }

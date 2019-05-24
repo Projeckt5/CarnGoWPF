@@ -16,7 +16,7 @@ namespace CarnGo
         /// <summary>
         /// The current user logged into the application
         /// </summary>
-        UserModel CurrentUser { get; set; }
+        UserModel CurrentUser { get; }
 
 
         /// <summary>
@@ -24,5 +24,8 @@ namespace CarnGo
         /// </summary>
         /// <param name="page">The page to go to</param>
         void GoToPage(ApplicationPage page);
+
+        Task LogUserIn(string email, SecureString password);
+        void LogUserOut();
     }
 }

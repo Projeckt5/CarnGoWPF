@@ -104,8 +104,7 @@ namespace CarnGo
 
         private void Logout()
         {
-            _application.CurrentUser = null;
-            _application.GoToPage(ApplicationPage.LoginPage);
+            _application.LogUserOut();
         }
 
         private void Search()

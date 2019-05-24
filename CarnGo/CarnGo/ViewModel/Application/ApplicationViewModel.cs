@@ -20,18 +20,20 @@ namespace CarnGo
 
     public class ApplicationViewModel : BaseViewModel, IApplication
     {
+        private readonly IQueryDatabase _queryDatabase;
         private readonly IEventAggregator _eventAggregator;
         private ApplicationPage _applicationPage;
         
 
         private UserModel _currentUser = null;
 
-        public ApplicationViewModel(IEventAggregator eventAggregator)
+        public ApplicationViewModel(IQueryDatabase queryDatabase, IEventAggregator eventAggregator)
         {
             _applicationPage = ApplicationPage.LoginPage;
+            _queryDatabase = queryDatabase;
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<NewUserDataReadyEvent>()
-                .Subscribe(()=>OnPropertyChanged(nameof(CurrentUser)));
+                .Subscribe(async () => CurrentUser = await _queryDatabase.GetUserTask(CurrentUser));
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace CarnGo
         public UserModel CurrentUser
         {
             get => _currentUser;
-            set
+            private set
             {
                 if (_currentUser == value)
                     return;
@@ -75,6 +77,27 @@ namespace CarnGo
         public void GoToPage(ApplicationPage page)
         {
             CurrentPage = page;
+        }
+
+        public async Task LogUserIn(string email, SecureString password)
+        {
+            try
+            {
+                CurrentUser = await _queryDatabase.GetUserTask(email, password);
+                GoToPage(ApplicationPage.StartPage);
+            }
+            catch (AuthenticationFailedException e)
+            {
+                
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void LogUserOut()
+        {
+            CurrentUser = null;
+            GoToPage(ApplicationPage.LoginPage);
         }
     }
 }
