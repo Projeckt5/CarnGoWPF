@@ -67,15 +67,10 @@ namespace CodedUITest
             Keyboard.SendKeys("123asd");
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
-            //this.UIMap.ClickTopNotification();
-            Thread.Sleep(1000);
-            //this.UIMap.PressConfirmOnTopNotification();
-            Thread.Sleep(1000);
-            //this.UIMap.ClickMessageInNotification();
+            this.UIMap.ClickTopNotification();
 
-            // Assert
-           
-            this.UIMap.AssertConfirmButtonPressedOnTopMessage();
+            Thread.Sleep(1000);
+
         }
 
         [TestMethod]
