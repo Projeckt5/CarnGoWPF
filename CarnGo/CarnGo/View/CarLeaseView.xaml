@@ -79,7 +79,8 @@
                                  Height="100"
                                  HorizontalAlignment="Center"
                                  Text="{Binding CarDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                 Width="192"/>
+                                 Width="192"
+                                 IsReadOnly="{Binding IsReadOnly}"/>
                     </ScrollViewer>
 
                 </StackPanel>
@@ -97,13 +98,19 @@
 
                 <ComboBox Grid.Row="0"  
                           VerticalAlignment="Top"   
-                          ItemsSource="{Binding CarProfileList}"
-                          SelectedItem="{Binding CarProfile}"  
-                          Width="200"
-                          Margin="0,50,0,0">
+                          ItemsSource="{Binding CarProfileList, 
+                                        Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedCarProfile}"  
+                          Width="230"
+                          Margin="0,50,0,0"
+                          IsSynchronizedWithCurrentItem="True">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding RegNr}"></TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Reg Nr: "/>
+                                <TextBlock Text="{Binding RegNr}"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -245,6 +252,7 @@
                                   Margin="0,0,0,0"
                                   IsEditable="False"
                                   IsEnabled="{Binding Editing}"
+                                  SelectedItem="{Binding CarFuelType}"
                                   >
                             <TextBlock>Petrol</TextBlock>
                             <TextBlock>Diesel</TextBlock>
@@ -297,20 +305,31 @@
                             Command="{Binding DeleteCommand}"
                     />
 
+                    <Button Grid.Column="0"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Edit"
+                            Margin="0,0,0,0"
+                            Height="40"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"  VerticalAlignment="Top"
+                            Command="{Binding EditCarProfileCommand}"
+                    />
+
+                    <Button Grid.Column="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="New"
+                            Margin="0,0,0,0"
+                            Height="40"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"  VerticalAlignment="Top"
+                            Command="{Binding NewCarCommand}"
+                    />
                 </Grid>
                 <!-- Must only be enabled if dates have been set-->
 
-                <Button Grid.Row="3"
-                        HorizontalContentAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Content="Edit"
-                        Margin="0,0,0,0"
-                        Height="40"
-                        Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"  VerticalAlignment="Top"
-                        Command="{Binding EditCarProfileCommand}"
-                        />
+                
 
-
+                
 
 
             </Grid>
