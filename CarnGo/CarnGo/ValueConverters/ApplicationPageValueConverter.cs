@@ -21,7 +21,7 @@ namespace CarnGo
                     return new LoginView();
                 case ApplicationPage.EditUserPage:
                     return new EditUser();
-                case ApplicationPage.RegisterCarProfilePage:
+                case ApplicationPage.CarLeasePage:
                     return new CarLeaseView();
                 case ApplicationPage.SearchPage:
                     return new SearchView();
