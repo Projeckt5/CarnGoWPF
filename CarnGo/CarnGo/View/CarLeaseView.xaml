@@ -13,7 +13,6 @@
     <Border Background="{StaticResource BackgroundMainBrush}"
             BorderThickness="0"
             BorderBrush="{StaticResource BlueMainBrush}"
-            Height="350"
 
             CornerRadius="0"
             >
@@ -32,7 +31,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" 
-                        Margin="50,20,50,10"
+                        Margin="50,70,50,10"
                         BorderThickness="2" 
                         BorderBrush="{StaticResource BlueMainBrush}"
                         SnapsToDevicePixels="True"
@@ -80,22 +79,47 @@
                                  Height="100"
                                  HorizontalAlignment="Center"
                                  Text="{Binding CarDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                 Width="192"/>
+                                 Width="192"
+                                 IsReadOnly="{Binding IsReadOnly}"/>
                     </ScrollViewer>
 
                 </StackPanel>
             </Grid>
+
+            
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
+
+                <ComboBox Grid.Row="0"  
+                          VerticalAlignment="Top"   
+                          ItemsSource="{Binding CarProfileList, 
+                                        Mode=TwoWay, 
+                                        UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedCarProfile}"  
+                          Width="230"
+                          Margin="0,50,0,0"
+                          IsSynchronizedWithCurrentItem="True"
+                          Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Reg Nr: "/>
+                                <TextBlock Text="{Binding RegNr}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <Border Margin="0, 20, 0, 0"
                         BorderBrush="{StaticResource BlueMainBrush}"
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center"
+                        Grid.Row="1">
 
                     <Grid HorizontalAlignment="Center">
                         <Grid.RowDefinitions>
@@ -123,6 +147,8 @@
                                 MinWidth="123"/>
 
                         </Grid.ColumnDefinitions>
+
+
 
                         <!--CarMake TextBox-->
                         <TextBox HorizontalAlignment="Center" 
@@ -227,6 +253,7 @@
                                   Margin="0,0,0,0"
                                   IsEditable="False"
                                   IsEnabled="{Binding Editing}"
+                                  SelectedItem="{Binding CarFuelType}"
                                   >
                             <TextBlock>Petrol</TextBlock>
                             <TextBlock>Diesel</TextBlock>
@@ -242,7 +269,7 @@
 
                 <!--CarRentalPrice TextBox-->
                 <TextBox FontSize="{StaticResource FontSizeRegular}"
-                         Grid.Row="1" 
+                         Grid.Row="2" 
                          Tag="Price in DKK"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Top"
@@ -251,7 +278,7 @@
                          IsReadOnly="{Binding IsReadOnly}"
                 />
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -262,6 +289,8 @@
                             HorizontalAlignment="Center"
                             Content="Save" 
                             Margin="0,0,0,0"
+                            Height="40"
+                            VerticalAlignment="Top"
                             Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
                             Command="{Binding SaveCommand}"
                     />
@@ -271,21 +300,37 @@
                             HorizontalAlignment="Center"
                             Content="Delete" 
                             Margin="0,0,0,0"
+                            Height="40"
+                            VerticalAlignment="Top"
                             Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
                             Command="{Binding DeleteCommand}"
                     />
 
+                    <Button Grid.Column="0"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="Edit"
+                            Margin="0,0,0,0"
+                            Height="40"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"  VerticalAlignment="Top"
+                            Command="{Binding EditCarProfileCommand}"
+                    />
+
+                    <Button Grid.Column="1"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="New"
+                            Margin="0,0,0,0"
+                            Height="40"
+                            Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}"  VerticalAlignment="Top"
+                            Command="{Binding NewCarCommand}"
+                    />
                 </Grid>
                 <!-- Must only be enabled if dates have been set-->
 
-                <Button Grid.Row="2"
-                        HorizontalContentAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Content="Edit"
-                        Margin="0,0,0,0"
-                        Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}}" Height="38" VerticalAlignment="Top"
-                        Command="{Binding EditCarProfileCommand}"
-                        />
+                
+
+                
 
 
             </Grid>
