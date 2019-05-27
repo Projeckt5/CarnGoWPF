@@ -206,6 +206,7 @@
     <Compile Include="Model\MsgStatus.cs" />
     <Compile Include="Model\PossibleToRentDayModel.cs" />
     <Compile Include="Model\ThreadTimer\ThreadTimer.cs" />
+    <Compile Include="ValueConverters\ByteToBitImageValueConverter.cs" />
     <Compile Include="ValueConverters\MsgStatusToBooleanConverter.cs" />
     <Compile Include="ViewModel\Search\ISearchViewModelHelper.cs" />
     <Compile Include="ViewModel\Search\SearchViewModelHelper.cs" />

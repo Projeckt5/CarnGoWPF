@@ -22,6 +22,7 @@ namespace CarnGo
         private bool _isSaving;
         private string _registerUnregisterMessage;
         private UserType _userType;
+        private byte[] _userImage;
 
         #endregion
 
@@ -37,6 +38,7 @@ namespace CarnGo
             Email = UserModel.Email;
             Address = UserModel.Address;
             UserType = UserModel.UserType;
+            UserImage = UserModel.UserPicture;
         }
         #endregion
 
@@ -64,7 +66,18 @@ namespace CarnGo
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public BitmapImage UserImage { get; set; }
+
+        public byte[] UserImage
+        {
+            get => _userImage;
+            set
+            {
+                if(_userImage == value)
+                    return;
+                _userImage = value;
+                OnPropertyChanged(nameof(UserImage));
+            }
+        }
 
         public bool IsSaving
         {
@@ -81,7 +94,6 @@ namespace CarnGo
 
         #region Public Commands
         public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(async () => await SaveFunction()));
-        public ICommand UploadPhotoCommand => new DelegateCommand(() => UploadPhotoFunction());
         public ICommand RegisterAsCarRenterCommand => new DelegateCommand(async () => await RegisterAsCarRenter());
 
         private async Task RegisterAsCarRenter()
@@ -107,7 +119,7 @@ namespace CarnGo
                 UserModel.LastName = LastName;
                 UserModel.Email = Email;
                 UserModel.Address = Address;
-                UserModel.UserImage = UserImage;
+                UserModel.UserPicture = UserImage;
 
                 await _queryDatabase.UpdateUser(UserModel);
                 _eventAggregator.GetEvent<NewUserDataReadyEvent>().Publish();
@@ -122,18 +134,6 @@ namespace CarnGo
                 IsSaving = false;
             }
         }
-
-        private void UploadPhotoFunction()
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            if (fileDialog.ShowDialog() == true)
-            {
-                UserImage = new BitmapImage(new Uri(fileDialog.FileName));
-            }
-            OnPropertyChanged(nameof(UserImage));
-        }
-
         #endregion
     }
 }

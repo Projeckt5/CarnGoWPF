@@ -33,7 +33,7 @@ namespace CarnGo
         protected DateTime _startLeaseTime;
         protected DateTime _endLeaseTime;
         protected UserModel _owner;
-        protected BitmapImage _image;
+        protected byte[] _image;
         private readonly IEventAggregator _eventAggregator;
         private readonly IApplication _application;
 
@@ -41,7 +41,7 @@ namespace CarnGo
 
         #region Properties
 
-        public BitmapImage CarImage
+        public byte[] CarImage
         {
             get => _image;
             set

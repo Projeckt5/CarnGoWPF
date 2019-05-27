@@ -88,7 +88,7 @@ namespace CarnGo
             get => _carProfile.EndLeaseTime;
             set => _carProfile.EndLeaseTime = value;
         }
-        public BitmapImage CarPicture
+        public byte[] CarPicture
         {
             get => _carProfile.CarPicture;
             set
@@ -139,8 +139,6 @@ namespace CarnGo
         public ICommand SaveCommand => new DelegateCommand(async () => await SaveFunction());
 
         public ICommand DeleteCommand => new DelegateCommand(async () => await DeleteFunction());
-
-        public ICommand UploadPhotoCommand => _uploadPhotoCommand ?? (_uploadPhotoCommand = new DelegateCommand(UploadPhotoFunction));
 
         public ICommand EditCarProfileCommand => _editCarProfile ?? (_editCarProfile = new DelegateCommand(EditCarProfileFunction));
 
@@ -210,20 +208,6 @@ namespace CarnGo
         {
             Editing = true;
             IsReadOnly = false;
-        }
-
-        private void UploadPhotoFunction()
-        {
-            var fileDialog = new OpenFileDialog
-            {
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-                Filter = "jpg images | *.jpg"
-            };
-
-            if (fileDialog.ShowDialog() == true)
-            {
-                CarPicture = new BitmapImage(new Uri(fileDialog.FileName));
-            }
         }
 
         private async void GetCarModel()

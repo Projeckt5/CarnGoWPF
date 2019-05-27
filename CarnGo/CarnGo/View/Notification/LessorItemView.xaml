@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="6*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Image Source="{Binding NotificationMessage.CarPicture}" Margin="10 10 10 10 " MaxWidth="100" MaxHeight="50"></Image>
+            <Image Source="{Binding NotificationMessage.CarPicture, Converter={local:ByteToBitImageValueConverter}}" Margin="10 10 10 10 " MaxWidth="100" MaxHeight="50"></Image>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

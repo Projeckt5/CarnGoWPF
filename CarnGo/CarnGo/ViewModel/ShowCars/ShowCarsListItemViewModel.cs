@@ -82,7 +82,7 @@ namespace CarnGo
             get => _carProfile.EndLeaseTime;
             set => _carProfile.EndLeaseTime = value;
         }
-        public BitmapImage CarPicture
+        public byte[] CarPicture
         {
             get => _carProfile.CarPicture;
             set

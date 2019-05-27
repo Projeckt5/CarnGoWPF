@@ -61,7 +61,7 @@
                 MinHeight="180"
                 
                 >
-                <Image Source="{Binding Car.CarPicture}" Stretch="Fill" />
+                <Image Source="{Binding Car.CarPicture, Converter={local:ByteToBitImageValueConverter}}" Stretch="Fill" />
             </Border>
             <Label Grid.Row="2"  Content="Details"
                     HorizontalAlignment="Center"                        

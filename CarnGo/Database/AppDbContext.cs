@@ -244,7 +244,7 @@ namespace CarnGo.Database
             result.Address = user.Address;
             result.AuthenticationString = user.AuthenticationString;
             result.UserType = user.UserType;
-            //TODO: SAVE THE PICTURE
+            result.UserPicture = user.UserPicture;
             await SaveChangesAsync();
         }
 

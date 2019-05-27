@@ -12,7 +12,7 @@ namespace CarnGo
         #region Properties
         public MessageType MsgType { get; set; }
         public string Message { get; set; }
-        public BitmapImage CarPicture { get; set; }
+        public byte[] CarPicture { get; set; }
         public DateTime TimeStamp { get; set; }
         public bool IsRead { get; set; }
         public string Lessor { get; set; }

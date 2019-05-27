@@ -1,12 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
 namespace CarnGo
 {
@@ -53,7 +46,7 @@ namespace CarnGo
         private string _address;
         private UserType _usertype;
         private List<MessageModel> _messageModels;
-        private BitmapImage _userImage;
+        private byte[] _userPicture;
 
         #endregion
 
@@ -133,13 +126,13 @@ namespace CarnGo
             }
         }
 
-        public BitmapImage UserImage
+        public byte[] UserPicture
         {
-            get => _userImage;
+            get => _userPicture;
             set
             {
-                _userImage = value;
-                OnPropertyChanged(nameof(UserImage));
+                _userPicture = value;
+                OnPropertyChanged(nameof(UserPicture));
             }
         }
         #endregion

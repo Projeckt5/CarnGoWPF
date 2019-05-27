@@ -65,7 +65,7 @@ namespace CarnGo
 
         private CarEquipment _equipment;
 
-        private BitmapImage _carPicture;
+        private byte[] _carPicture;
         private UserModel _owner;
         private int _rentalPrice;
         private string _fuelType;
@@ -112,7 +112,7 @@ namespace CarnGo
                 _equipment = value;
                 OnPropertyChanged(nameof(CarEquipment));
             } }
-        public BitmapImage CarPicture
+        public byte[] CarPicture
         {
             get => _carPicture;
             set
