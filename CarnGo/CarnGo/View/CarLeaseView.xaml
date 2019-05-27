@@ -37,7 +37,7 @@
                         SnapsToDevicePixels="True"
                         Width="192">
 
-                    <Image Source="{Binding CarPicture}" 
+                    <Image Source="{Binding CarPicture, Converter={local:ByteToBitImageValueConverter}}" 
                            HorizontalAlignment="Right"
                            Width="192"
                            Height="150"/>
@@ -59,7 +59,8 @@
                             Margin="43.243,0,109,0" 
                             Width="92"
                             Visibility="{Binding Editing, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
-                            Command="{Binding UploadPhotoCommand}" Grid.ColumnSpan="2"
+                            Click="UploadPhoto_Click"
+                            Grid.ColumnSpan="2"
                             />
 
 

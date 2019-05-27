@@ -24,7 +24,8 @@ namespace CarnGo
                 Email = dbUser.Email ?? "",
                 AuthenticationString = dbUser.AuthenticationString,
                 MessageModels = new List<MessageModel>(),
-                UserType = (UserType)dbUser.UserType
+                UserType = (UserType)dbUser.UserType,
+                UserPicture = dbUser.UserPicture
             };
         }
 
@@ -43,7 +44,7 @@ namespace CarnGo
                 dbCarProfile.StartLeaseTime,
                 dbCarProfile.EndLeaseTime,
                 dbCarProfile.Price);
-            car.CarPicture = Convert(dbCarProfile.CarPicture);
+            car.CarPicture = dbCarProfile.CarPicture;
             return car;
         }
 
@@ -162,24 +163,6 @@ namespace CarnGo
                 Renter = Convert(dayThatIsRented.Renter),
                 Id = dayThatIsRented.Id
             };
-        }
-
-        public BitmapImage Convert(byte[] image)
-        {
-            if (image == null)
-                return default;
-
-            var bm = new BitmapImage();
-            using (var stream = new MemoryStream(image))
-            {
-                bm.BeginInit();
-                bm.StreamSource = stream;
-                bm.CacheOption = BitmapCacheOption.OnLoad;
-                bm.EndInit();
-                bm.Freeze();
-            }
-
-            return bm;
         }
     }
 }

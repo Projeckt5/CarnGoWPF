@@ -159,7 +159,7 @@ namespace CarnGo.Database
                 tempCarProfile.Model = "7";
                 tempCarProfile.Brand = $"BMW{i}";
                 tempCarProfile.Age = 5 + i;
-                tempCarProfile.Location = "Jylland";
+                tempCarProfile.Location = "City" + i;
                 tempCarProfile.Seats = i;
                 tempCarProfile.Price = (i * 1000) + 50000;
                 tempCarProfile.RentalPrice = (i * 100) + 500;
@@ -222,7 +222,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = true,
                 ConfirmationStatus = 0,
-                TheMessage = "Can I rent car fuckface?",
+                TheMessage = "Can I rent your car please?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = renter.Email,
@@ -238,7 +238,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = true,
                 ConfirmationStatus = 2,
-                TheMessage = "Yes you can motherfucker!",
+                TheMessage = "Yes you can!",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = lessor.Email,
@@ -254,7 +254,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = false,
                 ConfirmationStatus = 1,
-                TheMessage = "Can I rent, yet another car? Cunt?",
+                TheMessage = "Can I rent another car??",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = renter.Email,

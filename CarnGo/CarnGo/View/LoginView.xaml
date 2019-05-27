@@ -10,12 +10,7 @@
       Background="{StaticResource BlueLightBrush}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginView"
-      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoginPageLoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+      Loaded="LoginView_OnLoaded">
     <Border Background="{StaticResource BackgroundMainBrush}"
             Margin="50"
             Padding="20 30"
@@ -41,8 +36,7 @@
                 <CheckBox x:Name="RememberMe" Content="Remember me" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Center"
-                          IsChecked="{Binding RememberUser}"
-                          />
+                          IsChecked="{Binding RememberUser}"/>
                 <Button Style="{StaticResource TextButton}"
                         Content="Forgot?"
                         Padding="10 2 0 0"
@@ -53,7 +47,8 @@
             <Button local:IsBusyAttachedProperty.IsBusy="{Binding IsLogin, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource LoadableButton}"
                     IsDefault="True"
-                    Command="{Binding LoginCommand}">
+                    Command="{Binding LoginCommand}"
+                    Click="Login_Click">
                 <TextBlock Text="Login" 
                            FontSize="{StaticResource FontSizeLarge}"/>
             </Button>

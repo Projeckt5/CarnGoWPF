@@ -19,7 +19,7 @@ namespace CarnGo
             searchResultItem.Seats = carProfile.Seats;
             searchResultItem.StartLeaseTime = carProfile.StartLeaseTime;
             searchResultItem.EndLeaseTime = carProfile.EndLeaseTime;
-            searchResultItem.CarImage = _converter.Convert(carProfile.CarPicture);
+            searchResultItem.CarImage = carProfile.CarPicture;
             searchResultItem.Owner = new UserModel()
             {
                 FirstName = carProfile.Owner.FirstName ?? "",

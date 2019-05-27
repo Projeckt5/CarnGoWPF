@@ -22,5 +22,25 @@ namespace CarnGo
             InitializeComponent();
         }
 
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (PageViewModel.RememberUser)
+            {
+                Properties.Settings.Default.RememberMe = PageViewModel.RememberUser;
+                Properties.Settings.Default.Username = PageViewModel.Email;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void LoginView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+
+            if (Properties.Settings.Default.Username != string.Empty)
+            {
+                PageViewModel.RememberUser = Properties.Settings.Default.RememberMe;
+                PageViewModel.Email = Properties.Settings.Default.Username;
+            }
+        }
     }
 }

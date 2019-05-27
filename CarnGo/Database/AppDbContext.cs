@@ -244,7 +244,7 @@ namespace CarnGo.Database
             result.Address = user.Address;
             result.AuthenticationString = user.AuthenticationString;
             result.UserType = user.UserType;
-            //TODO: SAVE THE PICTURE
+            result.UserPicture = user.UserPicture;
             await SaveChangesAsync();
         }
 
@@ -267,7 +267,7 @@ namespace CarnGo.Database
 
         public async Task UpdateMessage(Message message)
         {
-            var result = Messages.SingleOrDefault(b => b.MessageID == message.MessageID);
+            var result = Messages.Include(msg => msg.CarProfile).SingleOrDefault(b => b.MessageID == message.MessageID);
 
             if (result == default(Message)) return;
             Update(result);

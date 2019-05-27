@@ -26,6 +26,7 @@ namespace CarnGo
                 Cars = new List<CarProfile>(),
                 MessagesWithUsers = new List<MessagesWithUsers>(),
                 AuthenticationString = appUser.AuthenticationString,
+                UserPicture = appUser.UserPicture,
                 UserType = (int)appUser.UserType,
             };
             return user;
@@ -39,7 +40,7 @@ namespace CarnGo
 
             var dbCarModel = new Database.Models.CarProfile()
             {
-                CarPicture = Convert(car.CarPicture),
+                CarPicture = car.CarPicture,
                 Owner = Convert(car.Owner),
                 Age = car.Age,
                 Brand = car.Brand ?? "",

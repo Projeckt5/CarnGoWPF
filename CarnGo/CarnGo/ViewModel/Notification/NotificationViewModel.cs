@@ -45,7 +45,7 @@ namespace CarnGo
         {
             var contactInfo = messageToRespondTo.ConfirmationStatus == MsgStatus.Confirmed
                 ? $"Please contact me on my email: {messageToRespondTo.Lessor.Email}" : "";
-            var msg = $"I {messageToRespondTo.ConfirmationStatus.ToString()} your request." + contactInfo;
+            var msg = $"I {messageToRespondTo.ConfirmationStatus.ToString()} your request. " + contactInfo;
             return new MessageFromLessorModel(messageToRespondTo.Renter, messageToRespondTo.Lessor,
                 messageToRespondTo.RentCar, msg , messageToRespondTo.ConfirmationStatus)
             {
