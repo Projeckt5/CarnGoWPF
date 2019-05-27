@@ -71,7 +71,7 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0" Source="../../Images/Bilfoto.jpg"
+                <Image Grid.Column="0" Source="{Binding CurrentMessage.CarPicture, Converter={local:ByteToBitImageValueConverter}}"
                        Margin="20 10 10 0 "
                        MinHeight="40"
                        MinWidth="60"

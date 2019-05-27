@@ -267,7 +267,7 @@ namespace CarnGo.Database
 
         public async Task UpdateMessage(Message message)
         {
-            var result = Messages.SingleOrDefault(b => b.MessageID == message.MessageID);
+            var result = Messages.Include(msg => msg.CarProfile).SingleOrDefault(b => b.MessageID == message.MessageID);
 
             if (result == default(Message)) return;
             Update(result);

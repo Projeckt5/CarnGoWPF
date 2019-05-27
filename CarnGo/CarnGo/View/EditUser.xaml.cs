@@ -18,8 +18,11 @@ namespace CarnGo
 
         private void UploadPhoto_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
+                Filter = "jpg images | *.jpg"
+            };
             using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
             {
                 if (openFileDialog1.ShowDialog() != DialogResult.OK)

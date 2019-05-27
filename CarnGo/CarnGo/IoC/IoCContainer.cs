@@ -25,19 +25,19 @@ namespace CarnGo
 
         public static void Setup()
         {
-            
+
             Container.RegisterSingleton<IApplication, ApplicationViewModel>();
-            Container.RegisterSingleton<IEventAggregator,EventAggregator>();
+            Container.RegisterSingleton<IEventAggregator, EventAggregator>();
 #if DEBUG
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(databaseName: "debug_database")
                 .EnableSensitiveDataLogging()
                 .Options;
 
-                Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerThreadLifetimeManager(), new InjectionConstructor(options));
+            Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerThreadLifetimeManager(),new InjectionConstructor(options));
 #else
-                
-                Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager());
+
+            Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager());
 #endif
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());
@@ -49,9 +49,9 @@ namespace CarnGo
             Container.RegisterType<ISearchQueries, RealSearchQueries>();
             Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
             Container.AddExtension(new Diagnostic());
-           
+
         }
-        
+
         public static T Resolve<T>()
         {
             return Container.Resolve<T>();

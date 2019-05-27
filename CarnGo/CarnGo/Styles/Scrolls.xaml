@@ -57,7 +57,7 @@
 
 
     <!--Scrollbar Focus Visual-->
-    <Style x:Key="FocusVisual">
+    <Style x:Key="ScrollFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -73,7 +73,7 @@
 
     <!--Scrollbar Button-->
     <Style x:Key="ScrollBarButton" TargetType="{x:Type RepeatButton}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ScrollFocusVisual}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

@@ -7,7 +7,24 @@
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="Fonts.xaml" />
         <ResourceDictionary Source="Texts.xaml" />
+        <ResourceDictionary Source="Scrolls.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="0" 
+                               SnapsToDevicePixels="true" 
+                               Stroke="{StaticResource BlueMainBrush}" 
+                               StrokeThickness="1" 
+                               StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--  Regular button  -->
     <Style BasedOn="{StaticResource BaseStyle}" TargetType="{x:Type Button}">
@@ -196,6 +213,10 @@
                             Text="{TemplateBinding Content}" />
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+                            <Setter Property="Padding" Value="4,-1,0,0" />
+                        </Trigger>
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
@@ -454,6 +475,7 @@
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         FontSize="{TemplateBinding FontSize}"
                                         Style="{StaticResource LoadingText}"
+                                        Focusable="False"
                                         Visibility="{TemplateBinding local:IsBusyAttachedProperty.IsBusy,
                                                                      Converter={local:BooleanToVisibilityConverter},
                                                                      ConverterParameter=True}" />
@@ -677,6 +699,7 @@
     </Style>
 
     <!--  Checkbox style  -->
+
     <SolidColorBrush x:Key="OptionMark.Static.Background" Color="{StaticResource BackgroundMain}" />
     <SolidColorBrush x:Key="OptionMark.Static.Border" Color="{StaticResource BlueDark}" />
     <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="{StaticResource BackgroundMain}" />

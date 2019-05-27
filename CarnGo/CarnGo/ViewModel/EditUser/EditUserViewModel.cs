@@ -100,9 +100,6 @@ namespace CarnGo
         {
             //TODO: MAKE A REAL PROCESS INSTEAD OF JUST PROMOTING THEM LMAO
             UserType = UserType == UserType.OrdinaryUser ? UserType.Lessor : UserType.OrdinaryUser;
-            UserModel.UserType = UserType;
-            await _queryDatabase.UpdateUser(UserModel);
-            _eventAggregator.GetEvent<NewUserDataReadyEvent>().Publish();
         }
 
         #endregion
@@ -120,6 +117,7 @@ namespace CarnGo
                 UserModel.Email = Email;
                 UserModel.Address = Address;
                 UserModel.UserPicture = UserImage;
+                UserModel.UserType = UserType;
 
                 await _queryDatabase.UpdateUser(UserModel);
                 _eventAggregator.GetEvent<NewUserDataReadyEvent>().Publish();

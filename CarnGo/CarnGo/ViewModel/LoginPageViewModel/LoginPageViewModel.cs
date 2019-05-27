@@ -120,14 +120,6 @@ namespace CarnGo
         public ICommand LoginCommand => new DelegateCommand(async () => await Login());
         public ICommand NavigateUserSignupCommand => new DelegateCommand(NavigateUserSignup);
         public ICommand NavigateStartPageCommand => new DelegateCommand(NavigateStartPage);
-        public ICommand LoginPageLoadedCommand => new DelegateCommand(() =>
-        {
-            if (Properties.Settings.Default.Username != string.Empty)
-            {
-                RememberUser = Properties.Settings.Default.RememberMe;
-                Email = Properties.Settings.Default.Username;
-            }
-        });
 
 
         #endregion
@@ -159,10 +151,6 @@ namespace CarnGo
 
                 await _application.LogUserIn(Email, PasswordSecureString);
                 NavigateStartPage();
-                if (RememberUser)
-                {
-                    RememberUserLocally(PasswordSecureString);
-                }
             }
             catch (AuthenticationFailedException e)
             {
@@ -171,18 +159,11 @@ namespace CarnGo
             finally
             {
                 IsLogin = false;
-               
             }
 
            
         }
 
-        private void RememberUserLocally(SecureString passwordSecureString)
-        {
-            Properties.Settings.Default.RememberMe = RememberUser;
-            Properties.Settings.Default.Username = Email;
-            Properties.Settings.Default.Save();
-        }
         private void NavigateStartPage()
         {
             _application.GoToPage(ApplicationPage.StartPage);
