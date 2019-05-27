@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarnGo.Database;
 using CarnGo.Security;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace CarnGo.Integrationtest
@@ -13,20 +14,18 @@ namespace CarnGo.Integrationtest
     public class RealDbQueryAndDbContextIntegration
     {
         private RealDatabaseQuerier _dbQuerier;
-        private AppDbContext _dbContextToIntegrate;
+        private IDbContextFactory _dbContextFactory;
         private ApptoDbModelConverter _appToDbModelConverter;
         private DbToAppModelConverter _dbToAppModelConverter;
+        private DbContextOptions<AppDbContext> _options;
 
         [SetUp]
         public void TestSetup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "test_database")
-                .Options;
-            _dbContextToIntegrate = new AppDbContext(options);
             _appToDbModelConverter = new ApptoDbModelConverter();
             _dbToAppModelConverter = new DbToAppModelConverter();
-            _dbQuerier = new RealDatabaseQuerier(_dbContextToIntegrate,
+            _dbContextFactory = new TestDbContextFactory();
+            _dbQuerier = new RealDatabaseQuerier(_dbContextFactory,
                 _dbToAppModelConverter,
                 _appToDbModelConverter);
         }
@@ -34,7 +33,7 @@ namespace CarnGo.Integrationtest
         [TearDown]
         public void TestTearDown()
         {
-            _dbContextToIntegrate.Database.EnsureDeleted();
+            ((AppDbContext)_dbContextFactory.GetContext()).Database.EnsureDeleted();
         }
 
         [TestCase("Hello@Hello","123456")]
@@ -46,7 +45,12 @@ namespace CarnGo.Integrationtest
 
             await _dbQuerier.RegisterUserTask(email, pwd);
 
-            Assert.That(await _dbContextToIntegrate.Users.AnyAsync());
+            using (var db = (AppDbContext) _dbContextFactory.GetContext())
+            {
+
+                var anyUser = await db.Users.AnyAsync();
+                Assert.That(anyUser);
+            }
         }
 
         [TestCase("Hello@Hello", "123456")]
@@ -143,7 +147,7 @@ namespace CarnGo.Integrationtest
 
             await _dbQuerier.AddUserMessage(testMessage);
 
-            Assert.That(_dbContextToIntegrate.Messages.Any());
+            Assert.That(((AppDbContext)_dbContextFactory.GetContext()).Messages.Any());
         }
 
         [Test]
@@ -165,7 +169,7 @@ namespace CarnGo.Integrationtest
 
             await _dbQuerier.AddUserMessage(testMessage);
 
-            Assert.That(_dbContextToIntegrate.MessagesWithUsersJunction.Any());
+            Assert.That(((AppDbContext)_dbContextFactory.GetContext()).MessagesWithUsersJunction.Any());
         }
 
         [Test]

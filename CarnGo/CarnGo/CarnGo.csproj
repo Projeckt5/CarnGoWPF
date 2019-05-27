@@ -203,6 +203,7 @@
     <Compile Include="Animations\SlideTopAnimation.cs" />
     <Compile Include="Model\DatabaseQueries\RealSearchQueries.cs" />
     <Compile Include="Model\DayThatIsRentedModel.cs" />
+    <Compile Include="Model\Factory\DbContextFactory.cs" />
     <Compile Include="Model\MsgStatus.cs" />
     <Compile Include="Model\PossibleToRentDayModel.cs" />
     <Compile Include="Model\ThreadTimer\ThreadTimer.cs" />
@@ -218,7 +219,7 @@
     <Compile Include="Model\MessageFromRenterModel.cs" />
     <Compile Include="Model\MessageModel.cs" />
     <Compile Include="Model\MessageType.cs" />
-    <Compile Include="Model\ModelFactory\TestModelFactory.cs" />
+    <Compile Include="Model\Factory\TestModelFactory.cs" />
     <Compile Include="Model\NotificationModel.cs" />
     <Compile Include="Model\UserType.cs" />
     <Compile Include="Model\UserModel.cs" />

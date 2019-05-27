@@ -6,7 +6,7 @@ using CarnGo.Database.Models;
 
 namespace CarnGo.Database
 {
-    public interface IAppDbContext
+    public interface IAppDbContext: IDisposable
     {
         Task UpdateUser(User user);
         Task AddCarEquipment(CarEquipment carEquipment);

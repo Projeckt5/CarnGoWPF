@@ -11,13 +11,15 @@ namespace CarnGo
 {
     public class RealDatabaseQuerier : IQueryDatabase
     {
+        private readonly IDbContextFactory _dbContextFactory;
         private readonly IDbToAppModelConverter _dbToAppModelConverter;
         private readonly IAppToDbModelConverter _appToDbModelConverter;
 
 
-        public RealDatabaseQuerier(IDbToAppModelConverter dbToAppModelConverter,
+        public RealDatabaseQuerier(IDbContextFactory dbContextFactory,IDbToAppModelConverter dbToAppModelConverter,
             IAppToDbModelConverter appToDbModelConverter)
         {
+            _dbContextFactory = dbContextFactory;
             _dbToAppModelConverter = dbToAppModelConverter;
             _appToDbModelConverter = appToDbModelConverter;
         }
@@ -28,7 +30,7 @@ namespace CarnGo
                 Email = email,
                 Password = password.ConvertToString()
             };
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 await db.AddUser(user);
             }
@@ -37,7 +39,7 @@ namespace CarnGo
         public async Task RegisterCarProfileTask(CarProfileModel CarProfile)
         {
             var carModel = _appToDbModelConverter.Convert(CarProfile);
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 await db.AddCarProfile(carModel);
             }
@@ -46,7 +48,7 @@ namespace CarnGo
 
         public async Task<UserModel> GetUserTask(string email, SecureString password)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 var user = await db.GetUser(email, password.ConvertToString());
                 var userModel = _dbToAppModelConverter.Convert(user);
@@ -56,7 +58,7 @@ namespace CarnGo
 
         public async Task<UserModel> GetUserTask(UserModel user)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
 
                 var dbUser = await db.GetUser(user.Email, user.AuthenticationString);
@@ -67,7 +69,7 @@ namespace CarnGo
 
         public async Task<List<CarProfileModel>> GetCarProfilesTask(UserModel user)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 var dbUser = await db.GetUser(user.Email, user.AuthenticationString);
                 var dbCarProfile = await db.GetAllCars(dbUser);
@@ -78,7 +80,7 @@ namespace CarnGo
         public async Task AddUserMessage(MessageModel message)
         {
             var dbMessage = _appToDbModelConverter.Convert(message);
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 await db.AddMessage(dbMessage);
             }
@@ -87,7 +89,7 @@ namespace CarnGo
 
         public async Task<List<MessageModel>> GetUserMessagesTask(UserModel user, int amount)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 var dbUser = await db.GetUser(user.Email, user.AuthenticationString);
                 var messagesRead = _appToDbModelConverter.Convert(user.MessageModels);
@@ -100,7 +102,7 @@ namespace CarnGo
         public async Task UpdateUserMessagesTask(List<MessageModel> messages)
         {
             var messagesAsDbMessages = _appToDbModelConverter.Convert(messages);
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 //TODO: UPDATE ON THE WHOLE COLLECTION INSTEAD
                 foreach (var dbMessage in messagesAsDbMessages)
@@ -112,7 +114,7 @@ namespace CarnGo
 
         public async Task UpdateCarProfileTask(CarProfileModel carProfile)
         {
-            using(var db = IoCContainer.Resolve<AppDbContext>())
+            using(var db = _dbContextFactory.GetContext())
             {
                 var dbCarProfile = _appToDbModelConverter.Convert(carProfile);
                 await db.UpdateCarProfile(dbCarProfile);
@@ -121,7 +123,7 @@ namespace CarnGo
 
         public async Task UpdateUser(UserModel user)
         {
-            using(var db = IoCContainer.Resolve<AppDbContext>())
+            using(var db = _dbContextFactory.GetContext())
             {
 
                 var dbUser = _appToDbModelConverter.Convert(user);
@@ -131,7 +133,7 @@ namespace CarnGo
 
         public async Task EraseDaysThatIsRented(MessageModel message)
         {
-            using(var db = IoCContainer.Resolve<AppDbContext>())
+            using(var db = _dbContextFactory.GetContext())
             {
 
                 var mes = new ApptoDbModelConverter().Convert(message);
@@ -142,7 +144,7 @@ namespace CarnGo
 
         public async Task AddMessageToLessor(string mes, CarProfileModel carProfile, UserModel renter)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
 
                 var message = new MessageFromRenterModel(renter,carProfile.Owner,carProfile,mes)
@@ -159,7 +161,7 @@ namespace CarnGo
 
         public async Task<List<DayThatIsRentedModel>> GetDaysThatIsRentedTask(CarProfileModel carProfile)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
 
                 var dbRentedDays = await db.GetCarProfileRentedDaysTask(carProfile.RegNr);
@@ -170,7 +172,7 @@ namespace CarnGo
 
         public async Task<List<PossibleToRentDayModel>> GetPossibleToRentDayTask(CarProfileModel carProfile)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 var dbPossibleToRentDays = await db.GetCarProfilePossibleToRentDayTask(carProfile.RegNr);
                 var possibleToRentDay = _dbToAppModelConverter.Convert(dbPossibleToRentDays);
@@ -180,7 +182,7 @@ namespace CarnGo
 
         public async Task<CarProfileModel> GetCarProfileTask(string regnr)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
 
                 var carProfile = await db.GetCarProfile(regnr);
@@ -193,7 +195,7 @@ namespace CarnGo
 
         public async Task DeleteCarProfileTask(CarProfileModel CarProfile)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = _dbContextFactory.GetContext())
             {
                 await db.RemoveCarProfile(CarProfile.RegNr);
             }

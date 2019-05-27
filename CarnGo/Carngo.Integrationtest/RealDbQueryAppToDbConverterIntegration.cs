@@ -16,6 +16,7 @@ namespace CarnGo.Integrationtest
         private IAppDbContext _fakeDbContext;
         private ApptoDbModelConverter _converterToIntegrate;
         private IDbToAppModelConverter _fakeDbToAppModelConverter;
+        private IDbContextFactory _dbContextFactory;
 
         [SetUp]
         public void TestSetup()
@@ -23,7 +24,9 @@ namespace CarnGo.Integrationtest
             _fakeDbContext = Substitute.For<IAppDbContext>();
             _fakeDbToAppModelConverter = Substitute.For<IDbToAppModelConverter>();
             _converterToIntegrate = new ApptoDbModelConverter();
-            _dbQuerier = new RealDatabaseQuerier(_fakeDbContext,
+            _dbContextFactory = Substitute.For<IDbContextFactory>();
+            _dbContextFactory.GetContext().Returns(_fakeDbContext);
+            _dbQuerier = new RealDatabaseQuerier(_dbContextFactory,
                 _fakeDbToAppModelConverter,
                 _converterToIntegrate);
         }

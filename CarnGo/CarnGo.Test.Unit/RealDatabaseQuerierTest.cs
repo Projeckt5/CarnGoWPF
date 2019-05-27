@@ -18,14 +18,17 @@ namespace CarnGo.Test.Unit
         private IQueryDatabase _uut;
         private IAppToDbModelConverter _fakeAppToDbModelConverter;
         private IDbToAppModelConverter _fakeDbToAppModelConverter;
+        private IDbContextFactory _fakeDbContextFactory;
         private IAppDbContext _fakeDbContext;
         [SetUp]
         public void UnitTestSetup()
         {
             _fakeAppToDbModelConverter = Substitute.For<IAppToDbModelConverter>();
             _fakeDbToAppModelConverter = Substitute.For<IDbToAppModelConverter>();
+            _fakeDbContextFactory = Substitute.For<IDbContextFactory>();
             _fakeDbContext = Substitute.For<IAppDbContext>();
-            _uut = new RealDatabaseQuerier(_fakeDbContext, _fakeDbToAppModelConverter, _fakeAppToDbModelConverter);
+            _fakeDbContextFactory.GetContext().Returns(_fakeDbContext);
+            _uut = new RealDatabaseQuerier(_fakeDbContextFactory,_fakeDbToAppModelConverter, _fakeAppToDbModelConverter);
         }
         #region RegisterUserTask
         [Test]

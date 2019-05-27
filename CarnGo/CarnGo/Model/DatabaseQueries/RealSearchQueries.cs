@@ -7,21 +7,25 @@ namespace CarnGo
 {
     public class RealSearchQueries : ISearchQueries
     {
-        private readonly IAppDbContext _dbContext;
 
-        public RealSearchQueries(IAppDbContext dbContext)
+        public RealSearchQueries()
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage)
         {
-            return await _dbContext.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
+            using (var db = IoCContainer.Resolve<AppDbContext>())
+            {
+                return await db.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
+            }
         }
 
         public async Task<int> GetCarProfilesCountTask()
         {
-            return await _dbContext.GetCarProfilesCount();
+            using (var db = IoCContainer.Resolve<AppDbContext>())
+            {
+                return await db.GetCarProfilesCount();
+            }
         }
     }
 }

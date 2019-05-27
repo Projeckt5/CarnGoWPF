@@ -48,6 +48,7 @@ namespace CarnGo
             Container.RegisterType<ISearchViewModelHelper, SearchViewModelHelper>();
             Container.RegisterType<ISearchQueries, RealSearchQueries>();
             Container.RegisterType<IQueryDatabase, RealDatabaseQuerier>();
+            Container.RegisterType<IDbContextFactory, DbContextFactory>();
             Container.AddExtension(new Diagnostic());
 
         }
