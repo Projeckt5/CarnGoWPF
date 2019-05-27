@@ -87,10 +87,6 @@ namespace CodedUITest
             this.UIMap.ClickLoginButton();
             Thread.Sleep(1000);
             this.UIMap.ClickMyCarsButton();
-
-            // Assert - Can't assert properly, but test should fail
-            Thread.Sleep(2000);
-            Assert.IsTrue(false);
         }
 
         //Use TestInitialize to run code before running each test 
