@@ -155,7 +155,6 @@ namespace CarnGo
                 var msg = appMessage as MessageFromLessorModel;
                 var returnMsg = new Message()
                 {
-                    CarProfile = Convert(msg?.RentCar),
                     CarProfileRegNr = msg?.RentCar?.RegNr ?? "",
                     ConfirmationStatus = (int) (msg?.ConfirmationStatus ?? 0),
                     HaveBeenSeen = msg?.MessageRead ?? false,
@@ -175,7 +174,6 @@ namespace CarnGo
                 var msg = appMessage as MessageFromRenterModel;
                 var returnMsg = new Message()
                 {
-                    CarProfile = Convert(msg?.RentCar),
                     CarProfileRegNr = msg?.RentCar?.RegNr ?? "",
                     ConfirmationStatus = (int)(msg?.ConfirmationStatus ?? 0),
                     HaveBeenSeen = msg?.MessageRead ?? false,

@@ -20,7 +20,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-        <Image Source="{Binding CarImage}"
+        <Image Source="{Binding CarImage, Converter={local:ByteToBitImageValueConverter}}"
                Height="80"
                Width="100"/>
         <Button Grid.Column="2"                    

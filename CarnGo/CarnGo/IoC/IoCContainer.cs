@@ -34,10 +34,10 @@ namespace CarnGo
                 .EnableSensitiveDataLogging()
                 .Options;
 
-            Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerThreadLifetimeManager(),new InjectionConstructor(options));
+            Container.RegisterType<IAppDbContext, DebugAppDbContext>(new PerResolveLifetimeManager(),new InjectionConstructor(options));
 #else
 
-            Container.RegisterType<IAppDbContext, AppDbContext>(new PerThreadLifetimeManager());
+            Container.RegisterType<IAppDbContext, AppDbContext>(new PerResolveLifetimeManager());
 #endif
             Container.RegisterType<IValidator<string>, EmailValidator>(new InjectionConstructor());
             Container.RegisterType<IValidator<SecureString>, PasswordValidator>(new InjectionConstructor());

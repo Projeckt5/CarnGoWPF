@@ -58,7 +58,7 @@ namespace CarnGo.Database
 
         public async Task<CarProfile> GetCarProfile(string regNr)
         {
-            var carProfile = await CarProfiles.FindAsync(regNr);
+            var carProfile = await CarProfiles.Include(cp => cp.Owner).FirstOrDefaultAsync(cp=>cp.RegNr == regNr);
             return carProfile;
         }
 
@@ -271,8 +271,6 @@ namespace CarnGo.Database
 
             if (result == default(Message)) return;
             Update(result);
-            if (result.CarProfile.RegNr == message.CarProfile.RegNr)
-                await UpdateCarProfile(message.CarProfile);
             result.ConfirmationStatus = message.ConfirmationStatus;
             result.CreatedDate = message.CreatedDate;
             result.LessorEmail = message.LessorEmail;

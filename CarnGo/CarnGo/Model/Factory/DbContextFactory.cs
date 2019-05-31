@@ -12,7 +12,7 @@ namespace CarnGo
     {
         public IAppDbContext GetContext()
         {
-            return IoCContainer.Resolve<AppDbContext>();
+            return IoCContainer.Resolve<IAppDbContext>();
         }
     }
 
