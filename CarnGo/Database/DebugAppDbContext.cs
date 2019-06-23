@@ -128,7 +128,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = true,
                 ConfirmationStatus = 0,
-                TheMessage = "Can I rent car fuckface?",
+                TheMessage = "Can I rent car?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = renter.Email,
@@ -144,7 +144,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = true,
                 ConfirmationStatus = 2,
-                TheMessage = "Yes you can motherfucker!",
+                TheMessage = "Yes you can!",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = lessor.Email,
@@ -160,7 +160,7 @@ namespace CarnGo.Database
             {
                 HaveBeenSeen = false,
                 ConfirmationStatus = 1,
-                TheMessage = "Can I rent, yet another car? Cunt?",
+                TheMessage = "Can I rent, yet another car?",
                 LessorEmail = lessor.Email,
                 RenterEmail = renter.Email,
                 SenderEmail = renter.Email,
