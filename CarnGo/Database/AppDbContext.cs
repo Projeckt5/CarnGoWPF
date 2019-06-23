@@ -49,7 +49,7 @@ namespace CarnGo.Database
         {
             var user = await Users.FindAsync(email);
             if (user == null || user.Password != password)
-                throw new AuthenticationFailedException();
+                throw new AuthenticationFailedException($"The email or password is wrong for {email}.");
             Update(user);
             user.AuthenticationString = Guid.NewGuid();
             await SaveChangesAsync();

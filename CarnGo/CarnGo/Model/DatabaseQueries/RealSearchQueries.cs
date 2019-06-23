@@ -14,7 +14,7 @@ namespace CarnGo
 
         public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage)
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = IoCContainer.Resolve<IAppDbContext>())
             {
                 return await db.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
             }
@@ -22,7 +22,7 @@ namespace CarnGo
 
         public async Task<int> GetCarProfilesCountTask()
         {
-            using (var db = IoCContainer.Resolve<AppDbContext>())
+            using (var db = IoCContainer.Resolve<IAppDbContext>())
             {
                 return await db.GetCarProfilesCount();
             }
