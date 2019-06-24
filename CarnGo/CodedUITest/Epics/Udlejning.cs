@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UITest.Extension;
 using System.Threading;
+using CarnGo;
 using Microsoft.EntityFrameworkCore;
 using Keyboard = Microsoft.VisualStudio.TestTools.UITesting.Keyboard;
 using Message = CarnGo.Database.Models.Message;
@@ -36,8 +37,7 @@ namespace CodedUITest
 
             fromDate = DateTime.Today.Date.AddDays(1).ToString("dd/MM/yyyy");
             toDate = DateTime.Today.Date.AddDays(2).ToString("dd/MM/yyyy");
-
-            dbContext = new DebugAppDbContext(new DbContextOptions<AppDbContext>());
+            
         }
 
         [TestMethod]
