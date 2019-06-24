@@ -132,9 +132,10 @@ namespace CarnGo.Database
         }
 
 
-        public async Task<List<CarProfile>> GetCarProfilesForSearchView(int pageIndex, int itemsPerPage)
+        public async Task<List<CarProfile>> GetCarProfilesForSearchView(string filterEmail,int pageIndex, int itemsPerPage)
         {
             var carProfiles = await CarProfiles
+                .Where(cp => cp.OwnerEmail != filterEmail)
                 .Skip(pageIndex*itemsPerPage)
                 .Take(itemsPerPage)
                 .ToListAsync();

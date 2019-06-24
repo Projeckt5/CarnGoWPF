@@ -31,6 +31,10 @@ namespace CarnGo
                 Properties.Settings.Default.Username = PageViewModel.Email;
                 Properties.Settings.Default.Save();
             }
+            else
+            {
+                Properties.Settings.Default.Reset();
+            }
         }
 
         private void LoginView_OnLoaded(object sender, RoutedEventArgs e)
