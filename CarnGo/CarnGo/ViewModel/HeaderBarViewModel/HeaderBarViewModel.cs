@@ -135,10 +135,13 @@ namespace CarnGo
                 IsQueryingDatabase = true;
                 var notifications = await _databaseQuery.GetUserMessagesTask(_application.CurrentUser,
                     _amountNotificationsToLoad + UserModel.MessageModels.Count);
+                //If user logs out while getting messages do nothing
+                if (UserModel == null)
+                    return;
                 notifications.ForEach(msg => msg.MessageRead = true);
                 UpdateNotifications(notifications);
                 _eventAggregator.GetEvent<NotificationMessagesUpdateEvent>().Publish(UserModel.MessageModels);
-                await _databaseQuery.UpdateUserMessagesTask(UserModel.MessageModels);
+                await _databaseQuery.UpdateUserMessagesTask(UserModel?.MessageModels);
             }
             catch (AuthenticationFailedException e)
             {
@@ -154,7 +157,7 @@ namespace CarnGo
         {
             notifications.RemoveAll(n => n.Sender.Email == UserModel.Email);
             UserModel.MessageModels.AddRange(notifications);
-            UserModel.MessageModels = UserModel.MessageModels.OrderByDescending(m => m.TimeStamp).ToList();
+            UserModel.MessageModels = UserModel?.MessageModels.OrderByDescending(m => m.TimeStamp).ToList();
             OnPropertyChanged(nameof(UnreadNotifications));
             OnPropertyChanged(nameof(NumUnreadNotifications));
         }

@@ -14,7 +14,7 @@
     <Border Background="{StaticResource BackgroundMainBrush}"
             Margin="50"
             Padding="20 30"
-            Width="300"
+            Width="350"
             MaxHeight="400"
             CornerRadius="20"
             >

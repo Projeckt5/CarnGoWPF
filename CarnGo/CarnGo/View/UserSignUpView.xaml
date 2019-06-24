@@ -11,6 +11,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             Margin="50"
             Padding="20 30"
             Width="350"
+            MaxHeight="400"
             CornerRadius="20"
             HorizontalAlignment="Center">
         <StackPanel>
