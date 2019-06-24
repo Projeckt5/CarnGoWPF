@@ -38,7 +38,17 @@ namespace CarnGo
 
         public async Task RegisterCarProfileTask(CarProfileModel CarProfile)
         {
+            var possibleToRentDays = new List<PossibleToRentDayModel>();
+            for (var i = CarProfile.StartLeaseTime; i < CarProfile.EndLeaseTime; i+=TimeSpan.FromDays(1))
+            {
+                possibleToRentDays.Add(new PossibleToRentDayModel()
+                {
+                    CarProfile = CarProfile,
+                    Date = i,
+                });
+            }
             var carModel = _appToDbModelConverter.Convert(CarProfile);
+            carModel.PossibleToRentDays = _appToDbModelConverter.Convert(possibleToRentDays);
             using (var db = _dbContextFactory.GetContext())
             {
                 await db.AddCarProfile(carModel);
