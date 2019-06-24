@@ -12,11 +12,11 @@ namespace CarnGo
         {
         }
 
-        public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage)
+        public async Task<List<CarProfile>> GetCarProfilesForSearchViewTask(string filterEmail, int pageIndex, int itemsPerPage)
         {
             using (var db = IoCContainer.Resolve<IAppDbContext>())
             {
-                return await db.GetCarProfilesForSearchView(pageIndex, itemsPerPage);
+                return await db.GetCarProfilesForSearchView(filterEmail,pageIndex, itemsPerPage);
             }
         }
 

@@ -6,7 +6,7 @@ namespace CarnGo
 {
     public interface ISearchQueries
     {
-        Task<List<CarProfile>> GetCarProfilesForSearchViewTask(int pageIndex, int itemsPerPage);
+        Task<List<CarProfile>> GetCarProfilesForSearchViewTask(string filterEmail ,int pageIndex, int itemsPerPage);
         Task<int> GetCarProfilesCountTask();
     }
 }

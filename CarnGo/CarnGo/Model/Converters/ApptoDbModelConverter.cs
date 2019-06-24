@@ -41,7 +41,6 @@ namespace CarnGo
             var dbCarModel = new Database.Models.CarProfile()
             {
                 CarPicture = car.CarPicture,
-                Owner = Convert(car.Owner),
                 Age = car.Age,
                 Brand = car.Brand ?? "",
                 CarDescription = car.CarDescription ?? "",
