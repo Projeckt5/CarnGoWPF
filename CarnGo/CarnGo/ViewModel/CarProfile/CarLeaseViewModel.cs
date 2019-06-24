@@ -250,6 +250,8 @@ namespace CarnGo
         private void NewCarFunction()
         {
             _carProfile = new CarProfileModel();
+            _carProfile.StartLeaseTime = DateTime.Today;
+            _carProfile.EndLeaseTime = DateTime.Today;
             EditCarProfileFunction();
             _isNew = true;
             UpdateUi();
